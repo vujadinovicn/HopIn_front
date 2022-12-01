@@ -10,6 +10,21 @@ export class ToolbarComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.handleSmallScreens();
+  }
+
+  handleSmallScreens(): void {
+    (<HTMLButtonElement>document.querySelector('.navbar-toggler'))
+      .addEventListener('click', () => {
+      let navbarMenu = <HTMLDivElement>document.querySelector('.navbar-menu')
+  
+      if (navbarMenu.style.display === 'flex') {
+        navbarMenu.style.display = 'none'
+        return
+      }
+  
+      navbarMenu.style.display = 'flex'
+    })
   }
 
 }
