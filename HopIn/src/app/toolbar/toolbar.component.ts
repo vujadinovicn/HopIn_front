@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver, NgModuleRef,  OnInit } from '@angular/core';
 
 @Component({
   selector: 'toolbar',
@@ -7,7 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
 
-  constructor() { }
+  forLoggedOut: boolean = false;
+  forLoggedIn: boolean = false;
+
+  constructor(private resolver: ComponentFactoryResolver) { 
+    const factory = resolver.resolveComponentFactory(ToolbarComponent);
+    console.log(factory);
+
+    const ngModuleRef: NgModuleRef<any> = (factory as any).ngModule;
+    if (ngModuleRef.instance.constructor.name == "AppModule") {
+      this.forLoggedOut = true;
+    }
+
+  }
 
   ngOnInit(): void {
     this.handleSmallScreens();
