@@ -1,0 +1,26 @@
+<nav class="navbar">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="#">
+                HopIn
+            </a>
+
+            <button class="navbar-toggler" data-toggle="open-navbar1">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+            </button>
+        </div>  
+  
+      <div class="navbar-menu" id="open-navbar1">
+        <div class="navbar-nav">
+            <a href="#" *ngIf="forLoggedIn">Home</a>
+            <a href="#" *ngIf="forLoggedIn">Account</a>
+            <a href="#" *ngIf="forLoggedIn">History</a>
+            <a href="#" *ngIf="forLoggedIn">Log out</a>
+            <a href="#" *ngIf="forLoggedOut">Log in</a>
+            <a href="#" id="signUp" *ngIf="forLoggedOut">Sign up</a>  
+        </div>
+      </div>
+    </div>
+  </nav>
