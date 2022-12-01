@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+nav {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.725rem;
+    font-weight: bold;
+}
+
+a {
+    text-decoration: none;
+}
+
+.navbar,
+.navbar > .container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  @media (max-width: 768px) {
+    display: block;
+  }
+}
+
+
+.navbar {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    background-color: #1E4A5A;
+    /* padding: 0rem 1.15rem; */
+    border-bottom: 1px solid #eceef3;
+}
+
+  
+.navbar.container {
+    @media (min-width: 576px) {
+        max-width: 540px;
+      }
+      @media (min-width: 768px) {
+        max-width: 720px;
+      }
+      @media (min-width: 992px) {
+        max-width: 960px;
+      }
+      @media (min-width: 1200px) {
+        max-width: 1140px;
+      }
+}
+
+.navbar-menu {
+    display: flex;
+    flex-basis: auto;
+    flex-grow: 1;
+    padding-right: 1.5rem;
+    flex-direction: row-reverse;
+
+    @media (max-width: 768px) {
+      display: none;
+      text-align: center;
+    }
+}
+
+
+.navbar-nav {
+    margin-left: auto;
+    flex-direction: row;
+    display: flex;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      display: block;
+      border-top: 1px solid #EEE;
+      margin-top: 1rem;
+    }
+}
+
+.navbar-menu  a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 0.5rem 0.5rem;
+    color: white;
+    font-weight: lighter;
+}
+
+.container > a {
+    text-decoration: none;
+    height: fit-content;
+    font-weight: 500;
+    font-size: 1.25rem;
+    color: white;
+    padding-top: 0.8%;
+    padding-bottom: 0.8%;
+    padding-left: 1.5rem;
+}
+
+#signUp {
+    background-color: white;
+    color: #1E4A5A;
+    border-radius: 12%;
+    padding: 0.3rem 0.6rem;
+}
+
+
+  
+
+
