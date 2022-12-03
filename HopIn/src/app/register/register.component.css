@@ -1,0 +1,50 @@
+
+
+mat-form-field {
+    display: inline-block;
+}
+
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+.form-container {
+    display: grid;
+    width: 70%;
+    height: fit-content;
+    padding: 15px 30px;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid #E6E6E6;
+    margin: 30px auto;
+}
+
+.reg-left {
+    width: 50%;
+    text-align: center;
+}
+
+
+mat-form-field {
+    width: 70%;
+    height: 50px;
+    display: block;
+    margin: auto;
+    margin-top: 25px;
+}
+
+.title { 
+    color: #383838;
+    font-weight: bold;
+}
+
+.conf-button {
+   background-color: #1E4A5A !important;
+   color: white;
+   font-weight: 200 !important;
+   font-size: 1em;
+   padding: 5px 40px;
+   margin-top: 25px;
+   border-radius: 5px;
+}
+
