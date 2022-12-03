@@ -11,7 +11,7 @@ export class RegisterComponent implements OnInit {
   registerForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     surname: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
     confpass: new FormControl('', [Validators.required]),
     city: new FormControl('', [Validators.required]),
@@ -24,8 +24,9 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
+    console.log(this.registerForm)
     if (this.registerForm.valid) {
-      alert("uspeh")
+      console.log(this.registerForm)
     }
   }
 

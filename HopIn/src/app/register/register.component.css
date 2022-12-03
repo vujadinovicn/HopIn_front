@@ -39,8 +39,16 @@ mat-form-field {
     height: 45px;
     display: block;
     margin: auto;
-    margin-top: 15px;
+    margin-top: 25px;
     padding: 5px 0px;
+}
+
+.mat-form-field-wrapper {
+    height: 50px !important;
+}
+
+.mat-form-field-subscript-wrapper {
+    margin-top: 2px !important;
 }
 
 .title {
@@ -68,6 +76,10 @@ mat-form-field {
     display: inline-block;
     margin: auto;
 }
+
+/* input.ng-invalid.ng-touched {
+    border-color: aqua;
+} */
 
 @media screen and (max-width: 1200px) {
     .reg-illustartion img {
