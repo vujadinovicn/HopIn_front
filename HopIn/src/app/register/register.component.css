@@ -10,6 +10,8 @@ mat-form-field {
 
 .form-container {
     display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-row: 1fr;
     width: 70%;
     height: fit-content;
     padding: 15px 30px;
@@ -20,14 +22,13 @@ mat-form-field {
 }
 
 .reg-left {
-    width: 50%;
     text-align: center;
 }
 
 
 mat-form-field {
-    width: 70%;
-    height: 50px;
+    width: 60%;
+    height: 45px;
     display: block;
     margin: auto;
     margin-top: 25px;
@@ -48,3 +49,8 @@ mat-form-field {
    border-radius: 5px;
 }
 
+.reg-illustration {
+}
+
+.reg-illustration img{
+}
