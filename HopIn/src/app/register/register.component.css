@@ -18,7 +18,10 @@ mat-form-field {
     background-color: white;
     border-radius: 10px;
     border: 1px solid #E6E6E6;
-    margin: 30px auto;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+    margin-bottom: 150px;
     align-items: center;
 }
 
@@ -27,6 +30,7 @@ mat-form-field {
     margin-top: 20px;
     margin-bottom: 20px;
     border-right: 2px solid #E6E6E6;
+    font-size: 15px;
 }
 
 
@@ -35,7 +39,8 @@ mat-form-field {
     height: 45px;
     display: block;
     margin: auto;
-    margin-top: 25px;
+    margin-top: 15px;
+    padding: 5px 0px;
 }
 
 .title {
@@ -62,4 +67,32 @@ mat-form-field {
 .reg-illustartion img{
     display: inline-block;
     margin: auto;
+}
+
+@media screen and (max-width: 1200px) {
+    .reg-illustartion img {
+        height: 350px;
+    }
+}
+
+
+@media screen and (max-width: 800px) {
+    .reg-illustartion {
+        display: none;
+    }
+
+    .form-container {
+        display: block;
+        width: 85%;
+        margin-top: 40px;
+    }
+
+    .reg-left {
+        border-right: none;
+    }
+
+    mat-form-field {
+        width: 85%;
+    }
+    
 }
