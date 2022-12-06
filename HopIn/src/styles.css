@@ -17,6 +17,10 @@ html, body { height: 100%; margin: 0; font-family: "Poppins", sans-serif; }
     margin-bottom: 0px;
 }
 
+.subtitle {
+    color: #A5A5A5;
+}
+
 .mat-form-field {
     width: 80%;
     height: 45px;

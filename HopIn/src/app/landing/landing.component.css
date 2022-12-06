@@ -1,0 +1,68 @@
+
+.big-prompt {
+    color: #1E4A5A;
+    font-size: 2.5em;
+    line-height: 1.1em;
+    margin: 0px;
+}
+
+.smaller-prompt {
+    color: #383838;
+    font-size: 1.8em;
+    line-height: 1em;
+}
+
+button {
+    margin-top: 10px !important;
+    font-weight: 400;
+}
+
+.long-button {
+    background-color: #1E4A5A !important;
+    color: white;
+    padding: 0px 50px;
+}
+
+.orange {
+    color: #EC9A29 !important;
+}
+
+.back-orange {
+    background-color: #EC9A29 !important;
+}
+
+#passanger-container {
+    display: grid;
+    grid-template-columns: 70% 30%;
+    column-gap: 50px;
+    height: fit-content;
+    width: 95%;
+    margin-top: 30px;
+    
+}
+
+#passanger-left {
+    display: flex;
+    grid-template-columns: 1fr 1fr;
+    vertical-align: middle;
+    align-items: center;
+    background-color: white;
+    border: 1px solid #E6E6E6;
+    border-radius: 10px;
+    margin-left: 20px;
+}
+
+#pass-prompt {
+    margin-right: 10px;
+}
+
+#pass-illustartion {
+    text-align: center;
+    margin-right: 25px;
+    margin-left: 10px;
+}
+
+#passanger-right {
+    display: flex;
+    align-items: center;
+}
