@@ -8,8 +8,8 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Password</mat-label>
-                <mat-icon id="eye-icon" matSuffix>visibility</mat-icon>
-                <input matInput type="password" formControlName="password" />
+                <mat-icon id="eye-icon" matSuffix (click)="isVisible = !isVisible">{{isVisible ? 'visibility' : 'visibility_off'}}</mat-icon>
+                <input matInput [type]="isVisible? 'text' : 'password'" name="password" formControlName="password" />
             </mat-form-field>
             <mat-checkbox color="primary">Remember me</mat-checkbox>
         </form>
