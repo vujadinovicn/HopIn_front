@@ -1,8 +1,8 @@
 
 
-mat-form-field {
+/* mat-form-field {
     display: inline-block;
-}
+} */
 
 body {
     font-family: 'Poppins', sans-serif;
@@ -14,23 +14,31 @@ body {
     grid-row: 1fr;
     width: 55%;
     height: fit-content;
-    padding: 15px 15px;
+    padding: 5px 15px;
     background-color: white;
     border-radius: 10px;
     border: 1px solid #E6E6E6;
     margin-right: auto;
     margin-left: auto;
-    margin-top: 20px;
-    margin-bottom: 150px;
+    margin-top: 10px;
+    margin-bottom: 20px;
     align-items: center;
+}
+
+/* ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0px;
+} */
+
+#name input {
+    height: 50px;
 }
 
 .reg-left {
     text-align: center;
     margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     border-right: 2px solid #E6E6E6;
-    font-size: 13px;
+    /* font-size: 13px; */
 }
 
 
@@ -60,7 +68,7 @@ mat-error {
 .title {
     margin-top: 0px;
     color: #383838;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 .conf-button {

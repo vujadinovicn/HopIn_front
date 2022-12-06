@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { passwordMatcher } from '../validators/passwordMatch';
+import { ConfirmValidParentMatcher } from '../validators/passwordMatch';
 
 @Component({
   selector: 'register',
@@ -7,6 +9,8 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+
+  confirmValidParentMatcher = new ConfirmValidParentMatcher();
 
   registerForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -16,7 +20,7 @@ export class RegisterComponent implements OnInit {
     confpass: new FormControl('', [Validators.required]),
     city: new FormControl('', [Validators.required]),
     phonenum: new FormControl('', [Validators.required]),
-  })
+  }, [passwordMatcher("password", "confpass")])
 
   constructor() { }
 
@@ -24,9 +28,8 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    console.log(this.registerForm)
     if (this.registerForm.valid) {
-      console.log(this.registerForm)
+      alert("registration successful, email confirmation needed.");
     }
   }
 
