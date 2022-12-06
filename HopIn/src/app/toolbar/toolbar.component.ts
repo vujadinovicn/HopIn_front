@@ -7,17 +7,10 @@ import { Component, ComponentFactoryResolver, NgModuleRef,  OnInit } from '@angu
 })
 export class ToolbarComponent implements OnInit {
 
-  forLoggedOut: boolean = false;
-  forLoggedIn: boolean = false;
+  role: any;
 
-  constructor(private resolver: ComponentFactoryResolver) { 
-    const factory = resolver.resolveComponentFactory(ToolbarComponent);
-    console.log(factory);
-
-    const ngModuleRef: NgModuleRef<any> = (factory as any).ngModule;
-    if (ngModuleRef.instance.constructor.name == "AppModule") {
-      this.forLoggedOut = true;
-    }
+  constructor() { 
+    this.role = null;
 
   }
 

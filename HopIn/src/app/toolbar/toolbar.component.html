@@ -14,12 +14,12 @@
   
       <div class="navbar-menu" id="open-navbar1">
         <div class="navbar-nav">
-            <a href="#" *ngIf="forLoggedIn">Home</a>
-            <a href="#" *ngIf="forLoggedIn">Account</a>
-            <a href="#" *ngIf="forLoggedIn">History</a>
-            <a href="#" *ngIf="forLoggedIn">Log out</a>
-            <a href="#" *ngIf="forLoggedOut">Log in</a>
-            <a href="#" id="signUp" *ngIf="forLoggedOut">Sign up</a>  
+            <a href="#" *ngIf="role === 'USER'">Home</a>
+            <a href="#" *ngIf="role === 'USER'">Account</a>
+            <a href="#" *ngIf="role === 'USER'">History</a>
+            <a href="#" *ngIf="role === 'USER'">Log out</a>
+            <a href="#" *ngIf="role === null">Log in</a>
+            <a href="#" id="signUp" *ngIf="role === null">Sign up</a>  
         </div>
       </div>
     </div>

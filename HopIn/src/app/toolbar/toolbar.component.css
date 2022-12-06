@@ -3,7 +3,7 @@
 /* GENERAL */
 nav {
     font-family: 'Poppins', sans-serif;
-    font-size: 0.725rem;
+    font-size: 0.925rem;
     font-weight: bold;
 }
 
@@ -99,7 +99,7 @@ a {
 }
 
 .navbar-menu a:hover {
-    color: black;
+    color: #337D98;
 }
 
 .navbar-toggler {
@@ -131,7 +131,8 @@ a {
     }
     
     #signUp:hover {
-        background-color: black;
+        background-color: #337D98;
+        color: white;
     }
 }
 
