@@ -1,1 +1,25 @@
-<p>login works!</p>
+<div id="login-container">
+    <div id="form-container">
+        <h3>Welcome back</h3>
+        <form>
+            <mat-form-field >
+                <mat-label>Email</mat-label>
+                <input matInput type="email" name="email" formControlName="email" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Password</mat-label>
+                <mat-icon id="eye-icon" matSuffix>visibility</mat-icon>
+                <input matInput type="password" formControlName="password" />
+            </mat-form-field>
+            <mat-checkbox color="primary">Remember me</mat-checkbox>
+        </form>
+        <button mat-raised-button type="submit">Log In</button>
+        <a id="forgotten-password-ref" href="#">Forgot password?</a>
+        <p>
+            New and wanna hop in? <a id="register-ref" href="#">Register!</a>
+        </p>
+    </div>
+    <div id="img-container">
+        <img src="../../assets/vectors/login.svg">
+    </div>
+</div>
