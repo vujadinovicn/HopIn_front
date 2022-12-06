@@ -17,8 +17,6 @@
     background-color: white;
     border: 1px solid #E6E6E6;
     text-align: center;
-    font-weight: bold;
-    font-family: 'Poppins', sans-serif;
 }
 
 #form-container {
@@ -30,46 +28,15 @@
     color: #383838;
 }
 
-.title {
-    margin-top: 0px;
-    color: #383838;
-    font-weight: 700;
-    font-family: 'Poppins', sans-serif;
-}
-
-
-mat-form-field {
-    width: 70%;
-    height: 65px;
-    margin: auto;
-    margin-top: 10px;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 100;
-}
-
-
 .mat-checkbox {
     display: block;
-    margin-top: 9px;
-    margin-bottom: 10px;
+    margin-top: 25px;
+    margin-bottom: 5px;
     color: #383838;
     font-size: 0.8em;
     font-family: 'Poppins', sans-serif;
     font-weight: 100;
 }
-
-button{
-    display: flex;
-    height: 35px;
-    margin: 10px auto 3px auto;
-    border-radius: 5px;
-    padding: 4px 35px;
-    align-items: center;
-    background-color: #1E4A5A;
-    color: white;
-    font-size: 1em;
-}
-
 
 #forgotten-password-ref{
     display: block;
@@ -78,6 +45,7 @@ button{
     font-size: 11px;
     color: #A8201A;
     text-decoration: none;
+    margin-top: 5px;
 }
 
 #forgotten-password-ref:hover {
@@ -95,7 +63,7 @@ p {
     font-size: 12px;
     color: #EC9A29;
     text-decoration: none;
-    margin-top: 10px;
+    margin-top: 15px;
     margin-bottom: 5px;
 }
 
@@ -113,11 +81,6 @@ p {
     display: inline-block;
     margin: auto;
     height: 275px;
-}
-
-mat-error {
-    margin-top: -1.5px;
-    font-size: 11px;
 }
 
 @media screen and (max-width: 1000px) {
