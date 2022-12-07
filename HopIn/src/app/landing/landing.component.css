@@ -59,10 +59,67 @@ button {
 #pass-illustartion {
     text-align: center;
     margin-right: 25px;
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 #passanger-right {
     display: flex;
     align-items: center;
+}
+
+#driver-container {
+    height: fit-content;
+    display: flex;
+    background-color: white;
+    border: 1px solid #E6E6E6;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
+    position: relative;
+}
+
+#driver-prompt {
+    width: 35%;
+    margin-left: 40px;
+}
+
+#driver-offer {
+    height: 80%;
+    background-color: #1E4A5A;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    padding: 30px 20px;
+    margin-right: 40px;
+}
+
+.no-bullets {
+    list-style-type: none;
+    text-align: justify;
+    padding-left: 0;
+}
+
+li {
+    margin-top: 5px;
+}
+
+mat-icon {
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+#driver-illustartion {
+    margin-right: 60px;
+}
+
+#about-us {
+    background-color: white;
+    border: 1px solid #E6E6E6;
+    border-radius: 10px;
+    padding: 30px 40px;
+    text-align: center;
+    margin: 20px;
 }
