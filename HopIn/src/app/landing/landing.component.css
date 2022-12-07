@@ -27,14 +27,6 @@ button {
     padding: 0px 50px;
 }
 
-.orange {
-    color: #EC9A29 !important;
-}
-
-.back-orange {
-    background-color: #EC9A29 !important;
-}
-
 #passanger-container {
     display: grid;
     grid-template-columns: 70% 30%;
