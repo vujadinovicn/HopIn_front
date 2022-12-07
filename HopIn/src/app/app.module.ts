@@ -10,13 +10,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/infrastructure/material.module';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
 import { LoginComponent } from './login/login.component';
+import { LandingComponent } from './landing/landing.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ToolbarComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    LandingComponent
   ],
   imports: [
     BrowserModule,
