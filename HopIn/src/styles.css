@@ -69,4 +69,12 @@ html, body { height: 100%; margin: 0; font-family: "Poppins", sans-serif; }
  .dark-blue {
     color: #1E4A5A;
  }
+
+ .orange {
+    color: #EC9A29 !important;
+}
+
+.back-orange {
+    background-color: #EC9A29 !important;
+}
  

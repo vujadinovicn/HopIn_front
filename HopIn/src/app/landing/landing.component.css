@@ -1,4 +1,8 @@
 
+#content {
+    padding-bottom: 5px;
+}
+
 .big-prompt {
     color: #1E4A5A;
     font-size: 2.5em;
@@ -121,5 +125,30 @@ mat-icon {
     border-radius: 10px;
     padding: 30px 40px;
     text-align: center;
-    margin: 20px;
+    margin: 30px 20px 0px 20px;
+}
+
+#ready {
+    width: 100%;
+    text-align: center;
+    margin-top: 50px;
+}
+
+#footer {
+    width: 97%;
+    margin: 50px auto 20px auto;
+    color: #1E4A5A;
+    border-top: 3px solid #1E4A5A;
+    padding: 5px;
+}
+
+#footer-name {
+    float: left;
+    margin: 0%;
+}
+
+#footer-cr {
+    float: right;
+    margin: 0%;
+    font-size: small;
 }
