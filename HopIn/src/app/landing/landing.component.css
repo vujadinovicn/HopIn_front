@@ -46,10 +46,13 @@ button {
     border: 1px solid #E6E6E6;
     border-radius: 10px;
     margin-left: 20px;
+    
 }
 
 #pass-prompt {
-    margin-right: 10px;
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 #pass-illustartion {
@@ -80,6 +83,8 @@ button {
 #driver-prompt {
     width: 35%;
     margin-left: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 #driver-offer {
@@ -92,10 +97,27 @@ button {
     margin-right: 40px;
 }
 
+#driver-offer-smaller{
+    height: fit-content;
+    background-color: #1E4A5A;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    padding: 30px 20px;
+    display: none;
+    margin: 30px 20px 0px 20px;
+}
+
+#driver-offer-smaller .smallest-prompt {
+    margin-top: 0px;
+}
+
 .no-bullets {
     list-style-type: none;
-    text-align: justify;
+    text-align: start;
     padding-left: 0;
+    margin: 0 auto;
+    width: fit-content;
 }
 
 li {
@@ -143,4 +165,93 @@ mat-icon {
     float: right;
     margin: 0%;
     font-size: small;
+}
+
+#driver-left {
+    display: flex;
+}
+
+@media screen and (max-width: 1300px) {
+    .illustrations {
+        height: 250px;
+    }
+}
+
+@media screen and (max-width: 1160px) {
+
+    #driver-offer {
+        display: none;
+    }
+
+    #driver-prompt {
+        width: 80%;
+    }
+
+    #driver-illustartion {
+        margin-right: 20px;
+    }
+
+    #driver-offer-smaller {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    #passanger-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: 60% 40%;
+        column-gap: 0;
+        margin: 30px auto 0 auto;
+        padding-bottom: 10px;
+        row-gap: 10px;
+    }
+
+    #passanger-left {
+        margin-left: 0px;
+    }
+
+    #passanger-right {
+        display: block;
+        text-align: center;
+        height: fit-content;
+    }
+
+    #passanger-right .br {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .illustrations {
+        display: none;
+    }
+
+    #content {
+        text-align: center;
+    }
+
+    #driver-container {
+        display: block;
+    }
+
+    br {
+        display: none;
+    }
+
+    #passanger-left {
+        display: block;
+    }
+
+    #passanger-left {
+        display: block;
+
+    }
+
+    #pass-prompt {
+        margin-left: 20px;
+    }
+
+    #pass-prompt {
+        margin-left: 20px;
+    }
 }

@@ -2,17 +2,17 @@
     <div id="passanger-container">
         <div id="passanger-left">
             <div id="pass-illustartion">
-                <img src="../../assets/vectors/order-ride.svg" height="310px" alt="">
+                <img src="../../assets/vectors/order-ride.svg" height="310px" alt=""  class="illustrations">
               </div>
             <div id="pass-prompt">
-                <h1 class="big-prompt">Need a safe, quick<br>and pleasant ride?</h1>
+                <h1 class="big-prompt">Need a safe, quick<br> and pleasant ride?</h1>
                 <p class="subtitle">Sign up as a <span class="orange">passenger</span> on HopIn and enjoy our services anywhere, anytime.</p>
                 <button class="long-button" mat-raised-button [routerLink]="['/register']">proceed to sign up -></button>
             </div>
         </div>
         <div id="passanger-right">
-            <div>
-                <h2 class="smaller-prompt">Not sure if we can offer<br>you a good deal?</h2>
+            <div id="right-content">
+                <h2 class="smaller-prompt">Not sure if we can offer<br class="br"> you a good deal?</h2>
                 <p class="subtitle">Check out our map and see the cost and duration of the ride we got waiting for you!</p>
                 <button class="conf-button back-orange" mat-raised-button>go to the map</button>
             </div>
@@ -21,12 +21,12 @@
     
     <div id="driver-container">
         <div id="driver-prompt">
-            <h1 class="big-prompt">Got a car and wanna<br>chauffeur others?</h1>
+            <h1 class="big-prompt">Got a car and wanna<br> chauffeur others?</h1>
             <p class="subtitle">Sign up as a <span class="orange">driver</span> on HopIn and  help us to provide great value for everyone.</p>
             <button class="long-button" mat-raised-button>request sign up -></button>
         </div>
         <div id="driver-illustartion">
-            <img src="../../assets/vectors/driver.svg" height="310px" alt="">
+            <img src="../../assets/vectors/driver.svg" height="310px" alt=""  class="illustrations">
           </div>
         <div id="driver-offer">
             <h2 class="smallest-prompt">We offer you:</h2>
@@ -36,6 +36,15 @@
                 <li><mat-icon>mode_comment</mat-icon>live support 24/7</li>
             </ul>
         </div>
+    </div>
+
+    <div id="driver-offer-smaller">
+        <h2 class="smallest-prompt">We offer our drivers:</h2>
+        <ul class="no-bullets">
+            <li><mat-icon>watch_later</mat-icon>flexible hours</li>
+            <li><mat-icon>money</mat-icon>90% of revenue</li>
+            <li><mat-icon>mode_comment</mat-icon>live support 24/7</li>
+        </ul>
     </div>
     
     <div id="about-us">
