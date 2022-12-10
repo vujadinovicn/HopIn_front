@@ -1,0 +1,81 @@
+#account-container {
+    width: 20%;
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    padding: 25px 25px;
+    height: fit-content;
+    border: 1px solid #E6E6E6;
+    border-radius: 10px;
+}
+
+img {
+    width: 6rem;
+}
+
+p {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+#userName {
+    font-size: 1em;
+    margin-top: 0.5rem;
+}
+
+.roleText {
+    font-size: 0.6em;
+    color: #B8B8B8;
+}
+
+/* Section title, title name and line */
+.sectionTitle {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-top: 20px;
+    align-items: baseline;
+    color: rgba(38, 50, 56, 0.7);
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 0.7em;
+}
+
+.line {
+    height: 1px;
+    /* width: 70%; */
+    flex-grow: 1;
+    background-color: rgba(38, 50, 56, 0.7);
+    border: none;
+    outline: none;
+    align-items: baseline;
+    margin-left: 0.5rem;
+}
+
+ /* key-value info */
+ .data {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.6rem;
+ }
+
+ .keyValue {
+    display: flex;
+    flex-direction: row;
+ }
+
+ .keyValue > p {
+    padding-right: 0.5em;
+ }
+
+ .key {
+    color: #1E4A5A;
+ }
+
+
+ /* BUTTON */
