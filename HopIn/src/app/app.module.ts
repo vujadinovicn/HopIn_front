@@ -11,6 +11,7 @@ import { MaterialModule } from 'src/infrastructure/material.module';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
 import { LoginComponent } from './login/login.component';
 import { LandingComponent } from './landing/landing.component';
+import { PassengerAccountUpdateOptionsComponent } from './passenger-account-update-options/passenger-account-update-options.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { LandingComponent } from './landing/landing.component';
     ToolbarComponent,
     RegisterComponent,
     LoginComponent,
-    LandingComponent
+    LandingComponent,
+    PassengerAccountUpdateOptionsComponent
   ],
   imports: [
     BrowserModule,

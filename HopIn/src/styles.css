@@ -64,6 +64,17 @@ html, body { height: 100%; margin: 0; font-family: "Poppins", sans-serif; }
     border-radius: 5px;
  }
 
+ .account-options {
+    color: #B1B1B1;
+    font-size: 14px;
+    font-weight: 100;
+ }
+
+ .account-options:hover{
+    color: #1E4A5A;
+    cursor: pointer;
+ }
+
  /* COLORS */
 
  .dark-blue {
