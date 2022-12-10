@@ -1,0 +1,101 @@
+p {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+#favourite-rides-container {
+    width: 50%;
+    position: absolute;
+    top: 15%;
+    left: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    background-color: white;
+    padding: 20px 25px;
+    height: fit-content;
+    border: 1px solid #E6E6E6;
+    border-radius: 10px;
+}
+
+h2 {
+    margin: 0;
+}
+
+.line {
+    height: 3px;
+    width: 100%;
+    background-color: #D9D9D9;
+    margin-bottom: 2%;
+}
+
+
+/* HISTORY CARD */
+.historyCard {
+    display: flex;
+    flex-direction: row;
+    width: 99%;
+    height: fit-content;
+    padding: 7px 0 7px 7px;
+    border: 1px solid #E6E6E6;
+    border-radius: 10px;
+}
+
+.cardInfo{
+    display: flex;
+    flex-direction: column;
+    margin-left: 1em;
+
+}
+
+.cardInfo > p {
+    font-size: 0.8em;
+    color: #1E4A5A
+}
+
+.row > p {
+    font-size: 0.6em;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.row > img {
+    width: 1em;
+}
+
+.key {
+    color: #1E4A5A;
+    margin-left: 1em;
+}
+
+.value {
+    color: black;
+    margin-left: 0.5em;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+
+.historyCard > button {
+    background-color: #1E4A5A;
+    color: white;
+    font-size: 0.8em;
+    padding: 0.3em 1em ;
+    border-radius: 5px;
+    border: 0;
+    height: fit-content;
+    font-family: 'Poppins', sans-serif;
+    align-self: center;
+    margin-left: auto;
+}
+
+.favourite {
+    margin-left: 15px;
+    margin-right: 15px;
+
+}

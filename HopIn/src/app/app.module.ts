@@ -12,6 +12,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/mat
 import { LoginComponent } from './login/login.component';
 import { LandingComponent } from './landing/landing.component';
 import { AccountDetailsComponent } from './account-details/account-details.component';
+import { FavouriteRoutesComponent } from './favourite-routes/favourite-routes.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { AccountDetailsComponent } from './account-details/account-details.compo
     RegisterComponent,
     LoginComponent,
     LandingComponent,
-    AccountDetailsComponent
+    AccountDetailsComponent,
+    FavouriteRoutesComponent
   ],
   imports: [
     BrowserModule,
