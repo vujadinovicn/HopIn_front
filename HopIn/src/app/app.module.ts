@@ -12,6 +12,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/mat
 import { LoginComponent } from './login/login.component';
 import { LandingComponent } from './landing/landing.component';
 import { PassengerAccountUpdateOptionsComponent } from './passenger-account-update-options/passenger-account-update-options.component';
+import { PassengerAccountSettingsComponent } from './passenger-account-settings/passenger-account-settings.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { PassengerAccountUpdateOptionsComponent } from './passenger-account-upda
     RegisterComponent,
     LoginComponent,
     LandingComponent,
-    PassengerAccountUpdateOptionsComponent
+    PassengerAccountUpdateOptionsComponent,
+    PassengerAccountSettingsComponent
   ],
   imports: [
     BrowserModule,

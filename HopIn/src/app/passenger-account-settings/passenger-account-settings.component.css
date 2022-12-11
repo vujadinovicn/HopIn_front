@@ -1,0 +1,53 @@
+.account-settings-form-container {
+    text-align: center;
+}
+
+.profile-img-container {
+    display: inline-block;
+}
+
+.name-form-container {
+    display: inline-block;
+}
+
+.name-form-container mat-form-field {
+    width: 90%;
+    margin-bottom: -5px;
+}
+
+mat-form-field{
+    display: block;
+    width: 65%;
+}
+
+
+@media screen and (max-width: 1200px) {
+    .profile-img-container {
+        display: block;
+        margin-top: 10px;
+        margin-bottom: -10px;
+    }
+
+    .name-form-container {
+        display: block;
+    }
+
+    .name-form-container mat-form-field {
+        width: 65%;
+        margin-bottom: 0;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .name-form-container{
+        width: 100%;
+    }
+
+    .name-form-container mat-form-field{
+        width: 70%;
+    }
+
+    mat-form-field {
+        width: 70%;
+    }
+}
