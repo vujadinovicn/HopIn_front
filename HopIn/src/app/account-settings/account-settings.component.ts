@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-passenger-account-settings',
-  templateUrl: './passenger-account-settings.component.html',
-  styleUrls: ['./passenger-account-settings.component.css']
+  selector: 'app-account-settings',
+  templateUrl: './account-settings.component.html',
+  styleUrls: ['./account-settings.component.css']
 })
-export class PassengerAccountSettingsComponent implements OnInit {
+export class AccountSettingsComponent implements OnInit {
 
   constructor() { }
 

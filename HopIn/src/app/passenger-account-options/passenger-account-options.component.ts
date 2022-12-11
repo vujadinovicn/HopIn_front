@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-passenger-account-update-options',
-  templateUrl: './passenger-account-update-options.component.html',
-  styleUrls: ['./passenger-account-update-options.component.css']
+  selector: 'app-passenger-account-options',
+  templateUrl: './passenger-account-options.component.html',
+  styleUrls: ['./passenger-account-options.component.css']
 })
-export class PassengerAccountUpdateOptionsComponent implements OnInit {
+export class PassengerAccountOptionsComponent implements OnInit {
 
   constructor() { }
 

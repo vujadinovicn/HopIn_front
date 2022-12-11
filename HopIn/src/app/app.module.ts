@@ -11,8 +11,8 @@ import { MaterialModule } from 'src/infrastructure/material.module';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
 import { LoginComponent } from './login/login.component';
 import { LandingComponent } from './landing/landing.component';
-import { PassengerAccountUpdateOptionsComponent } from './passenger-account-update-options/passenger-account-update-options.component';
-import { PassengerAccountSettingsComponent } from './passenger-account-settings/passenger-account-settings.component';
+import { PassengerAccountOptionsComponent } from './passenger-account-options/passenger-account-options.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 @NgModule({
   declarations: [
@@ -21,8 +21,8 @@ import { PassengerAccountSettingsComponent } from './passenger-account-settings/
     RegisterComponent,
     LoginComponent,
     LandingComponent,
-    PassengerAccountUpdateOptionsComponent,
-    PassengerAccountSettingsComponent
+    PassengerAccountOptionsComponent,
+    AccountSettingsComponent
   ],
   imports: [
     BrowserModule,

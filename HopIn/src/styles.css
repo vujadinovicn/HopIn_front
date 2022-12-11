@@ -77,7 +77,6 @@ html, body { height: 100%; margin: 0; font-family: "Poppins", sans-serif; }
     background-color: white;
  }
 
-
  @media screen and (max-width: 1000px) {
     .account-update-container {
         display: block;
@@ -91,7 +90,6 @@ html, body { height: 100%; margin: 0; font-family: "Poppins", sans-serif; }
         width: 70%;
     }
 }
-
 
 @media screen and (max-width: 450px){
     .account-update-container{
