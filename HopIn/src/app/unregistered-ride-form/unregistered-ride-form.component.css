@@ -1,0 +1,40 @@
+#unreg-ride-container {
+    height: 270px;
+    width: 300px;
+    background-color: white;
+    text-align: center;
+}
+
+h3 {
+    margin: 0;
+}
+
+#tell-us {
+    margin-top: 25px;
+}
+
+#find-route-btn {
+    margin-top: 5px;
+}
+
+.location-icon {
+    color: #B5B5B5;
+}
+
+mat-form-field {
+    font-weight: 500;
+    line-height: 35px;
+    align-items: center;
+    justify-content: center;
+}
+
+mat-form-field input{
+    height: 40px;
+    font-size: 14px;
+    padding-top: 5px;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 3px 0px 3px 0px !important;
+    border: 0px;
+}
