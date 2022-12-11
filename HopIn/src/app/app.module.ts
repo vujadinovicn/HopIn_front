@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { LandingComponent } from './landing/landing.component';
 import { PassengerAccountOptionsComponent } from './passenger-account-options/passenger-account-options.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
     LoginComponent,
     LandingComponent,
     PassengerAccountOptionsComponent,
-    AccountSettingsComponent
+    AccountSettingsComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,
