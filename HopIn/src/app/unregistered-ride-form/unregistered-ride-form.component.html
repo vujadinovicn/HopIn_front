@@ -1,14 +1,16 @@
 <div id="unreg-ride-container" class="border">
     <h3 id="tell-us" class="dark-blue">Tell us about the ride:</h3>
-    <form>
+    <form [formGroup]="rideForm" (ngSubmit)="findRoute()">
         <mat-form-field id="pickup-loc-mat">
             <input matInput type="text" name="pickup" formControlName="pickup" placeholder="Pick up location"/>
             <mat-icon class="location-icon" matPrefix>location_on</mat-icon>
+            <mat-error *ngIf="rideForm.get('pickup')?.errors?.['required']">entering pickup location is required</mat-error>
         </mat-form-field>
         <mat-form-field id="pickup-loc-mat">
-            <input matInput type="text" name="pickup" formControlName="pickup" placeholder="Pick up location"/>
+            <input matInput type="text" name="destination" formControlName="destination" placeholder="Where to?"/>
             <mat-icon class="location-icon" matPrefix>location_on</mat-icon>
+            <mat-error *ngIf="rideForm.get('destination')?.errors?.['required']">entering destination is required</mat-error>
         </mat-form-field>
-        <button class="conf-button" mat-raised-button type="submit">find route -></button>
+        <button id="find-route-btn" class="conf-button" mat-raised-button type="submit">find route -></button>
     </form>
 </div>
