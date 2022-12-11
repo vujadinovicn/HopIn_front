@@ -1,3 +1,4 @@
+import { FavouriteRoutesService } from './../favouriteRoutesService/favourite-routes.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./favourite-routes.component.css']
 })
 export class FavouriteRoutesComponent implements OnInit {
+  routes: FavouriteRoute[] = [];
 
-  constructor() { }
+  constructor( private service: FavouriteRoutesService) {}
 
   ngOnInit(): void {
+    this.routes = this.service.getAll();
   }
 
+}
+
+export interface FavouriteRoute {
+  _id: number;
+  from: String;
+  to: String;
+  distance: number;
+  durationHours: number;
+  durationMins: number;
 }

@@ -2,20 +2,20 @@
     <h2>Favourite Routes</h2>
     <div class="line"></div>
 
-    <div class="historyCard">
+    <div class="historyCard" *ngFor="let route of routes">
         <img src="../../assets/vectors/map.svg">
 
         <div class="cardInfo">
-            <p>Novi Sad -> Belgrade</p>
+            <p>{{ route.from + " -> " + route.to }}</p>
             <div class="row">
                 <img src="../../assets/vectors/distance.svg">
                 <p class="key">Distance:</p>
-                <p class="value">1.2KM</p>
+                <p class="value">{{ route.distance + "KM" }}</p>
             </div>
             <div class="row">
                 <img class="hidden" src="../../assets/vectors/distance.svg">
                 <p class="key">Duration:</p>
-                <p class="value">0h 45min</p>
+                <p class="value">{{ route.durationHours + "h " + route.durationMins + "min" }}</p>
             </div>
         </div>
 
