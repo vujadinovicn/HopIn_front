@@ -4,18 +4,16 @@ p {
 }
 
 #favourite-rides-container {
-    width: 50%;
-    position: absolute;
-    top: 15%;
-    left: 10%;
+    width: 45vw;
     display: flex;
     flex-direction: column;
     align-items: left;
     background-color: white;
-    padding: 20px 25px;
-    height: fit-content;
+    padding: 25px 25px;
+    height: 60vh;
     border: 1px solid #E6E6E6;
     border-radius: 10px;
+    margin-left: 2vw;
 }
 
 h2 {
@@ -39,6 +37,7 @@ h2 {
     padding: 7px 0 7px 7px;
     border: 1px solid #E6E6E6;
     border-radius: 10px;
+    margin-top: 10px;
 }
 
 .cardInfo{
@@ -80,8 +79,14 @@ h2 {
     visibility: hidden;
 }
 
+#btnAndHeart {
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    align-items: center;
+}
 
-.historyCard > button {
+.historyCard > div > button {
     background-color: #1E4A5A;
     color: white;
     font-size: 0.8em;
@@ -91,7 +96,9 @@ h2 {
     height: fit-content;
     font-family: 'Poppins', sans-serif;
     align-self: center;
-    margin-left: auto;
+}
+.historyCard > div > button::before {
+    content: "Schedule again";
 }
 
 .favourite {
@@ -99,3 +106,46 @@ h2 {
     margin-right: 15px;
 
 }
+
+@media only screen and (max-width: 900px) {
+    #favourite-rides-container {
+        height: fit-content;
+    }
+
+    .historyCard {
+        flex-direction: column;
+        padding-right: 7px;
+    }
+
+    .cardInfo {
+        align-items: center;
+    }
+
+    .row {
+        margin-right: auto;
+    }
+
+    #favourite-rides-container {
+        width: 70vw;
+        margin-top: 5vh;
+        margin-left: 0;
+    }
+
+    .historyCard > div > button {
+        font-size: 0.6em;
+        margin-right: 7px;
+        margin-left: auto;
+    }
+
+    .historyCard > div > button::before {
+        content: "Schedule";
+    }
+
+    #btnAndHeart {
+        flex-direction: row-reverse;
+        margin: 0;
+        margin-top: 10px;
+    }
+
+ }
+

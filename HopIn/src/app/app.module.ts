@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { LandingComponent } from './landing/landing.component';
 import { AccountDetailsComponent } from './account-details/account-details.component';
 import { FavouriteRoutesComponent } from './favourite-routes/favourite-routes.component';
+import { AccountComponent } from './account/account.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FavouriteRoutesComponent } from './favourite-routes/favourite-routes.co
     LoginComponent,
     LandingComponent,
     AccountDetailsComponent,
-    FavouriteRoutesComponent
+    FavouriteRoutesComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,
