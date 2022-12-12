@@ -14,6 +14,7 @@ import { LandingComponent } from './landing/landing.component';
 import { AccountDetailsComponent } from './account-details/account-details.component';
 import { FavouriteRoutesComponent } from './favourite-routes/favourite-routes.component';
 import { AccountComponent } from './account/account.component';
+import { UserGraphComponent } from './user-graph/user-graph.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AccountComponent } from './account/account.component';
     LandingComponent,
     AccountDetailsComponent,
     FavouriteRoutesComponent,
-    AccountComponent
+    AccountComponent,
+    UserGraphComponent
   ],
   imports: [
     BrowserModule,
