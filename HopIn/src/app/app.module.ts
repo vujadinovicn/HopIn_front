@@ -14,6 +14,7 @@ import { LandingComponent } from './landing/landing.component';
 import { PassengerAccountOptionsComponent } from './passenger-account-options/passenger-account-options.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ChangePaymentInfoComponent } from './change-payment-info/change-payment-info.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     LandingComponent,
     PassengerAccountOptionsComponent,
     AccountSettingsComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ChangePaymentInfoComponent
   ],
   imports: [
     BrowserModule,
