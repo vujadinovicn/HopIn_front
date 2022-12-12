@@ -2,15 +2,26 @@
     <h3 id="tell-us" class="dark-blue">Tell us about the ride:</h3>
     <form [formGroup]="rideForm" (ngSubmit)="findRoute()">
         <mat-form-field id="pickup-loc-mat">
-            <input matInput type="text" name="pickup" formControlName="pickup" placeholder="Pick up location"/>
+            <mat-label>Pick up location</mat-label>
+            <input matInput type="text" name="pickup" formControlName="pickup"/>
             <mat-icon class="location-icon" matPrefix>location_on</mat-icon>
             <mat-error *ngIf="rideForm.get('pickup')?.errors?.['required']">entering pickup location is required</mat-error>
         </mat-form-field>
         <mat-form-field id="pickup-loc-mat">
-            <input matInput type="text" name="destination" formControlName="destination" placeholder="Where to?"/>
+            <mat-label>Where to?</mat-label>
+            <input matInput type="text" name="destination" formControlName="destination"/>
             <mat-icon class="location-icon" matPrefix>location_on</mat-icon>
             <mat-error *ngIf="rideForm.get('destination')?.errors?.['required']">entering destination is required</mat-error>
         </mat-form-field>
+        <div id="pickup-time">
+            <mat-form-field>
+                <mat-label>Schedule for later</mat-label>
+                <input matInput [ngxTimepicker]="picker" [format]="24" formControlName="time">
+                <mat-icon class="location-icon" matPrefix>watch_later</mat-icon>
+                <ngx-material-timepicker #picker></ngx-material-timepicker>
+            </mat-form-field>
+        </div>
         <button id="find-route-btn" class="conf-button" mat-raised-button type="submit">find route -></button>
+    
     </form>
 </div>

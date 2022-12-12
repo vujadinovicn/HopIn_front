@@ -11,6 +11,7 @@ export class UnregisteredRideFormComponent implements OnInit {
   rideForm = new FormGroup({
     pickup: new FormControl('', [Validators.required]),
     destination: new FormControl('', [Validators.required]),
+    time: new FormControl('')
   })
 
   constructor() { }

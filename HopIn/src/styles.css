@@ -50,9 +50,9 @@ html, body { height: 100%; margin: 0; font-family: "Poppins", sans-serif; }
     font-family: 'Material Icons'; 
 }
 
-/* ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
-    padding: 0px;
-} */
+.mat-form-field-prefix {
+    top: 2px !important;
+}
 
 .conf-button {
     background-color: #1E4A5A !important;

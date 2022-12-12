@@ -12,6 +12,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/mat
 import { LoginComponent } from './login/login.component';
 import { LandingComponent } from './landing/landing.component';
 import { UnregisteredRideFormComponent } from './unregistered-ride-form/unregistered-ride-form.component';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker'
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { UnregisteredRideFormComponent } from './unregistered-ride-form/unregist
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
-    MaterialModule
+    MaterialModule,
+    NgxMaterialTimepickerModule
   ],
   providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline', hideRequiredMarker: 'true' }}],
   bootstrap: [AppComponent]

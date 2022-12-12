@@ -1,8 +1,9 @@
 #unreg-ride-container {
-    height: 283px;
+    height: fit-content;
     width: 300px;
     background-color: white;
     text-align: center;
+    padding-bottom: 25px;
 }
 
 h3 {
@@ -13,8 +14,29 @@ h3 {
     margin-top: 25px;
 }
 
+#find-route-btn {
+    border-radius: 7px;
+}
+
 .location-icon {
     color: #B5B5B5;
+}
+
+::ng-deep ngx-material-timepicker-content {
+    --body-background-color: #fff;
+    --primary-font-family: 'Roboto', sans-serif;
+    --button-color: #1e4a5a !important;
+    --dial-active-color: #fff;
+    --dial-inactive-color: rgba(255, 255, 255, .5);
+    --dial-background-color: #1e4a5a !important;
+    --dial-editable-active-color: #1e4a5a !important;
+    --dial-editable-background-color: #fff;
+    --clock-face-time-active-color: #fff;
+    --clock-face-time-inactive-color: #6c6c6c;
+    --clock-face-inner-time-inactive-color: #929292;
+    --clock-face-time-disabled-color: #c5c5c5;
+    --clock-face-background-color: #f0f0f0;
+    --clock-hand-color: #1e4a5a !important;
 }
 
 mat-form-field {
@@ -38,6 +60,11 @@ mat-form-field input{
 
 .mat-error {
     line-height: 12px;
+}
+
+mat-label {
+    color: #B5B5B5;
+    font-size: 14px;
 }
 
 form {
