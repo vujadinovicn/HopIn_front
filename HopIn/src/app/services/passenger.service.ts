@@ -24,7 +24,7 @@ export class PassengerService {
     const options: any = {
       responseType: 'text',
     };
-    return this.http.put<string>(environment.apiHost + 'api/passenger/' + passenger.id, passenger, options);
+    return this.http.put<string>(environment.apiHost + 'api/passenger/1', passenger, options);
   }
 }
 
@@ -36,6 +36,7 @@ export interface Passenger {
     telephoneNumber: string;
     email: string;
     address: string;
-
+    password: string;
+    newPassword: string;
   }
   

@@ -11,7 +11,31 @@ export class PassengerAccountOptionsComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+    this.resetOtherColors();
+    if (this.router.url == "/account-settings"){
+      console.log("2");
+      const element = document.getElementById("account-settings-option") as HTMLElement;
+      element.style.color="#1E4A5A";
+    } else if(this.router.url == "/change-payment-info"){
+      const element = document.getElementById("payment-info-option") as HTMLElement;
+      element.style.color="#1E4A5A";
+    } else if (this.router.url == "/change-password"){
+      const element = document.getElementById("password-option") as HTMLElement;
+      element.style.color="#1E4A5A";
+    }
+
     //this.changeColor();
+  }
+
+  resetOtherColors(){
+    const options : HTMLElement[] = [];
+    options.push((document.getElementById("account-settings-option") as HTMLElement));
+    options.push((document.getElementById("payment-info-option") as HTMLElement));
+    options.push((document.getElementById("password-option") as HTMLElement));
+    for (let option of options){
+      option.style.color="#B1B1B1";
+    }
+    console.log("sss");
   }
 
   // changeColor(): void {
