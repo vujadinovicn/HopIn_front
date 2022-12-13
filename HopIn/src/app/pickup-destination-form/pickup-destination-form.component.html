@@ -3,13 +3,13 @@
     <form [formGroup]="rideForm" (ngSubmit)="findRoute()">
         <mat-form-field id="pickup-loc-mat">
             <mat-label>Pick up location</mat-label>
-            <input matInput type="text" name="pickup" formControlName="pickup" ngx-google-places-autocomplete #placesRef="ngx-places"/>
+            <input matInput type="text" name="pickup" formControlName="pickup" ngx-google-places-autocomplete #placesRef="ngx-places" (onAddressChange)="handlePickupChange($event)"/>
             <mat-icon class="location-icon" matPrefix>location_on</mat-icon>
             <mat-error *ngIf="rideForm.get('pickup')?.errors?.['required']">entering pickup location is required</mat-error>
         </mat-form-field>
         <mat-form-field id="pickup-loc-mat">
             <mat-label>Where to?</mat-label>
-            <input matInput type="text" name="destination" formControlName="destination" ngx-google-places-autocomplete #placesRef="ngx-places"/>
+            <input matInput type="text" name="destination" formControlName="destination" ngx-google-places-autocomplete #placesRef="ngx-places" (onAddressChange)="handleDestinationChange($event)"/>
             <mat-icon class="location-icon" matPrefix>location_on</mat-icon>
             <mat-error *ngIf="rideForm.get('destination')?.errors?.['required']">entering destination is required</mat-error>
         </mat-form-field>

@@ -1,5 +1,7 @@
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { Time } from '@angular/common';
+import { Address } from 'ngx-google-places-autocomplete/objects/address';
 
 @Component({
   selector: 'pickup-destination-form',
@@ -15,6 +17,10 @@ export class PickupDestinationFormComponent implements OnInit {
   })
 
   role: any;
+  route: Route = {
+    pickup: {} as ShortAddress,
+    destination: {} as ShortAddress, 
+  };
 
   constructor() { 
     this.role = null;
@@ -25,12 +31,36 @@ export class PickupDestinationFormComponent implements OnInit {
 
   findRoute() {
     if (this.rideForm.valid) {
-      alert("all ok");
+      console.log(this.route);
     }
   }
 
-  public handleAddressChange(address: any) {
-
+  public handlePickupChange(address: Address) {
+    this.route.pickup = {
+      fromatted: address.formatted_address,
+      lat: address.geometry.location.lat(),
+      lng: address.geometry.location.lng(),
+    }
   }
 
+  public handleDestinationChange(address: Address) {
+    this.route.destination = {
+      fromatted: address.formatted_address,
+      lat: address.geometry.location.lat(),
+      lng: address.geometry.location.lng(),
+    }
+  }
+  
+
+}
+
+interface Route {
+    pickup: ShortAddress,
+    destination: ShortAddress,
+}
+
+interface ShortAddress {
+  fromatted: String,
+  lat: number,
+  lng: number
 }
