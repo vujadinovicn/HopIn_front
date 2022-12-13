@@ -6,6 +6,19 @@
     display: inline-block;
 }
 
+#update-img-btn {
+    margin-left: -30px;
+    margin-right: 10px;
+    margin-top: -5px;
+    border-radius: 50%;
+    border: none;
+    padding: 3px 5px;
+    background-color: #B1B1B1;
+    color: #1E4A5A;
+    cursor: pointer;
+    font-size: 16px;
+}
+
 .name-form-container {
     display: inline-block;
 }

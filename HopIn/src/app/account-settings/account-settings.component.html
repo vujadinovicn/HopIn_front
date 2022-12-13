@@ -4,7 +4,11 @@
         <form [formGroup]="accountSettingsForm" (ngSubmit)="save()" fxLayout="column">
             <div style="width: 100%">
                 <div class="profile-img-container">
-                    <img src="../../assets/vectors/login.svg" class="profile-img">
+                    <img [src]="url" class="profile-img" style="background-color: black;">
+                    <button id="update-img-btn" type="button" (click)="fileInput.click()">
+                        <i class="fa fa-pencil"></i>
+                        <input #fileInput type="file" (change)="onFileSelect($event)" style="display: none">
+                    </button>
                 </div>
                 <div class="name-form-container">
                     <mat-form-field [hideRequiredMarker]="true" id="name">

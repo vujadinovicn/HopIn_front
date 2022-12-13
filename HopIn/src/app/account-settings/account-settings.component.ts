@@ -18,6 +18,18 @@ export class AccountSettingsComponent implements OnInit {
     phonenum: new FormControl('', [Validators.required]),
   })
 
+  url = "../../assets/vectors/login.svg";
+
+  onFileSelect(e: any){
+    if (e.target.files){
+      var reader = new FileReader();
+      reader.readAsDataURL(e.target.files[0]);
+      reader.onload=(event:any)=>{
+        this.url = event.target.result;
+      }
+    }
+  }
+  
   save(): void {
     if (this.accountSettingsForm.valid) {
       alert("PARTIZAN SAMPION");
