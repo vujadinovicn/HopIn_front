@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Passenger, PassengerService } from '../services/passenger.service';
 
 @Component({
   selector: 'app-account-settings',
@@ -9,14 +10,24 @@ import { Router } from '@angular/router';
 })
 export class AccountSettingsComponent implements OnInit {
 
-  constructor() {
+  constructor(private passengerService: PassengerService) {
+  }
+
+  passenger : Passenger = {
+    id: 0,
+    name: '',
+    surname: '',
+    email: '',
+    address: '',
+    telephoneNumber: '',
+    profilePicture: ''
   }
 
   accountSettingsForm = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.pattern("[a-zA-Z ]*")]),
-    surname: new FormControl('', [Validators.required, Validators.pattern("[a-zA-Z ]*")]),
+    name: new FormControl('', [Validators.required, Validators.pattern("[a-zA-Zčćđžš ]*")]),
+    surname: new FormControl('', [Validators.required, Validators.pattern("[a-zA-Zčćđžš ]*")]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    address: new FormControl('', [Validators.required, Validators.pattern("^[a-zA-Z0-9\s,'-]*$")]),
+    address: new FormControl('', [Validators.required, Validators.pattern("^[a-zA-Z0-9 \s,'-]*$")]),
     phonenum: new FormControl('', [Validators.required, Validators.pattern("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$")]),
   })
 
@@ -34,9 +45,35 @@ export class AccountSettingsComponent implements OnInit {
   
   save(): void {
     if (this.accountSettingsForm.valid) {
-      alert("partizan sampion");
+      this.passengerService
+        .add(
+          {
+            name: this.accountSettingsForm.value.name,
+            surname: this.accountSettingsForm.value.surname,
+            profilePicture: this.passenger.profilePicture,
+            telephoneNumber: this.accountSettingsForm.value.phonenum,
+            email: this.accountSettingsForm.value.email,
+            address: this.accountSettingsForm.value.address
+          }
+        )
+        .subscribe((res: any) => {
+          console.log(res);
+        });
     }
   }
 
   ngOnInit(): void {
-}}
+    this.passengerService.getById(2).subscribe((res: any) => {
+      this.passenger = res;
+      console.log(this.passenger);
+      this.accountSettingsForm.setValue({
+        name: res.name,
+        surname: res.surname,
+        email: res.email,
+        address: res.address,
+        phonenum: res.telephoneNumber
+      })
+    });;
+  
+}
+}
