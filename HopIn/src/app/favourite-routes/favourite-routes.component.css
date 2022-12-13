@@ -115,6 +115,7 @@ h2 {
     .historyCard {
         flex-direction: column;
         padding-right: 7px;
+        width: auto;
     }
 
     .cardInfo {

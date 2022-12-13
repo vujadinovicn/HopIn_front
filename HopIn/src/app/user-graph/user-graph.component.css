@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: row;
     margin-top: 30px;
-    margin-left: 30px;
+    margin-bottom: 10vh;
 }
 
 #reportInfoContainer {
@@ -15,7 +15,7 @@
     height: 40vh;
     border: 1px solid #E6E6E6;
     border-radius: 10px;
-    width: 30vw;
+    width: 32vw;
 }
 
 .greeting {
@@ -125,7 +125,7 @@ p {
     height: fit-content;
     font-family: 'Poppins', sans-serif;
     align-self: flex-start;
-    margin-top: 8vh;
+    margin-top: auto;
   }
 
   input {
@@ -159,8 +159,8 @@ p {
     height: 40vh;
     border: 1px solid #E6E6E6;
     border-radius: 10px;
-    width: 30vw;
-    margin-left: 2vw;  
+    width: 32vw;
+    margin-left: 3vw;  
 }
 
 .column {
@@ -168,6 +168,12 @@ p {
   flex-direction: column;
   align-items: center;
   width: 30%;
+}
+
+.column > div > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #reportContainer p {
@@ -202,7 +208,7 @@ p {
     border: 0;
     height: fit-content;
     font-family: 'Poppins', sans-serif;
-    margin-top: 7vh;    
+    margin-top: auto;    
 }
 
 
@@ -212,4 +218,83 @@ canvas {
   align-self: center;
   padding: 5px;
   margin-left: 10px;
+}
+
+
+@media only screen and (max-width: 900px) {
+  #userGraphContainer {
+    flex-direction: column;
+  }
+
+  #reportContainer {
+    margin-left: 0;
+    width: 70vw;
+    margin-top: 5vh;
+    flex-direction: column;
+    height: fit-content;
+  }
+
+  #reportInfoContainer {
+    width: 70vw;
+    height: fit-content;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+
+  .dropdown {
+    margin-left: 0;
+    width: 55vw;
+    font-size: 0.8em;
+  }
+
+  input {
+    margin-left: 0;
+    width: 55vw;
+    align-self: flex-start;
+    font-size: 0.8em;
+  }
+
+  #generateBtn {
+    align-self: center;
+    margin-top: 5px;
+  }
+
+
+  /* GRAPH SIDE */
+
+  .column {
+    align-items: center;
+    width: 100%;
+  }
+
+  .column > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-self: center;
+  }
+
+  #total {
+    margin-right: 10px;
+  }
+
+  #average {
+    margin-left: 10px;
+  }
+
+  canvas {
+    width: 100% !important;
+    margin-left: 0;
+    margin-top: 20px;
+  }
+
+  #pdfBtn {
+    margin-top: 20px;
+  }
+
+  p {
+    font-size: 0.8em;
+}
 }
