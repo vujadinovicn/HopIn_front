@@ -2,11 +2,11 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'unregistered-ride-form',
-  templateUrl: './unregistered-ride-form.component.html',
-  styleUrls: ['./unregistered-ride-form.component.css']
+  selector: 'pickup-destination-form',
+  templateUrl: './pickup-destination-form.component.html',
+  styleUrls: ['./pickup-destination-form.component.css']
 })
-export class UnregisteredRideFormComponent implements OnInit {
+export class PickupDestinationFormComponent implements OnInit {
 
   rideForm = new FormGroup({
     pickup: new FormControl('', [Validators.required]),
@@ -14,7 +14,11 @@ export class UnregisteredRideFormComponent implements OnInit {
     time: new FormControl('')
   })
 
-  constructor() { }
+  role: any;
+
+  constructor() { 
+    this.role = null;
+  }
 
   ngOnInit(): void {
   }
@@ -23,6 +27,10 @@ export class UnregisteredRideFormComponent implements OnInit {
     if (this.rideForm.valid) {
       alert("all ok");
     }
+  }
+
+  public handleAddressChange(address: any) {
+
   }
 
 }

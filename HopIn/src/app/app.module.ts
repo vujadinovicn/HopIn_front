@@ -11,8 +11,9 @@ import { MaterialModule } from 'src/infrastructure/material.module';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
 import { LoginComponent } from './login/login.component';
 import { LandingComponent } from './landing/landing.component';
-import { UnregisteredRideFormComponent } from './unregistered-ride-form/unregistered-ride-form.component';
+import { PickupDestinationFormComponent } from './pickup-destination-form/pickup-destination-form.component';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker'
+import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker'
     RegisterComponent,
     LoginComponent,
     LandingComponent,
-    UnregisteredRideFormComponent
+    PickupDestinationFormComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +31,8 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker'
     ReactiveFormsModule,
     FormsModule,
     MaterialModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    GooglePlaceModule
   ],
   providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline', hideRequiredMarker: 'true' }}],
   bootstrap: [AppComponent]
