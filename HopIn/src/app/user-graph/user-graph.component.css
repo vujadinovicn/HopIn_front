@@ -152,7 +152,7 @@ p {
 
 #reportContainer {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: left;
     background-color: white;
     padding: 25px 25px;
@@ -203,4 +203,13 @@ p {
     height: fit-content;
     font-family: 'Poppins', sans-serif;
     margin-top: 7vh;    
+}
+
+
+canvas {
+  height: 100% !important;
+  width: 90% !important;
+  align-self: center;
+  padding: 5px;
+  margin-left: 10px;
 }

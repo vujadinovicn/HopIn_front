@@ -17,7 +17,6 @@ import { AccountComponent } from './account/account.component';
 import { UserGraphComponent } from './user-graph/user-graph.component';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 
-
 @NgModule({
   declarations: [
     AppComponent,
