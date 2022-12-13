@@ -33,6 +33,10 @@ mat-form-field{
     width: 65%;
 }
 
+mat-error {
+    margin-left: -5px;
+}
+
 @media screen and (max-width: 1200px) {
     .profile-img-container {
         display: block;

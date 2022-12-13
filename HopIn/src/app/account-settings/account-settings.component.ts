@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-account-settings',
@@ -8,14 +9,15 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class AccountSettingsComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   accountSettingsForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    surname: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required, Validators.pattern("[a-zA-Z ]*")]),
+    surname: new FormControl('', [Validators.required, Validators.pattern("[a-zA-Z ]*")]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    city: new FormControl('', [Validators.required]),
-    phonenum: new FormControl('', [Validators.required]),
+    address: new FormControl('', [Validators.required, Validators.pattern("^[a-zA-Z0-9\s,'-]*$")]),
+    phonenum: new FormControl('', [Validators.required, Validators.pattern("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$")]),
   })
 
   url = "../../assets/vectors/login.svg";
@@ -32,11 +34,9 @@ export class AccountSettingsComponent implements OnInit {
   
   save(): void {
     if (this.accountSettingsForm.valid) {
-      alert("PARTIZAN SAMPION");
+      alert("partizan sampion");
     }
   }
 
   ngOnInit(): void {
-  }
-
-}
+}}
