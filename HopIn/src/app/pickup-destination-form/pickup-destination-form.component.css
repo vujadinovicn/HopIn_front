@@ -75,3 +75,9 @@ mat-label {
 form {
     height: fit-content;
 }
+
+::ng-deep .pac-container {
+    width: 280px !important;
+    margin-left: -33px !important;
+    margin-top: 3px !important;
+}
