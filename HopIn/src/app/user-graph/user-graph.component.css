@@ -12,7 +12,7 @@
     align-items: left;
     background-color: white;
     padding: 25px 25px;
-    height: fit-content;
+    height: 40vh;
     border: 1px solid #E6E6E6;
     border-radius: 10px;
     width: 30vw;
@@ -63,10 +63,10 @@ p {
     cursor: pointer;
     font-family: 'Poppins', sans-serif;
     font-size: 0.9em;
-    width: 200px;
     border-radius: 10px;
     display: flex;
     flex-direction: row;
+    width: 100%;
   }
 
 .dropbtn::after {
@@ -79,8 +79,9 @@ p {
   .dropdown {
     position: relative;
     display: inline-block;
-    margin-left: 7px;
+    margin-left: auto;
     border-radius: 10px;
+    width: 15.5vw;
   }
   
   /* Dropdown Content (Hidden by Default) */
@@ -124,5 +125,82 @@ p {
     height: fit-content;
     font-family: 'Poppins', sans-serif;
     align-self: flex-start;
-    margin-top: 7vh;
+    margin-top: 8vh;
   }
+
+  input {
+    background-color: #1E4A5A;
+    margin-left: auto;
+    background-color: #D9D9D9;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 10px;
+    width: 15vw;
+    height: fit-content;
+    align-self: center;
+    border: none;
+    font-size: 0.9em;
+    padding: 5px;
+  }
+
+  input::placeholder {
+    content: "Date range";
+    color: black;
+  }
+
+
+  /* GRAPH PART(RIGHT) */
+
+#reportContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    background-color: white;
+    padding: 25px 25px;
+    height: 40vh;
+    border: 1px solid #E6E6E6;
+    border-radius: 10px;
+    width: 30vw;
+    margin-left: 2vw;  
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+}
+
+#reportContainer p {
+  padding: 0;
+}
+
+.title {
+  font-size: 0.7em;
+  margin-top: 2em;
+  color: #B0B0B0;
+}
+
+#total {
+  color: #337D98;
+  font-size: 2em;
+  font-weight: bold;
+
+}
+
+#average {
+  color: #EC9A29;
+  font-size: 1.4em;
+  font-weight: bold;
+}
+
+#pdfBtn {
+  background-color: #EC9A29;
+    color: white;
+    font-size: 0.9em;
+    padding: 0.3em 1em ;
+    border-radius: 5px;
+    border: 0;
+    height: fit-content;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 7vh;    
+}

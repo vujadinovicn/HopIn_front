@@ -20,9 +20,29 @@
 
         <div class="row">
             <p>Choose date range:</p>
+            <input type="text" matInput
+                ngxDaterangepickerMd
+                [locale]="{applyLabel: 'ok', format: 'DD-MM-YYYY'}"
+                startKey="start"
+                endKey="end"
+                name="daterange"
+                placeholder="Date range"/>
         </div>
 
         <button id="generateBtn">Generate report</button>
     </div>
-    <div id="reportContainer"></div>
+    <div id="reportContainer">
+        <div class="column">
+            <h2>Report</h2>
+            <p class="title">Total:</p>
+            <p id="total">120km</p>
+            <p class="title">Average:</p>
+            <p id="average">30km</p>
+            <div></div>
+            <button id="pdfBtn">Print pdf</button>
+        </div>
+        <div class="graph">
+
+        </div>
+    </div>
 </div>

@@ -15,6 +15,8 @@ import { AccountDetailsComponent } from './account-details/account-details.compo
 import { FavouriteRoutesComponent } from './favourite-routes/favourite-routes.component';
 import { AccountComponent } from './account/account.component';
 import { UserGraphComponent } from './user-graph/user-graph.component';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { UserGraphComponent } from './user-graph/user-graph.component';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
-    MaterialModule
+    MaterialModule,
+    NgxDaterangepickerMd.forRoot()
+
   ],
   providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline', hideRequiredMarker: 'true' }}],
   bootstrap: [AppComponent]
