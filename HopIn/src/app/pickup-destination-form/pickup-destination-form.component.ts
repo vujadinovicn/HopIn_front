@@ -2,6 +2,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Time } from '@angular/common';
 import { Address } from 'ngx-google-places-autocomplete/objects/address';
+import { ConditionalExpr } from '@angular/compiler';
 
 @Component({
   selector: 'pickup-destination-form',
@@ -50,7 +51,6 @@ export class PickupDestinationFormComponent implements OnInit {
       lng: address.geometry.location.lng(),
     }
   }
-  
 
 }
 
