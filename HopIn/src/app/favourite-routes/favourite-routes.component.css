@@ -100,6 +100,11 @@ h2 {
 .historyCard > div > button::before {
     content: "Schedule again";
 }
+.historyCard > div > button:hover {
+    background-color: #337D98;
+    cursor: pointer;
+}
+
 
 .favourite {
     margin-left: 15px;

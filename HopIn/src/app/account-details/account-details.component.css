@@ -77,15 +77,21 @@ p {
 
  /* BUTTON */
  button {
-    width: 80%;
-    padding: 0.3em;
+    background-color: #1E4A5A;
+    color: white;
+    font-size: 0.9em;
+    padding: 0.3em 1em ;
+    border-radius: 5px;
+    border: 0;
     margin-top: auto;
     font-family: 'Poppins', sans-serif;
-    background-color: #EBEBEB;
-    border-radius: 15px;
-    border-color: #B8B8B8;
-    color: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
  }
+
+ button:hover {
+    background-color: #337D98;
+    cursor: pointer;
+}
 
  @media only screen and (max-width: 900px) {
     #account-container {

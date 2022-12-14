@@ -128,6 +128,11 @@ p {
     margin-top: auto;
   }
 
+  #generateBtn:hover {
+    background-color: #337D98;
+    cursor: pointer;
+}
+
   input {
     background-color: #1E4A5A;
     margin-left: auto;
@@ -146,6 +151,8 @@ p {
     content: "Date range";
     color: black;
   }
+
+  
 
 
   /* GRAPH PART(RIGHT) */
@@ -209,6 +216,11 @@ p {
     height: fit-content;
     font-family: 'Poppins', sans-serif;
     margin-top: auto;    
+}
+
+#pdfBtn:hover {
+  background-color: #337D98;
+  cursor: pointer;
 }
 
 
