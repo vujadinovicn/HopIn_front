@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Address } from 'ngx-google-places-autocomplete/objects/address';
 import { autocompleteValidator } from '../validators/autocompleteValidator';
+import { schedulingValidator } from '../validators/schedulingValidator';
 
 @Component({
   selector: 'pickup-destination-form',
@@ -19,7 +20,7 @@ export class PickupDestinationFormComponent implements OnInit {
   rideForm = new FormGroup({
     pickup: new FormControl('', [Validators.required, autocompleteValidator(this, 0)]),
     destination: new FormControl('', [Validators.required, autocompleteValidator(this, 1)]),
-    time: new FormControl('')
+    time: new FormControl('', [schedulingValidator()]),
   });
 
   role: any;
@@ -29,7 +30,7 @@ export class PickupDestinationFormComponent implements OnInit {
   };
 
   constructor(private routingService: RoutingService) { 
-    this.role = null;
+    this.role = 'USER';
   }
 
   ngOnInit(): void {
@@ -66,6 +67,20 @@ export class PickupDestinationFormComponent implements OnInit {
         lat: address.geometry.location.lat(),
         lng: address.geometry.location.lng(),
       }
+  }
+
+  public getCurrentTime(): string {
+    let currDate = new Date();
+    return currDate.getHours + ":" + currDate.getMinutes;
+  }
+
+  public getMaxTime(): string {
+    let currDate = new Date();
+    let totalMins = currDate.getHours()*60 + currDate.getMinutes();
+    totalMins = totalMins + 300;
+    let calcHours = Math.floor(totalMins/60);
+    console.log(calcHours + ":" + (totalMins - calcHours*60))
+    return calcHours + ":" + (totalMins - calcHours*60);
   }
 
 }

@@ -15,4 +15,4 @@ export function autocompleteValidator(component: PickupDestinationFormComponent,
         }
             
     };
-  }
+}
