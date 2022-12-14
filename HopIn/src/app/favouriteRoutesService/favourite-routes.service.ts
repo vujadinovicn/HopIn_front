@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { FavouriteRoute } from '../favourite-routes/favourite-routes.component';
 const routes = [
   {
@@ -22,22 +24,10 @@ const routes = [
 })
 export class FavouriteRoutesService {
   private favouriteRoutes: FavouriteRoute[] = []
-  constructor() {
-    for (let route of routes) {
-      const routeObj: FavouriteRoute = {
-        _id: route._id,
-        from: route.from,
-        to: route.to,
-        distance: route.distance,
-        durationHours: Math.floor(route.duration/60),
-        durationMins: route.duration % 60
-      };
-      this.favouriteRoutes.push(routeObj);
-   }
-  }
+  constructor(private http: HttpClient) {}
 
-  getAll(): FavouriteRoute[] {
-    return this.favouriteRoutes;
+  getAll(): Observable<FavouriteRoute[]> {
+    return this.http.get<FavouriteRoute[]>('http://localhost:4321/api/passenger/1/favouriteRoutes');
   }
 
 }

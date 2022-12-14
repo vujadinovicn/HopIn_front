@@ -12,16 +12,22 @@ export class FavouriteRoutesComponent implements OnInit {
   constructor( private service: FavouriteRoutesService) {}
 
   ngOnInit(): void {
-    this.routes = this.service.getAll();
+    this.service.getAll().subscribe((res) => {
+      this.routes = res;
+    });
   }
 
 }
 
+export interface Location {
+  address: String;
+  longitude: number;
+  latitude: number;
+}
+
 export interface FavouriteRoute {
-  _id: number;
-  from: String;
-  to: String;
+  id: number;
   distance: number;
-  durationHours: number;
-  durationMins: number;
+  departure: Location;
+  destination: Location;
 }

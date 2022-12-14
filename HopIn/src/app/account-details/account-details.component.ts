@@ -19,14 +19,12 @@ export class AccountDetailsComponent implements OnInit {
   };
 
   constructor(private accountDetailsService: AccountDetailsService) { }
-  // constructor() { }
 
   ngOnInit(): void {
     this.accountDetailsService.getUser().subscribe((res) => {
       this.passenger = res;
     });
   }
-  // ngOnInit(): void {}
     
   
 }
