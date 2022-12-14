@@ -27,6 +27,7 @@ export class PickupDestinationFormComponent implements OnInit {
   route: Route = {
     pickup: {} as ShortAddress,
     destination: {} as ShortAddress, 
+    scheduledTime: ''
   };
 
   constructor(private routingService: RoutingService) { 
@@ -38,10 +39,11 @@ export class PickupDestinationFormComponent implements OnInit {
   }
 
   findRoute() {
-    console.log(this.rideForm.get('pickup')?.value)
     if (this.rideForm.valid) {
-      console.log(this.rideForm.get('pickup'));
+      this.route.scheduledTime = this.rideForm.get('time')?.value!;
       this.routingService.updateRoute(this.route);
+
+      console.log(this.route);
     }
   }
 
