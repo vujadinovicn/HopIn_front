@@ -8,16 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MapComponent implements OnInit {
 
+  map : google.maps.Map = {} as google.maps.Map;
+  pickup : google.maps.Marker = {} as google.maps.Marker;
+  destination : google.maps.Marker = {} as google.maps.Marker;
+
   constructor() { }
 
   ngOnInit(): void {
     this.initMap();
+    this.addMarker(45.26247360000001, 19.8375849, 'Pickup');
+    this.addMarker(
+      45.2429669, 19.8531783, 'Destination');
   }
 
 
 
   initMap(): void {
-    const map = new google.maps.Map(
+    this.map = new google.maps.Map(
       document.getElementById("map") as HTMLElement,
       {
         center: { lat: 45.236141, lng: 19.8367209 },
@@ -31,6 +38,22 @@ export class MapComponent implements OnInit {
         mapTypeId: 'roadmap'
       }
     );
+  }
+
+  public addMarker(lat: number, lng: number, title: string) {
+    let map = this.map;
+    let marker = new google.maps.Marker({
+      map,
+      draggable: true,
+      position: { lat: lat, lng: lng},
+      title: title
+    })
+
+    if (title == 'Pickup')
+      this.pickup = marker;
+    else 
+      this.destination = marker;
+      
   }
 
 }
