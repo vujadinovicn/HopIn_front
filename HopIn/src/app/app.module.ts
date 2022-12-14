@@ -15,6 +15,7 @@ import { PickupDestinationFormComponent } from './pickup-destination-form/pickup
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker'
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { MapComponent } from './map/map.component';
+import { OrderRideComponent } from './order-ride/order-ride.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { MapComponent } from './map/map.component';
     LoginComponent,
     LandingComponent,
     PickupDestinationFormComponent,
-    MapComponent
+    MapComponent,
+    OrderRideComponent
   ],
   imports: [
     BrowserModule,

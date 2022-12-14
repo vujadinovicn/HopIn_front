@@ -38,7 +38,7 @@ export class MapComponent implements OnInit, OnDestroy {
       document.getElementById("map") as HTMLElement,
       {
         center: { lat: 45.236141, lng: 19.8367209 },
-        zoom: 13,
+        zoom: 14,
         mapTypeControlOptions: {
           mapTypeIds: [google.maps.MapTypeId.ROADMAP]
         },
