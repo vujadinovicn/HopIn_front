@@ -1,8 +1,7 @@
+import { ShortAddress, Route, RoutingService } from './../services/routing.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { Time } from '@angular/common';
 import { Address } from 'ngx-google-places-autocomplete/objects/address';
-import { ConditionalExpr } from '@angular/compiler';
 
 @Component({
   selector: 'pickup-destination-form',
@@ -23,7 +22,7 @@ export class PickupDestinationFormComponent implements OnInit {
     destination: {} as ShortAddress, 
   };
 
-  constructor() { 
+  constructor(private routingService: RoutingService) { 
     this.role = null;
   }
 
@@ -32,7 +31,7 @@ export class PickupDestinationFormComponent implements OnInit {
 
   findRoute() {
     if (this.rideForm.valid) {
-      console.log(this.route);
+      this.routingService.updateRoute(this.route);
     }
   }
 
@@ -52,15 +51,4 @@ export class PickupDestinationFormComponent implements OnInit {
     }
   }
 
-}
-
-interface Route {
-    pickup: ShortAddress,
-    destination: ShortAddress,
-}
-
-interface ShortAddress {
-  fromatted: String,
-  lat: number,
-  lng: number
 }

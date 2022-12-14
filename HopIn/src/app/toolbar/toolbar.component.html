@@ -14,7 +14,7 @@
   
       <div class="navbar-menu" id="open-navbar1">
         <div class="navbar-nav">
-            <a href="#" *ngIf="role === 'USER'">Home</a>
+            <a href="#" *ngIf="role === 'USER'" [routerLink]="['/order-ride']">Home</a>
             <a href="#" *ngIf="role === 'USER'">Account</a>
             <a href="#" *ngIf="role === 'USER'">History</a>
             <a href="#" *ngIf="role === 'USER'">Log out</a>
