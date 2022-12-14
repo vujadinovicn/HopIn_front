@@ -51,6 +51,14 @@ html, body { height: 100%; margin: 0; font-family: "Poppins", sans-serif; }
     font-family: 'Material Icons'; 
 }
 
+.mat-snack-bar-container {
+    color: white;
+}
+
+.mat-simple-snackbar-action button {
+    color: white;
+}
+
 /* ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
     padding: 0px;
 } */
@@ -119,7 +127,19 @@ html, body { height: 100%; margin: 0; font-family: "Poppins", sans-serif; }
     color: #EC9A29 !important;
 }
 
+.back-dark-blue {
+    background-color: #1E4A5A !important;
+}
+
 .back-orange {
     background-color: #EC9A29 !important;
+}
+
+.back-red {
+    background-color: #A8201A !important;
+}
+
+.back-green {
+    background-color: #33A02C !important;
 }
  

@@ -15,6 +15,7 @@ import { PassengerAccountOptionsComponent } from './passenger-account-options/pa
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ChangePaymentInfoComponent } from './change-payment-info/change-payment-info.component';
+import { SnackBarComponent } from './shared/snack-bar/snack-bar.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ChangePaymentInfoComponent } from './change-payment-info/change-payment
     PassengerAccountOptionsComponent,
     AccountSettingsComponent,
     ChangePasswordComponent,
-    ChangePaymentInfoComponent
+    ChangePaymentInfoComponent,
+    SnackBarComponent
   ],
   imports: [
     BrowserModule,

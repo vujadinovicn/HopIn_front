@@ -3,6 +3,7 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Passenger, PassengerService } from '../services/passenger.service';
 import { PassengerAccountOptionsService } from '../services/passengerAccountOptions.service';
+import { SharedService } from '../shared/shared.service';
 import { markFormControlsTouched } from '../validators/formGroupValidators';
 import { addressRegexValidator, nameRegexValidator, phonenumRegexValidator, surnameRegexValidator } from '../validators/user/userValidator';
 
@@ -14,7 +15,9 @@ import { addressRegexValidator, nameRegexValidator, phonenumRegexValidator, surn
 })
 export class AccountSettingsComponent implements OnInit {
 
-  constructor(private passengerService: PassengerService, private passengerAccountOptionsService : PassengerAccountOptionsService) {
+  constructor(private passengerService: PassengerService,
+    private passengerAccountOptionsService : PassengerAccountOptionsService,
+    private sharedService : SharedService) {
   }
 
   passenger : Passenger = {
@@ -50,7 +53,6 @@ export class AccountSettingsComponent implements OnInit {
   }
   
   save(): void {
-    console.log(this.url);
     if (this.accountSettingsForm.valid) {
       this.passengerService
         .add(
@@ -63,9 +65,26 @@ export class AccountSettingsComponent implements OnInit {
             address: this.accountSettingsForm.value.address
           }
         )
-        .subscribe((res: any) => {
-          //console.log(res);
+        .subscribe({
+          next: (res: any) => {
+            console.log(res);
+            this.sharedService.openSnack({
+              value: "Response is in console!",
+              color: "back-green"}
+              );
+          },
+          error: (error: any) => {
+              this.sharedService.openSnack({
+                value: "Haven't got data back!",
+                color: "back-dark-blue"}
+                );
+          }
         });
+    } else {
+      this.sharedService.openSnack({
+        value: "Check inputs again!",
+        color: "back-red"}
+        );
     }
   }
 
@@ -92,6 +111,8 @@ export class AccountSettingsComponent implements OnInit {
       this.url = res.profilePicture;
     });;
   }
+
+  
 
   ngOnInit(): void {
     this.sendColorChange();

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PassengerAccountOptionsService } from '../services/passengerAccountOptions.service';
+import { SharedService } from '../shared/shared.service';
 import { markFormControlsTouched } from '../validators/formGroupValidators';
 import { cardCvcValidator, cardMonthValidator, cardNumberValidator, cardYearValidator } from '../validators/user/creditCardValidation';
 import { CardCvcErrorStateMatcher, CardNumberErrorStateMatcher, CardMonthErrorStateMatcher, CardYearErrorStateMatcher} from '../validators/user/creditCardValidation';
@@ -18,7 +19,8 @@ export class ChangePaymentInfoComponent implements OnInit {
   cardYearErrorStateMatcher = new CardYearErrorStateMatcher();
   cardCvcErrorStateMatcher = new CardCvcErrorStateMatcher();
 
-  constructor(private passengerAccountOptionsService: PassengerAccountOptionsService) { }
+  constructor(private passengerAccountOptionsService: PassengerAccountOptionsService,
+    private sharedService: SharedService) { }
 
   changePaymentInfoForm = new FormGroup({
     nameOnCard: new FormControl('', [Validators.required, nameRegexValidator]),
@@ -41,7 +43,9 @@ export class ChangePaymentInfoComponent implements OnInit {
 
   save(): void {
     if (this.changePaymentInfoForm.valid) {
-      alert("PARTIZAN SAMPION");
+      this.sharedService.openSnack('SIKE; You thought');
+    } else {
+      this.sharedService.openSnack('WOOPS');
     }
   }
 
