@@ -16,6 +16,7 @@ import { FavouriteRoutesComponent } from './favourite-routes/favourite-routes.co
 import { AccountComponent } from './account/account.component';
 import { UserGraphComponent } from './user-graph/user-graph.component';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -36,8 +37,8 @@ import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
     ReactiveFormsModule,
     FormsModule,
     MaterialModule,
-    NgxDaterangepickerMd.forRoot()
-
+    NgxDaterangepickerMd.forRoot(),
+    HttpClientModule
   ],
   providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline', hideRequiredMarker: 'true' }}],
   bootstrap: [AppComponent]
