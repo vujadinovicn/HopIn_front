@@ -21,6 +21,8 @@ export class MapComponent implements OnInit, OnDestroy {
     this.sub = this.routingService.receivedRoute().subscribe((route) => {
       this.addMarker(route.pickup.lat, route.pickup.lng, 'Pickup');
       this.addMarker(route.destination.lat, route.destination.lng, 'Destination');
+      
+      this.fitMap();
     });
    }
 
@@ -54,27 +56,36 @@ export class MapComponent implements OnInit, OnDestroy {
     let map = this.map;
 
     if (title == 'Pickup') {
-      if (Object.keys(this.pickup).length == 0) 
+      if (Object.keys(this.pickup).length == 0)
         this.pickup = new google.maps.Marker({
           map,
           draggable: true,
           position: { lat: lat, lng: lng},
-          title: title
-        });
+          title: title,
+      });
       else
         this.pickup.setPosition({lat: lat, lng: lng});
+
     } else {
       if (Object.keys(this.destination).length == 0)
-      this.destination = new google.maps.Marker({
-        map,
-        draggable: true,
-        position: { lat: lat, lng: lng},
-        title: title
+        this.destination = new google.maps.Marker({
+          map,
+          draggable: true,
+          position: { lat: lat, lng: lng},
+          title: title,
       });
       else
         this.destination.setPosition({lat: lat, lng: lng});
     }
+  
       
+  }
+
+  private fitMap() {
+    let bounds = new google.maps.LatLngBounds();
+    bounds.extend(this.pickup.getPosition()!);
+    bounds.extend(this.destination.getPosition()!);
+    this.map.fitBounds(bounds);
   }
 
 }
