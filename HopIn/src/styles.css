@@ -110,6 +110,10 @@ html, body { height: 100%; margin: 0; font-family: "Poppins", sans-serif; }
     color: #1E4A5A;
  }
 
+ .dark-gray { 
+    color: #B1B1B1;
+ }
+
  .orange {
     color: #EC9A29 !important;
 }

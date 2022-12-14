@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Passenger, PassengerService } from '../services/passenger.service';
+import { PassengerAccountOptionsService } from '../services/passengerAccountOptions.service';
 
 @Component({
   selector: 'app-account-settings',
@@ -10,7 +11,7 @@ import { Passenger, PassengerService } from '../services/passenger.service';
 })
 export class AccountSettingsComponent implements OnInit {
 
-  constructor(private passengerService: PassengerService) {
+  constructor(private passengerService: PassengerService, private passengerAccountOptionsService : PassengerAccountOptionsService) {
   }
 
   passenger : Passenger = {
@@ -65,7 +66,17 @@ export class AccountSettingsComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
+  sendColorChange(): void {
+    this.passengerAccountOptionsService.sendColorChange(
+      {
+        accountSettingsColor: "dark-blue",
+        passwordColor: "dark-gray",
+        paymentInfoColor: "dark-gray"
+      }
+    )
+  }
+
+  setPassengerData() {
     this.passengerService.getById(1).subscribe((res: any) => {
       this.passenger = res;
       this.accountSettingsForm.setValue({
@@ -76,9 +87,11 @@ export class AccountSettingsComponent implements OnInit {
         phonenum: res.telephoneNumber
       })
       this.url = res.profilePicture;
-      console.log(this.url);
-      console.log(res.profilePicture)
     });;
-  
+  }
+
+  ngOnInit(): void {
+    this.sendColorChange();
+    this.setPassengerData();
 }
 }

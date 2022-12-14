@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { PassengerAccountOptionsService } from '../services/passengerAccountOptions.service';
 import { cardCvcValidator, cardMonthValidator, cardNumberValidator, cardYearValidator } from '../validators/creditCardValidation';
 import { CardCvcErrorStateMatcher, CardNumberErrorStateMatcher, CardMonthErrorStateMatcher, CardYearErrorStateMatcher} from '../validators/creditCardValidation';
 @Component({
@@ -15,8 +16,7 @@ export class ChangePaymentInfoComponent implements OnInit {
   cardYearErrorStateMatcher = new CardYearErrorStateMatcher();
   cardCvcErrorStateMatcher = new CardCvcErrorStateMatcher();
 
-
-  constructor() { }
+  constructor(private passengerAccountOptionsService: PassengerAccountOptionsService) { }
 
   changePaymentInfoForm = new FormGroup({
     nameOnCard: new FormControl('', [Validators.required]),
@@ -26,16 +26,24 @@ export class ChangePaymentInfoComponent implements OnInit {
     cardCvc: new FormControl('', [Validators.required])
   }, [cardNumberValidator("cardNumber"), cardMonthValidator("cardMonth"), cardYearValidator("cardYear"), cardCvcValidator("cardCvc")]);
 
-  ngOnInit(): void {}
+
+  sendColorChange(): void {
+    this.passengerAccountOptionsService.sendColorChange(
+      {
+        accountSettingsColor: "dark-gray",
+        passwordColor: "dark-gray",
+        paymentInfoColor: "dark-blue"
+      }
+    )
+  }
 
   save(): void {
     if (this.changePaymentInfoForm.valid) {
       alert("PARTIZAN SAMPION");
     }
-    else {
-      alert("SISAJ ZVEZDO")
-    }
   }
 
-
+  ngOnInit(): void {
+    this.sendColorChange();
+  }
 }

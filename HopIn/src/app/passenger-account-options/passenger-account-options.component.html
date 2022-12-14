@@ -1,7 +1,7 @@
 <div id="passenger-account-options-container">
-    <div class="account-options" [routerLink]="['/account-settings']" id="account-settings-option" ><span class="responsive-span">account</span> settings</div>
-    <div class="account-options" [routerLink]="['/change-password']" id="password-option"><span class="responsive-span">change</span> password</div>
-    <div class="account-options" [routerLink]="['/change-payment-info']" id="payment-info-option"><span class="responsive-span">change</span> payment info</div>
+    <div class="account-options" [ngClass]="colors.accountSettingsColor" [routerLink]="['/account-settings']" id="account-settings-option" ><span class="responsive-span">account</span> settings</div>
+    <div class="account-options" [ngClass]="colors.passwordColor" [routerLink]="['/change-password']" id="password-option"><span class="responsive-span">change</span> password</div>
+    <div class="account-options" [ngClass]="colors.paymentInfoColor" [routerLink]="['/change-payment-info']" id="payment-info-option"><span class="responsive-span">change</span> payment info</div>
 </div>
 
 <!-- <div class="account-options" [routerLink]="['/account-settings']" id="account-settings-option"><span class="responsive-span">account</span> settings</div>
