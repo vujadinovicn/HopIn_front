@@ -20,7 +20,15 @@ export class PassengerService {
     return this.http.get<Passenger>(environment.apiHost + 'api/passenger/' + passengerId);
   }
 
-  add(passenger: any): Observable<any> {
+  updatePersonalInfo(passenger: any): Observable<any> {
+    const options: any = {
+      responseType: 'text',
+    };
+    return this.http.put<string>(environment.apiHost + 'api/passenger/1', passenger, options);
+  }
+
+  updatePassword(passenger: any): Observable<any> {
+    console.log(passenger);
     const options: any = {
       responseType: 'text',
     };

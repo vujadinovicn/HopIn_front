@@ -7,8 +7,6 @@ export function passwordMatcher(password: string, confPassword: string) {
         const passwordValue = form.get(password)?.value;
         const confPasswordValue = form.get(confPassword)?.value;
 
-        console.log(passwordValue, confPasswordValue);
-
         if (passwordValue === confPasswordValue) {
             return null;
         }

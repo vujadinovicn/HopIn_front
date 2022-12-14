@@ -45,7 +45,11 @@ export class ChangePaymentInfoComponent implements OnInit {
     if (this.changePaymentInfoForm.valid) {
       this.sharedService.openSnack('SIKE; You thought');
     } else {
-      this.sharedService.openSnack('WOOPS');
+      console.log("sss");
+      this.sharedService.openSnack({
+        value: "Check inputs again!",
+        color: "back-red"}
+        );;
     }
   }
 

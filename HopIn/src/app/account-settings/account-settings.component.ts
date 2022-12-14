@@ -55,7 +55,7 @@ export class AccountSettingsComponent implements OnInit {
   save(): void {
     if (this.accountSettingsForm.valid) {
       this.passengerService
-        .add(
+        .updatePersonalInfo(
           {
             name: this.accountSettingsForm.value.name,
             surname: this.accountSettingsForm.value.surname,
