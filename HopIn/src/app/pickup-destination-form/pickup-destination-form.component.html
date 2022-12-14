@@ -21,6 +21,7 @@
                 <input matInput [ngxTimepicker]="picker" [format]="24" formControlName="time" >
                 <mat-icon class="location-icon" matPrefix>watch_later</mat-icon>
                 <ngx-material-timepicker #picker></ngx-material-timepicker>
+                <mat-error *ngIf="rideForm.get('time')?.errors?.['timeFormatError']">expected format: hh:mm, 24h clock</mat-error>
                 <mat-error *ngIf="rideForm.get('time')?.errors?.['timeNotAlowed']">schedule max 5h in advance</mat-error>
             </mat-form-field>
         </div>

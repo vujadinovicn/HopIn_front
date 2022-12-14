@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Address } from 'ngx-google-places-autocomplete/objects/address';
 import { autocompleteValidator } from '../validators/autocompleteValidator';
 import { schedulingValidator } from '../validators/schedulingValidator';
+import { timeFormatValidator } from '../validators/timeFormatValidator';
 
 @Component({
   selector: 'pickup-destination-form',
@@ -20,7 +21,7 @@ export class PickupDestinationFormComponent implements OnInit {
   rideForm = new FormGroup({
     pickup: new FormControl('', [Validators.required, autocompleteValidator(this, 0)]),
     destination: new FormControl('', [Validators.required, autocompleteValidator(this, 1)]),
-    time: new FormControl('', [schedulingValidator()]),
+    time: new FormControl('', [timeFormatValidator, schedulingValidator()]),
   });
 
   role: any;
