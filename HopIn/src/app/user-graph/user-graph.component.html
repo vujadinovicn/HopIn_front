@@ -10,10 +10,10 @@
         <div class="row">
             <p>Choose the criteria:</p>
             <div class="dropdown">
-                <button class="dropbtn">Distance traveled</button>
+                <button class="dropbtn">{{this.selectedType}}</button>
                 <div class="dropdown-content">
-                  <a href="#">Distance traveled</a>
-                  <a href="#">Travel duration</a>
+                  <a (click)="setDistanceTraveledDD()">Distance traveled</a>
+                  <a (click)="setRidesNumDD()">Number of rides</a>
                 </div>
             </div>
         </div>
@@ -22,6 +22,7 @@
             <p>Choose date range:</p>
             <input type="text" matInput
                 ngxDaterangepickerMd
+                [(ngModel)]="selectedDates"
                 [locale]="{applyLabel: 'ok', format: 'DD-MM-YYYY'}"
                 startKey="start"
                 endKey="end"
@@ -29,19 +30,19 @@
                 placeholder="Date range"/>
         </div>
 
-        <button id="generateBtn">Generate report</button>
+        <button id="generateBtn" (click)="generateBtnOnClick()">Generate report</button>
     </div>
-    <div id="reportContainer">
+    <div *ngIf="this.reportVisibility === true" id="reportContainer">
         <div class="column">
             <h2>Report</h2>
             <div>
                 <div>
                     <p class="title">Total:</p>
-                    <p id="total">120km</p>
+                    <p id="total">{{ this.total }}</p>
                 </div>
                 <div>
                     <p class="title">Average:</p>
-                    <p id="average">30km</p>
+                    <p id="average">{{ this.average }}</p>
                 </div>
             </div>
             <div></div>
