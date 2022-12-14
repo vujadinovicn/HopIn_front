@@ -19,7 +19,7 @@ export function passwordMatcher(password: string, confPassword: string) {
 
 export class ConfirmValidParentMatcher implements ErrorStateMatcher {
 	isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-		if (control?.parent?.errors?.['passwordMismatchError'] && control?.dirty) return true;
+		if (control?.parent?.errors?.['passwordMismatchError'] && control.dirty) return true;
         return false;
 	}
 }

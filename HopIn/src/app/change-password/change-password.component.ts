@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PassengerAccountOptionsService } from '../services/passengerAccountOptions.service';
+import { markFormControlsTouched } from '../validators/formGroupValidators';
 import { ConfirmValidParentMatcher, passwordMatcher } from '../validators/passwordMatch';
+import { passwordRegexValidator } from '../validators/user/userValidator';
 
 @Component({
   selector: 'app-change-password',
@@ -10,21 +12,15 @@ import { ConfirmValidParentMatcher, passwordMatcher } from '../validators/passwo
 })
 export class ChangePasswordComponent implements OnInit {
 
-  confirmValidParentMatcher = new ConfirmValidParentMatcher();
-
   constructor(private passengerAccountOptionsService: PassengerAccountOptionsService) { }
 
+  confirmValidParentMatcher = new ConfirmValidParentMatcher();
+
   changePasswordForm = new FormGroup({
-    oldPassword: new FormControl('', [Validators.required, Validators.pattern("[0-9a-zA-Z]+"), Validators.minLength(6)]),
-    newPassword: new FormControl('', [Validators.required, Validators.pattern("[0-9a-zA-Z]+"), Validators.minLength(6)]),
+    oldPassword: new FormControl('', [Validators.required, passwordRegexValidator]),
+    newPassword: new FormControl('', [Validators.required, passwordRegexValidator]),
     confNewPassword: new FormControl('', [Validators.required]),
   }, [passwordMatcher("newPassword", "confNewPassword")])
-
-  save(): void {
-    if (this.changePasswordForm.valid) {
-      alert("PARTIZAN SAMPION");
-    }
-  }
 
   sendColorChange(): void {
     this.passengerAccountOptionsService.sendColorChange(
@@ -36,8 +32,15 @@ export class ChangePasswordComponent implements OnInit {
     )
   }
 
+  save(): void {
+    if (this.changePasswordForm.valid) {
+      alert("PARTIZAN SAMPION");
+    }
+  }
+
   ngOnInit(): void {
     this.sendColorChange();
+    markFormControlsTouched(this.changePasswordForm);
   }
 
 }

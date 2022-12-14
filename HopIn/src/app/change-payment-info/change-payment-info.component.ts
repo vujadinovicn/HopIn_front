@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PassengerAccountOptionsService } from '../services/passengerAccountOptions.service';
-import { cardCvcValidator, cardMonthValidator, cardNumberValidator, cardYearValidator } from '../validators/creditCardValidation';
-import { CardCvcErrorStateMatcher, CardNumberErrorStateMatcher, CardMonthErrorStateMatcher, CardYearErrorStateMatcher} from '../validators/creditCardValidation';
+import { markFormControlsTouched } from '../validators/formGroupValidators';
+import { cardCvcValidator, cardMonthValidator, cardNumberValidator, cardYearValidator } from '../validators/user/creditCardValidation';
+import { CardCvcErrorStateMatcher, CardNumberErrorStateMatcher, CardMonthErrorStateMatcher, CardYearErrorStateMatcher} from '../validators/user/creditCardValidation';
+import { nameRegexValidator } from '../validators/user/userValidator';
 @Component({
   selector: 'app-change-payment-info',
   templateUrl: './change-payment-info.component.html',
@@ -19,7 +21,7 @@ export class ChangePaymentInfoComponent implements OnInit {
   constructor(private passengerAccountOptionsService: PassengerAccountOptionsService) { }
 
   changePaymentInfoForm = new FormGroup({
-    nameOnCard: new FormControl('', [Validators.required]),
+    nameOnCard: new FormControl('', [Validators.required, nameRegexValidator]),
     cardNumber : new FormControl('', [Validators.required]),
     cardMonth: new FormControl('', [Validators.required]),
     cardYear: new FormControl('', [Validators.required]),
@@ -45,5 +47,6 @@ export class ChangePaymentInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.sendColorChange();
+    markFormControlsTouched(this.changePaymentInfoForm);
   }
 }

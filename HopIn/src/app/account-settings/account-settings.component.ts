@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Passenger, PassengerService } from '../services/passenger.service';
 import { PassengerAccountOptionsService } from '../services/passengerAccountOptions.service';
+import { markFormControlsTouched } from '../validators/formGroupValidators';
+import { addressRegexValidator, nameRegexValidator, phonenumRegexValidator, surnameRegexValidator } from '../validators/user/userValidator';
+
 
 @Component({
   selector: 'app-account-settings',
@@ -27,12 +30,12 @@ export class AccountSettingsComponent implements OnInit {
   }
 
   accountSettingsForm = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.pattern("[a-zA-Zčćđžš ]*")]),
-    surname: new FormControl('', [Validators.required, Validators.pattern("[a-zA-Zčćđžš ]*")]),
+    name: new FormControl('', [Validators.required, nameRegexValidator]),
+    surname: new FormControl('', [Validators.required, surnameRegexValidator]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    address: new FormControl('', [Validators.required, Validators.pattern("^[a-zA-Z0-9 \s,'-]*$")]),
-    phonenum: new FormControl('', [Validators.required, Validators.pattern("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$")]),
-  })
+    address: new FormControl('', [Validators.required, addressRegexValidator]),
+    phonenum: new FormControl('', [Validators.required, phonenumRegexValidator]),
+  }, [])
 
   url = "../../assets/vectors/login.svg";
 
@@ -93,5 +96,7 @@ export class AccountSettingsComponent implements OnInit {
   ngOnInit(): void {
     this.sendColorChange();
     this.setPassengerData();
+    markFormControlsTouched(this.accountSettingsForm);
 }
+
 }

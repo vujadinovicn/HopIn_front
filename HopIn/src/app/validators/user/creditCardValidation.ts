@@ -8,7 +8,6 @@ export function cardNumberValidator(cardNumber: string) {
         const cardNumberValue = form.get(cardNumber)?.value;
         const regex = /^(\d{13,17})$/;
         if (regex.test(cardNumberValue)) {
-            console.log("da");
             return null;
         }
 
@@ -39,6 +38,7 @@ export function cardCvcValidator(cardCvc: string){
     return function(form: AbstractControl){
         const cardCvcValue = form.get(cardCvc)?.value;
         const regex = /\d{3}/;
+        console.log("a");
         if (regex.test(cardCvcValue)) {return null};
         return { cardCvcError : true}
     }

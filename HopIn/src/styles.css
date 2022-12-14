@@ -41,7 +41,8 @@ html, body { height: 100%; margin: 0; font-family: "Poppins", sans-serif; }
 
 
 .mat-error {
-    margin-top: -1.5px;
+    margin-top: -1.2px;
+    margin-left: -1px;
     font-size: 11px;
 }
 

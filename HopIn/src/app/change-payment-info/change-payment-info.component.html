@@ -9,6 +9,7 @@
                 <mat-label>Name on card</mat-label>
                 <input matInput type="text" name="name-on-card" formControlName="nameOnCard" />
                 <mat-error *ngIf="changePaymentInfoForm.get('nameOnCard')?.errors?.['required']">entering name is required</mat-error>
+                <mat-error *ngIf="changePaymentInfoForm.get('nameOnCard')?.errors?.['nameRegexError'] && !changePaymentInfoForm.get('nameOnCard')?.errors?.['required']">invalid input</mat-error>
             </mat-form-field>
             <mat-form-field [hideRequiredMarker]="true" id="card-number">
                 <mat-label>Credit card number</mat-label>
