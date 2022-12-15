@@ -41,7 +41,8 @@ html, body { height: 100%; width: 100%; margin: 0; font-family: "Poppins", sans-
 
 
 .mat-error {
-    margin-top: -1.5px;
+    margin-top: -1.2px;
+    margin-left: -1px;
     font-size: 11px;
 }
 
@@ -50,6 +51,17 @@ html, body { height: 100%; width: 100%; margin: 0; font-family: "Poppins", sans-
     font-family: 'Material Icons'; 
 }
 
+.mat-snack-bar-container {
+    color: white;
+}
+
+.mat-simple-snackbar-action button {
+    color: white;
+}
+
+/* ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0px;
+} */
 .mat-form-field-prefix {
     top: 1px !important;
 }
@@ -64,19 +76,76 @@ html, body { height: 100%; width: 100%; margin: 0; font-family: "Poppins", sans-
     border-radius: 5px;
  }
 
+ .account-update-container{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 40%;
+    height: 500px;
+    background-color: white;
+ }
+
+ @media screen and (max-width: 1000px) {
+    .account-update-container {
+        display: block;
+        height: fit-content;
+        padding-bottom: 20px;
+    }
+}
+
+@media screen and (max-width: 875px) {
+    .account-update-container {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 450px){
+    .account-update-container{
+        width: 90%;
+        height: 75%;
+    }
+}
+
+.profile-img {
+    border-radius: 50%;
+    width:85px;
+    height: 85px;
+}
+
  /* COLORS */
 
  .dark-blue {
     color: #1E4A5A;
  }
 
+ .dark-gray { 
+    color: #B1B1B1;
+ }
+
  .orange {
     color: #EC9A29 !important;
+}
+
+.back-dark-blue {
+    background-color: #1E4A5A !important;
 }
 
 .back-orange {
     background-color: #EC9A29 !important;
 }
+
+.back-red {
+    background-color: #A8201A !important;
+}
+
+.back-green {
+    background-color: #33A02C !important;
+}
+ 
  
 .border {
     border: 1px solid #E6E6E6;

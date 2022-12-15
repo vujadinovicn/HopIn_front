@@ -7,8 +7,6 @@ export function passwordMatcher(password: string, confPassword: string) {
         const passwordValue = form.get(password)?.value;
         const confPasswordValue = form.get(confPassword)?.value;
 
-        console.log(passwordValue, confPasswordValue);
-
         if (passwordValue === confPasswordValue) {
             return null;
         }
@@ -19,7 +17,7 @@ export function passwordMatcher(password: string, confPassword: string) {
 
 export class ConfirmValidParentMatcher implements ErrorStateMatcher {
 	isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-		if (control?.parent?.errors?.['passwordMismatchError'] && control?.dirty) return true;
+		if (control?.parent?.errors?.['passwordMismatchError'] && control.dirty) return true;
         return false;
 	}
 }
