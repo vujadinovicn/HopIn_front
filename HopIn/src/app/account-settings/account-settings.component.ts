@@ -54,6 +54,7 @@ export class AccountSettingsComponent implements OnInit {
   
   save(): void {
     if (this.accountSettingsForm.valid) {
+      console.log(this.passenger);
       this.passengerService
         .updatePersonalInfo(
           {
@@ -62,7 +63,8 @@ export class AccountSettingsComponent implements OnInit {
             profilePicture: this.url,
             telephoneNumber: this.accountSettingsForm.value.phonenum,
             email: this.accountSettingsForm.value.email,
-            address: this.accountSettingsForm.value.address
+            address: this.accountSettingsForm.value.address,
+            password: this.passenger.password
           }
         )
         .subscribe({

@@ -22,7 +22,7 @@ export class ChangePasswordComponent implements OnInit {
     address: '',
     telephoneNumber: '',
     profilePicture: '',
-    password: 'oldPassword',
+    password: '',
     newPassword: ''
   }
 
@@ -50,6 +50,7 @@ export class ChangePasswordComponent implements OnInit {
 
   save(): void {
     if (this.changePasswordForm.valid) {
+      console.log(this.passenger);
       this.passengerService
         .updatePassword(
           {
