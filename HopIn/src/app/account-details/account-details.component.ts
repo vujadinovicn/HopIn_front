@@ -18,11 +18,24 @@ export class AccountDetailsComponent implements OnInit {
     address: ""
   };
 
+  url : String = "../../assets/vectors/login.svg";
+
+  onFileSelect(event: any){
+    if (event.target.files){
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload=(e: any)=>{
+        this.url = reader.result as string;
+      }
+    }
+  }
+
   constructor(private accountDetailsService: AccountDetailsService) { }
 
   ngOnInit(): void {
     this.accountDetailsService.getUser().subscribe((res) => {
       this.passenger = res;
+      this.url = this.passenger.profilePicture;
     });
   }
     
