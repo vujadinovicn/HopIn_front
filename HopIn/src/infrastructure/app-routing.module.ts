@@ -1,4 +1,5 @@
-import { NgModule } from '@angular/core';
+import { OrderRideComponent } from './../app/order-ride/order-ride.component';
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LandingComponent } from 'src/app/landing/landing.component';
 import { LoginComponent } from 'src/app/login/login.component';
@@ -11,9 +12,8 @@ const routes: Routes = [
   {path: '', component: LandingComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'change-password', component: ChangePasswordComponent},
-  {path: 'change-payment-info', component: ChangePaymentInfoComponent},
-  {path: 'account-settings', component: AccountSettingsComponent}
+  {path: 'order-ride', component: OrderRideComponent},
+  {path: '**', component: LandingComponent}
 ];
 
 @NgModule({

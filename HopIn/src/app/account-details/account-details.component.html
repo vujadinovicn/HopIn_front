@@ -1,0 +1,56 @@
+<div id="account-container">
+    <img src="../../assets/vectors/profileAvatar.svg">
+  
+    <p id="userName">{{ passenger.name + " " + passenger.surname }}</p>
+    <p class="roleText" >passenger</p>
+
+    <!-- CONTACT INFO -->
+    <div class="sectionTitle">
+        <p>Contact Info</p>
+        <div class="line"></div>
+    </div>
+    <div class="data">
+        <div class="keyValue">
+            <p class="key">Email:</p>
+            <p id="email" class="value">{{ passenger.email }}</p>
+        </div>
+        <div class="keyValue">
+            <p class="key">Phone number:</p>
+            <p id="phoneNumber" class="value">{{ passenger.telephoneNumber }}</p>
+        </div>
+    </div>
+
+    <!-- LOCATION INFO -->
+    <div class="sectionTitle">
+        <p>Location Info</p>
+        <div class="line"></div>
+    </div>
+    <div class="data">
+        <div class="keyValue">
+            <p class="key">Address:</p>
+            <p id="address" class="value">{{ passenger.address }}</p>
+        </div>
+    </div>
+
+
+     <!-- PAYMENT INFO -->
+     <div class="sectionTitle">
+        <p>Payment Info</p>
+        <div class="line"></div>
+    </div>
+    <div class="data">
+        <div class="keyValue">
+            <p class="key">Card:</p>
+            <p id="card" class="value">**** **** *** 111</p>
+        </div>
+        <div class="keyValue">
+            <p class="key">Type:</p>
+            <p id="cardType" class="value">Master Card</p>
+        </div>
+    </div>
+
+    <button>Account settings</button>
+
+
+
+</div>

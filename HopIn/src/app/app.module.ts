@@ -16,6 +16,18 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ChangePaymentInfoComponent } from './change-payment-info/change-payment-info.component';
 import { SnackBarComponent } from './shared/snack-bar/snack-bar.component';
+import { AccountDetailsComponent } from './account-details/account-details.component';
+import { FavouriteRoutesComponent } from './favourite-routes/favourite-routes.component';
+import { AccountComponent } from './account/account.component';
+import { UserGraphComponent } from './user-graph/user-graph.component';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import {MatSnackBarModule} from '@angular/material/snack-bar'
+
+import { PickupDestinationFormComponent } from './pickup-destination-form/pickup-destination-form.component';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker'
+import { GooglePlaceModule } from "ngx-google-places-autocomplete";
+import { MapComponent } from './map/map.component';
+import { OrderRideComponent } from './order-ride/order-ride.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +40,14 @@ import { SnackBarComponent } from './shared/snack-bar/snack-bar.component';
     AccountSettingsComponent,
     ChangePasswordComponent,
     ChangePaymentInfoComponent,
-    SnackBarComponent
+    SnackBarComponent,
+    AccountDetailsComponent,
+    FavouriteRoutesComponent,
+    AccountComponent,
+    UserGraphComponent,
+    PickupDestinationFormComponent,
+    MapComponent,
+    OrderRideComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +56,11 @@ import { SnackBarComponent } from './shared/snack-bar/snack-bar.component';
     ReactiveFormsModule,
     FormsModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxDaterangepickerMd.forRoot(),
+    HttpClientModule, MatSnackBarModule,
+    NgxMaterialTimepickerModule,
+    GooglePlaceModule
   ],
   providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline', hideRequiredMarker: 'true' }}],
   bootstrap: [AppComponent]
