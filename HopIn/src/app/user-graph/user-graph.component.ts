@@ -3,6 +3,7 @@ import {Chart, registerables} from 'node_modules/chart.js'
 import dayjs, { Dayjs } from 'dayjs';
 import { UserGraphService } from '../userGraphService/user-graph.service';
 import { RideForReport } from '../userGraphService/user-graph.service';
+import { Observable } from 'rxjs';
 Chart.register(...registerables)
 
 @Component({
@@ -20,6 +21,7 @@ export class UserGraphComponent implements OnInit {
   labels: string[] = []
   total: number = 0;
   average: number = 0;
+  rides!: RideForReport[] 
 
 
   constructor(private userGraphService: UserGraphService) { }
@@ -85,12 +87,20 @@ export class UserGraphComponent implements OnInit {
 generateBtnOnClick():void {
   this.reportVisibility = true;
 
-  let rides: RideForReport[] = this.userGraphService.getAll();
+  if (this.selectedDates.start == undefined || this.selectedDates.end == undefined) {
+    return
+  }
+
+  // let rides: RideForReport[] = this.userGraphService.getAll(this.selectedDates.start, this.selectedDates.end);
+  this.userGraphService.getAll(this.selectedDates.start, this.selectedDates.end).subscribe((res) => {
+    this.rides = res;
+  });
+
 
   if (this.selectedType === "Distance traveled") {
-    this.setDataForDistance(rides);
+    this.setDataForNumberOfRides();
   } else {
-    this.setDataForDuration(rides);
+    this.setDataForDuration();
   }
   
   this.RenderChart();
@@ -104,36 +114,36 @@ setRidesNumDD():void {
   this.selectedType = "Number of rides"
 }
 
-setDataForDistance(rides: RideForReport[]): void {
-  let currentDate = rides[0].startTime;
-  this.data = [rides[0].distance];
+setDataForNumberOfRides(): void {
+  let currentDate = this.rides[0].startTime;
+  this.data = [1];
   this.labels = [''];
-  this.total += rides[0].distance;
-  for(let i = 1; i < rides.length; i++) {
-    this.total += rides[0].distance;
-    if (rides[i].startTime.getTime() === currentDate.getTime()) {
-      this.data[this.data.length - 1] += rides[i].distance;
+  this.total = 1;
+  for(let i = 1; i < this.rides.length; i++) {
+    this.total += 1;
+    if (this.rides[i].startTime.getTime === currentDate.getTime) {
+      this.data[this.data.length - 1] += this.rides[i].distance;
     }else {
-      currentDate = rides[i].startTime;
-      this.data.push(rides[i].distance);
+      currentDate = this.rides[i].startTime;
+      this.data.push(1);
       this.labels.push('');
     }
   }
   this.average = Math.round(this.total / this.data.length);
 }
 
-setDataForDuration(rides: RideForReport[]): void {
-  let currentDate = rides[0].startTime;
-  this.data = [rides[0].estimatedTimeInMinutes];
+setDataForDuration(): void {
+  let currentDate = this.rides[0].startTime;
+  this.data = [this.rides[0].estimatedTimeInMinutes];
   this.labels = [''];
-  this.total += rides[0].estimatedTimeInMinutes
-  for(let i = 1; i < rides.length; i++) {
-    this.total += rides[i].estimatedTimeInMinutes
-    if (rides[i].startTime.getTime() === currentDate.getTime()) {
-      this.data[this.data.length - 1] += rides[i].estimatedTimeInMinutes;
+  this.total = this.rides[0].estimatedTimeInMinutes
+  for(let i = 1; i < this.rides.length; i++) {
+    this.total += this.rides[i].estimatedTimeInMinutes
+    if (this.rides[i].startTime.getTime === currentDate.getTime) {
+      this.data[this.data.length - 1] += this.rides[i].estimatedTimeInMinutes;
     }else {
-      currentDate = rides[i].startTime;
-      this.data.push(rides[i].estimatedTimeInMinutes);
+      currentDate = this.rides[i].startTime;
+      this.data.push(this.rides[i].estimatedTimeInMinutes);
       this.labels.push('');
     }
   }
