@@ -5,6 +5,8 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 export function autocompleteValidator(component: PickupDestinationFormComponent, i: number) {
     return (control: AbstractControl): ValidationErrors | null => {
         console.log(control.value + " " + control.getRawValue());
+        if (component.notValid[i])
+            return { autocompleteNotUsed : true};
         if (!component.changed[i])
             return !component.chosenAddress[i]?.geometry ? { autocompleteNotUsed : true} : null;
         else {

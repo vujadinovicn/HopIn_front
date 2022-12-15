@@ -17,6 +17,7 @@ export class PickupDestinationFormComponent implements OnInit {
 
   changed: Boolean[] = [false, false];
   odl_addr: String[] = [];
+  notValid: Boolean[] = [false, false];
 
   rideForm = new FormGroup({
     pickup: new FormControl('', [Validators.required, autocompleteValidator(this, 0)]),
@@ -49,27 +50,36 @@ export class PickupDestinationFormComponent implements OnInit {
   }
 
   public handlePickupChange(address: Address) {
-    this.chosenAddress[0] = address;
-    this.changed[0] = true;
-    this.odl_addr[0] = this.rideForm.get('pickup')?.value!;
-    this.rideForm.get('pickup')?.updateValueAndValidity();
-    this.route.pickup = {
-      fromatted: address.formatted_address,
-      lat: address.geometry.location.lat(),
-      lng: address.geometry.location.lng(),
-    }
+      if (this.checkAutocompleteValidity(address, 0, 'pickup')) {
+        this.route.pickup = {
+          fromatted: address.formatted_address,
+          lat: address.geometry.location.lat(),
+          lng: address.geometry.location.lng(),
+        }
+      }
   }
 
   public handleDestinationChange(address: Address) {
-    this.chosenAddress[1] = address;
-    this.changed[1] = true;
-    this.odl_addr[1] = this.rideForm.get('destination')?.value!;
-    this.rideForm.get('destination')?.updateValueAndValidity();
+    if (this.checkAutocompleteValidity(address, 1, 'destination')) {
       this.route.destination = {
         fromatted: address.formatted_address,
         lat: address.geometry.location.lat(),
         lng: address.geometry.location.lng(),
       }
+    }
+  }
+
+  private checkAutocompleteValidity(address: Address, i: number, type: string): Boolean {
+    this.chosenAddress[i] = address;
+    this.changed[i] = true;
+    this.odl_addr[i] = this.rideForm.get(type)?.value!;
+    if (!address.geometry) {
+      this.notValid[i] = true;
+    } else {
+      this.notValid[i] = false;
+    }
+    this.rideForm.get(type)?.updateValueAndValidity();
+    return !this.notValid[i];
   }
 
   public getCurrentTime(): string {
