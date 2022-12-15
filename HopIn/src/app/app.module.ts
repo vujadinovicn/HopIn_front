@@ -11,6 +11,14 @@ import { MaterialModule } from 'src/infrastructure/material.module';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
 import { LoginComponent } from './login/login.component';
 import { LandingComponent } from './landing/landing.component';
+import { AccountDetailsComponent } from './account-details/account-details.component';
+import { FavouriteRoutesComponent } from './favourite-routes/favourite-routes.component';
+import { AccountComponent } from './account/account.component';
+import { UserGraphComponent } from './user-graph/user-graph.component';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import { HttpClientModule } from '@angular/common/http';
+import {MatSnackBarModule} from '@angular/material/snack-bar'
+
 import { PickupDestinationFormComponent } from './pickup-destination-form/pickup-destination-form.component';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker'
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
@@ -24,6 +32,10 @@ import { OrderRideComponent } from './order-ride/order-ride.component';
     RegisterComponent,
     LoginComponent,
     LandingComponent,
+    AccountDetailsComponent,
+    FavouriteRoutesComponent,
+    AccountComponent,
+    UserGraphComponent,
     PickupDestinationFormComponent,
     MapComponent,
     OrderRideComponent
@@ -35,6 +47,8 @@ import { OrderRideComponent } from './order-ride/order-ride.component';
     ReactiveFormsModule,
     FormsModule,
     MaterialModule,
+    NgxDaterangepickerMd.forRoot(),
+    HttpClientModule, MatSnackBarModule,
     NgxMaterialTimepickerModule,
     GooglePlaceModule
   ],

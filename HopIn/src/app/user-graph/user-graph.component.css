@@ -1,0 +1,315 @@
+#userGraphContainer {
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    margin-top: 30px;
+    margin-bottom: 10vh;
+}
+
+#reportInfoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    background-color: white;
+    padding: 25px 25px;
+    height: 40vh;
+    border: 1px solid #E6E6E6;
+    border-radius: 10px;
+    width: 32vw;
+}
+
+.greeting {
+    display: flex;
+    flex-direction: row;
+}
+
+.line {
+    height: 3px;
+    width: 100%;
+    background-color: #D9D9D9;
+    margin-bottom: 5vh;
+}
+
+h3 {
+    margin: 0;
+    color: #B1B1B1;
+    margin-top: 1vh;
+}
+h2 {
+    margin: 0;
+}
+
+
+.row {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1vh;
+}
+
+p {
+    margin: 0;
+    padding: 5px;
+}
+
+
+
+/* DROPDOWN */
+
+.dropbtn {
+    background-color: #D9D9D9;
+    color: black;
+    padding: 5px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9em;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+
+.dropbtn::after {
+    content: url("../../assets/vectors/dropDown.svg");
+    height: 15px;
+    margin-left: auto;
+}
+  
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    margin-left: auto;
+    border-radius: 10px;
+    width: 15.5vw;
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }
+  
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  /* Change the background color of the dropdown button when the dropdown content is shown */
+  .dropdown:hover .dropbtn {
+    background-color: #337D98;
+  }
+
+  #generateBtn {
+    background-color: #1E4A5A;
+    color: white;
+    font-size: 0.9em;
+    padding: 0.3em 1em ;
+    border-radius: 5px;
+    border: 0;
+    height: fit-content;
+    font-family: 'Poppins', sans-serif;
+    align-self: flex-start;
+    margin-top: auto;
+  }
+
+  #generateBtn:hover {
+    background-color: #337D98;
+    cursor: pointer;
+}
+
+  input {
+    background-color: #1E4A5A;
+    margin-left: auto;
+    background-color: #D9D9D9;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 10px;
+    width: 15vw;
+    height: fit-content;
+    align-self: center;
+    border: none;
+    font-size: 0.9em;
+    padding: 5px;
+  }
+
+  input::placeholder {
+    content: "Date range";
+    color: black;
+  }
+
+  
+
+
+  /* GRAPH PART(RIGHT) */
+
+#reportContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: left;
+    background-color: white;
+    padding: 25px 25px;
+    height: 40vh;
+    border: 1px solid #E6E6E6;
+    border-radius: 10px;
+    width: 32vw;
+    margin-left: 3vw;  
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+}
+
+.column > div > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#reportContainer p {
+  padding: 0;
+}
+
+.title {
+  font-size: 0.7em;
+  margin-top: 2em;
+  color: #B0B0B0;
+}
+
+#total {
+  color: #337D98;
+  font-size: 2em;
+  font-weight: bold;
+
+}
+
+#average {
+  color: #EC9A29;
+  font-size: 1.4em;
+  font-weight: bold;
+}
+
+#pdfBtn {
+  background-color: #EC9A29;
+    color: white;
+    font-size: 0.9em;
+    padding: 0.3em 1em ;
+    border-radius: 5px;
+    border: 0;
+    height: fit-content;
+    font-family: 'Poppins', sans-serif;
+    margin-top: auto;    
+}
+
+#pdfBtn:hover {
+  background-color: #337D98;
+  cursor: pointer;
+}
+
+
+canvas {
+  height: 100% !important;
+  width: 90% !important;
+  align-self: center;
+  padding: 5px;
+  margin-left: 10px;
+}
+
+
+@media only screen and (max-width: 900px) {
+  #userGraphContainer {
+    flex-direction: column;
+  }
+
+  #reportContainer {
+    margin-left: 0;
+    width: 70vw;
+    margin-top: 5vh;
+    flex-direction: column;
+    height: fit-content;
+  }
+
+  #reportInfoContainer {
+    width: 70vw;
+    height: fit-content;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+
+  .dropdown {
+    margin-left: 0;
+    width: 55vw;
+    font-size: 0.8em;
+  }
+
+  input {
+    margin-left: 0;
+    width: 55vw;
+    align-self: flex-start;
+    font-size: 0.8em;
+  }
+
+  #generateBtn {
+    align-self: center;
+    margin-top: 5px;
+  }
+
+
+  /* GRAPH SIDE */
+
+  .column {
+    align-items: center;
+    width: 100%;
+  }
+
+  .column > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-self: center;
+  }
+
+  #total {
+    margin-right: 10px;
+  }
+
+  #average {
+    margin-left: 10px;
+  }
+
+  canvas {
+    width: 100% !important;
+    margin-left: 0;
+    margin-top: 20px;
+  }
+
+  #pdfBtn {
+    margin-top: 20px;
+  }
+
+  p {
+    font-size: 0.8em;
+}
+}
