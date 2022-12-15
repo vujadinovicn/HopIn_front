@@ -22,6 +22,7 @@ export class RoutingService {
 export interface Route {
   pickup: ShortAddress,
   destination: ShortAddress,
+  scheduledTime: string
 }
 
 export interface ShortAddress {
