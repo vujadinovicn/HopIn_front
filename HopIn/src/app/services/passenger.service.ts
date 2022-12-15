@@ -17,7 +17,7 @@ export class PassengerService {
   }
 
   getById(passengerId: number): Observable<Passenger> {
-    return this.http.get<Passenger>(environment.apiHost + 'api/passenger/' + passengerId);
+    return this.http.get<Passenger>(environment.apiHost + '/passenger/' + passengerId);
   }
 
   updatePersonalInfo(passenger: any): Observable<any> {
@@ -25,7 +25,7 @@ export class PassengerService {
     const options: any = {
       responseType: 'text',
     };
-    return this.http.put<string>(environment.apiHost + 'api/passenger/1', passenger, options);
+    return this.http.put<string>(environment.apiHost + '/passenger/1', passenger, options);
   }
 
   updatePassword(passenger: any): Observable<any> {
@@ -33,7 +33,7 @@ export class PassengerService {
     const options: any = {
       responseType: 'text',
     };
-    return this.http.put<string>(environment.apiHost + 'api/passenger/1', passenger, options);
+    return this.http.put<string>(environment.apiHost + '/passenger/1', passenger, options);
   }
 }
 
