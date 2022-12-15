@@ -17,6 +17,8 @@ import { AccountComponent } from './account/account.component';
 import { UserGraphComponent } from './user-graph/user-graph.component';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { HttpClientModule } from '@angular/common/http';
+import {MatSnackBarModule} from '@angular/material/snack-bar'
+
 
 @NgModule({
   declarations: [
@@ -38,7 +40,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     MaterialModule,
     NgxDaterangepickerMd.forRoot(),
-    HttpClientModule
+    HttpClientModule, MatSnackBarModule
   ],
   providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline', hideRequiredMarker: 'true' }}],
   bootstrap: [AppComponent]

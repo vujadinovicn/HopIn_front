@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import {Chart, registerables} from 'node_modules/chart.js' 
 import dayjs, { Dayjs } from 'dayjs';
 import { UserGraphService } from '../userGraphService/user-graph.service';
 import { RideForReport } from '../userGraphService/user-graph.service';
 import { Observable } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 Chart.register(...registerables)
 
 @Component({
@@ -24,10 +25,10 @@ export class UserGraphComponent implements OnInit {
   rides!: RideForReport[] 
 
 
-  constructor(private userGraphService: UserGraphService) { }
+  constructor(private userGraphService: UserGraphService,
+    public snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    this.RenderChart()
   }
 
   RenderChart() {
@@ -85,26 +86,24 @@ export class UserGraphComponent implements OnInit {
 }
 
 generateBtnOnClick():void {
-  this.reportVisibility = true;
-
   if (this.selectedDates.start == undefined || this.selectedDates.end == undefined) {
-    return
+    this.snackBar.open("Pick a date range!", "", {
+      duration: 2000,
+   });
+   return;
   }
 
-  // let rides: RideForReport[] = this.userGraphService.getAll(this.selectedDates.start, this.selectedDates.end);
   this.userGraphService.getAll(this.selectedDates.start, this.selectedDates.end).subscribe((res) => {
     this.rides = res;
+    if (this.selectedType === "Distance traveled") {
+      this.setDataForDistance();
+    } else {
+      this.setDataForNumberRides();
+    }
+    this.RenderChart();
   });
+  this.reportVisibility = true;
 
-
-  if (this.selectedType === "Distance traveled") {
-    this.setDataForNumberOfRides();
-  } else {
-    this.setDataForDuration();
-  }
-  
-  this.RenderChart();
-  const ctx = document.getElementById('myChart') as HTMLCanvasElement;
 }
 
 setDistanceTraveledDD():void {
@@ -114,36 +113,36 @@ setRidesNumDD():void {
   this.selectedType = "Number of rides"
 }
 
-setDataForNumberOfRides(): void {
+setDataForDistance(): void {
   let currentDate = this.rides[0].startTime;
-  this.data = [1];
+  this.data = [this.rides[0].distance];
   this.labels = [''];
-  this.total = 1;
+  this.total = this.rides[0].distance;
   for(let i = 1; i < this.rides.length; i++) {
-    this.total += 1;
-    if (this.rides[i].startTime.getTime === currentDate.getTime) {
-      this.data[this.data.length - 1] += this.rides[i].distance;
+    this.total += this.rides[0].distance;
+    if (this.rides[i].startTime === currentDate) {
+      this.data[0] += this.rides[i].distance;
     }else {
       currentDate = this.rides[i].startTime;
-      this.data.push(1);
+      this.data.push(this.rides[i].distance);
       this.labels.push('');
     }
   }
   this.average = Math.round(this.total / this.data.length);
 }
 
-setDataForDuration(): void {
+setDataForNumberRides(): void {
   let currentDate = this.rides[0].startTime;
-  this.data = [this.rides[0].estimatedTimeInMinutes];
+  this.data = [1];
   this.labels = [''];
-  this.total = this.rides[0].estimatedTimeInMinutes
+  this.total = 1;
   for(let i = 1; i < this.rides.length; i++) {
-    this.total += this.rides[i].estimatedTimeInMinutes
-    if (this.rides[i].startTime.getTime === currentDate.getTime) {
-      this.data[this.data.length - 1] += this.rides[i].estimatedTimeInMinutes;
+    this.total += 1;
+    if (this.rides[i].startTime === currentDate) {
+      this.data[0] += this.rides[i].distance;
     }else {
       currentDate = this.rides[i].startTime;
-      this.data.push(this.rides[i].estimatedTimeInMinutes);
+      this.data.push(1);
       this.labels.push('');
     }
   }
