@@ -1,5 +1,5 @@
 <div id="account-container">
-    <img src="../../assets/vectors/profileAvatar.svg">
+    <img [src]="url" class="profile-img">
   
     <p id="userName">{{ passenger.name + " " + passenger.surname }}</p>
     <p class="roleText" >passenger</p>
@@ -49,7 +49,7 @@
         </div>
     </div>
 
-    <button>Account settings</button>
+    <button [routerLink]="['/account-settings']">Account settings</button>
 
 
 

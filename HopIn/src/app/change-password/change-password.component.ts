@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Passenger, PassengerService } from '../services/passenger.service';
 import { PassengerAccountOptionsService } from '../services/passengerAccountOptions.service';
 import { SharedService } from '../shared/shared.service';
@@ -26,7 +27,8 @@ export class ChangePasswordComponent implements OnInit {
     newPassword: ''
   }
 
-  constructor(private passengerService: PassengerService,
+  constructor(private router: Router,
+    private passengerService: PassengerService,
     private passengerAccountOptionsService: PassengerAccountOptionsService,
     private sharedService: SharedService) { }
 
@@ -66,6 +68,7 @@ export class ChangePasswordComponent implements OnInit {
         )
         .subscribe({
           next: (res: any) => {
+            this.router.navigate(['/account']);
             this.sharedService.openSnack({
               value: "Response is in console!",
               color: "back-green"}

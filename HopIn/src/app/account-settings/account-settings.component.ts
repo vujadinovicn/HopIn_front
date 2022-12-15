@@ -15,7 +15,8 @@ import { addressRegexValidator, nameRegexValidator, phonenumRegexValidator, surn
 })
 export class AccountSettingsComponent implements OnInit {
 
-  constructor(private passengerService: PassengerService,
+  constructor(private router: Router, 
+    private passengerService: PassengerService,
     private passengerAccountOptionsService : PassengerAccountOptionsService,
     private sharedService : SharedService) {
   }
@@ -70,6 +71,7 @@ export class AccountSettingsComponent implements OnInit {
         .subscribe({
           next: (res: any) => {
             console.log(res);
+            this.router.navigate(['/account']);
             this.sharedService.openSnack({
               value: "Response is in console!",
               color: "back-green"}

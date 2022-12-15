@@ -16,7 +16,7 @@
             </mat-form-field>
             <mat-checkbox color="primary">Remember me</mat-checkbox>
         </form>
-        <button class="conf-button" mat-raised-button type="submit">Log In</button>
+        <button class="conf-button" mat-raised-button type="submit" (click)="login()">Log In</button>
         <a id="forgotten-password-ref" href="#">Forgot password?</a>
         <p>
             New and wanna hop in? <a id="register-ref" [routerLink]="['/register']">Register!</a>
