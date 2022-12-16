@@ -39,11 +39,19 @@ export class FavouriteRoutesComponent implements OnInit {
        });
       } 
     });
-    this.isFavourite[index] = false;
   }
 
   returnRoute(index: number): void {
-    this.isFavourite[index] = true;
+    this.service.addFavoriteRoute(index+1).subscribe({
+      next: (res) => {
+        this.isFavourite[index] = true;
+      },
+      error: (error: any) => {
+        this.snackBar.open("Sorry, server is currenty unavailable!", "", {
+          duration: 2000,
+       });
+      } 
+    });
   }
 
 }
