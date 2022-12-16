@@ -8,12 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FavouriteRoutesComponent implements OnInit {
   routes: FavouriteRoute[] = [];
+  isFavourite: boolean[] = [];
 
   constructor( private service: FavouriteRoutesService) {}
 
   ngOnInit(): void {
     this.service.getAll().subscribe((res) => {
       this.routes = res;
+      this.isFavourite = new Array(this.routes.length).fill(false);
     });
   }
 

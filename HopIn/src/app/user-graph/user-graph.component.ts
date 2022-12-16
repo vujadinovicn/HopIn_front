@@ -102,6 +102,7 @@ generateBtnOnClick():void {
     }
     this.RenderChart();
   });
+  
   this.reportVisibility = true;
 
 }
