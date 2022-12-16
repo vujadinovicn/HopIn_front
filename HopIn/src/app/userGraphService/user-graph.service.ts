@@ -2,38 +2,7 @@ import { Dayjs } from 'dayjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
-const ridesC = [
-  {
-    startTime: new Date(2022, 12, 10),
-    endTime:new Date(),
-    distance: 400,
-    estimatedTimeInMinutes: 25,
-    totalCost: 20
-  },
-  {
-    startTime: new Date(2022, 12, 10),
-    endTime:new Date(),
-    distance: 400,
-    estimatedTimeInMinutes: 10,
-    totalCost: 20
-  },
-  {
-    startTime: new Date(2022, 12, 12),
-    endTime:new Date(),
-    distance: 400,
-    estimatedTimeInMinutes: 25,
-    totalCost: 20
-  },
-  {
-    startTime: new Date(2022, 12, 13),
-    endTime:new Date(),
-    distance: 200,
-    estimatedTimeInMinutes: 25,
-    totalCost: 20
-  },
-  
-]
+import { environment } from 'src/environments/environment';
 
 
 
@@ -43,19 +12,11 @@ const ridesC = [
 })
 export class UserGraphService {
 
-  private rides: RideForReport[] = []
-
-  constructor(private http: HttpClient) {
-    this.rides = ridesC;
-   }
+  constructor(private http: HttpClient) {}
 
   getAll(from: Dayjs, to:Dayjs): Observable<RideForReport[]> {
-    return this.http.get<RideForReport[]>('http://localhost:4321/api/passenger/1/ride/date?from=' +
+    return this.http.get<RideForReport[]>(environment.apiHost + '/passenger/1/ride/date?from=' +
     from.format('YYYY/MM/DD') + '&to=' + to.format('YYYY/MM/DD'));
-  }
-
-  getAllMockUp(): RideForReport[] {
-    return this.rides;
   }
 }
 
