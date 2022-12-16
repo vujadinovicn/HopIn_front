@@ -31,4 +31,8 @@ export class FavouriteRoutesService {
     return this.http.get<FavouriteRoute[]>(environment.apiHost + '/passenger/1/favouriteRoutes');
   }
 
+  removeFavoriteRoute(routeId: number): Observable<void> {
+    return this.http.post<void>(environment.apiHost + '/passenger/1/remove/route?routeId=' + routeId, null);
+  }
+
 }

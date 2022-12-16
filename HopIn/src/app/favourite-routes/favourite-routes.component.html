@@ -22,9 +22,15 @@
         <div id="btnAndHeart">
             <button></button>
 
-            <img *ngIf="this.isFavourite[indexOfelement] === false" class="favourite" src="../../assets/vectors/heart_empty.svg">
-            <img *ngIf="this.isFavourite[indexOfelement] === true" class="favourite" src="../../assets/vectors/heart_red.svg">
+            <div *ngIf="this.isFavourite[indexOfelement] === true" (click)="removeRoute(indexOfelement)">                
+                <img class="favourite" src="../../assets/vectors/heart_red.svg">
+            </div>
+            <div *ngIf="this.isFavourite[indexOfelement] === false" (click)="returnRoute(indexOfelement)">
+                <img class="favourite" src="../../assets/vectors/heart_empty.svg">
+            </div>
         </div>
     </div>
+
+    <h3 *ngIf="this.empty === true">You haven't picked your favorite routes yet.</h3>
 
 </div>

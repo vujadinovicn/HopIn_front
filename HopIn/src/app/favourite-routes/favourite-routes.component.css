@@ -20,6 +20,10 @@ h2 {
     margin: 0;
 }
 
+h3 {
+    color: #EC9A29;
+}
+
 .line {
     height: 3px;
     width: 100%;
