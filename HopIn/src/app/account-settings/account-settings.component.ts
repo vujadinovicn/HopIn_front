@@ -38,9 +38,9 @@ export class AccountSettingsComponent implements OnInit {
   profileImgPath = "../../assets/vectors/login.svg";
 
   constructor(private router: Router, 
-    private passengerService: PassengerService,
-    private passengerAccountOptionsService : PassengerAccountOptionsService,
-    private sharedService : SharedService) {
+              private passengerService: PassengerService,
+              private passengerAccountOptionsService : PassengerAccountOptionsService,
+              private sharedService : SharedService) {
   }
 
   ngOnInit(): void {
