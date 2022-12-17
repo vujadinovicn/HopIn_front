@@ -23,6 +23,11 @@ pickup-destination-form {
         width: 100%;
         position: relative;
         height: 300px;
+        border-radius: 0px !important;
+    }
+
+    ::ng-deep .border {
+        border-radius: 0px !important;
     }
 
     ::ng-deep #tell-us {
