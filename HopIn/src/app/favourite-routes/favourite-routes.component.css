@@ -44,6 +44,15 @@ h3 {
     margin-top: 10px;
 }
 
+#map {
+    padding: 0;
+}
+
+#map > img {
+    height: 100%;
+    width: 100%;
+}
+
 .cardInfo{
     display: flex;
     flex-direction: column;
@@ -148,6 +157,10 @@ h3 {
         flex-direction: column;
         padding-right: 7px;
         width: auto;
+    }
+
+    #map {
+        width: 100%;
     }
 
     .cardInfo {

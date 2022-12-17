@@ -3,8 +3,9 @@
     <div class="line"></div>
 
     <div class="historyCard" *ngFor="let route of routes; let indexOfelement=index;">
-        <img src="../../assets/vectors/map.svg">
-
+        <div id="map">
+            <img src="../../assets/vectors/map.svg">        
+        </div>
         <div class="cardInfo">
             <p>{{ route.departure.address + " -> " + route.destination.address }}</p>
             <div class="row">
