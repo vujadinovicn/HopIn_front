@@ -89,6 +89,26 @@ html, body { height: 100%; width: 100%; margin: 0; font-family: "Poppins", sans-
     background-color: white;
  }
 
+ 
+ .account-settings-form-container {
+    text-align: center;
+}
+
+#update-img-btn {
+    margin-left: -30px;
+    margin-right: 10px;
+    margin-top: -5px;
+    border-radius: 50%;
+    border: none;
+    padding: 3px 5px;
+    background-color: #B1B1B1;
+    color: #1E4A5A;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+ 
+
  @media screen and (max-width: 1000px) {
     .account-update-container {
         display: block;
@@ -115,6 +135,11 @@ html, body { height: 100%; width: 100%; margin: 0; font-family: "Poppins", sans-
     width:85px;
     height: 85px;
 }
+
+.change-password-form-container {
+    text-align: center;
+}
+
 
  /* COLORS */
 
