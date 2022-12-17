@@ -13,14 +13,10 @@ import { nameRegexValidator } from '../validators/user/userValidator';
 })
 export class ChangePaymentInfoComponent implements OnInit {
 
-
   cardNumberErrorStateMatcher = new CardNumberErrorStateMatcher();
   cardMonthErrorStateMatcher = new CardMonthErrorStateMatcher();
   cardYearErrorStateMatcher = new CardYearErrorStateMatcher();
   cardCvcErrorStateMatcher = new CardCvcErrorStateMatcher();
-
-  constructor(private passengerAccountOptionsService: PassengerAccountOptionsService,
-    private sharedService: SharedService) { }
 
   changePaymentInfoForm = new FormGroup({
     nameOnCard: new FormControl('', [Validators.required, nameRegexValidator]),
@@ -30,6 +26,23 @@ export class ChangePaymentInfoComponent implements OnInit {
     cardCvc: new FormControl('', [Validators.required])
   }, [cardNumberValidator("cardNumber"), cardMonthValidator("cardMonth"), cardYearValidator("cardYear"), cardCvcValidator("cardCvc")]);
 
+
+  constructor(private passengerAccountOptionsService: PassengerAccountOptionsService,
+              private sharedService: SharedService) { }
+
+
+  ngOnInit(): void {
+    this.sendColorChange();
+    markFormControlsTouched(this.changePaymentInfoForm);
+  }       
+
+  save(): void {
+    if (this.changePaymentInfoForm.valid) {
+      this.sharedService.openSnack('SIKE; You thought');
+    } else {
+      this.sharedService.openInvalidInputSnack();
+    }
+  }
 
   sendColorChange(): void {
     this.passengerAccountOptionsService.sendColorChange(
@@ -41,20 +54,4 @@ export class ChangePaymentInfoComponent implements OnInit {
     )
   }
 
-  save(): void {
-    if (this.changePaymentInfoForm.valid) {
-      this.sharedService.openSnack('SIKE; You thought');
-    } else {
-      console.log("sss");
-      this.sharedService.openSnack({
-        value: "Check inputs again!",
-        color: "back-red"}
-        );;
-    }
-  }
-
-  ngOnInit(): void {
-    this.sendColorChange();
-    markFormControlsTouched(this.changePaymentInfoForm);
-  }
 }
