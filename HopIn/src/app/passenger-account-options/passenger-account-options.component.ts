@@ -9,13 +9,13 @@ import { PassengerAccountOptionsService } from '../services/passengerAccountOpti
 })
 export class PassengerAccountOptionsComponent implements OnInit {
 
-  constructor(private router: Router, private passengerAccountOptionsService : PassengerAccountOptionsService) { }
-
   colors : any = {
     accountSettingsColor : "",
     passwordColor: "",
     paymentInfoColor: ""
   }
+
+  constructor(private router: Router, private passengerAccountOptionsService : PassengerAccountOptionsService) { }
 
   ngOnInit(): void {
     this.recieveColorChange();

@@ -4,7 +4,6 @@ import { PassengerAccountOptionsService } from '../services/passengerAccountOpti
 import { SharedService } from '../shared/shared.service';
 import { markFormControlsTouched } from '../validators/formGroupValidators';
 import { cardCvcValidator, cardMonthValidator, cardNumberValidator, cardYearValidator } from '../validators/user/creditCardValidation';
-import { CardCvcErrorStateMatcher, CardNumberErrorStateMatcher, CardMonthErrorStateMatcher, CardYearErrorStateMatcher} from '../validators/user/creditCardValidation';
 import { nameRegexValidator } from '../validators/user/userValidator';
 @Component({
   selector: 'app-change-payment-info',
@@ -12,19 +11,14 @@ import { nameRegexValidator } from '../validators/user/userValidator';
   styleUrls: ['./change-payment-info.component.css']
 })
 export class ChangePaymentInfoComponent implements OnInit {
-
-  cardNumberErrorStateMatcher = new CardNumberErrorStateMatcher();
-  cardMonthErrorStateMatcher = new CardMonthErrorStateMatcher();
-  cardYearErrorStateMatcher = new CardYearErrorStateMatcher();
-  cardCvcErrorStateMatcher = new CardCvcErrorStateMatcher();
-
+  
   changePaymentInfoForm = new FormGroup({
     nameOnCard: new FormControl('', [Validators.required, nameRegexValidator]),
-    cardNumber : new FormControl('', [Validators.required]),
-    cardMonth: new FormControl('', [Validators.required]),
-    cardYear: new FormControl('', [Validators.required]),
-    cardCvc: new FormControl('', [Validators.required])
-  }, [cardNumberValidator("cardNumber"), cardMonthValidator("cardMonth"), cardYearValidator("cardYear"), cardCvcValidator("cardCvc")]);
+    cardNumber : new FormControl('', [Validators.required, cardNumberValidator]),
+    cardMonth: new FormControl('', [Validators.required, cardMonthValidator]),
+    cardYear: new FormControl('', [Validators.required, cardYearValidator]),
+    cardCvc: new FormControl('', [Validators.required, cardCvcValidator])
+  },[]);
 
 
   constructor(private passengerAccountOptionsService: PassengerAccountOptionsService,
