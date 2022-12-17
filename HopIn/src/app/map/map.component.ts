@@ -3,6 +3,7 @@
 import { RoutingService } from './../services/routing.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { MatPseudoCheckbox } from '@angular/material/core';
 
 @Component({
   selector: 'map',
@@ -12,6 +13,10 @@ import { Subscription } from 'rxjs';
 export class MapComponent implements OnInit, OnDestroy {
 
   map : google.maps.Map = {} as google.maps.Map;
+
+  directionsService: google.maps.DirectionsService = new google.maps.DirectionsService();
+  directionsRenderer: google.maps.DirectionsRenderer = new google.maps.DirectionsRenderer();
+
   pickup : google.maps.Marker = {} as google.maps.Marker;
   destination : google.maps.Marker = {} as google.maps.Marker;
 
@@ -21,8 +26,8 @@ export class MapComponent implements OnInit, OnDestroy {
     this.sub = this.routingService.receivedRoute().subscribe((route) => {
       this.addMarker(route.pickup.lat, route.pickup.lng, 'Pickup');
       this.addMarker(route.destination.lat, route.destination.lng, 'Destination');
-      
-      this.fitMap();
+      // this.fitMap();
+      this.drawRoute();
     });
    }
 
@@ -62,6 +67,7 @@ export class MapComponent implements OnInit, OnDestroy {
           draggable: true,
           position: { lat: lat, lng: lng},
           title: title,
+          // label: "A"
       });
       else
         this.pickup.setPosition({lat: lat, lng: lng});
@@ -73,19 +79,44 @@ export class MapComponent implements OnInit, OnDestroy {
           draggable: true,
           position: { lat: lat, lng: lng},
           title: title,
+          // label: "B"
       });
       else
         this.destination.setPosition({lat: lat, lng: lng});
     }
-  
-      
   }
 
-  private fitMap() {
-    let bounds = new google.maps.LatLngBounds();
-    bounds.extend(this.pickup.getPosition()!);
-    bounds.extend(this.destination.getPosition()!);
-    this.map.fitBounds(bounds);
+  private drawRoute() {
+    let request: google.maps.DirectionsRequest = {
+      origin: {
+        lat: this.pickup.getPosition()?.lat()!,
+        lng: this.pickup.getPosition()?.lng()!
+      },
+      destination: {
+        lat: this.destination.getPosition()?.lat()!,
+        lng: this.destination.getPosition()?.lng()!
+      },
+      travelMode: google.maps.TravelMode.DRIVING
+    };
+
+    this.directionsService.route(request, (response, status) => {
+      this.directionsRenderer.setOptions({
+        suppressPolylines: false,
+        map: this.map
+      })
+
+      if (status == google.maps.DirectionsStatus.OK) {
+        this.directionsRenderer.setDirections(response);
+      }
+    })
   }
+
+  // directions renderer does this for us
+  // private fitMap() {
+  //   let bounds = new google.maps.LatLngBounds();
+  //   bounds.extend(this.pickup.getPosition()!);
+  //   bounds.extend(this.destination.getPosition()!);
+  //   this.map.fitBounds(bounds);
+  // }
 
 }
