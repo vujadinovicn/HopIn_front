@@ -3,7 +3,6 @@
 import { RoutingService } from './../services/routing.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { MatPseudoCheckbox } from '@angular/material/core';
 
 @Component({
   selector: 'map',
@@ -67,7 +66,6 @@ export class MapComponent implements OnInit, OnDestroy {
           draggable: true,
           position: { lat: lat, lng: lng},
           title: title,
-          // label: "A"
       });
       else
         this.pickup.setPosition({lat: lat, lng: lng});
@@ -79,7 +77,6 @@ export class MapComponent implements OnInit, OnDestroy {
           draggable: true,
           position: { lat: lat, lng: lng},
           title: title,
-          // label: "B"
       });
       else
         this.destination.setPosition({lat: lat, lng: lng});
@@ -107,6 +104,7 @@ export class MapComponent implements OnInit, OnDestroy {
 
       if (status == google.maps.DirectionsStatus.OK) {
         this.directionsRenderer.setDirections(response);
+        console.log(response);
       }
     })
   }

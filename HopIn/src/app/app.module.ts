@@ -28,6 +28,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker'
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { MapComponent } from './map/map.component';
 import { OrderRideComponent } from './order-ride/order-ride.component';
+import { RouteSuggestionComponent } from './route-suggestion/route-suggestion.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { OrderRideComponent } from './order-ride/order-ride.component';
     UserGraphComponent,
     PickupDestinationFormComponent,
     MapComponent,
-    OrderRideComponent
+    OrderRideComponent,
+    RouteSuggestionComponent
   ],
   imports: [
     BrowserModule,
