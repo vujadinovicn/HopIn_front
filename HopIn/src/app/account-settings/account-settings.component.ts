@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Passenger, PassengerService } from '../services/passenger.service';
 import { PassengerAccountOptionsService } from '../services/passengerAccountOptions.service';
@@ -14,12 +14,6 @@ import { addressRegexValidator, nameRegexValidator, phonenumRegexValidator, surn
   styleUrls: ['./account-settings.component.css']
 })
 export class AccountSettingsComponent implements OnInit {
-
-  constructor(private router: Router, 
-    private passengerService: PassengerService,
-    private passengerAccountOptionsService : PassengerAccountOptionsService,
-    private sharedService : SharedService) {
-  }
 
   passenger : Passenger = {
     id: 0,
@@ -41,55 +35,34 @@ export class AccountSettingsComponent implements OnInit {
     phonenum: new FormControl('', [Validators.required, phonenumRegexValidator]),
   }, [])
 
-  url = "../../assets/vectors/login.svg";
+  profileImgPath = "../../assets/vectors/login.svg";
 
-  onFileSelect(event: any){
-    if (event.target.files){
-      var reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0]);
-      reader.onload=(e: any)=>{
-        this.url = reader.result as string;
-      }
-    }
+  constructor(private router: Router, 
+              private passengerService: PassengerService,
+              private passengerAccountOptionsService : PassengerAccountOptionsService,
+              private sharedService : SharedService) {
   }
+
+  ngOnInit(): void {
+    this.sendColorChange();
+    this.setPassengerData();
+    markFormControlsTouched(this.accountSettingsForm);
+}
   
   save(): void {
     if (this.accountSettingsForm.valid) {
-      console.log(this.passenger);
-      this.passengerService
-        .updatePersonalInfo(
-          {
-            name: this.accountSettingsForm.value.name,
-            surname: this.accountSettingsForm.value.surname,
-            profilePicture: this.url,
-            telephoneNumber: this.accountSettingsForm.value.phonenum,
-            email: this.accountSettingsForm.value.email,
-            address: this.accountSettingsForm.value.address,
-            password: this.passenger.password
-          }
-        )
-        .subscribe({
+      this.passengerService.updatePersonalInfo(this.setResponseValue).subscribe({
           next: (res: any) => {
-            console.log(res);
             this.router.navigate(['/account']);
-            this.sharedService.openSnack({
-              value: "Response is in console!",
-              color: "back-green"}
-              );
+            this.sharedService.openResponseSnack();
           },
           error: (error: any) => {
-              this.sharedService.openSnack({
-                value: "Haven't got data back!",
-                color: "back-dark-blue"}
-                );
+              this.sharedService.openNoResponseSnack();
           }
         });
-    } else {
-      this.sharedService.openSnack({
-        value: "Check inputs again!",
-        color: "back-red"}
-        );
-    }
+    } else
+        this.sharedService.openInvalidInputSnack();
+
   }
 
   sendColorChange(): void {
@@ -105,23 +78,41 @@ export class AccountSettingsComponent implements OnInit {
   setPassengerData() {
     this.passengerService.getById(1).subscribe((res: any) => {
       this.passenger = res;
-      this.accountSettingsForm.setValue({
-        name: res.name,
-        surname: res.surname,
-        email: res.email,
-        address: res.address,
-        phonenum: res.telephoneNumber
-      })
-      this.url = res.profilePicture;
+      this.setFormValue(res)
+      this.profileImgPath = res.profilePicture;
     });;
   }
 
-  
+  onImageSelect(event: any){
+    if (event.target.files){
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload=(e: any)=>{
+        this.profileImgPath = reader.result as string;
+      }
+    }
+  }
 
-  ngOnInit(): void {
-    this.sendColorChange();
-    this.setPassengerData();
-    markFormControlsTouched(this.accountSettingsForm);
-}
+  private setFormValue(res: any){
+    this.accountSettingsForm.setValue({
+      name: res.name,
+      surname: res.surname,
+      email: res.email,
+      address: res.address,
+      phonenum: res.telephoneNumber
+    })
+  }
+
+  private setResponseValue(): any{
+    return {
+      name: this.accountSettingsForm.value.name,
+      surname: this.accountSettingsForm.value.surname,
+      profilePicture: this.profileImgPath,
+      telephoneNumber: this.accountSettingsForm.value.phonenum,
+      email: this.accountSettingsForm.value.email,
+      address: this.accountSettingsForm.value.address,
+      password: this.passenger.password
+    }
+  }
 
 }

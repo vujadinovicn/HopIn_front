@@ -4,10 +4,10 @@
         <form [formGroup]="accountSettingsForm" (ngSubmit)="save()" fxLayout="column">
             <div style="width: 100%">
                 <div class="profile-img-container">
-                    <img [src]="url" class="profile-img">
-                    <button id="update-img-btn" type="button" (click)="fileInput.click()">
+                    <img [src]="profileImgPath" class="profile-img">
+                    <button id="update-img-btn" type="button" (click)="imageInput.click()">
                         <i class="fa fa-pencil"></i>
-                        <input #fileInput type="file" (change)="onFileSelect($event)" style="display: none">
+                        <input #imageInput type="file" (change)="onImageSelect($event)" style="display: none">
                     </button>
                 </div>
                 <div class="name-form-container">
