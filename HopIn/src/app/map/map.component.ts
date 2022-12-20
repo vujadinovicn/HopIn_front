@@ -32,7 +32,6 @@ export class MapComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initMap();
-    console.log(this.pickup);
   }
 
   ngOnDestroy(): void {

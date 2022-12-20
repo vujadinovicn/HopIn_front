@@ -1,3 +1,4 @@
+import { RouteSuggestionComponent } from './../app/route-suggestion/route-suggestion.component';
 import { OrderRideComponent } from './../app/order-ride/order-ride.component';
 import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'order-ride', component: OrderRideComponent},
+  {path: 'route-suggestion', component: RouteSuggestionComponent},
   {path: 'account', component: AccountComponent},
   {path: 'account-settings', component: AccountSettingsComponent},
   {path: 'change-password', component: ChangePasswordComponent},

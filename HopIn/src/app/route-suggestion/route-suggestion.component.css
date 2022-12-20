@@ -1,11 +1,13 @@
 #route-suggestion-content {
-    width: 85%;
+    display: grid;
+    grid-template-columns: 35% 65%;
+    width: 90%;
+    height: 80%;
     margin: 40px auto 0px auto;
 }
 
 #ride-details {
     display: inline-block;
-    width: 32%;
     background-color: white;
     padding: 40px;
     text-align: center;
@@ -115,4 +117,9 @@ h1 {
  p {
     color: #383838;
     margin: 0;
+}
+
+::ng-deep #map {
+    display: inline-block !important;
+    border-radius: 10px;
 }

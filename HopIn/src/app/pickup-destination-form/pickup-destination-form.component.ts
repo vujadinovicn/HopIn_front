@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ShortAddress, Route, RoutingService } from './../services/routing.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -32,7 +33,7 @@ export class PickupDestinationFormComponent implements OnInit {
     scheduledTime: ''
   };
 
-  constructor(private routingService: RoutingService) { 
+  constructor(private routingService: RoutingService, private router: Router) { 
     this.role = 'USER';
   }
 
@@ -44,8 +45,8 @@ export class PickupDestinationFormComponent implements OnInit {
     if (this.rideForm.valid) {
       this.route.scheduledTime = this.rideForm.get('time')?.value!;
       this.routingService.updateRoute(this.route);
-
       console.log(this.route);
+      this.router.navigate(['route-suggestion']);
     }
   }
 
