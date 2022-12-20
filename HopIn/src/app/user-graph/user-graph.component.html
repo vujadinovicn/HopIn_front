@@ -1,4 +1,4 @@
-<div id="userGraphContainer">
+<div id="userGraphContainer" [ngClass]="isDriver ? 'containerDesign' : 'userGraphContainer'">
     <div id="reportInfoContainer">
         <div class="greeting">
             <h2>Hey, Grace</h2>
@@ -33,7 +33,7 @@
 
         <button id="generateBtn" (click)="generateBtnOnClick()">Generate report</button>
     </div>
-    <div *ngIf="this.reportVisibility === true" id="reportContainer">
+    <div *ngIf="this.reportVisibility === true" [ngClass]="isDriver ? 'reportContainerDriver' : 'reportContainerPassenger'">
         <div class="column">
             <h2>Report</h2>
             <div>
