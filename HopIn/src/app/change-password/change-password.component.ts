@@ -41,7 +41,6 @@ export class ChangePasswordComponent implements OnInit {
               private sharedService: SharedService) { }
 
   ngOnInit(): void {
-    this.sendColorChange();
     this.setPassengerData();
     markFormControlsTouched(this.changePasswordForm);
   }
@@ -66,16 +65,6 @@ export class ChangePasswordComponent implements OnInit {
     this.passengerService.getById(1).subscribe((res: any) => {
       this.passenger = res;
     });;
-  }
-
-  sendColorChange(): void {
-    this.passengerAccountOptionsService.sendColorChange(
-      {
-        accountSettingsColor: "dark-gray",
-        passwordColor: "dark-blue",
-        paymentInfoColor: "dark-gray"
-      }
-    )
   }
 
   private setResponseValue(): any{

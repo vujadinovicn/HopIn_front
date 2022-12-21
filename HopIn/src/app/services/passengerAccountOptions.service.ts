@@ -11,11 +11,11 @@ export class PassengerAccountOptionsService {
 
   constructor() {}
 
-  sendColorChange(message: any): void {
+  sendSelectedOption(message: any): void {
     this.subject.next(message);
   }
 
-  recieveColorChange(): Observable<any> {
+  recieveSelectedOption(): Observable<any> {
     return this.subject.asObservable();
   }
 
