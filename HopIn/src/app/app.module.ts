@@ -31,6 +31,7 @@ import { OrderRideComponent } from './order-ride/order-ride.component';
 import { AccountUpdateComponent } from './account-update/account-update.component';
 import { ChangeVehicleInfoComponent } from './change-vehicle-info/change-vehicle-info.component';
 import { ChangeDocumentsComponent } from './change-documents/change-documents.component';
+import { DocumentImageDialogComponent } from './document-image-dialog/document-image-dialog.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { ChangeDocumentsComponent } from './change-documents/change-documents.co
     OrderRideComponent,
     AccountUpdateComponent,
     ChangeVehicleInfoComponent,
-    ChangeDocumentsComponent
+    ChangeDocumentsComponent,
+    DocumentImageDialogComponent
   ],
   imports: [
     BrowserModule,

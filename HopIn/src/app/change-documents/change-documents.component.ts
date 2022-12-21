@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DocumentImageDialogComponent } from '../document-image-dialog/document-image-dialog.component';
 
 @Component({
   selector: 'app-change-documents',
@@ -7,13 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChangeDocumentsComponent implements OnInit {
 
-  constructor() { }
+  licenceUrl = "../../assets/vectors/login.svg";
+  registrationUrl = "../../assets/vectors/login.svg";
+
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
 
-  licenceUrl = "../../assets/vectors/login.svg";
-  registrationUrl = "../../assets/vectors/login.svg";
+  openLicencePopUp(): void {
+    this.dialog.open(DocumentImageDialogComponent, {
+      data: {documentName: "Licence image", url: this.licenceUrl},
+    });
+  }
+
+  openRegistrationPopUp(): void {
+    this.dialog.open(DocumentImageDialogComponent, {
+      data: {documentName: "Registration image", url: this.registrationUrl},
+    });
+  }
 
   onLicenceFileSelect(event: any){
     if (event.target.files){
@@ -33,6 +47,7 @@ export class ChangeDocumentsComponent implements OnInit {
       reader.onload=(e: any)=>{
         this.registrationUrl = reader.result as string;
       }
+      console.log(this.registrationUrl);
     }
   }
 

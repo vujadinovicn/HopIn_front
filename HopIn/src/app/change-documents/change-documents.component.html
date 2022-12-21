@@ -2,7 +2,7 @@
     <form fxLayout="column">
         <div class="document-container">
             <mat-icon>document_scanner</mat-icon>
-            <span>Driver licence</span>
+            <span (click)="openLicencePopUp()">Driver licence</span>
             <button id="update-img-btn" type="button" (click)="licenceFileInput.click()">
                 <i class="fas fa-pencil-alt"></i>
                 <input #licenceFileInput type="file" style="display: none" (change)="onLicenceFileSelect($event)">
@@ -10,7 +10,7 @@
         </div>
         <div class="document-container">
             <mat-icon>document_scanner</mat-icon>
-            <span>Vehicle registration</span>
+            <span (click)="openRegistrationPopUp()">Vehicle registration</span>
             <button id="update-img-btn" type="button" (click)="registrationFileInput.click()">
                 <i class="fas fa-pencil-alt"></i>
                 <input #registrationFileInput type="file" style="display: none" (change)="onRegistrationFileSelect($event)">
