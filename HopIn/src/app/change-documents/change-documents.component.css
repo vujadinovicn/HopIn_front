@@ -1,0 +1,45 @@
+#update-img-btn {
+    position: absolute;
+    right: 0;
+    margin-right: 10px;
+    border-radius: 50%;
+    border: none;
+    padding: 3px 5px;
+    background-color: #D9D9D9;
+    color: #1E4A5A;
+    cursor: pointer;
+    font-size: 16px;
+    float: right;
+}
+ 
+
+.document-container {
+    width: 80%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    margin: 15px auto;
+    border: 2px solid #D9D9D9;
+    border-radius: 5px;
+    vertical-align: middle;
+    padding: 10px;
+    color: #1E4A5A;
+}
+
+.document-container mat-icon {
+    color: #B1B1B1;
+}
+
+.document-container span {
+    margin-left: 10px;
+    font-size: 0.9em;
+    cursor: pointer;
+}
+
+form > button {
+    position: absolute;
+    right: 50%;
+    bottom: 0;
+    transform: translate(50%, -50%);
+ }

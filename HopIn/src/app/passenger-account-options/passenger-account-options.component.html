@@ -15,4 +15,8 @@
     [ngClass]="{'dark-blue' : option == 'vehicle', 'dark-gray': option != 'vehicle'}">
         <span class="responsive-span">change</span> vehicle info
     </div>
+    <div class="account-options" (click)="selectOption('documents')"
+    [ngClass]="{'dark-blue' : option == 'documents', 'dark-gray': option != 'documents'}">
+        <span class="responsive-span">change</span> documents
+    </div>
 </div>

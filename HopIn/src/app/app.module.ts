@@ -30,6 +30,7 @@ import { MapComponent } from './map/map.component';
 import { OrderRideComponent } from './order-ride/order-ride.component';
 import { AccountUpdateComponent } from './account-update/account-update.component';
 import { ChangeVehicleInfoComponent } from './change-vehicle-info/change-vehicle-info.component';
+import { ChangeDocumentsComponent } from './change-documents/change-documents.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { ChangeVehicleInfoComponent } from './change-vehicle-info/change-vehicle
     MapComponent,
     OrderRideComponent,
     AccountUpdateComponent,
-    ChangeVehicleInfoComponent
+    ChangeVehicleInfoComponent,
+    ChangeDocumentsComponent
   ],
   imports: [
     BrowserModule,
