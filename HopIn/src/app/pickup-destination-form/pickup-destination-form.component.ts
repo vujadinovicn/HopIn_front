@@ -27,11 +27,7 @@ export class PickupDestinationFormComponent implements OnInit {
   });
 
   role: any;
-  route: Route = {
-    pickup: {} as ShortAddress,
-    destination: {} as ShortAddress, 
-    scheduledTime: ''
-  };
+  route: Route = {} as Route;
 
   constructor(private routingService: RoutingService, private router: Router) { 
     this.role = 'USER';
@@ -54,7 +50,7 @@ export class PickupDestinationFormComponent implements OnInit {
   public handlePickupChange(address: Address) {
       if (this.checkAutocompleteValidity(address, 0, 'pickup')) {
         this.route.pickup = {
-          fromatted: address.formatted_address,
+          formatted: address.formatted_address,
           lat: address.geometry.location.lat(),
           lng: address.geometry.location.lng(),
         }
@@ -64,7 +60,7 @@ export class PickupDestinationFormComponent implements OnInit {
   public handleDestinationChange(address: Address) {
     if (this.checkAutocompleteValidity(address, 1, 'destination')) {
       this.route.destination = {
-        fromatted: address.formatted_address,
+        formatted: address.formatted_address,
         lat: address.geometry.location.lat(),
         lng: address.geometry.location.lng(),
       }

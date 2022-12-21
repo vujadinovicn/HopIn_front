@@ -8,7 +8,7 @@
             <div class="content-container">
                 <div>
                     <p class="dark-blue small-title" >Pick up location:</p>
-                    <p id="pickup-location" class="card-content">Bele Njive 24A</p>
+                    <p id="pickup-location" class="card-content">{{ route.pickup.formatted }}</p>
                 </div>
             </div>
         </div>
@@ -19,7 +19,7 @@
             <div class="content-container">
                 <div>
                     <p class="dark-blue small-title" >Destination:</p>
-                    <p id="destination-location" class="card-content">Bulevar Oslobodjenja 33</p>
+                    <p id="destination-location" class="card-content">{{ route.destination.formatted }}</p>
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@
             <div class="content-container">
                 <div>
                     <p class="dark-blue small-title" >Distance(km):</p>
-                    <p id="distance" class="card-content">1.5</p>
+                    <p id="distance" class="card-content">{{ route.distanceFormatted }}</p>
                 </div>
             </div>
         </div>
@@ -53,7 +53,7 @@
                 <div class="content-container">
                     <div>
                         <p class="dark-blue small-title" >Duration:</p>
-                        <p id="duration" class="card-content">0h45m</p>
+                        <p id="duration" class="card-content">{{ route.durationFormatted }}</p>
                     </div>
                 </div>
             </div>

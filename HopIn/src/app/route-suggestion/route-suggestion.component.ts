@@ -1,3 +1,4 @@
+import { Route, RoutingService } from './../services/routing.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RouteSuggestionComponent implements OnInit {
 
-  constructor() { }
+  route: Route = {} as Route;
+
+  constructor(private routingService: RoutingService) { 
+    this.route = routingService.route;
+  }
 
   ngOnInit(): void {
   }

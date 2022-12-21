@@ -8,9 +8,12 @@ export class RoutingService {
 
   private subject = new Subject<Route>();
 
+  public route: Route = {} as Route;
+
   constructor() { }
 
   updateRoute(route: Route) {
+    this.route = route;
     this.subject.next(route);
   }
 
@@ -22,11 +25,15 @@ export class RoutingService {
 export interface Route {
   pickup: ShortAddress,
   destination: ShortAddress,
-  scheduledTime: string
+  scheduledTime: string,
+  distance: number,
+  distanceFormatted: string,
+  duration: number,
+  durationFormatted: string,
 }
 
 export interface ShortAddress {
-  fromatted: String,
+  formatted: String,
   lat: number,
   lng: number
 }

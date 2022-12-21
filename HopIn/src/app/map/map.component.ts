@@ -1,43 +1,61 @@
+import { Route } from './../services/routing.service';
 /// <reference types="@types/google.maps" />
 
 import { RoutingService } from './../services/routing.service';
 import { Component, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Loader } from '@googlemaps/js-api-loader';
 
 @Component({
   selector: 'map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements OnDestroy, AfterViewInit {
+export class MapComponent implements OnInit {
+
+  route: Route = {} as Route;
 
   map : google.maps.Map = {} as google.maps.Map;
 
-  directionsService: google.maps.DirectionsService = new google.maps.DirectionsService();
-  directionsRenderer: google.maps.DirectionsRenderer = new google.maps.DirectionsRenderer();
+  directionsService: google.maps.DirectionsService = {} as google.maps.DirectionsService;
+  directionsRenderer: google.maps.DirectionsRenderer = {} as google.maps.DirectionsRenderer;
 
   pickup : google.maps.Marker = {} as google.maps.Marker;
   destination : google.maps.Marker = {} as google.maps.Marker;
 
-  sub: Subscription = {} as Subscription;
+  // sub: Subscription = {} as Subscription;
 
   constructor(private routingService: RoutingService) {
-    this.sub = this.routingService.receivedRoute().subscribe((route) => {
-      this.addMarker(route.pickup.lat, route.pickup.lng, 'Pickup');
-      this.addMarker(route.destination.lat, route.destination.lng, 'Destination');
-      // this.fitMap();
-      this.drawRoute();
-    });
+    this.route = routingService.route;
+    // fillRouteDetails();
+    // this.sub = this.routingService.receivedRoute().subscribe((route) => {
+    //   alert(route.pickup.fromatted);
+    //   this.addMarker(route.pickup.lat, route.pickup.lng, 'Pickup');
+    //   this.addMarker(route.destination.lat, route.destination.lng, 'Destination');
+    //   // this.fitMap();
+    //   this.drawRoute();
+    // });
    }
 
-  ngAfterViewInit(): void {
-    this.initMap();
+  ngOnInit(): void {
+    let loader = new Loader({
+      apiKey: 'AIzaSyADf7wmEupGmb08OGVJR1eNhvtvF6KYuiM&libraries=places&language=en'
+    });
     
+    loader.load().then(() => {
+      this.initMap();
+      this.directionsService = new google.maps.DirectionsService();
+      this.directionsRenderer = new google.maps.DirectionsRenderer();
+
+      this.addMarker(this.route.pickup.lat, this.route.pickup.lng, 'Pickup');
+      this.addMarker(this.route.destination.lat, this.route.destination.lng, 'Destination');
+      this.drawRoute();
+    });
   }
 
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
-  }
+  // ngOnDestroy(): void {
+  //   this.sub.unsubscribe();
+  // }
 
   initMap(): void {
     this.map = new google.maps.Map(
@@ -104,6 +122,10 @@ export class MapComponent implements OnDestroy, AfterViewInit {
 
       if (status == google.maps.DirectionsStatus.OK) {
         this.directionsRenderer.setDirections(response);
+        this.route.distanceFormatted = response?.routes[0].legs[0].distance?.text!;
+        this.route.distance= response?.routes[0].legs[0].distance?.value!;
+        this.route.durationFormatted = response?.routes[0].legs[0].duration?.text!;
+        this.route.duration = response?.routes[0].legs[0].duration?.value!;
         console.log(response);
       }
     })
@@ -118,3 +140,5 @@ export class MapComponent implements OnDestroy, AfterViewInit {
   // }
 
 }
+
+
