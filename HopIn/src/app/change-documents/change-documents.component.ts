@@ -12,4 +12,28 @@ export class ChangeDocumentsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  licenceUrl = "../../assets/vectors/login.svg";
+  registrationUrl = "../../assets/vectors/login.svg";
+
+  onLicenceFileSelect(event: any){
+    if (event.target.files){
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload=(e: any)=>{
+        this.licenceUrl = reader.result as string;
+      }
+      console.log(this.licenceUrl);
+    }
+  }
+
+  onRegistrationFileSelect(event: any){
+    if (event.target.files){
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload=(e: any)=>{
+        this.registrationUrl = reader.result as string;
+      }
+    }
+  }
+
 }

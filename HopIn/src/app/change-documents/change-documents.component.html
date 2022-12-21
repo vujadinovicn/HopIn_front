@@ -1,19 +1,19 @@
-<div class="ff-container">
+<div>
     <form fxLayout="column">
         <div class="document-container">
             <mat-icon>document_scanner</mat-icon>
-            <span >Driver license</span>
-            <button id="update-img-btn" type="button">
+            <span>Driver licence</span>
+            <button id="update-img-btn" type="button" (click)="licenceFileInput.click()">
                 <i class="fas fa-pencil-alt"></i>
-                <input type="file" style="display: none">
+                <input #licenceFileInput type="file" style="display: none" (change)="onLicenceFileSelect($event)">
             </button>
         </div>
         <div class="document-container">
             <mat-icon>document_scanner</mat-icon>
-            <span>Vehicle license</span>
-            <button id="update-img-btn" type="button">
+            <span>Vehicle registration</span>
+            <button id="update-img-btn" type="button" (click)="registrationFileInput.click()">
                 <i class="fas fa-pencil-alt"></i>
-                <input type="file" style="display: none" >
+                <input #registrationFileInput type="file" style="display: none" (change)="onRegistrationFileSelect($event)">
             </button>
         </div>
         <button class="conf-button" mat-raised-button type="submit">Save</button>
