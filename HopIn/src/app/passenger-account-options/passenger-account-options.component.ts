@@ -14,16 +14,15 @@ export class PassengerAccountOptionsComponent implements OnInit {
   option : string = "settings";
 
   ngOnInit(): void {
-    //this.recieveColorChange();
+    this.selectOption(this.option);
   }
 
   selectOption(option: string){
     this.option = option;
+    this.sendSelectedOption(option);
   }
 
-  // recieveColorChange(): void {
-  //   this.passengerAccountOptionsService.recieveColorChange().subscribe((res: any) => {
-  //     this.colors = res;
-  //   });
-  // }
+  sendSelectedOption(option: string): void {
+    this.passengerAccountOptionsService.sendSelectedOption(option);
+  }
 }

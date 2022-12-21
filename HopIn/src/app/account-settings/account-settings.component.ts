@@ -39,12 +39,10 @@ export class AccountSettingsComponent implements OnInit {
 
   constructor(private router: Router, 
               private passengerService: PassengerService,
-              private passengerAccountOptionsService : PassengerAccountOptionsService,
               private sharedService : SharedService) {
   }
 
   ngOnInit(): void {
-    this.sendColorChange();
     this.setPassengerData();
     markFormControlsTouched(this.accountSettingsForm);
 }
@@ -63,16 +61,6 @@ export class AccountSettingsComponent implements OnInit {
     } else
         this.sharedService.openInvalidInputSnack();
 
-  }
-
-  sendColorChange(): void {
-    this.passengerAccountOptionsService.sendColorChange(
-      {
-        accountSettingsColor: "dark-blue",
-        passwordColor: "dark-gray",
-        paymentInfoColor: "dark-gray"
-      }
-    )
   }
 
   setPassengerData() {

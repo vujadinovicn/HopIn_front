@@ -26,7 +26,6 @@ export class ChangePaymentInfoComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.sendColorChange();
     markFormControlsTouched(this.changePaymentInfoForm);
   }       
 
@@ -36,16 +35,6 @@ export class ChangePaymentInfoComponent implements OnInit {
     } else {
       this.sharedService.openInvalidInputSnack();
     }
-  }
-
-  sendColorChange(): void {
-    this.passengerAccountOptionsService.sendColorChange(
-      {
-        accountSettingsColor: "dark-gray",
-        passwordColor: "dark-gray",
-        paymentInfoColor: "dark-blue"
-      }
-    )
   }
 
 }

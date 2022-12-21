@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PassengerAccountOptionsService } from '../services/passengerAccountOptions.service';
 
 @Component({
   selector: 'app-account-update',
@@ -7,16 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountUpdateComponent implements OnInit {
 
-  option: string = "password";
+  option: string = "settings";
 
-  constructor() { }
+  constructor(private passengerAccountOptionsService : PassengerAccountOptionsService) { }
 
   ngOnInit(): void {
+    this.recieveSelectedOption();
   }
 
-  selectOption(o: string){
-    this.option = o;
-    console.log(this.option);
+  recieveSelectedOption(): void {
+    this.passengerAccountOptionsService.recieveSelectedOption().subscribe((res: any) => {
+      this.option = res;
+    });
   }
 
 }
