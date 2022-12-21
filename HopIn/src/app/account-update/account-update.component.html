@@ -1,6 +1,6 @@
 <div class="account-update-container border">
     <app-passenger-account-options></app-passenger-account-options>
-    <!-- <app-account-settings></app-account-settings>
-    <app-change-password></app-change-password> -->
-    <app-change-payment-info></app-change-payment-info>
+    <app-account-settings *ngIf="option == 'settings'"></app-account-settings>
+    <app-change-password  *ngIf="option == 'password'"></app-change-password>
+    <app-change-payment-info *ngIf="option == 'payment'"></app-change-payment-info>
 </div>

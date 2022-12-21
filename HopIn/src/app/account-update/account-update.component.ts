@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountUpdateComponent implements OnInit {
 
+  option: string = "password";
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  selectOption(o: string){
+    this.option = o;
+    console.log(this.option);
   }
 
 }
