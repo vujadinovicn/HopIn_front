@@ -29,6 +29,7 @@ import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { MapComponent } from './map/map.component';
 import { OrderRideComponent } from './order-ride/order-ride.component';
 import { AccountUpdateComponent } from './account-update/account-update.component';
+import { ChangeVehicleInfoComponent } from './change-vehicle-info/change-vehicle-info.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { AccountUpdateComponent } from './account-update/account-update.componen
     PickupDestinationFormComponent,
     MapComponent,
     OrderRideComponent,
-    AccountUpdateComponent
+    AccountUpdateComponent,
+    ChangeVehicleInfoComponent
   ],
   imports: [
     BrowserModule,
