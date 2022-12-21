@@ -1,32 +1,38 @@
 <div class="account-settings-form-container">
-    <form [formGroup]="vehicleInfoForm" fxLayout="column">
+    <form [formGroup]="vehicleInfoForm" (ngSubmit)="save()" fxLayout="column">
         <mat-form-field [hideRequiredMarker]="true" id="model">
             <mat-label>Model</mat-label>
+            <mat-error *ngIf="vehicleInfoForm.get('model')?.errors?.['required']">entering model is required</mat-error>
+            <mat-error *ngIf="vehicleInfoForm.get('model')?.errors?.['modelRegexError'] && !vehicleInfoForm.get('model')?.errors?.['required']">invalid model format</mat-error>
             <input matInput type="text" name="model" formControlName="model"></mat-form-field>
         <mat-form-field [hideRequiredMarker]="true" id="plates">
             <mat-label>Plates</mat-label>
+            <mat-error *ngIf="vehicleInfoForm.get('plates')?.errors?.['required']">entering plates is required</mat-error>
+            <mat-error *ngIf="vehicleInfoForm.get('plates')?.errors?.['platesRegexError'] && !vehicleInfoForm.get('plates')?.errors?.['required']">invalid plates format</mat-error>
             <input matInput type="text" name="plates" formControlName="plates">
         </mat-form-field>
         <mat-form-field [hideRequiredMarker]="true" id="seats">
             <mat-label>No. seats</mat-label>
+            <mat-error *ngIf="vehicleInfoForm.get('seats')?.errors?.['required']">entering seats is required</mat-error>
+            <mat-error *ngIf="vehicleInfoForm.get('seats')?.errors?.['seatsRegexError'] && !vehicleInfoForm.get('seats')?.errors?.['required']">invalid seats format</mat-error>
             <input matInput type="number" name="seats" formControlName="seats">
         </mat-form-field>
         <button class="conf-button" mat-raised-button type="submit">Save</button>
     </form>
     <div class="vehicle-checkbox-container">
-        <mat-checkbox color="primary">vehicle for babies</mat-checkbox>
-        <mat-checkbox color="primary">vehicle for pets</mat-checkbox>
+        <mat-checkbox [(ngModel)]="isBabyTransport" color="primary">vehicle for babies</mat-checkbox>
+        <mat-checkbox [(ngModel)]="isPetTransport" color="primary">vehicle for pets</mat-checkbox>
     </div>
     <div class="vehicle-type-container">
-        <button class="icon-button" mat-flat-button>
+        <button class="icon-button" [ngClass]="{'light-blue': vehicleType=='car'}" (click)="changeVehicleType('car')" mat-flat-button>
             <i class='fas fa-car-side'></i>
             <span>Car</span>
         </button>
-        <button class="icon-button" mat-flat-button>
+        <button class="icon-button" [ngClass]="{'light-blue': vehicleType=='van'}" (click)="changeVehicleType('van')" mat-flat-button>
             <i class='fas fa-shuttle-van'></i>
             <span>Van</span>
         </button>
-        <button class="icon-button" mat-flat-button>
+        <button class="icon-button" [ngClass]="{'light-blue': vehicleType=='luxury-car'}" (click)="changeVehicleType('luxury-car')" mat-flat-button>
             <i class='fas fa-shuttle-van'></i>
             <span>Luxury car</span>
         </button>
