@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-change-vehicle-info',
@@ -8,6 +9,12 @@ import { Component, OnInit } from '@angular/core';
 export class ChangeVehicleInfoComponent implements OnInit {
 
   constructor() { }
+
+  vehicleInfoForm = new FormGroup({
+    model: new FormControl('', [Validators.required]),
+    plates: new FormControl('', [Validators.required]),
+    seats: new FormControl('', [Validators.required]),
+  }, [])
 
   ngOnInit(): void {
   }

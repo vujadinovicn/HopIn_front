@@ -1,38 +1,37 @@
-<div style="position: relative;">
-    <div class="account-settings-form-container">
-        <form fxLayout="column">
-            <mat-form-field [hideRequiredMarker]="true" id="model">
-                <mat-label>Model</mat-label>
-                <input matInput type="text" name="model" formControlName="model"></mat-form-field>
-            <mat-form-field [hideRequiredMarker]="true" id="plates">
-                <mat-label>Plates</mat-label>
-                <input matInput type="text" name="plates" formControlName="plates">
-            </mat-form-field>
-            <mat-form-field [hideRequiredMarker]="true" id="seats">
-                <mat-label>No. seats</mat-label>
-                <input matInput type="number" name="seats" formControlName="seats">
-            </mat-form-field>
-            <button class="conf-button" mat-raised-button type="submit">Save</button>
-        </form>
-        <div class="vehicle-checkbox-container">
-            <mat-checkbox color="primary">vehicle for babies</mat-checkbox>
-            <mat-checkbox color="primary">vehicle for pets</mat-checkbox>
-        </div>
-        <div class="vehicle-type-container">
-            <button class="icon-button" mat-flat-button>
-                <i class='fas fa-car-side'></i>
-                <span>Car</span>
-            </button>
-            <button class="icon-button" mat-flat-button>
-                <i class='fas fa-shuttle-van'></i>
-                <span>Van</span>
-            </button>
-            <button class="icon-button" mat-flat-button>
-                <i class='fas fa-shuttle-van'></i>
-                <span>Luxury car</span>
-            </button>
-        </div>
+<div class="account-settings-form-container">
+    <form [formGroup]="vehicleInfoForm" fxLayout="column">
+        <mat-form-field [hideRequiredMarker]="true" id="model">
+            <mat-label>Model</mat-label>
+            <input matInput type="text" name="model" formControlName="model"></mat-form-field>
+        <mat-form-field [hideRequiredMarker]="true" id="plates">
+            <mat-label>Plates</mat-label>
+            <input matInput type="text" name="plates" formControlName="plates">
+        </mat-form-field>
+        <mat-form-field [hideRequiredMarker]="true" id="seats">
+            <mat-label>No. seats</mat-label>
+            <input matInput type="number" name="seats" formControlName="seats">
+        </mat-form-field>
+        <button class="conf-button" mat-raised-button type="submit">Save</button>
+    </form>
+    <div class="vehicle-checkbox-container">
+        <mat-checkbox color="primary">vehicle for babies</mat-checkbox>
+        <mat-checkbox color="primary">vehicle for pets</mat-checkbox>
+    </div>
+    <div class="vehicle-type-container">
+        <button class="icon-button" mat-flat-button>
+            <i class='fas fa-car-side'></i>
+            <span>Car</span>
+        </button>
+        <button class="icon-button" mat-flat-button>
+            <i class='fas fa-shuttle-van'></i>
+            <span>Van</span>
+        </button>
+        <button class="icon-button" mat-flat-button>
+            <i class='fas fa-shuttle-van'></i>
+            <span>Luxury car</span>
+        </button>
     </div>
 </div>
+
 
 
