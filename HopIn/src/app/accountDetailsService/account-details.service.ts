@@ -11,7 +11,10 @@ export class AccountDetailsService {
 
   constructor(private http: HttpClient) { }
 
-  getUser(): Observable<ReturnedUser> {
+  getUser(isDriver:boolean): Observable<ReturnedUser> {
+    if(isDriver) {
+      return this.http.get<ReturnedUser>(environment.apiHost + '/driver/2');
+    }
     return this.http.get<ReturnedUser>(environment.apiHost + '/passenger/1');
   }
 }

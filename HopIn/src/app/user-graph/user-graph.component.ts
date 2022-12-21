@@ -94,7 +94,7 @@ generateBtnOnClick():void {
    return;
   }
 
-  this.userGraphService.getAll(this.selectedDates.start, this.selectedDates.end).subscribe((res) => {
+  this.userGraphService.getAll(this.selectedDates.start, this.selectedDates.end, this.isDriver).subscribe((res) => {
     this.rides = res;
     if (this.selectedType === "Distance traveled") {
       this.setDataForDistance();
