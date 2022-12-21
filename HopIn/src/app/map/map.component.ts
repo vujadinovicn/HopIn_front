@@ -1,7 +1,7 @@
 /// <reference types="@types/google.maps" />
 
 import { RoutingService } from './../services/routing.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements OnInit, OnDestroy {
+export class MapComponent implements OnDestroy, AfterViewInit {
 
   map : google.maps.Map = {} as google.maps.Map;
 
@@ -19,7 +19,7 @@ export class MapComponent implements OnInit, OnDestroy {
   pickup : google.maps.Marker = {} as google.maps.Marker;
   destination : google.maps.Marker = {} as google.maps.Marker;
 
-  sub: Subscription;
+  sub: Subscription = {} as Subscription;
 
   constructor(private routingService: RoutingService) {
     this.sub = this.routingService.receivedRoute().subscribe((route) => {
@@ -30,8 +30,9 @@ export class MapComponent implements OnInit, OnDestroy {
     });
    }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.initMap();
+    
   }
 
   ngOnDestroy(): void {

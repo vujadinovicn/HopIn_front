@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { ShortAddress, Route, RoutingService } from './../services/routing.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Address } from 'ngx-google-places-autocomplete/objects/address';
 import { autocompleteValidator } from '../validators/autocompleteValidator';
 import { schedulingValidator } from '../validators/schedulingValidator';
@@ -41,12 +41,13 @@ export class PickupDestinationFormComponent implements OnInit {
     markFormControlsTouched(this.rideForm);
   }
 
+
   findRoute() {
     if (this.rideForm.valid) {
       this.route.scheduledTime = this.rideForm.get('time')?.value!;
       this.routingService.updateRoute(this.route);
-      console.log(this.route);
-      this.router.navigate(['route-suggestion']);
+      this.router.navigate(['/route-suggestion']);
+      // console.log(this.route);
     }
   }
 
