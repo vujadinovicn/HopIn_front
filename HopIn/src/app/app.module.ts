@@ -51,7 +51,7 @@ import { AccountUpdateComponent } from './account-update/account-update.componen
     PickupDestinationFormComponent,
     MapComponent,
     OrderRideComponent,
-    DriverAccountComponent
+    DriverAccountComponent,
     AccountUpdateComponent
   ],
   imports: [
