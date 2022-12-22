@@ -3,7 +3,7 @@
     grid-template-columns: 40% 60%;
     width: 95%;
     height: 80%;
-    margin: 40px auto 0px auto;
+    margin: 50px auto 0px auto;
 }
 
 #ride-details {
@@ -123,4 +123,68 @@ h1 {
 ::ng-deep #map {
     display: inline-block !important;
     border-radius: 10px;
+}
+
+::ng-deep #content{
+    height: fit-content !important;
+}
+
+@media screen and (max-width: 1650px) {
+    #smaller-cards-container {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media screen and (max-width: 1300px) {
+    #smaller-cards-container {
+        grid-template-columns: 1fr;
+    }
+
+    #route-suggestion-content {
+        grid-template-columns: 1fr;
+        width: 60%;
+    }
+
+    #map-container {
+        height: 100%;
+        width: 100%;
+    }
+
+    #ride-details {
+        margin-right: 0;
+    }
+
+    ::ng-deep #map {
+        height: 500px !important;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    #smaller-cards-container {
+        grid-template-columns: 1fr;
+    }
+
+    #route-suggestion-content {
+        grid-template-columns: 1fr;
+        width: 100%;
+        margin: 0;
+    }
+
+    #ride-details {
+        border-radius: 0 !important;
+    }
+
+    #map-container {
+        height: 100%;
+        width: 100%;
+    }
+
+    ::ng-deep #map {
+        border-radius: 0px;
+    }
+
+    .title {
+        font-size: 1.5em;
+    }
 }
