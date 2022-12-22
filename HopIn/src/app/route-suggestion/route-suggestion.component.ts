@@ -1,5 +1,7 @@
+import { UnregisteredRideSuggestionDTO } from './../services/route.service';
 import { Route, RoutingService } from './../services/routing.service';
 import { Component, OnInit } from '@angular/core';
+import { RouteService } from '../services/route.service';
 
 @Component({
   selector: 'route-suggestion',

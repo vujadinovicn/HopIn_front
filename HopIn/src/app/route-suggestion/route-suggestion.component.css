@@ -1,7 +1,7 @@
 #route-suggestion-content {
     display: grid;
-    grid-template-columns: 35% 65%;
-    width: 90%;
+    grid-template-columns: 40% 60%;
+    width: 95%;
     height: 80%;
     margin: 40px auto 0px auto;
 }
@@ -72,6 +72,7 @@
     font-size: 0.9em;
     margin: 0;
     margin-bottom: -3px;
+    color: #1E4A5A !important;
 }
 
 .card-content {

@@ -23,26 +23,15 @@
                 </div>
             </div>
         </div>
-        <div class="left-icon-card">
-            <div class="icon-container back-darker-gray">
-                <img src="../../assets/vectors/distance.svg">    
-            </div>
-            <div class="content-container">
-                <div>
-                    <p class="dark-blue small-title" >Distance(km):</p>
-                    <p id="distance" class="card-content">{{ route.distanceFormatted }}</p>
-                </div>
-            </div>
-        </div>
         <div id="smaller-cards-container">
             <div class="left-icon-card">
                 <div class="icon-container back-darker-gray">
-                    <i class="fa-solid fa-sack-dollar black"></i>
+                    <img src="../../assets/vectors/distance.svg">    
                 </div>
                 <div class="content-container">
                     <div>
-                        <p class="dark-blue small-title" >Price(RSD):</p>
-                        <p id="duration" class="card-content">350</p>
+                        <p class="dark-blue small-title" >Distance:</p>
+                        <p id="distance" class="card-content">{{ route.distanceFormatted }}</p>
                     </div>
                 </div>
             </div>
@@ -57,6 +46,30 @@
                     </div>
                 </div>
             </div>
+            <div class="left-icon-card">
+                <div class="icon-container back-darker-gray">
+                    <i class="fa fa-car black" aria-hidden="true"></i>  
+                </div>
+                <div class="content-container">
+                    <div>
+                        <p class="dark-blue small-title" >Vehicle:</p>
+                        <p id="distance" class="card-content">{{ route.vehicleTypeName }}</p>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="left-icon-card">
+                <div class="icon-container back-darker-gray">
+                    <i class="fa-solid fa-sack-dollar black"></i>
+                </div>
+                <div class="content-container">
+                    <div>
+                        <p class="dark-blue small-title" >Price:</p>
+                        <p id="duration" class="card-content">{{ route.price }} RSD</p>
+                    </div>
+                </div>
+            </div>
+            
         </div>
         <div id="bottom-text">
             <p>Interested in this ride?</p>

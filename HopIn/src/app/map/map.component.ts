@@ -47,9 +47,12 @@ export class MapComponent implements OnInit {
       this.directionsService = new google.maps.DirectionsService();
       this.directionsRenderer = new google.maps.DirectionsRenderer();
 
-      this.addMarker(this.route.pickup.lat, this.route.pickup.lng, 'Pickup');
-      this.addMarker(this.route.destination.lat, this.route.destination.lng, 'Destination');
-      this.drawRoute();
+      this.routingService.receivedResponse().subscribe((response: any) => {
+        this.addMarker(this.route.pickup.lat, this.route.pickup.lng, 'Pickup');
+        this.addMarker(this.route.destination.lat, this.route.destination.lng, 'Destination');
+        this.drawRoute(response);
+      });
+      
     });
   }
 
@@ -101,34 +104,40 @@ export class MapComponent implements OnInit {
     }
   }
 
-  private drawRoute() {
-    let request: google.maps.DirectionsRequest = {
-      origin: {
-        lat: this.pickup.getPosition()?.lat()!,
-        lng: this.pickup.getPosition()?.lng()!
-      },
-      destination: {
-        lat: this.destination.getPosition()?.lat()!,
-        lng: this.destination.getPosition()?.lng()!
-      },
-      travelMode: google.maps.TravelMode.DRIVING
-    };
+  private drawRoute(response: any) {
+    this.directionsRenderer.setOptions({
+          suppressPolylines: false,
+          map: this.map
+    });
+    this.directionsRenderer.setDirections(response);
 
-    this.directionsService.route(request, (response, status) => {
-      this.directionsRenderer.setOptions({
-        suppressPolylines: false,
-        map: this.map
-      })
+    // let request: google.maps.DirectionsRequest = {
+    //   origin: {
+    //     lat: this.pickup.getPosition()?.lat()!,
+    //     lng: this.pickup.getPosition()?.lng()!
+    //   },
+    //   destination: {
+    //     lat: this.destination.getPosition()?.lat()!,
+    //     lng: this.destination.getPosition()?.lng()!
+    //   },
+    //   travelMode: google.maps.TravelMode.DRIVING
+    // };
 
-      if (status == google.maps.DirectionsStatus.OK) {
-        this.directionsRenderer.setDirections(response);
-        this.route.distanceFormatted = response?.routes[0].legs[0].distance?.text!;
-        this.route.distance= response?.routes[0].legs[0].distance?.value!;
-        this.route.durationFormatted = response?.routes[0].legs[0].duration?.text!;
-        this.route.duration = response?.routes[0].legs[0].duration?.value!;
-        console.log(response);
-      }
-    })
+    // this.directionsService.route(request, (response, status) => {
+    //   this.directionsRenderer.setOptions({
+    //     suppressPolylines: false,
+    //     map: this.map
+    //   })
+
+    //   if (status == google.maps.DirectionsStatus.OK) {
+    //     this.directionsRenderer.setDirections(response);
+    //     this.route.distanceFormatted = response?.routes[0].legs[0].distance?.text!;
+    //     this.route.distance= response?.routes[0].legs[0].distance?.value!;
+    //     this.route.durationFormatted = response?.routes[0].legs[0].duration?.text!;
+    //     this.route.duration = response?.routes[0].legs[0].duration?.value!;
+    //     console.log(response);
+    //   }
+    // })
   }
 
   // directions renderer does this for us
