@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { BehaviorSubject, Subject, Observable } from 'rxjs';
 import { UnregisteredRideSuggestionDTO, RouteService } from './route.service';
 
 @Injectable({
@@ -10,7 +10,7 @@ export class RoutingService {
   private subject = new Subject<Route>();
 
   public route: Route = {} as Route;
-  public response = new Subject<any>();
+  public response = new BehaviorSubject<any>({});
 
   private directionsService: google.maps.DirectionsService = {} as google.maps.DirectionsService;
 

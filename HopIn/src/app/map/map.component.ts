@@ -27,14 +27,6 @@ export class MapComponent implements OnInit {
 
   constructor(private routingService: RoutingService) {
     this.route = routingService.route;
-    // fillRouteDetails();
-    // this.sub = this.routingService.receivedRoute().subscribe((route) => {
-    //   alert(route.pickup.fromatted);
-    //   this.addMarker(route.pickup.lat, route.pickup.lng, 'Pickup');
-    //   this.addMarker(route.destination.lat, route.destination.lng, 'Destination');
-    //   // this.fitMap();
-    //   this.drawRoute();
-    // });
    }
 
   ngOnInit(): void {
@@ -56,10 +48,6 @@ export class MapComponent implements OnInit {
       
     });
   }
-
-  // ngOnDestroy(): void {
-  //   this.sub.unsubscribe();
-  // }
 
   initMap(): void {
     this.map = new google.maps.Map(

@@ -44,8 +44,10 @@ export class PickupDestinationFormComponent implements OnInit {
       this.route.vehicleTypeName = "STANDARDNO";
       this.routingService.route = this.route;
       this.routingService.findRoute();
-      this.router.navigate(['/route-suggestion']);
-      // console.log(this.route);
+      this.routingService.receivedRoute().subscribe((route: Route) => {
+        this.router.navigate(['/route-suggestion']);
+      });
+      
     }
   }
 
