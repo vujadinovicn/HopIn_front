@@ -72,7 +72,7 @@ p {
     width: 100%;
     display: flex;
     flex-direction: column;
-    font-size: 0.6rem;
+    font-size: 0.7rem;
  }
 
  .keyValue {
@@ -87,6 +87,21 @@ p {
  .key {
     color: #1E4A5A;
  }
+
+ #vehicleDataContainer {
+    flex-direction: row !important;
+ }
+
+ #vehicleTypeContainer {
+    align-items: center;
+    margin-left: auto;
+ }
+
+#vehicleTypeContainer > img{
+    width: 30px;
+    height: 30px;
+    margin-right: 3px;
+}
 
 
  /* BUTTON */
