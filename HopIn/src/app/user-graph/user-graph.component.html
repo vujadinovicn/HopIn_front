@@ -14,7 +14,8 @@
                 <div class="dropdown-content">
                   <a (click)="setDistanceTraveledDD()">Distance traveled</a>
                   <a (click)="setRidesNumDD()">Number of rides</a>
-                  <a (click)="setMoneySpentDD()">Money spent</a>
+                  <a (click)="setMoneySpentDD()" *ngIf="this.isDriver === false">Money spent</a>
+                  <a (click)="setMoneySpentDD()" *ngIf="this.isDriver === true">Money earnd</a>
                 </div>
             </div>
         </div>

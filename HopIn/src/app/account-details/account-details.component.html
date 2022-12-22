@@ -2,7 +2,9 @@
     <img [src]="url" class="profile-img">
   
     <p id="userName">{{ user.name + " " + user.surname }}</p>
-    <p class="roleText" >passenger</p>
+    <p class="roleText" *ngIf="this.isDriver === false">passenger</p>
+    <p class="roleText" *ngIf="this.isDriver === true">driver</p>
+
 
     <!-- CONTACT INFO -->
     <div class="sectionTitle">
