@@ -71,7 +71,7 @@ export class AccountSettingsComponent implements OnInit {
         .subscribe({
           next: (res: any) => {
             console.log(res);
-            this.router.navigate(['/account']);
+            this.router.navigate(['/account-driver']);
             this.sharedService.openSnack({
               value: "Response is in console!",
               color: "back-green"}
