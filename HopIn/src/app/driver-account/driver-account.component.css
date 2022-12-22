@@ -1,0 +1,18 @@
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.win {
+    align-items: center;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (max-width: 900px) {
+    .row {
+        flex-direction: column;
+        align-items: center;
+    }
+}
