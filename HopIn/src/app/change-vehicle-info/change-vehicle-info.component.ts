@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Vehicle, VehicleService } from '../services/vehicle.service';
+import { SharedService } from '../shared/shared.service';
 import { markFormControlsTouched } from '../validators/formGroupValidators';
 import { modelRegexValidator, platesRegexValidator, seatsRegexValidator } from '../validators/vehicleValidator';
 
@@ -32,7 +34,9 @@ export class ChangeVehicleInfoComponent implements OnInit {
     seats: new FormControl('', [Validators.required, seatsRegexValidator]),
   }, [])
 
-  constructor(private vehicleService: VehicleService) { }
+  constructor(private router: Router,
+    private vehicleService: VehicleService,
+    private sharedService : SharedService) { }
 
   ngOnInit(): void {
     markFormControlsTouched(this.vehicleInfoForm);
@@ -43,7 +47,33 @@ export class ChangeVehicleInfoComponent implements OnInit {
     this.vehicleType = vehicleType.toLowerCase();
   }
 
-  save() : void {}
+  save() : void {
+    if (this.vehicleInfoForm.valid) {
+      console.log(this.setResponseValue());
+      this.vehicleService.update(this.setResponseValue()).subscribe({
+          next: (res: any) => {
+            this.router.navigate(['/account']);
+            this.sharedService.openResponseSnack();
+          },
+          error: (error: any) => {
+              this.sharedService.openNoResponseSnack();
+          }
+        });
+    } else
+        this.sharedService.openInvalidInputSnack();
+  }
+
+  private setResponseValue(): any{
+    return {
+      vehicleType: this.vehicleType.toUpperCase(),
+      model: this.vehicleInfoForm.value.model,
+      licenseNumber: this.vehicleInfoForm.value.plates,
+      currentLocation: this.vehicle.currentLocation,
+      passengerSeats: this.vehicleInfoForm.value.seats,
+      babyTransport: this.isBabyTransport,
+      petTransport: this.isPetTransport
+    }
+  }
 
   setVehicleData() {
     this.vehicleService.getById(2).subscribe((res: any) => {
@@ -56,7 +86,6 @@ export class ChangeVehicleInfoComponent implements OnInit {
       this.isBabyTransport = res.babyTransport;
       this.isPetTransport = res.petTransport;
       this.changeVehicleType(res.vehicleType);
-      console.log(res);
     });;
     
   }

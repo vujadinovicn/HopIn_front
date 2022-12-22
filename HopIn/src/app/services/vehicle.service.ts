@@ -20,6 +20,13 @@ export class VehicleService {
     getById(driverId: number): Observable<Vehicle> {
         return this.http.get<Vehicle>(environment.apiHost + '/driver/' + driverId + '/vehicle');
     }
+
+    update(vehicle: any): Observable<any> {
+        const options: any = {
+          responseType: 'text',
+        };
+        return this.http.put<string>(environment.apiHost + '/driver/2/vehicle', vehicle, options);
+      }
 }
 
 export interface Vehicle{
