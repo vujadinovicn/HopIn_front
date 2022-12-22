@@ -11,7 +11,7 @@ import { Loader } from '@googlemaps/js-api-loader';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, OnDestroy {
 
   route: Route = {} as Route;
 
@@ -23,7 +23,7 @@ export class MapComponent implements OnInit {
   pickup : google.maps.Marker = {} as google.maps.Marker;
   destination : google.maps.Marker = {} as google.maps.Marker;
 
-  // sub: Subscription = {} as Subscription;
+  sub: Subscription = new Subscription();
 
   constructor(private routingService: RoutingService) {
     this.route = routingService.route;
@@ -39,14 +39,18 @@ export class MapComponent implements OnInit {
       this.directionsService = new google.maps.DirectionsService();
       this.directionsRenderer = new google.maps.DirectionsRenderer();
 
-      this.routingService.receivedResponse().subscribe((response: any) => {
+      this.sub.add(this.routingService.receivedResponse().subscribe((response: any) => {
         this.initMap();
         this.addMarker(this.route.pickup.lat, this.route.pickup.lng, 'Pickup');
         this.addMarker(this.route.destination.lat, this.route.destination.lng, 'Destination');
         this.drawRoute(response);
-      });
+      }));
       
     });
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
   initMap(): void {
