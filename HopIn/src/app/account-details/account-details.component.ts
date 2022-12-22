@@ -8,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountDetailsComponent implements OnInit {
 
-  passenger: ReturnedUser = {
+  isDriver: boolean = true;
+  user: ReturnedUser = {
     id: 0,
     name: "",
     surname: "",
@@ -33,9 +34,9 @@ export class AccountDetailsComponent implements OnInit {
   constructor(private accountDetailsService: AccountDetailsService) { }
 
   ngOnInit(): void {
-    this.accountDetailsService.getUser().subscribe((res) => {
-      this.passenger = res;
-      this.url = this.passenger.profilePicture;
+    this.accountDetailsService.getUser(this.isDriver).subscribe((res) => {
+      this.user = res;
+      this.url = this.user.profilePicture;
     });
   }
     

@@ -14,10 +14,16 @@ p {
     border: 1px solid #E6E6E6;
     border-radius: 10px;
     margin-left: 2vw;
+    Overflow-y:scroll;
+    overflow-x: hidden;
 }
 
 h2 {
     margin: 0;
+}
+
+h3 {
+    color: #EC9A29;
 }
 
 .line {
@@ -38,6 +44,15 @@ h2 {
     border: 1px solid #E6E6E6;
     border-radius: 10px;
     margin-top: 10px;
+}
+
+#map {
+    padding: 0;
+}
+
+#map > img {
+    height: 100%;
+    width: 100%;
 }
 
 .cardInfo{
@@ -109,7 +124,10 @@ h2 {
 .favourite {
     margin-left: 15px;
     margin-right: 15px;
+}
 
+.favourite:hover {
+    cursor: pointer;
 }
 
 /* width */
@@ -141,6 +159,10 @@ h2 {
         flex-direction: column;
         padding-right: 7px;
         width: auto;
+    }
+
+    #map {
+        width: 100%;
     }
 
     .cardInfo {

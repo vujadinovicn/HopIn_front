@@ -51,8 +51,12 @@ export class AccountSettingsComponent implements OnInit {
     if (this.accountSettingsForm.valid) {
       this.passengerService.updatePersonalInfo(this.setResponseValue).subscribe({
           next: (res: any) => {
-            this.router.navigate(['/account']);
-            this.sharedService.openResponseSnack();
+            console.log(res);
+            this.router.navigate(['/account-driver']);
+            this.sharedService.openSnack({
+              value: "Response is in console!",
+              color: "back-green"}
+              );
           },
           error: (error: any) => {
               this.sharedService.openNoResponseSnack();

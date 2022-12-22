@@ -28,6 +28,8 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker'
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { MapComponent } from './map/map.component';
 import { OrderRideComponent } from './order-ride/order-ride.component';
+import { DriverAccountComponent } from './driver-account/driver-account.component';
+import { CommonModule } from '@angular/common';
 import { AccountUpdateComponent } from './account-update/account-update.component';
 
 @NgModule({
@@ -49,6 +51,7 @@ import { AccountUpdateComponent } from './account-update/account-update.componen
     PickupDestinationFormComponent,
     MapComponent,
     OrderRideComponent,
+    DriverAccountComponent
     AccountUpdateComponent
   ],
   imports: [
@@ -62,7 +65,8 @@ import { AccountUpdateComponent } from './account-update/account-update.componen
     NgxDaterangepickerMd.forRoot(),
     HttpClientModule, MatSnackBarModule,
     NgxMaterialTimepickerModule,
-    GooglePlaceModule
+    GooglePlaceModule,
+    CommonModule
   ],
   providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline', hideRequiredMarker: 'true' }}],
   bootstrap: [AppComponent]

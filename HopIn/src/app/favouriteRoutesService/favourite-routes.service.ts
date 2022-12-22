@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { FavouriteRoute } from '../favourite-routes/favourite-routes.component';
 const routes = [
   {
@@ -27,7 +28,15 @@ export class FavouriteRoutesService {
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<FavouriteRoute[]> {
-    return this.http.get<FavouriteRoute[]>('http://localhost:4321/api/passenger/1/favouriteRoutes');
+    return this.http.get<FavouriteRoute[]>(environment.apiHost + '/passenger/1/favouriteRoutes');
+  }
+
+  removeFavoriteRoute(routeId: number): Observable<void> {
+    return this.http.post<void>(environment.apiHost + '/passenger/1/remove/route?routeId=' + routeId, null);
+  }
+
+  addFavoriteRoute(routeId: number): Observable<void> {
+    return this.http.post<void>(environment.apiHost + '/passenger/1/add/route?routeId=' + routeId, null)
   }
 
 }
