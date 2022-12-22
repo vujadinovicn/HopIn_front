@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Passenger, PassengerService } from '../services/passenger.service';
+import { User, UserService } from '../services/user.service';
 import { PassengerAccountOptionsService } from '../services/passengerAccountOptions.service';
 import { SharedService } from '../shared/shared.service';
 import { markFormControlsTouched } from '../validators/formGroupValidators';
@@ -15,7 +15,7 @@ import { addressRegexValidator, nameRegexValidator, phonenumRegexValidator, surn
 })
 export class AccountSettingsComponent implements OnInit {
 
-  passenger : Passenger = {
+  user : User = {
     id: 0,
     name: '',
     surname: '',
@@ -38,20 +38,20 @@ export class AccountSettingsComponent implements OnInit {
   profileImgPath = "../../assets/vectors/login.svg";
 
   constructor(private router: Router, 
-              private passengerService: PassengerService,
+              private userService: UserService,
               private sharedService : SharedService) {
   }
 
   ngOnInit(): void {
-    this.setPassengerData();
+    this.setUserData();
     markFormControlsTouched(this.accountSettingsForm);
 }
   
   save(): void {
     if (this.accountSettingsForm.valid) {
-      this.passengerService.updatePersonalInfo(this.setResponseValue).subscribe({
+      console.log(this.setResponseValue());
+      this.userService.updateDriverPersonalInfo(this.setResponseValue()).subscribe({
           next: (res: any) => {
-            console.log(res);
             this.router.navigate(['/account-driver']);
             this.sharedService.openSnack({
               value: "Response is in console!",
@@ -67,10 +67,10 @@ export class AccountSettingsComponent implements OnInit {
 
   }
 
-  setPassengerData() {
-    this.passengerService.getById(1).subscribe((res: any) => {
-      this.passenger = res;
-      this.setFormValue(res)
+  setUserData() {
+    this.userService.getByDriverId(2).subscribe((res: any) => {
+      this.user = res;
+      this.setFormValue(res);
       this.profileImgPath = res.profilePicture;
     });;
   }
@@ -103,7 +103,7 @@ export class AccountSettingsComponent implements OnInit {
       telephoneNumber: this.accountSettingsForm.value.phonenum,
       email: this.accountSettingsForm.value.email,
       address: this.accountSettingsForm.value.address,
-      password: this.passenger.password
+      password: this.user.password
     }
   }
 

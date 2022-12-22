@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Passenger, PassengerService } from '../services/passenger.service';
+import { User, UserService } from '../services/user.service';
 import { PassengerAccountOptionsService } from '../services/passengerAccountOptions.service';
 import { SharedService } from '../shared/shared.service';
 import { markFormControlsTouched } from '../validators/formGroupValidators';
@@ -15,7 +15,7 @@ import { passwordRegexValidator } from '../validators/user/userValidator';
 })
 export class ChangePasswordComponent implements OnInit {
 
-  passenger : Passenger = {
+  user : User = {
     id: 0,
     name: '',
     surname: '',
@@ -36,18 +36,18 @@ export class ChangePasswordComponent implements OnInit {
   }, [passwordMatcher("newPassword", "confNewPassword")])
 
   constructor(private router: Router,
-              private passengerService: PassengerService,
+              private userService: UserService,
               private passengerAccountOptionsService: PassengerAccountOptionsService,
               private sharedService: SharedService) { }
 
   ngOnInit(): void {
-    this.setPassengerData();
+    this.setUserData();
     markFormControlsTouched(this.changePasswordForm);
   }
 
   save(): void {
     if (this.changePasswordForm.valid) {
-      this.passengerService.updatePassword(this.setResponseValue).subscribe({
+      this.userService.updatePassword(this.setResponseValue).subscribe({
           next: (res: any) => {
             this.router.navigate(['/account']);
             this.sharedService.openResponseSnack()
@@ -61,19 +61,19 @@ export class ChangePasswordComponent implements OnInit {
     }
   }
 
-  setPassengerData() {
-    this.passengerService.getById(1).subscribe((res: any) => {
-      this.passenger = res;
+  setUserData() {
+    this.userService.getByPassengerId(1).subscribe((res: any) => {
+      this.user = res;
     });;
   }
 
   private setResponseValue(): any{
     return {
-      name: this.passenger.name,
-      surname: this.passenger.surname,
-      profilePicture: this.passenger.profilePicture,
-      telephoneNumber: this.passenger.telephoneNumber,
-      email: this.passenger.email,
+      name: this.user.name,
+      surname: this.user.surname,
+      profilePicture: this.user.profilePicture,
+      telephoneNumber: this.user.telephoneNumber,
+      email: this.user.email,
       password: this.changePasswordForm.value.oldPassword,
       newPassword: this.changePasswordForm.value.newPassword
     }

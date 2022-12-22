@@ -11,7 +11,7 @@ import { MaterialModule } from 'src/infrastructure/material.module';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
 import { LoginComponent } from './login/login.component';
 import { LandingComponent } from './landing/landing.component';
-import { PassengerAccountOptionsComponent } from './passenger-account-options/passenger-account-options.component';
+import { AccountOptionsComponent } from './account-options/account-options.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ChangePaymentInfoComponent } from './change-payment-info/change-payment-info.component';
@@ -42,7 +42,7 @@ import { DocumentImageDialogComponent } from './document-image-dialog/document-i
     RegisterComponent,
     LoginComponent,
     LandingComponent,
-    PassengerAccountOptionsComponent,
+    AccountOptionsComponent,
     AccountSettingsComponent,
     ChangePasswordComponent,
     ChangePaymentInfoComponent,
