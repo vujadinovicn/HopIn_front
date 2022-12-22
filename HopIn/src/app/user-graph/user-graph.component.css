@@ -295,6 +295,7 @@ canvas {
   #generateBtn {
     align-self: center;
     margin-top: 5px;
+    font-size: 0.7em;
   }
 
 
@@ -335,7 +336,9 @@ canvas {
   }
 
   #pdfBtn {
-    margin-top: 20px;
+    margin-top: auto;
+    font-size: 0.7em;
+
   }
 
   p {
