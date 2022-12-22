@@ -26,12 +26,7 @@ export class ChangePasswordComponent implements OnInit {
     password: '',
     newPassword: ''
   }
-
-  constructor(private router: Router,
-    private passengerService: PassengerService,
-    private passengerAccountOptionsService: PassengerAccountOptionsService,
-    private sharedService: SharedService) { }
-
+  
   confirmValidParentMatcher = new ConfirmValidParentMatcher();
 
   changePasswordForm = new FormGroup({
@@ -40,52 +35,29 @@ export class ChangePasswordComponent implements OnInit {
     confNewPassword: new FormControl('', [Validators.required]),
   }, [passwordMatcher("newPassword", "confNewPassword")])
 
-  sendColorChange(): void {
-    this.passengerAccountOptionsService.sendColorChange(
-      {
-        accountSettingsColor: "dark-gray",
-        passwordColor: "dark-blue",
-        paymentInfoColor: "dark-gray"
-      }
-    )
+  constructor(private router: Router,
+              private passengerService: PassengerService,
+              private passengerAccountOptionsService: PassengerAccountOptionsService,
+              private sharedService: SharedService) { }
+
+  ngOnInit(): void {
+    this.setPassengerData();
+    markFormControlsTouched(this.changePasswordForm);
   }
 
   save(): void {
     if (this.changePasswordForm.valid) {
-      console.log(this.passenger);
-      this.passengerService
-        .updatePassword(
-          {
-            name: this.passenger.name,
-            surname: this.passenger.surname,
-            profilePicture: this.passenger.profilePicture,
-            telephoneNumber: this.passenger.telephoneNumber,
-            email: this.passenger.email,
-            address: this.passenger.address,
-            password: this.changePasswordForm.value.oldPassword,
-            newPassword: this.changePasswordForm.value.newPassword
-          }
-        )
-        .subscribe({
+      this.passengerService.updatePassword(this.setResponseValue).subscribe({
           next: (res: any) => {
             this.router.navigate(['/account']);
-            this.sharedService.openSnack({
-              value: "Response is in console!",
-              color: "back-green"}
-              );
+            this.sharedService.openResponseSnack()
           },
           error: (error: any) => {
-              this.sharedService.openSnack({
-                value: "Haven't got data back!",
-                color: "back-dark-blue"}
-                );
+              this.sharedService.openNoResponseSnack();
           }
         });
     } else {
-      this.sharedService.openSnack({
-        value: "Check inputs again!",
-        color: "back-red"}
-        );
+      this.sharedService.openInvalidInputSnack()
     }
   }
 
@@ -95,11 +67,16 @@ export class ChangePasswordComponent implements OnInit {
     });;
   }
 
-  ngOnInit(): void {
-    this.sendColorChange();
-    markFormControlsTouched(this.changePasswordForm);
-    this.setPassengerData();
-    console.log(this.passenger);
+  private setResponseValue(): any{
+    return {
+      name: this.passenger.name,
+      surname: this.passenger.surname,
+      profilePicture: this.passenger.profilePicture,
+      telephoneNumber: this.passenger.telephoneNumber,
+      email: this.passenger.email,
+      password: this.changePasswordForm.value.oldPassword,
+      newPassword: this.changePasswordForm.value.newPassword
+    }
   }
 
 }

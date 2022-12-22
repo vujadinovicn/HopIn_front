@@ -9,6 +9,7 @@ import { ChangePasswordComponent } from 'src/app/change-password/change-password
 import { ChangePaymentInfoComponent } from 'src/app/change-payment-info/change-payment-info.component';
 import { AccountComponent } from 'src/app/account/account.component';
 import { DriverAccountComponent } from 'src/app/driver-account/driver-account.component';
+import { AccountUpdateComponent } from 'src/app/account-update/account-update.component';
 
 const routes: Routes = [
   {path: '', component: LandingComponent},

@@ -21,7 +21,6 @@ export class PassengerService {
   }
 
   updatePersonalInfo(passenger: any): Observable<any> {
-    console.log(passenger);
     const options: any = {
       responseType: 'text',
     };
@@ -29,7 +28,6 @@ export class PassengerService {
   }
 
   updatePassword(passenger: any): Observable<any> {
-    console.log(passenger);
     const options: any = {
       responseType: 'text',
     };

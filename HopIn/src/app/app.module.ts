@@ -30,6 +30,7 @@ import { MapComponent } from './map/map.component';
 import { OrderRideComponent } from './order-ride/order-ride.component';
 import { DriverAccountComponent } from './driver-account/driver-account.component';
 import { CommonModule } from '@angular/common';
+import { AccountUpdateComponent } from './account-update/account-update.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { CommonModule } from '@angular/common';
     MapComponent,
     OrderRideComponent,
     DriverAccountComponent
+    AccountUpdateComponent
   ],
   imports: [
     BrowserModule,
