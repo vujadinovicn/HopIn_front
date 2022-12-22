@@ -42,6 +42,13 @@ export class UserService {
     return this.http.put<string>(environment.apiHost + '/driver/2', driver, options);
   }
 
+  updateDriverPassword(driver: any): Observable<any> {
+    const options: any = {
+      responseType: 'json',
+    };
+    return this.http.put<string>(environment.apiHost + '/driver/2', driver, options);
+  }
+
   updatePassengerPersonalInfo(passenger: any): Observable<any> {
     const options: any = {
       responseType: 'json',
@@ -49,7 +56,7 @@ export class UserService {
     return this.http.put<string>(environment.apiHost + '/passenger/1', passenger, options);
   }
 
-  updatePassword(passenger: any): Observable<any> {
+  updatePassengerPassword(passenger: any): Observable<any> {
     const options: any = {
       responseType: 'text',
     };
