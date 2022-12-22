@@ -43,11 +43,12 @@ export class MapComponent implements OnInit {
     });
     
     loader.load().then(() => {
-      this.initMap();
+      
       this.directionsService = new google.maps.DirectionsService();
       this.directionsRenderer = new google.maps.DirectionsRenderer();
 
       this.routingService.receivedResponse().subscribe((response: any) => {
+        this.initMap();
         this.addMarker(this.route.pickup.lat, this.route.pickup.lng, 'Pickup');
         this.addMarker(this.route.destination.lat, this.route.destination.lng, 'Destination');
         this.drawRoute(response);

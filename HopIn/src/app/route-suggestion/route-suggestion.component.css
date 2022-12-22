@@ -125,9 +125,9 @@ h1 {
     border-radius: 10px;
 }
 
-::ng-deep #content{
+/* ::ng-deep #content{
     height: fit-content !important;
-}
+} */
 
 @media screen and (max-width: 1650px) {
     #smaller-cards-container {
