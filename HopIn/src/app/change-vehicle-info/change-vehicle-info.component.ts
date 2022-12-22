@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Vehicle, VehicleService } from '../services/vehicle.service';
 import { markFormControlsTouched } from '../validators/formGroupValidators';
 import { modelRegexValidator, platesRegexValidator, seatsRegexValidator } from '../validators/vehicleValidator';
 
@@ -9,6 +10,17 @@ import { modelRegexValidator, platesRegexValidator, seatsRegexValidator } from '
   styleUrls: ['./change-vehicle-info.component.css']
 })
 export class ChangeVehicleInfoComponent implements OnInit {
+
+  vehicle : Vehicle = {
+    _id : 0,
+    model: "",
+    licenseNumber: "",
+    currentLocation: null,
+    passengerSeats: 0,
+    babyTransport: false,
+    petTransport: false,
+    vehicleType: ""
+  }
 
   vehicleType : string = "car";
   isBabyTransport : boolean = false;
@@ -20,17 +32,32 @@ export class ChangeVehicleInfoComponent implements OnInit {
     seats: new FormControl('', [Validators.required, seatsRegexValidator]),
   }, [])
 
-  constructor() { }
+  constructor(private vehicleService: VehicleService) { }
 
   ngOnInit(): void {
     markFormControlsTouched(this.vehicleInfoForm);
+    this.setVehicleData();
   }
 
   changeVehicleType(vehicleType: string) : void {
-    this.vehicleType = vehicleType;
-    console.log(this.vehicleType);
+    this.vehicleType = vehicleType.toLowerCase();
   }
 
   save() : void {}
 
+  setVehicleData() {
+    this.vehicleService.getById(2).subscribe((res: any) => {
+      this.vehicle = res;
+      this.vehicleInfoForm.setValue({
+        model: res.model,
+        plates: res.licenseNumber,
+        seats: res.passengerSeats
+      })
+      this.isBabyTransport = res.babyTransport;
+      this.isPetTransport = res.petTransport;
+      this.changeVehicleType(res.vehicleType);
+      console.log(res);
+    });;
+    
+  }
 }
