@@ -9,7 +9,8 @@ import { Component, OnInit } from '@angular/core';
 export class AccountDetailsComponent implements OnInit {
 
   isDriver: boolean = true;
-  user: ReturnedUser = {
+  isLuxury: boolean = false;
+  passenger: ReturnedUser = {
     id: 0,
     name: "",
     surname: "",
@@ -18,8 +19,21 @@ export class AccountDetailsComponent implements OnInit {
     email: "",
     address: ""
   };
+  driver: ReturnedDriver = {
+    id: 0,
+    name: "",
+    surname: "",
+    profilePicture: "",
+    telephoneNumber: "",
+    email: "",
+    address: "",
+    model: "",
+    licenseNumber: "",
+    vehicleType: ""
+  };
 
   url : String = "../../assets/vectors/login.svg";
+  urlVehicleType = "";
 
   onFileSelect(event: any){
     if (event.target.files){
@@ -34,12 +48,37 @@ export class AccountDetailsComponent implements OnInit {
   constructor(private accountDetailsService: AccountDetailsService) { }
 
   ngOnInit(): void {
-    this.accountDetailsService.getUser(this.isDriver).subscribe((res) => {
-      this.user = res;
-      this.url = this.user.profilePicture;
-    });
+    if(!this.isDriver) {
+      this.accountDetailsService.getPassenger().subscribe((res) => {
+        this.passenger = res;
+        this.url = this.passenger.profilePicture;
+      });
+    } else {
+      this.accountDetailsService.getDriver().subscribe((res) => {
+        this.driver = res;
+        this.fromDriverToPassenger();
+        this.url = this.passenger.profilePicture;
+        if (res.vehicleType == "LUKSUZNO") {
+          this.urlVehicleType = "../../assets/vectors/luxuryCar.svg"
+          this.isLuxury = true;
+        } else if (res.vehicleType == "KOMBI") {
+          this.urlVehicleType = "../../assets/vectors/van.svg"
+        } else {
+          this.urlVehicleType = "../../assets/vectors/regularCar.svg"
+        }
+      });
+    }
   }
-    
+  
+  fromDriverToPassenger(): void {
+    this.passenger.id = this.driver.id;
+    this.passenger.name = this.driver.name;
+    this.passenger.surname = this.driver.surname;
+    this.passenger.profilePicture = this.driver.profilePicture;
+    this.passenger.telephoneNumber = this.driver.telephoneNumber;
+    this.passenger.email = this.driver.email;
+    this.passenger.address = this.driver.address;
+  }
   
 }
 
@@ -51,4 +90,17 @@ export interface ReturnedUser {
   telephoneNumber: String;
   email: String;
   address: String;
+}
+
+export interface ReturnedDriver {
+  id: number;
+  name: String;
+  surname: String;
+  profilePicture: String;
+  telephoneNumber: String;
+  email: String;
+  address: String;
+  model: String;
+  licenseNumber: String; 
+  vehicleType: String;
 }
