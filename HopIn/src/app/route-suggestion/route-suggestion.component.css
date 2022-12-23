@@ -1,38 +1,41 @@
 #route-suggestion-content {
     display: grid;
-    grid-template-columns: 40% 60%;
+    grid-template-columns: 42% 58%;
     width: 95%;
-    height: 80%;
-    margin: 50px auto 0px auto;
+    height: 70%;
+    margin: 40px auto 0px auto;
 }
+
 
 #ride-details {
     display: inline-block;
     background-color: white;
-    padding: 40px;
+    padding: 40px 30px;
     text-align: center;
     margin-right: 20px;
 }
 
 #map-container {
     height: 100%;
-    width: 68%;
+    width: 58%;
     border-radius: 10px;
 }
 
 .left-icon-card {
-    height: 70px;
+    height: 60px;
     width: 100%;
-    display: inline-block;
+    display: grid;
+    grid-template-columns: 60px calc(100% - 65px);
+    column-gap: 5px;
     border: 1px solid #E6E6E6;
     border-radius: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 13px;
 }
 
 .icon-container {
     display: flex;
     width: 25px;
-    height: 46px;
+    height: 36px;
     background-color: #1E4A5A;
     padding: 12px 18px;
     border-radius: 10px 0 0 10px;
@@ -53,19 +56,18 @@
 }
 
 .icon-container i {
-    font-size: 2.3em;
+    font-size: 2em;
     color: white;
     padding: 0 !important;
 }
 
 .content-container {
-    display: flex;
-    height: 50px;
+    height: 40px;
     padding: 10px;
     text-align: left;
     float: left;
     align-items: center;
-    margin-left: 10px;
+    /* margin-left: 10px; */
 }
 
 .small-title {
@@ -76,17 +78,23 @@
 }
 
 .card-content {
-    font-size: 1.2em;
+    width: calc(100%);
+    font-size: 1.1em;
     margin: 0;
     font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-right: 10px;
 }
 
 h1 { 
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 .smaller-card {
-    width: 45%;
+    /* grid-template-columns: 20% 80% !important; */
+    /* margin-bottom: 0px !important; */
 }
 
 #price-card {
@@ -97,12 +105,14 @@ h1 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 5%;
+    row-gap: 8px;
 }
 
 #bottom-text {
-    margin-top: 40px;
+    margin-top: 30px;
     font-weight: 700;
     line-height: 1.2em;
+    font-size: 0.9em;
 }
 
 #bottom-text a {
@@ -129,11 +139,10 @@ h1 {
     height: fit-content !important;
 } */
 
-@media screen and (max-width: 1650px) {
+@media screen and (max-width: 1450px) {
     #smaller-cards-container {
         grid-template-columns: 1fr;
     }
-
 }
 
 @media screen and (max-width: 1300px) {
@@ -161,6 +170,25 @@ h1 {
 }
 
 @media screen and (max-width: 800px) {
+
+    .content-container {
+        height: fit-content;
+    }
+
+    .left-icon-card {
+        height: fit-content;
+    }
+
+    .icon-container {
+        height: auto;
+    }
+
+    .card-content {
+        margin-top: 2px;
+        white-space: normal !important;
+        line-height: 1.2em;
+    }
+
     #smaller-cards-container {
         grid-template-columns: 1fr;
     }
