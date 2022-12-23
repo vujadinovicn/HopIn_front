@@ -70,7 +70,7 @@
         </div>
         <div id="vehicleTypeContainer">
             <p class="key">Type:</p>
-            <img [src]="urlVehicleType">
+            <img  [ngClass]="isLuxury ? 'luxuryImgWidth': 'imgWidth'" [src]="urlVehicleType">
         </div>
     </div>
 

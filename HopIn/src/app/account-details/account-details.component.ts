@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class AccountDetailsComponent implements OnInit {
 
   isDriver: boolean = true;
+  isLuxury: boolean = false;
   passenger: ReturnedUser = {
     id: 0,
     name: "",
@@ -59,6 +60,7 @@ export class AccountDetailsComponent implements OnInit {
         this.url = this.passenger.profilePicture;
         if (res.vehicleType == "LUKSUZNO") {
           this.urlVehicleType = "../../assets/vectors/luxuryCar.svg"
+          this.isLuxury = true;
         } else if (res.vehicleType == "KOMBI") {
           this.urlVehicleType = "../../assets/vectors/van.svg"
         } else {
