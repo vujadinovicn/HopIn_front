@@ -47,7 +47,8 @@ export class ChangePasswordComponent implements OnInit {
 
   save(): void {
     if (this.changePasswordForm.valid) {
-      this.userService.updatePassword(this.setResponseValue).subscribe({
+      console.log(this.setResponseValue())
+      this.userService.updateDriverPassword(this.setResponseValue()).subscribe({
           next: (res: any) => {
             this.router.navigate(['/account']);
             this.sharedService.openResponseSnack()
@@ -62,7 +63,7 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   setUserData() {
-    this.userService.getByPassengerId(1).subscribe((res: any) => {
+    this.userService.getByDriverId(2).subscribe((res: any) => {
       this.user = res;
     });;
   }
@@ -75,7 +76,8 @@ export class ChangePasswordComponent implements OnInit {
       telephoneNumber: this.user.telephoneNumber,
       email: this.user.email,
       password: this.changePasswordForm.value.oldPassword,
-      newPassword: this.changePasswordForm.value.newPassword
+      newPassword: this.changePasswordForm.value.newPassword,
+      address: this.user.address
     }
   }
 
