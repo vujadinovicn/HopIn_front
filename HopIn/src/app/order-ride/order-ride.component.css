@@ -1,4 +1,4 @@
-pickup-destination-form {
+::ng-deep pickup-destination-form {
     height: fit-content;
     width: fit-content;
     position: absolute;

@@ -155,6 +155,10 @@ html, body { height: 100%; width: 100%; margin: 0; font-family: "Poppins", sans-
     color: #EC9A29 !important;
 }
 
+.black {
+    color: #383838 !important;
+}
+
 .back-dark-blue {
     background-color: #1E4A5A !important;
 }
@@ -169,6 +173,10 @@ html, body { height: 100%; width: 100%; margin: 0; font-family: "Poppins", sans-
 
 .back-green {
     background-color: #33A02C !important;
+}
+
+.back-darker-gray {
+    background-color: #DCDCDC !important;
 }
  
  

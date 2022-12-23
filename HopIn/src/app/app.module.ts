@@ -28,6 +28,8 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker'
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { MapComponent } from './map/map.component';
 import { OrderRideComponent } from './order-ride/order-ride.component';
+import { RouteSuggestionComponent } from './route-suggestion/route-suggestion.component';
+import { VehiclesMapComponent } from './vehicles-map/vehicles-map.component';
 import { DriverAccountComponent } from './driver-account/driver-account.component';
 import { CommonModule } from '@angular/common';
 import { AccountUpdateComponent } from './account-update/account-update.component';
@@ -54,6 +56,8 @@ import { DocumentImageDialogComponent } from './document-image-dialog/document-i
     PickupDestinationFormComponent,
     MapComponent,
     OrderRideComponent,
+    RouteSuggestionComponent,
+    VehiclesMapComponent,
     AccountUpdateComponent,
     ChangeVehicleInfoComponent,
     ChangeDocumentsComponent,
