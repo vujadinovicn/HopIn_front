@@ -2,9 +2,10 @@
     <h2>Favourite Routes</h2>
     <div class="line"></div>
 
-    <div class="historyCard" *ngFor="let route of routes">
-        <img src="../../assets/vectors/map.svg">
-
+    <div class="historyCard" *ngFor="let route of routes; let indexOfelement=index;">
+        <div id="map">
+            <img src="../../assets/vectors/map.svg">        
+        </div>
         <div class="cardInfo">
             <p>{{ route.departure.address + " -> " + route.destination.address }}</p>
             <div class="row">
@@ -22,9 +23,15 @@
         <div id="btnAndHeart">
             <button></button>
 
-            <!-- <img class="favourite" src="../../assets/vectors/heart_empty.svg"> -->
-            <img class="favourite" src="../../assets/vectors/heart_red.svg">
+            <div *ngIf="this.isFavourite[indexOfelement] === true" (click)="removeRoute(indexOfelement)">                
+                <img class="favourite" src="../../assets/vectors/heart_red.svg">
+            </div>
+            <div *ngIf="this.isFavourite[indexOfelement] === false" (click)="returnRoute(indexOfelement)">
+                <img class="favourite" src="../../assets/vectors/heart_empty.svg">
+            </div>
         </div>
     </div>
+
+    <h3 *ngIf="this.empty === true">You haven't picked your favorite routes yet.</h3>
 
 </div>

@@ -65,7 +65,8 @@ export class MapComponent implements OnInit, OnDestroy {
         disableDefaultUI: true,
         scaleControl: true,
         zoomControl: true,
-        mapTypeId: 'roadmap'
+        mapTypeId: 'roadmap',
+        fullscreenControl: true,
       }
     );
   }

@@ -9,6 +9,8 @@ import { AccountSettingsComponent } from 'src/app/account-settings/account-setti
 import { ChangePasswordComponent } from 'src/app/change-password/change-password.component';
 import { ChangePaymentInfoComponent } from 'src/app/change-payment-info/change-payment-info.component';
 import { AccountComponent } from 'src/app/account/account.component';
+import { DriverAccountComponent } from 'src/app/driver-account/driver-account.component';
+import { AccountUpdateComponent } from 'src/app/account-update/account-update.component';
 
 const routes: Routes = [
   {path: '', component: LandingComponent},
@@ -16,8 +18,9 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'order-ride', component: OrderRideComponent},
   {path: 'route-suggestion', component: RouteSuggestionComponent},
-  {path: 'account', component: AccountComponent},
-  {path: 'account-settings', component: AccountSettingsComponent},
+  {path: 'account-driver', component: DriverAccountComponent},
+  {path: 'account-passenger', component: AccountComponent},
+  {path: 'account-settings', component: AccountUpdateComponent},
   {path: 'change-password', component: ChangePasswordComponent},
   {path:'change-payment-info', component: ChangePaymentInfoComponent},
   {path: '**', component: LandingComponent}

@@ -11,7 +11,7 @@ import { MaterialModule } from 'src/infrastructure/material.module';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
 import { LoginComponent } from './login/login.component';
 import { LandingComponent } from './landing/landing.component';
-import { PassengerAccountOptionsComponent } from './passenger-account-options/passenger-account-options.component';
+import { AccountOptionsComponent } from './account-options/account-options.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ChangePaymentInfoComponent } from './change-payment-info/change-payment-info.component';
@@ -30,6 +30,12 @@ import { MapComponent } from './map/map.component';
 import { OrderRideComponent } from './order-ride/order-ride.component';
 import { RouteSuggestionComponent } from './route-suggestion/route-suggestion.component';
 import { VehiclesMapComponent } from './vehicles-map/vehicles-map.component';
+import { DriverAccountComponent } from './driver-account/driver-account.component';
+import { CommonModule } from '@angular/common';
+import { AccountUpdateComponent } from './account-update/account-update.component';
+import { ChangeVehicleInfoComponent } from './change-vehicle-info/change-vehicle-info.component';
+import { ChangeDocumentsComponent } from './change-documents/change-documents.component';
+import { DocumentImageDialogComponent } from './document-image-dialog/document-image-dialog.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +44,7 @@ import { VehiclesMapComponent } from './vehicles-map/vehicles-map.component';
     RegisterComponent,
     LoginComponent,
     LandingComponent,
-    PassengerAccountOptionsComponent,
+    AccountOptionsComponent,
     AccountSettingsComponent,
     ChangePasswordComponent,
     ChangePaymentInfoComponent,
@@ -52,6 +58,11 @@ import { VehiclesMapComponent } from './vehicles-map/vehicles-map.component';
     OrderRideComponent,
     RouteSuggestionComponent,
     VehiclesMapComponent,
+    AccountUpdateComponent,
+    ChangeVehicleInfoComponent,
+    ChangeDocumentsComponent,
+    DocumentImageDialogComponent,
+    DriverAccountComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +75,8 @@ import { VehiclesMapComponent } from './vehicles-map/vehicles-map.component';
     NgxDaterangepickerMd.forRoot(),
     HttpClientModule, MatSnackBarModule,
     NgxMaterialTimepickerModule,
-    GooglePlaceModule
+    GooglePlaceModule,
+    CommonModule
   ],
   providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline', hideRequiredMarker: 'true' }}],
   bootstrap: [AppComponent]

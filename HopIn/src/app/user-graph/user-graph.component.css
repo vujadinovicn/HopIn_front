@@ -1,9 +1,17 @@
-#userGraphContainer {
+.userGraphContainer {
     align-self: center;
     display: flex;
     flex-direction: row;
     margin-top: 30px;
-    margin-bottom: 10vh;
+    margin-bottom: 30vh;
+}
+
+.containerDesign {
+  flex-direction: column !important;
+  display: flex;
+  margin-left: 30px !important;
+  margin-top: 4vh;
+  margin-bottom: 10vh;
 }
 
 #reportInfoContainer {
@@ -160,7 +168,7 @@ p {
 
   /* GRAPH PART(RIGHT) */
 
-#reportContainer {
+.reportContainerPassenger {
     display: flex;
     flex-direction: row;
     align-items: left;
@@ -171,6 +179,19 @@ p {
     border-radius: 10px;
     width: 32vw;
     margin-left: 3vw;  
+}
+
+.reportContainerDriver {
+    display: flex;
+    flex-direction: row;
+    align-items: left;
+    background-color: white;
+    padding: 25px 25px;
+    height: 40vh;
+    border: 1px solid #E6E6E6;
+    border-radius: 10px;
+    width: 32vw;
+    margin-top: 2vh;
 }
 
 .column {
@@ -274,10 +295,19 @@ canvas {
   #generateBtn {
     align-self: center;
     margin-top: 5px;
+    font-size: 0.7em;
   }
 
 
   /* GRAPH SIDE */
+
+  .reportContainerPassenger {
+    width: 70vw;
+  }
+
+  .reportContainerDriver {
+    width: 70vw;
+  }
 
   .column {
     align-items: center;
@@ -306,7 +336,9 @@ canvas {
   }
 
   #pdfBtn {
-    margin-top: 20px;
+    margin-top: auto;
+    font-size: 0.7em;
+
   }
 
   p {

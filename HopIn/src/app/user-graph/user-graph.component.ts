@@ -14,6 +14,7 @@ Chart.register(...registerables)
 })
 export class UserGraphComponent implements OnInit {
 
+  isDriver: boolean = true;
   selectedDates!: {start: Dayjs, end: Dayjs};
   selectedType: String = 'Distance traveled'
   reportVisibility: boolean = false;
@@ -93,15 +94,18 @@ generateBtnOnClick():void {
    return;
   }
 
-  this.userGraphService.getAll(this.selectedDates.start, this.selectedDates.end).subscribe((res) => {
+  this.userGraphService.getAll(this.selectedDates.start, this.selectedDates.end, this.isDriver).subscribe((res) => {
     this.rides = res;
     if (this.selectedType === "Distance traveled") {
       this.setDataForDistance();
-    } else {
+    } else if (this.selectedType === "Number of rides") {
       this.setDataForNumberRides();
+    } else {
+      this.setDataForMoneySpent();
     }
     this.RenderChart();
   });
+  
   this.reportVisibility = true;
 
 }
@@ -111,6 +115,9 @@ setDistanceTraveledDD():void {
 }
 setRidesNumDD():void {
   this.selectedType = "Number of rides"
+}
+setMoneySpentDD():void {
+  this.selectedType = "Money spent"
 }
 
 setDataForDistance(): void {
@@ -143,6 +150,24 @@ setDataForNumberRides(): void {
     }else {
       currentDate = this.rides[i].startTime;
       this.data.push(1);
+      this.labels.push('');
+    }
+  }
+  this.average = Math.round(this.total / this.data.length);
+}
+
+setDataForMoneySpent(): void {
+  let currentDate = this.rides[0].startTime;
+  this.data = [this.rides[0].totalCost];
+  this.labels = [''];
+  this.total = this.rides[0].totalCost;
+  for(let i = 1; i < this.rides.length; i++) {
+    this.total += this.rides[0].totalCost;
+    if (this.rides[i].startTime === currentDate) {
+      this.data[0] += this.rides[i].totalCost;
+    }else {
+      currentDate = this.rides[i].startTime;
+      this.data.push(this.rides[i].totalCost);
       this.labels.push('');
     }
   }
