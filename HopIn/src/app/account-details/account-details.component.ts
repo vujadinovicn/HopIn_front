@@ -8,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountDetailsComponent implements OnInit {
 
-  isDriver: boolean = true;
+  isDriver: boolean = false;
+  isAdmin: boolean = true;
+  isPassenger: boolean = false;
   isLuxury: boolean = false;
-  passenger: ReturnedUser = {
+  user: ReturnedUser = {
     id: 0,
     name: "",
     surname: "",
@@ -33,7 +35,7 @@ export class AccountDetailsComponent implements OnInit {
   };
 
   url : String = "../../assets/vectors/login.svg";
-  urlVehicleType = "";
+  urlVehicleType = "../../assets/vectors/regularCar.svg";
 
   onFileSelect(event: any){
     if (event.target.files){
@@ -48,16 +50,16 @@ export class AccountDetailsComponent implements OnInit {
   constructor(private accountDetailsService: AccountDetailsService) { }
 
   ngOnInit(): void {
-    if(!this.isDriver) {
+    if(this.isPassenger) {
       this.accountDetailsService.getPassenger().subscribe((res) => {
-        this.passenger = res;
-        this.url = this.passenger.profilePicture;
+        this.user = res;
+        this.url = this.user.profilePicture;
       });
-    } else {
+    } else if (this.isDriver) {
       this.accountDetailsService.getDriver().subscribe((res) => {
         this.driver = res;
         this.fromDriverToPassenger();
-        this.url = this.passenger.profilePicture;
+        this.url = this.user.profilePicture;
         if (res.vehicleType == "LUKSUZNO") {
           this.urlVehicleType = "../../assets/vectors/luxuryCar.svg"
           this.isLuxury = true;
@@ -71,13 +73,13 @@ export class AccountDetailsComponent implements OnInit {
   }
   
   fromDriverToPassenger(): void {
-    this.passenger.id = this.driver.id;
-    this.passenger.name = this.driver.name;
-    this.passenger.surname = this.driver.surname;
-    this.passenger.profilePicture = this.driver.profilePicture;
-    this.passenger.telephoneNumber = this.driver.telephoneNumber;
-    this.passenger.email = this.driver.email;
-    this.passenger.address = this.driver.address;
+    this.user.id = this.driver.id;
+    this.user.name = this.driver.name;
+    this.user.surname = this.driver.surname;
+    this.user.profilePicture = this.driver.profilePicture;
+    this.user.telephoneNumber = this.driver.telephoneNumber;
+    this.user.email = this.driver.email;
+    this.user.address = this.driver.address;
   }
   
 }
