@@ -20,9 +20,6 @@ export class MapComponent implements OnInit, OnDestroy {
   directionsService: google.maps.DirectionsService = {} as google.maps.DirectionsService;
   directionsRenderer: google.maps.DirectionsRenderer = {} as google.maps.DirectionsRenderer;
 
-  pickup : google.maps.Marker = {} as google.maps.Marker;
-  destination : google.maps.Marker = {} as google.maps.Marker;
-
   sub: Subscription = new Subscription();
 
   constructor(private routingService: RoutingService) {
@@ -41,8 +38,6 @@ export class MapComponent implements OnInit, OnDestroy {
 
       this.sub.add(this.routingService.receivedResponse().subscribe((response: any) => {
         this.initMap();
-        this.addMarker(this.route.pickup.lat, this.route.pickup.lng, 'Pickup');
-        this.addMarker(this.route.destination.lat, this.route.destination.lng, 'Destination');
         this.drawRoute(response);
       }));
       
@@ -71,32 +66,7 @@ export class MapComponent implements OnInit, OnDestroy {
     );
   }
 
-  public addMarker(lat: number, lng: number, title: string) {
-    let map = this.map;
-
-    if (title == 'Pickup') {
-      if (Object.keys(this.pickup).length == 0)
-        this.pickup = new google.maps.Marker({
-          map,
-          draggable: true,
-          position: { lat: lat, lng: lng},
-          title: title,
-      });
-      else
-        this.pickup.setPosition({lat: lat, lng: lng});
-
-    } else {
-      if (Object.keys(this.destination).length == 0)
-        this.destination = new google.maps.Marker({
-          map,
-          draggable: true,
-          position: { lat: lat, lng: lng},
-          title: title,
-      });
-      else
-        this.destination.setPosition({lat: lat, lng: lng});
-    }
-  }
+  
 
   private drawRoute(response: any) {
     this.directionsRenderer.setOptions({
@@ -143,5 +113,7 @@ export class MapComponent implements OnInit, OnDestroy {
   // }
 
 }
+
+
 
 
