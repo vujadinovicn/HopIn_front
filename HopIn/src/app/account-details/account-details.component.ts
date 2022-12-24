@@ -69,6 +69,11 @@ export class AccountDetailsComponent implements OnInit {
           this.urlVehicleType = "../../assets/vectors/regularCar.svg"
         }
       });
+    } else if (this.isAdmin) {
+      this.accountDetailsService.getUser().subscribe((res) => {
+        this.user = res;
+        this.url = this.user.profilePicture;
+      });
     }
   }
   
