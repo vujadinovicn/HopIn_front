@@ -6,9 +6,10 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class DocumentsService {
+export class DocumentService {
   private value$ = new BehaviorSubject<any>({});
   selectedValue$ = this.value$.asObservable();
+
 
   constructor(private http: HttpClient) {}
 
@@ -17,13 +18,6 @@ export class DocumentsService {
   }
   
   getById(driverId: number): Observable<Document[]> {
-    return this.http.get<Document[]>(environment.apiHost + 'driver/" + driverId + "/documents/');
+    return this.http.get<Document[]>(environment.apiHost + "/driver/2" + "/documents");
   }
-}
-
-export interface Document {
-    _id: number,
-    name: string,
-    documentImage: string,
-    driverId: number
 }
