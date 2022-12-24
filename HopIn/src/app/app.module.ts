@@ -36,6 +36,7 @@ import { AccountUpdateComponent } from './account-update/account-update.componen
 import { ChangeVehicleInfoComponent } from './change-vehicle-info/change-vehicle-info.component';
 import { ChangeDocumentsComponent } from './change-documents/change-documents.component';
 import { DocumentImageDialogComponent } from './document-image-dialog/document-image-dialog.component';
+import { AdminAccountComponent } from './admin-account/admin-account.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { DocumentImageDialogComponent } from './document-image-dialog/document-i
     ChangeVehicleInfoComponent,
     ChangeDocumentsComponent,
     DocumentImageDialogComponent,
-    DriverAccountComponent
+    DriverAccountComponent,
+    AdminAccountComponent
   ],
   imports: [
     BrowserModule,
