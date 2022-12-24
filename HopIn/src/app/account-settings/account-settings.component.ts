@@ -15,6 +15,7 @@ import { addressRegexValidator, nameRegexValidator, phonenumRegexValidator, surn
 })
 export class AccountSettingsComponent implements OnInit {
 
+  _role: String = 'driver';
   user : User = {
     id: 0,
     name: '',
@@ -48,31 +49,36 @@ export class AccountSettingsComponent implements OnInit {
 }
   
   save(): void {
-    if (this.accountSettingsForm.valid) {
-      console.log(this.setResponseValue());
-      this.userService.updateDriverPersonalInfo(this.setResponseValue()).subscribe({
-          next: (res: any) => {
-            this.router.navigate(['/account-driver']);
-            this.sharedService.openSnack({
-              value: "Response is in console!",
-              color: "back-green"}
-              );
-          },
-          error: (error: any) => {
-              this.sharedService.openNoResponseSnack();
-          }
-        });
-    } else
-        this.sharedService.openInvalidInputSnack();
+    if (this._role === 'driver') {
+      this.saveDriver();
+    } else if (this._role === 'passenger') {
+      this.savePassenger();
+    } else {
+      this.saveAdmin();
+    }
 
   }
 
   setUserData() {
-    this.userService.getByDriverId(2).subscribe((res: any) => {
-      this.user = res;
-      this.setFormValue(res);
-      this.profileImgPath = res.profilePicture;
-    });;
+    if (this._role === 'driver') {
+      this.userService.getByDriverId(2).subscribe((res: any) => {
+        this.user = res;
+        this.setFormValue(res);
+        this.profileImgPath = res.profilePicture;
+      });;
+    } else if (this._role === 'passenger') {
+      this.userService.getByPassengerId(1).subscribe((res: any) => {
+        this.user = res;
+        this.setFormValue(res);
+        this.profileImgPath = res.profilePicture;
+      });;
+    } else {
+      this.userService.getByAdminId(1).subscribe((res: any) => {
+        this.user = res;
+        this.setFormValue(res);
+        this.profileImgPath = res.profilePicture;
+      });;
+    }
   }
 
   onImageSelect(event: any){
@@ -105,6 +111,63 @@ export class AccountSettingsComponent implements OnInit {
       address: this.accountSettingsForm.value.address,
       password: this.user.password
     }
+  }
+
+  private saveDriver(): void {
+    if (this.accountSettingsForm.valid) {
+      console.log(this.setResponseValue());
+      this.userService.updateDriverPersonalInfo(this.setResponseValue()).subscribe({
+          next: (res: any) => {
+            this.router.navigate(['/account-driver']);
+            this.sharedService.openSnack({
+              value: "Response is in console!",
+              color: "back-green"}
+              );
+          },
+          error: (error: any) => {
+              this.sharedService.openNoResponseSnack();
+          }
+        });
+    } else
+        this.sharedService.openInvalidInputSnack();
+  }
+
+  private savePassenger(): void {
+    if (this.accountSettingsForm.valid) {
+      console.log(this.setResponseValue());
+      this.userService.updatePassengerPersonalInfo(this.setResponseValue()).subscribe({
+          next: (res: any) => {
+            this.router.navigate(['/account-passenger']);
+            this.sharedService.openSnack({
+              value: "Response is in console!",
+              color: "back-green"}
+              );
+          },
+          error: (error: any) => {
+              this.sharedService.openNoResponseSnack();
+          }
+        });
+    } else
+        this.sharedService.openInvalidInputSnack();
+  }
+
+  private saveAdmin(): void {
+    if (this.accountSettingsForm.valid) {
+      console.log(this.setResponseValue());
+      this.userService.updateAdminPersonalInfo(this.setResponseValue()).subscribe({
+          next: (res: any) => {
+            this.router.navigate(['/account-admin']);
+            this.sharedService.openSnack({
+              value: "Response is in console!",
+              color: "back-green"}
+              );
+          },
+          error: (error: any) => {
+              this.sharedService.openNoResponseSnack();
+          }
+        });
+    } else
+        this.sharedService.openInvalidInputSnack();
   }
 
 }
