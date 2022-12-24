@@ -41,7 +41,7 @@ export class PickupDestinationFormComponent implements OnInit {
   findRoute() {
     if (this.rideForm.valid) {
       this.route.scheduledTime = this.rideForm.get('time')?.value!;
-      this.route.vehicleTypeName = "STANDARDNO";
+      this.route.vehicleTypeName = "CAR";
       this.routingService.route = this.route;
       this.routingService.findRoute();
       this.routingService.receivedRoute().subscribe((route: Route) => {
