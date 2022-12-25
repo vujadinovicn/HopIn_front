@@ -8,6 +8,7 @@
 
 #add-document-container span {
     font-size: 0.8em;
+    cursor: auto;
 }
 
 #add-document-container mat-icon {

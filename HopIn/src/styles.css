@@ -146,6 +146,12 @@ html, body { height: 100%; width: 100%; margin: 0; font-family: "Poppins", sans-
 }
 
 
+.document-dialog-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 
  /* COLORS */
 

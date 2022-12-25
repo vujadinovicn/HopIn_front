@@ -37,6 +37,7 @@ import { ChangeVehicleInfoComponent } from './change-vehicle-info/change-vehicle
 import { DriverDocumentsComponent } from './driver-documents/driver-documents.component';
 import { DocumentDetailsDialogComponent } from './document-details-dialog/document-details-dialog.component';
 import { DocumentUpdateDialogComponent } from './document-update-dialog/document-update-dialog.component';
+import { DocumentAddDialogComponent } from './document-add-dialog/document-add-dialog.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { DocumentUpdateDialogComponent } from './document-update-dialog/document
     DriverDocumentsComponent,
     DocumentDetailsDialogComponent,
     DriverAccountComponent,
-    DocumentUpdateDialogComponent
+    DocumentUpdateDialogComponent,
+    DocumentAddDialogComponent
   ],
   imports: [
     BrowserModule,

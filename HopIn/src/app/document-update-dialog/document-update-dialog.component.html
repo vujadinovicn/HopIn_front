@@ -1,4 +1,6 @@
-<div>
+<div style="text-align: center">
+  <span>Update new document</span>
+    <div class="document-dialog-container">
     <form [formGroup]="updateDocumentForm" align="center">
         <mat-form-field [hideRequiredMarker]="true" id="name">
           <mat-label>Document name</mat-label>
@@ -7,11 +9,13 @@
           <mat-error *ngIf="updateDocumentForm.get('name')?.errors?.['nameRegexError'] && !updateDocumentForm.get('name')?.errors?.['required']">invalid name format</mat-error>
         </mat-form-field>
       </form> 
+      <button mat-mini-fab color="primary" (click)="fileInput.click()">
+        <mat-icon>upload</mat-icon>
+        <input #fileInput type="file" style="display: none" (change)="onFileSelect($event)">
+      </button>
+    </div>
       <div mat-dialog-content align="center">
-          <label for="file-input">
-            <img [src]="data.url" class="dialog-document-img">
-          </label>
-          <input id="file-input" style="display: none;" type="file" (change)="onFileSelect($event)"/>
+          <img [src]="data.url" class="dialog-document-img">
       </div>
       <div mat-dialog-actions align="center">
         <button mat-button (click)="save()" class="back-green white">Save</button>

@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DocumentUpdateDialogComponent } from '../document-update-dialog/document-update-dialog.component';
 import { DocumentDetailsDialogComponent } from '../document-details-dialog/document-details-dialog.component';
 import { DocumentService } from '../services/document.service';
+import { DocumentAddDialogComponent } from '../document-add-dialog/document-add-dialog.component';
 
 @Component({
   selector: 'app-driver-documents',
@@ -23,6 +24,12 @@ export class DriverDocumentsComponent implements OnInit {
       this.documents = res;
     }
     );
+  }
+
+  openAddDocumentPopUp(): void {
+    this.dialog.open(DocumentAddDialogComponent, {
+      data: {url: "../../assets/vectors/share.svg"}
+    });
   }
 
   openShowDetailsPopUp(index: number): void {
