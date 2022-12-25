@@ -90,7 +90,7 @@ export interface Route {
 }
 
 export interface ShortAddress {
-  formatted: String,
+  formatted: string,
   lat: number,
   lng: number
 }

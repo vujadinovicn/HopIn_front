@@ -1,6 +1,9 @@
+import { PickupDestinationService } from './../services/pickup-destination.service';
 import { Component, OnInit } from '@angular/core';
 import { Loader } from '@googlemaps/js-api-loader';
 import { LatLng } from 'ngx-google-places-autocomplete/objects/latLng';
+import { ShortAddress } from '../services/routing.service';
+import { E } from 'chart.js/dist/chunks/helpers.core';
 
 @Component({
   selector: 'vehicles-map',
@@ -16,7 +19,7 @@ export class VehiclesMapComponent implements OnInit {
   destination : google.maps.Marker = {} as google.maps.Marker;
   currentMarker: string = "Pickup";
 
-  constructor() { }
+  constructor(private pickupDestinationService: PickupDestinationService) { }
 
   ngOnInit(): void {
     let loader = new Loader({
@@ -49,20 +52,36 @@ export class VehiclesMapComponent implements OnInit {
     this.map.addListener("click", (event: any) => {
       console.log(event);
       this.addMarker(event.latLng.lat(), event.latLng.lng(), this.currentMarker);
-      this.decodeCoordinates(event.latLng);
-      this.updateCurrentMarker();
+      this.decodeCoordinates(event.latLng, this.currentMarker);
+      if (Object.keys(this.pickup).length == 0 || Object.keys(this.destination).length == 0)
+        this.updateCurrentMarker();
     });
   }
 
-  decodeCoordinates(location: LatLng) {
+  decodeCoordinates(location: LatLng, type: string) {
     let request: google.maps.GeocoderRequest = {
       location: location
     };
-
+    console.log(type);
     this.geocoder.geocode(request, (response, status) => {
       if (status == google.maps.GeocoderStatus.OK) {
-        console.log(response?.at(0));
-      } else {
+        let chosenResponse = response?.at(0);
+        let address: ShortAddress = {
+          formatted: chosenResponse?.formatted_address!,
+          lat: chosenResponse?.geometry.location.lat()!,
+          lng: chosenResponse?.geometry.location.lng()!
+        }
+        if (type == "Pickup") {
+          this.pickupDestinationService.updatePickup(address);
+        } else {
+          if (type == "Destination") {
+            this.pickupDestinationService.updateDestination(address);
+          } else
+            alert("Type must be either 'Destination' or 'Pickup'");
+        }
+          
+        
+        } else {
         alert("Sorry, we are not able to decode the chosen coordinates :(");
       } 
     });
@@ -78,28 +97,37 @@ export class VehiclesMapComponent implements OnInit {
           position: { lat: lat, lng: lng},
           title: title,
           draggable: true,
-          label: {text: "A", color: "white"}
+          label: {text: "A", color: "white"},
         });
 
         this.pickup.addListener('dragend', () => {
-          this.decodeCoordinates(this.pickup.getPosition()!);
+          this.decodeCoordinates(this.pickup.getPosition()!, "Pickup");
+        });
+
+        this.pickup.addListener('click', () => {
+          this.currentMarker = "Pickup";
         });
       }
       else
         this.pickup.setPosition({lat: lat, lng: lng});
 
     } else {
+
       if (Object.keys(this.destination).length == 0) {
         this.destination = new google.maps.Marker({
           map,
           position: { lat: lat, lng: lng},
           title: title,
           draggable: true,
-          label: {text: "B", color: "white"}
+          label: {text: "B", color: "white"},
         });
 
         this.destination.addListener('dragend', () => {
-          this.decodeCoordinates(this.destination.getPosition()!);
+          this.decodeCoordinates(this.destination.getPosition()!, "Destination");
+        });
+
+        this.destination.addListener('click', () => {
+          this.currentMarker = "Destination";
         });
       }
       else
