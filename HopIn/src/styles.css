@@ -140,11 +140,21 @@ html, body { height: 100%; width: 100%; margin: 0; font-family: "Poppins", sans-
     text-align: center;
 }
 
+.dialog-document-img {
+    width: 300px;
+    height: 200px;
+}
+
+
 
  /* COLORS */
 
  .dark-blue {
     color: #1E4A5A;
+ }
+
+ .white {
+    color: white;
  }
 
  .dark-gray { 

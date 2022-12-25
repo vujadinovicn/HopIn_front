@@ -34,8 +34,9 @@ import { DriverAccountComponent } from './driver-account/driver-account.componen
 import { CommonModule } from '@angular/common';
 import { AccountUpdateComponent } from './account-update/account-update.component';
 import { ChangeVehicleInfoComponent } from './change-vehicle-info/change-vehicle-info.component';
-import { ChangeDocumentsComponent } from './change-documents/change-documents.component';
-import { DocumentImageDialogComponent } from './document-image-dialog/document-image-dialog.component';
+import { DriverDocumentsComponent } from './driver-documents/driver-documents.component';
+import { DocumentDetailsDialogComponent } from './document-details-dialog/document-details-dialog.component';
+import { DocumentUpdateDialogComponent } from './document-update-dialog/document-update-dialog.component';
 
 @NgModule({
   declarations: [
@@ -60,9 +61,10 @@ import { DocumentImageDialogComponent } from './document-image-dialog/document-i
     VehiclesMapComponent,
     AccountUpdateComponent,
     ChangeVehicleInfoComponent,
-    ChangeDocumentsComponent,
-    DocumentImageDialogComponent,
-    DriverAccountComponent
+    DriverDocumentsComponent,
+    DocumentDetailsDialogComponent,
+    DriverAccountComponent,
+    DocumentUpdateDialogComponent
   ],
   imports: [
     BrowserModule,

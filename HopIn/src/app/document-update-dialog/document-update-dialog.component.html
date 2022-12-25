@@ -1,0 +1,19 @@
+<div>
+    <form [formGroup]="updateDocumentForm" align="center">
+        <mat-form-field [hideRequiredMarker]="true" id="name">
+          <mat-label>Document name</mat-label>
+          <input matInput type="text" name="name" formControlName="name"/>
+          <mat-error *ngIf="updateDocumentForm.get('name')?.errors?.['required']">entering name is required</mat-error>
+          <mat-error *ngIf="updateDocumentForm.get('name')?.errors?.['nameRegexError'] && !updateDocumentForm.get('name')?.errors?.['required']">invalid name format</mat-error>
+        </mat-form-field>
+      </form> 
+      <div mat-dialog-content align="center">
+          <label for="file-input">
+            <img [src]="data.url" class="dialog-document-img">
+          </label>
+          <input id="file-input" style="display: none;" type="file" (change)="onFileSelect($event)"/>
+      </div>
+      <div mat-dialog-actions align="center">
+        <button mat-button (click)="save()" class="back-green white">Save</button>
+      </div>
+</div>

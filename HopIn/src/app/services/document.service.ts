@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 export class DocumentService {
   private value$ = new BehaviorSubject<any>({});
   selectedValue$ = this.value$.asObservable();
-
+  private updatedDocument = new Subject<any>();
 
   constructor(private http: HttpClient) {}
 
@@ -20,4 +20,20 @@ export class DocumentService {
   getById(driverId: number): Observable<Document[]> {
     return this.http.get<Document[]>(environment.apiHost + "/driver/2" + "/documents");
   }
+
+  sendUpdate(updatedDocument: any){
+    this.updatedDocument.next(updatedDocument);
+  }
+
+  recieveUpdate(): Observable<any>{
+    return this.updatedDocument.asObservable();
+  }
 }
+
+export interface Document {
+  id: number,
+  name: String,
+  documentImage: string,
+  driverId: number
+}
+
