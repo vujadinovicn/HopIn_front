@@ -8,8 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountDetailsComponent implements OnInit {
 
-  isDriver: boolean = false;
-  isAdmin: boolean = true;
+  isDriver: boolean = true;
+  isAdmin: boolean = false;
   isPassenger: boolean = false;
   isLuxury: boolean = false;
   user: ReturnedUser = {

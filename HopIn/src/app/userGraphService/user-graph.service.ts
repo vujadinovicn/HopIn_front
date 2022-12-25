@@ -14,14 +14,21 @@ export class UserGraphService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(from: Dayjs, to:Dayjs, isDriver: boolean): Observable<RideForReport[]> {
-    if(isDriver) {
-      return this.http.get<RideForReport[]>(environment.apiHost + '/driver/2/ride/date?from=' +
-      from.format('YYYY/MM/DD') + '&to=' + to.format('YYYY/MM/DD'));
-    }
-    return this.http.get<RideForReport[]>(environment.apiHost + '/passenger/1/ride/date?from=' +
+  getAllForDriver(from: Dayjs, to:Dayjs, id: number): Observable<RideForReport[]> {
+    return this.http.get<RideForReport[]>(environment.apiHost + '/driver/' + id + '/ride/date?from=' +
     from.format('YYYY/MM/DD') + '&to=' + to.format('YYYY/MM/DD'));
   }
+
+  getAllForPassenger(from: Dayjs, to:Dayjs, id: number): Observable<RideForReport[]> {    
+    return this.http.get<RideForReport[]>(environment.apiHost + '/passenger/' + id + '/ride/date?from=' +
+    from.format('YYYY/MM/DD') + '&to=' + to.format('YYYY/MM/DD'));
+  }
+
+  getAll(from: Dayjs, to:Dayjs): Observable<RideForReport[]> {    
+    return this.http.get<RideForReport[]>(environment.apiHost + '/ride/date?from=' +
+    from.format('YYYY/MM/DD') + '&to=' + to.format('YYYY/MM/DD'));
+  }
+
 }
 
 export interface RideForReport {

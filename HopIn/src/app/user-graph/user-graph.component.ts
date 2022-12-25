@@ -14,7 +14,7 @@ Chart.register(...registerables)
 })
 export class UserGraphComponent implements OnInit {
 
-  isDriver: boolean = true;
+  _role: String = 'driver';
   selectedDates!: {start: Dayjs, end: Dayjs};
   selectedType: String = 'Distance traveled'
   reportVisibility: boolean = false;
@@ -94,17 +94,43 @@ generateBtnOnClick():void {
    return;
   }
 
-  this.userGraphService.getAll(this.selectedDates.start, this.selectedDates.end, this.isDriver).subscribe((res) => {
-    this.rides = res;
-    if (this.selectedType === "Distance traveled") {
-      this.setDataForDistance();
-    } else if (this.selectedType === "Number of rides") {
-      this.setDataForNumberRides();
-    } else {
-      this.setDataForMoneySpent();
-    }
-    this.RenderChart();
-  });
+  if (this._role === 'admin') {
+    this.userGraphService.getAll(this.selectedDates.start, this.selectedDates.end).subscribe((res) => {
+      this.rides = res;
+      if (this.selectedType === "Distance traveled") {
+        this.setDataForDistance();
+      } else if (this.selectedType === "Number of rides") {
+        this.setDataForNumberRides();
+      } else {
+        this.setDataForMoneySpent();
+      }
+      this.RenderChart();
+    });
+  } else if (this._role === 'driver') {
+    this.userGraphService.getAllForDriver(this.selectedDates.start, this.selectedDates.end, 2).subscribe((res) => {
+      this.rides = res;
+      if (this.selectedType === "Distance traveled") {
+        this.setDataForDistance();
+      } else if (this.selectedType === "Number of rides") {
+        this.setDataForNumberRides();
+      } else {
+        this.setDataForMoneySpent();
+      }
+      this.RenderChart();
+    });
+  } else {
+    this.userGraphService.getAllForPassenger(this.selectedDates.start, this.selectedDates.end, 1).subscribe((res) => {
+      this.rides = res;
+      if (this.selectedType === "Distance traveled") {
+        this.setDataForDistance();
+      } else if (this.selectedType === "Number of rides") {
+        this.setDataForNumberRides();
+      } else {
+        this.setDataForMoneySpent();
+      }
+      this.RenderChart();
+    });
+  }
   
   this.reportVisibility = true;
 
