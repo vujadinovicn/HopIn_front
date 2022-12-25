@@ -1,0 +1,41 @@
+#passenger-account-options-container{
+    display: inline-block;
+    height: 100%;
+    border-right: 2px solid #B1B1B1;
+    padding: 0px 15px;
+}
+
+.account-options {
+    font-size: 14px;
+    font-weight: 100;
+    padding-top: 15px;
+    padding-left: 3px;
+ }
+
+ .account-options:hover{
+    color: #1E4A5A;
+    cursor: pointer;
+ }
+
+@media screen and (max-width: 1000px) {
+    #passenger-account-options-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-row: 1fr;        
+        width: 100%;
+        height: fit-content;
+        border-right: 0;
+        border-bottom: 1px solid #B1B1B1;
+        padding: 0;
+        text-align: center;
+    }
+
+    #passenger-account-options-container div {
+        display: inline-block;
+        padding: 10px;
+    }  
+
+    .responsive-span {
+        display: none;
+    }
+}
