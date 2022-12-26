@@ -141,6 +141,8 @@ html, body { height: 100%; width: 100%; margin: 0; font-family: "Poppins", sans-
 }
 
 
+
+
  /* COLORS */
 
  .dark-blue {
@@ -177,6 +179,10 @@ html, body { height: 100%; width: 100%; margin: 0; font-family: "Poppins", sans-
 
 .back-darker-gray {
     background-color: #DCDCDC !important;
+}
+
+.back-light-blue {
+    background-color: #6DAFC7 !important;
 }
  
  

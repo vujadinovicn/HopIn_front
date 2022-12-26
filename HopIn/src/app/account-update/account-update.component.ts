@@ -8,7 +8,7 @@ import { PassengerAccountOptionsService } from '../services/passengerAccountOpti
 })
 export class AccountUpdateComponent implements OnInit {
 
-  option: string = "settings";
+  option: string = "";
 
   constructor(private passengerAccountOptionsService : PassengerAccountOptionsService) { }
 

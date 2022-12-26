@@ -22,7 +22,6 @@ import { AccountComponent } from './account/account.component';
 import { UserGraphComponent } from './user-graph/user-graph.component';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import {MatSnackBarModule} from '@angular/material/snack-bar'
-
 import { PickupDestinationFormComponent } from './pickup-destination-form/pickup-destination-form.component';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker'
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
@@ -37,6 +36,7 @@ import { ChangeVehicleInfoComponent } from './change-vehicle-info/change-vehicle
 import { ChangeDocumentsComponent } from './change-documents/change-documents.component';
 import { DocumentImageDialogComponent } from './document-image-dialog/document-image-dialog.component';
 import { AdminAccountComponent } from './admin-account/admin-account.component';
+import { AdminRequestDetailsComponent } from './admin-request-details/admin-request-details.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +64,8 @@ import { AdminAccountComponent } from './admin-account/admin-account.component';
     ChangeDocumentsComponent,
     DocumentImageDialogComponent,
     DriverAccountComponent,
-    AdminAccountComponent
+    AdminAccountComponent,
+    AdminRequestDetailsComponent
   ],
   imports: [
     BrowserModule,

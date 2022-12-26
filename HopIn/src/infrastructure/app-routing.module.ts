@@ -12,6 +12,7 @@ import { AccountComponent } from 'src/app/account/account.component';
 import { DriverAccountComponent } from 'src/app/driver-account/driver-account.component';
 import { AccountUpdateComponent } from 'src/app/account-update/account-update.component';
 import { AdminAccountComponent } from 'src/app/admin-account/admin-account.component';
+import { AdminRequestDetailsComponent } from 'src/app/admin-request-details/admin-request-details.component';
 
 const routes: Routes = [
   {path: '', component: LandingComponent},
