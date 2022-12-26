@@ -36,11 +36,11 @@
 
 
      <!-- PAYMENT INFO -->
-     <div *ngif="this.isPassenger" class="sectionTitle">
+    <div class="sectionTitle" *ngIf="isPassenger">
         <p>Payment Info</p>
         <div class="line"></div>
     </div>
-    <div *ngif="!this.isDriver" class="data">
+    <div class="data" *ngIf="isPassenger">
         <div class="keyValue">
             <p class="key">Card:</p>
             <p id="card" class="value">**** **** *** 111</p>
