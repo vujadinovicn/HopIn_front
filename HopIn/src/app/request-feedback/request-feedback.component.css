@@ -68,7 +68,7 @@ button {
     margin-top: auto;
     margin-left: auto;
     align-items: center;
-    width: 60%;
+    width: 90px;
 }
 
 
@@ -94,6 +94,9 @@ img {
 }
 #declinedP {
     color: #A8201A;
+}
+#acceptedP {
+    color: #33A02C;
 }
 
 #reasonTitle {
@@ -128,3 +131,69 @@ img {
     background: #555; 
   }
 
+
+
+
+  /* ACCEPTED CARD */
+
+  .acceptedContianer {
+    display: flex;
+    flex-direction: row;
+    width: 35vw;
+    height: 7vh;
+    background: white;
+    border: 2px solid #D9D9D9;
+    padding: 15px;
+    align-self: center;
+    align-content: center;
+}
+
+.greenBackground {
+    background-color: #33A02C !important;
+}
+
+
+@media only screen and (max-width: 900px) {
+    p {
+        font-size: 0.5em;
+    }
+
+    .pendingContainar {
+        width: 80%;
+    }
+
+    .declinedContianer {
+        flex-direction: column;
+        height: fit-content;
+        width: 80%;
+    }
+
+    .right {
+        flex-direction: row;
+        margin: 0;
+        width: 100%;
+        margin-top: 3%;
+        align-items: center;
+    }
+
+    #reasonContent {
+        height: 20vh;
+    }
+
+    #date {
+        margin: 0;
+    }
+   
+    button {
+        margin-left: auto;
+        font-size: 0.6em;
+    }
+
+
+    .acceptedContianer {
+        flex-direction: column;
+        height: fit-content;
+        width: 80%;
+    }
+
+}
