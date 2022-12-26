@@ -1,14 +1,14 @@
 <div id="passenger-account-options-container">
-    <div class="account-options" (click)="selectOption('settings')" 
-    [ngClass]="{'dark-blue' : option == 'settings', 'dark-gray': option != 'settings'}">
+    <div class="account-options" (click)="selectOption('all')" 
+    [ngClass]="{'dark-blue' : option == 'all', 'dark-gray': option != 'all'}">
         <span class="responsive-span">all reports</span>
     </div>
-    <div class="account-options" (click)="selectOption('password')"
-      [ngClass]="{'dark-blue' : option == 'password', 'dark-gray': option != 'password'}">
+    <div class="account-options" (click)="selectOption('passenger')"
+      [ngClass]="{'dark-blue' : option == 'passenger', 'dark-gray': option != 'passenger'}">
         <span class="responsive-span">passenger reports</span>
     </div>
-    <div class="account-options" (click)="selectOption('payment')" *ngIf="role == 'passenger'"
-    [ngClass]="{'dark-blue' : option == 'payment', 'dark-gray': option != 'payment'}">
+    <div class="account-options" (click)="selectOption('driver')"
+    [ngClass]="{'dark-blue' : option == 'driver', 'dark-gray': option != 'driver'}">
         <span class="responsive-span">driver reports</span>
     </div>
 </div>

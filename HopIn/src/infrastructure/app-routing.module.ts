@@ -1,3 +1,4 @@
+import { AdminReportsComponent } from './../app/admin-reports/admin-reports.component';
 import { RouteSuggestionComponent } from './../app/route-suggestion/route-suggestion.component';
 import { OrderRideComponent } from './../app/order-ride/order-ride.component';
 import { NgModule, Component } from '@angular/core';
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path: 'account-passenger', component: AccountComponent},
   {path: 'account-admin', component: AdminAccountComponent},
   {path: 'account-settings', component: AccountUpdateComponent},
+  {path: 'admin-reports', component: AdminReportsComponent},
   {path: 'change-password', component: ChangePasswordComponent},
   {path:'change-payment-info', component: ChangePaymentInfoComponent},
   {path: '**', component: LandingComponent}

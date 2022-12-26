@@ -38,6 +38,7 @@ import { ChangeDocumentsComponent } from './change-documents/change-documents.co
 import { DocumentImageDialogComponent } from './document-image-dialog/document-image-dialog.component';
 import { AdminAccountComponent } from './admin-account/admin-account.component';
 import { ReportOptionsComponent } from './report-options/report-options.component';
+import { AdminReportsComponent } from './admin-reports/admin-reports.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { ReportOptionsComponent } from './report-options/report-options.componen
     DocumentImageDialogComponent,
     DriverAccountComponent,
     AdminAccountComponent,
-    ReportOptionsComponent
+    ReportOptionsComponent,
+    AdminReportsComponent
   ],
   imports: [
     BrowserModule,

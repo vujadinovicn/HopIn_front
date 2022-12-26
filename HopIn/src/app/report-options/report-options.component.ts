@@ -1,3 +1,4 @@
+import { AdminReportOptionsService } from './../services/adminReportOptions.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PassengerAccountOptionsService } from '../services/passengerAccountOptions.service';
@@ -11,15 +12,12 @@ import { UserService } from '../services/user.service';
 export class ReportOptionsComponent implements OnInit {
 
   constructor(private router: Router, 
-    private userService: UserService,
-    private passengerAccountOptionsService : PassengerAccountOptionsService) { }
+    private adminReportOptionsService : AdminReportOptionsService) { }
 
-  option : string = "settings";
-  role: string = "passenger";
+  option : string = "all";
 
   ngOnInit(): void {
     this.selectOption(this.option);
-    this.role = this.userService.role;
   }
 
   selectOption(option: string){
@@ -28,7 +26,7 @@ export class ReportOptionsComponent implements OnInit {
   }
 
   sendSelectedOption(option: string): void {
-    this.passengerAccountOptionsService.sendSelectedOption(option);
+    this.adminReportOptionsService.sendSelectedOption(option);
   }
 
 }
