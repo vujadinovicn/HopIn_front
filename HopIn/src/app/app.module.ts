@@ -37,6 +37,8 @@ import { ChangeVehicleInfoComponent } from './change-vehicle-info/change-vehicle
 import { ChangeDocumentsComponent } from './change-documents/change-documents.component';
 import { DocumentImageDialogComponent } from './document-image-dialog/document-image-dialog.component';
 import { AdminAccountComponent } from './admin-account/admin-account.component';
+import { RequestFeedbackComponent } from './request-feedback/request-feedback.component';
+import { DriverRequestDashboardComponent } from './driver-request-dashboard/driver-request-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,9 @@ import { AdminAccountComponent } from './admin-account/admin-account.component';
     ChangeDocumentsComponent,
     DocumentImageDialogComponent,
     DriverAccountComponent,
-    AdminAccountComponent
+    AdminAccountComponent,
+    RequestFeedbackComponent,
+    DriverRequestDashboardComponent
   ],
   imports: [
     BrowserModule,
