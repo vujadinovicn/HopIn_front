@@ -10,7 +10,7 @@ export class AccountUpdateComponent implements OnInit {
 
   option: string = "";
 
-  constructor(private passengerAccountOptionsService : PassengerAccountOptionsService) { }
+  constructor(private passengerAccountOptionsService: PassengerAccountOptionsService) { }
 
   ngOnInit(): void {
     this.recieveSelectedOption();

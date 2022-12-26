@@ -1,0 +1,79 @@
+#add-document-container{
+    margin: 22px auto;
+    border: 0;
+    padding: 0;
+    padding-left: -10px;
+    color: #B1B1B1;
+}
+
+#add-document-container span {
+    font-size: 0.8em;
+    cursor: auto;
+}
+
+#add-document-container mat-icon {
+    transform: scale(1.2);
+    color: #1E4A5A;
+    cursor: pointer;
+}
+
+ 
+.document-container {
+    width: 80%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    margin: 15px auto;
+    border: 2px solid #D9D9D9;
+    border-radius: 5px;
+    vertical-align: middle;
+    padding: 10px;
+    color: #1E4A5A;
+}
+
+.document-container mat-icon {
+    color: #B1B1B1;
+}
+
+.document-container span {
+    margin-left: 10px;
+    font-size: 0.9em;
+    cursor: pointer;
+}
+
+
+.document-btns-container{
+    display: flex;
+    position: absolute;
+    right: 0;
+    margin-right: 5px;
+    color: #1E4A5A;
+    font-size: 16px;
+    float: right;
+}
+
+#update-img-btn{
+    margin: 0;
+}
+
+#delete-document-btn{
+    border: none;
+    margin-left: 3px;
+    padding-top: 2px;
+    transform: scale(1.1);
+    background-color: white;
+    cursor: pointer;
+}
+
+#delete-document-btn > mat-icon {
+    color: #1E4A5A;
+}
+
+
+form > button {
+    position: absolute;
+    right: 50%;
+    bottom: 0;
+    transform: translate(50%, -50%);
+ }
