@@ -7,4 +7,25 @@
     width: 26.5%;
     height: 500px;
     padding: 10px 50px;
+    background-color: white;
+}
+
+.decline-request-button {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    margin-left: 35px;
+    margin-bottom: 35px;
+    padding: 0px 20px;
+    width: 100px;
+}
+
+.accept-request-button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin-right: 35px;
+    margin-bottom: 35px;
+    padding: 0px 20px;
+    width: 100px;
 }
