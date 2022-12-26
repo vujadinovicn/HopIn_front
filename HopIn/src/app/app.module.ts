@@ -38,7 +38,8 @@ import { DocumentDetailsDialogComponent } from './document-details-dialog/docume
 import { DocumentUpdateDialogComponent } from './document-update-dialog/document-update-dialog.component';
 import { DocumentAddDialogComponent } from './document-add-dialog/document-add-dialog.component';
 import { AdminAccountComponent } from './admin-account/admin-account.component';
-import { AdminRequestDetailsComponent } from './admin-request-details/admin-request-details.component';
+import { UpdateRequestDetailsComponent } from './update-request-details/update-request-details.component';
+import { AdminRequestDetailsContainerComponent } from './admin-request-details-container/admin-request-details-container.component';
 
 @NgModule({
   declarations: [
@@ -67,11 +68,12 @@ import { AdminRequestDetailsComponent } from './admin-request-details/admin-requ
     DocumentDetailsDialogComponent,
     DriverAccountComponent,
     AdminAccountComponent,
-    AdminRequestDetailsComponent,
+    UpdateRequestDetailsComponent,
     DocumentUpdateDialogComponent,
     DocumentAddDialogComponent,
     DriverAccountComponent,
     AdminAccountComponent,
+    AdminRequestDetailsContainerComponent,
   ],
   imports: [
     BrowserModule,

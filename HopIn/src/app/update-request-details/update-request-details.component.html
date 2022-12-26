@@ -1,7 +1,8 @@
+<div>
 <div id="admin-request-title" class="back-light-blue">
     Account information update
 </div>
-<div id="admin-request-personal-info" style="display: none;">
+<div id="admin-request-personal-info">
     <div class="account-settings-form-container">
         <form [formGroup]="personalInfoForm" fxLayout="column">
             <div style="width: 100%">
@@ -71,11 +72,12 @@
         </div>
     </div>
 </div>
-<div id="admin-request-vehicle">
+<div id="admin-request-vehicle" style="display: none">
     <span>Document has been added/updated.</span>
     <div class="document-container">
         <mat-icon>document_scanner</mat-icon>
         <span (click)="openShowDetailsPopUp()">name</span>
     </div>
+</div>
 </div>
 

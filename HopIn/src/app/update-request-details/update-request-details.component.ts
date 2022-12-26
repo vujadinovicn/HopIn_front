@@ -5,14 +5,11 @@ import { DocumentDetailsDialogComponent } from '../document-details-dialog/docum
 
 
 @Component({
-  selector: 'app-admin-request-details',
-  templateUrl: './admin-request-details.component.html',
-  styleUrls: ['./admin-request-details.component.css', 
-'../account-settings/account-settings.component.css',
-'../change-vehicle-info/change-vehicle-info.component.css',
-'../driver-documents/driver-documents.component.css']
+  selector: 'app-update-request-details',
+  templateUrl: './update-request-details.component.html',
+  styleUrls: ['./update-request-details.component.css','../account-settings/account-settings.component.css','../change-vehicle-info/change-vehicle-info.component.css','../driver-documents/driver-documents.component.css']
 })
-export class AdminRequestDetailsComponent implements OnInit {
+export class UpdateRequestDetailsComponent implements OnInit {
 
   isPetTransport : boolean = true;
   isBabyTransport: boolean = true;

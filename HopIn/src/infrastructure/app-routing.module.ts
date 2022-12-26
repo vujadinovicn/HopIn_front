@@ -12,7 +12,7 @@ import { AccountComponent } from 'src/app/account/account.component';
 import { DriverAccountComponent } from 'src/app/driver-account/driver-account.component';
 import { AccountUpdateComponent } from 'src/app/account-update/account-update.component';
 import { AdminAccountComponent } from 'src/app/admin-account/admin-account.component';
-import { AdminRequestDetailsComponent } from 'src/app/admin-request-details/admin-request-details.component';
+import { AdminRequestDetailsContainerComponent } from 'src/app/admin-request-details-container/admin-request-details-container.component';
 
 const routes: Routes = [
   {path: '', component: LandingComponent},
@@ -23,7 +23,7 @@ const routes: Routes = [
   {path: 'account-driver', component: DriverAccountComponent},
   {path: 'account-passenger', component: AccountComponent},
   {path: 'account-admin', component: AdminAccountComponent},
-  {path: 'account-settings', component: AccountUpdateComponent},
+  {path: 'account-settings', component: AdminRequestDetailsContainerComponent},
   {path: 'change-password', component: ChangePasswordComponent},
   {path:'change-payment-info', component: ChangePaymentInfoComponent},
   {path: '**', component: LandingComponent}
