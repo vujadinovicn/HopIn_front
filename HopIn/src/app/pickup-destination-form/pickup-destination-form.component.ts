@@ -6,6 +6,8 @@ import { Address } from 'ngx-google-places-autocomplete/objects/address';
 import { autocompleteValidator } from '../validators/autocompleteValidator';
 import { schedulingValidator } from '../validators/schedulingValidator';
 import { timeFormatValidator } from '../validators/timeFormatValidator';
+import { PickupDestinationService } from '../services/pickup-destination.service';
+import { markFormControlsTouched } from '../validators/formGroupValidators';
 
 @Component({
   selector: 'pickup-destination-form',
@@ -19,6 +21,7 @@ export class PickupDestinationFormComponent implements OnInit {
   changed: Boolean[] = [false, false];
   odl_addr: String[] = [];
   notValid: Boolean[] = [false, false];
+  markerGenerated: Boolean[] = [false, false];
 
   rideForm = new FormGroup({
     pickup: new FormControl('', [Validators.required, autocompleteValidator(this, 0)]),
@@ -29,19 +32,38 @@ export class PickupDestinationFormComponent implements OnInit {
   role: any;
   route: Route = {} as Route;
 
-  constructor(private routingService: RoutingService, private router: Router) { 
+  constructor(private routingService: RoutingService, private router: Router,
+              private pickupDestinationService: PickupDestinationService ) { 
     this.role = 'USER';
   }
 
   ngOnInit(): void {
     markFormControlsTouched(this.rideForm);
+    this.listenToMarkers();
+  }
+
+  listenToMarkers() {
+    this.pickupDestinationService.receivedPickup().subscribe((address: ShortAddress) => {
+      this.markerGenerated[0] = true;
+      this.rideForm.get("pickup")?.setValue(address.formatted);
+      this.route.pickup = address;
+    });
+
+    this.pickupDestinationService.receivedDestination().subscribe((address: ShortAddress) => {
+      this.markerGenerated[1] = true;
+      this.rideForm.get("destination")?.setValue(address.formatted);
+      this.route.destination = address;
+    });
   }
 
 
   findRoute() {
     if (this.rideForm.valid) {
       this.route.scheduledTime = this.rideForm.get('time')?.value!;
-      this.route.vehicleTypeName = "CAR";
+      
+      // for now, until stepper is implemented properly
+      this.route.vehicleTypeName = "STANDARDNO";
+
       this.routingService.route = this.route;
       this.routingService.findRoute();
       this.routingService.receivedRoute().subscribe((route: Route) => {
@@ -52,16 +74,18 @@ export class PickupDestinationFormComponent implements OnInit {
   }
 
   public handlePickupChange(address: Address) {
-      if (this.checkAutocompleteValidity(address, 0, 'pickup')) {
-        this.route.pickup = {
-          formatted: address.formatted_address,
-          lat: address.geometry.location.lat(),
-          lng: address.geometry.location.lng(),
-        }
+    this.markerGenerated[0] = false;
+    if (this.checkAutocompleteValidity(address, 0, 'pickup')) {
+      this.route.pickup = {
+        formatted: address.formatted_address,
+        lat: address.geometry.location.lat(),
+        lng: address.geometry.location.lng(),
       }
+    }
   }
 
   public handleDestinationChange(address: Address) {
+    this.markerGenerated[1] = false;
     if (this.checkAutocompleteValidity(address, 1, 'destination')) {
       this.route.destination = {
         formatted: address.formatted_address,
@@ -98,12 +122,4 @@ export class PickupDestinationFormComponent implements OnInit {
     return calcHours + ":" + (totalMins - calcHours*60);
   }
 
-}
-
-export function markFormControlsTouched(formGroup: FormGroup) {
-  (<any>Object).values(formGroup.controls).forEach((control: FormControl) => {
-    control.valueChanges.subscribe(() => {
-      control.markAsTouched();
-    })
-  });
 }
