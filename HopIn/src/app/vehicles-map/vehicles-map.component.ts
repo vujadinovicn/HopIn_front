@@ -51,9 +51,13 @@ export class VehiclesMapComponent implements OnInit {
       console.log(event);
       this.addMarker(event.latLng.lat(), event.latLng.lng(), this.currentMarker);
       this.decodeCoordinates(event.latLng, this.currentMarker);
-      if (Object.keys(this.pickup).length == 0 || Object.keys(this.destination).length == 0)
+      if (this.notBothMarkersAdded())
         this.updateCurrentMarker();
     });
+  }
+
+  private notBothMarkersAdded() {
+    return Object.keys(this.pickup).length == 0 || Object.keys(this.destination).length == 0;
   }
 
   decodeCoordinates(location: LatLng, type: string) {
@@ -103,9 +107,11 @@ export class VehiclesMapComponent implements OnInit {
         });
 
         this.pickup.addListener('click', () => {
-          this.pickup.setLabel({text: "A", color: "#337D98", fontWeight: "bold"});
-          this.destination.setLabel({text: "B", color: "white", fontWeight: "bold"});
-          this.currentMarker = "Pickup";
+          if (!this.notBothMarkersAdded()) {
+            this.pickup.setLabel({text: "A", color: "#337D98", fontWeight: "bold"});
+            this.destination.setLabel({text: "B", color: "white", fontWeight: "bold"});
+            this.currentMarker = "Pickup";
+          }
         });
       }
       else
@@ -127,9 +133,11 @@ export class VehiclesMapComponent implements OnInit {
         });
 
         this.destination.addListener('click', () => {
-          this.pickup.setLabel({text: "A", color: "white", fontWeight: "bold"});
-          this.destination.setLabel({text: "B", color: "#337D98", fontWeight: "bold"});
-          this.currentMarker = "Destination";
+          if (!this.notBothMarkersAdded()) {
+            this.pickup.setLabel({text: "A", color: "white", fontWeight: "bold"});
+            this.destination.setLabel({text: "B", color: "#337D98", fontWeight: "bold"});
+            this.currentMarker = "Destination";
+          }
         });
       }
       else
