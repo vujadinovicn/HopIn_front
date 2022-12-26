@@ -177,6 +177,10 @@ html, body { height: 100%; width: 100%; margin: 0; font-family: "Poppins", sans-
     color: #383838 !important;
 }
 
+.red {
+    color: #A8201A !important;
+}
+
 .back-dark-blue {
     background-color: #1E4A5A !important;
 }

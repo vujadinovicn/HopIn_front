@@ -40,6 +40,7 @@ import { DocumentAddDialogComponent } from './document-add-dialog/document-add-d
 import { AdminAccountComponent } from './admin-account/admin-account.component';
 import { UpdateRequestDetailsComponent } from './update-request-details/update-request-details.component';
 import { AdminRequestDetailsContainerComponent } from './admin-request-details-container/admin-request-details-container.component';
+import { DeclineRequestReasonDialogComponent } from './decline-request-reason-dialog/decline-request-reason-dialog.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { AdminRequestDetailsContainerComponent } from './admin-request-details-c
     DriverAccountComponent,
     AdminAccountComponent,
     AdminRequestDetailsContainerComponent,
+    DeclineRequestReasonDialogComponent,
   ],
   imports: [
     BrowserModule,
