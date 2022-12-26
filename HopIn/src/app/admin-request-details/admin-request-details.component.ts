@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { DocumentDetailsDialogComponent } from '../document-details-dialog/document-details-dialog.component';
 
 
 @Component({
@@ -7,10 +9,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   templateUrl: './admin-request-details.component.html',
   styleUrls: ['./admin-request-details.component.css', 
 '../account-settings/account-settings.component.css',
-'../change-vehicle-info/change-vehicle-info.component.css']
+'../change-vehicle-info/change-vehicle-info.component.css',
+'../driver-documents/driver-documents.component.css']
 })
 export class AdminRequestDetailsComponent implements OnInit {
-
 
   isPetTransport : boolean = true;
   isBabyTransport: boolean = true;
@@ -29,10 +31,9 @@ export class AdminRequestDetailsComponent implements OnInit {
     seats: new FormControl(''),
   }, [])
 
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
   profileImgPath : string = "";
-
 
   ngOnInit(): void {
     this.disableFormFields();
@@ -51,6 +52,12 @@ export class AdminRequestDetailsComponent implements OnInit {
     });
     (<any>Object).values(this.vehicleInfoForm.controls).forEach((control: FormControl) => {
       control.disable();
+    });
+  }
+
+  openShowDetailsPopUp(): void {
+    this.dialog.open(DocumentDetailsDialogComponent, {
+      data: {name: "necaaa", url: ""},
     });
   }
 

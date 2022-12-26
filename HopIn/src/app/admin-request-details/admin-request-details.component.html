@@ -34,7 +34,7 @@
         </form>
     </div>
 </div>
-<div id="admin-request-password">
+<div id="admin-request-password" style="display: none;">
     <span>Password has been changed.</span>
 </div>
 
@@ -69,6 +69,13 @@
                 <span *ngIf="vehicleType == 'luxury'">Luxury car</span>
             </div>
         </div>
+    </div>
+</div>
+<div id="admin-request-vehicle">
+    <span>Document has been added/updated.</span>
+    <div class="document-container">
+        <mat-icon>document_scanner</mat-icon>
+        <span (click)="openShowDetailsPopUp()">name</span>
     </div>
 </div>
 

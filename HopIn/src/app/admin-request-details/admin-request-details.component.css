@@ -29,6 +29,11 @@
     color: #B1B1B1;
 }
 
+#admin-request-vehicle {
+    margin-top: 20px;
+    text-align: center;
+}
+
 mat-checkbox {
     display: block;
     font-size: 0.85em !important;
