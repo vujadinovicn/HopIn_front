@@ -1,0 +1,42 @@
+user-graph {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.admin-reports-container{
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: 15vh;
+    margin-bottom: 5vh;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 48%;
+    height: 750px;
+    background-color: white;
+    -ms-flex-align: center;
+ }
+
+ @media screen and (max-width: 1000px) {
+    .admin-reports-container {
+        display: block;
+        height: fit-content;
+        padding-bottom: 20px;
+        height: 600px;
+        margin-top: 15vh;
+    }
+}
+
+@media screen and (max-width: 875px) {
+    .admin-reports-container {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 450px){
+    .admin-reports-container{
+        width: 90%;
+    }
+}
