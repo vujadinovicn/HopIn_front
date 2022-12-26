@@ -1,0 +1,10 @@
+.win {
+    width: 100vw;
+    align-items: center;
+    display: grid;
+}
+
+account-details {
+    align-self: center;
+    margin: auto;
+}

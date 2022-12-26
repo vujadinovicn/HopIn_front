@@ -1,10 +1,10 @@
-<div id="account-container" [ngClass]="isDriver ? 'account-container-driver' : 'account-container-passenger'">
+<div id="account-container" [ngClass]="[isDriver ? 'account-container-driver' : '', isAdmin ? 'account-container-admin': '', isPassenger ? 'account-container-passenger': '']">
     <img [src]="url" class="profile-img">
   
-    <p id="userName">{{ passenger.name + " " + passenger.surname }}</p>
-    <p class="roleText" *ngIf="this.isDriver === false">passenger</p>
+    <p id="userName">{{ user.name + " " + user.surname }}</p>
+    <p class="roleText" *ngIf="this.isPassenger === true">passenger</p>
     <p class="roleText" *ngIf="this.isDriver === true">driver</p>
-
+    <p class="roleText" *ngIf="this.isAdmin === true">admin</p>
 
     <!-- CONTACT INFO -->
     <div class="sectionTitle">
@@ -14,11 +14,11 @@
     <div class="data">
         <div class="keyValue">
             <p class="key">Email:</p>
-            <p id="email" class="value">{{ passenger.email }}</p>
+            <p id="email" class="value">{{ user.email }}</p>
         </div>
         <div class="keyValue">
             <p class="key">Phone number:</p>
-            <p id="phoneNumber" class="value">{{ passenger.telephoneNumber }}</p>
+            <p id="phoneNumber" class="value">{{ user.telephoneNumber }}</p>
         </div>
     </div>
 
@@ -30,13 +30,13 @@
     <div class="data">
         <div class="keyValue">
             <p class="key">Address:</p>
-            <p id="address" class="value">{{ passenger.address }}</p>
+            <p id="address" class="value">{{ user.address }}</p>
         </div>
     </div>
 
 
      <!-- PAYMENT INFO -->
-     <div *ngif="!this.isDriver" class="sectionTitle">
+     <div *ngif="this.isPassenger" class="sectionTitle">
         <p>Payment Info</p>
         <div class="line"></div>
     </div>

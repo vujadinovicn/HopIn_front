@@ -38,6 +38,7 @@ import { DriverDocumentsComponent } from './driver-documents/driver-documents.co
 import { DocumentDetailsDialogComponent } from './document-details-dialog/document-details-dialog.component';
 import { DocumentUpdateDialogComponent } from './document-update-dialog/document-update-dialog.component';
 import { DocumentAddDialogComponent } from './document-add-dialog/document-add-dialog.component';
+import { AdminAccountComponent } from './admin-account/admin-account.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,9 @@ import { DocumentAddDialogComponent } from './document-add-dialog/document-add-d
     DocumentDetailsDialogComponent,
     DriverAccountComponent,
     DocumentUpdateDialogComponent,
-    DocumentAddDialogComponent
+    DocumentAddDialogComponent,
+    DriverAccountComponent,
+    AdminAccountComponent,
   ],
   imports: [
     BrowserModule,

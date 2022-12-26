@@ -11,6 +11,7 @@ import { ChangePaymentInfoComponent } from 'src/app/change-payment-info/change-p
 import { AccountComponent } from 'src/app/account/account.component';
 import { DriverAccountComponent } from 'src/app/driver-account/driver-account.component';
 import { AccountUpdateComponent } from 'src/app/account-update/account-update.component';
+import { AdminAccountComponent } from 'src/app/admin-account/admin-account.component';
 
 const routes: Routes = [
   {path: '', component: LandingComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'route-suggestion', component: RouteSuggestionComponent},
   {path: 'account-driver', component: DriverAccountComponent},
   {path: 'account-passenger', component: AccountComponent},
+  {path: 'account-admin', component: AdminAccountComponent},
   {path: 'account-settings', component: AccountUpdateComponent},
   {path: 'change-password', component: ChangePasswordComponent},
   {path:'change-payment-info', component: ChangePaymentInfoComponent},

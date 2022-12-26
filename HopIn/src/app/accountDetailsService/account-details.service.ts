@@ -18,4 +18,8 @@ export class AccountDetailsService {
   getDriver(): Observable<ReturnedDriver> {
     return this.http.get<ReturnedDriver>(environment.apiHost + '/driver/2');
   }
+
+  getUser(): Observable<ReturnedDriver> {
+    return this.http.get<ReturnedDriver>(environment.apiHost + '/user/1');
+  }
 }

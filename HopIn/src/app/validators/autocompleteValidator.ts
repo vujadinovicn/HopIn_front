@@ -1,10 +1,10 @@
 import { PickupDestinationFormComponent } from './../pickup-destination-form/pickup-destination-form.component';
-import { Address } from 'ngx-google-places-autocomplete/objects/address';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export function autocompleteValidator(component: PickupDestinationFormComponent, i: number) {
     return (control: AbstractControl): ValidationErrors | null => {
-        console.log(control.value + " " + control.getRawValue());
+        if (component.markerGenerated[i])
+            return null;
         if (component.notValid[i])
             return { autocompleteNotUsed : true};
         if (!component.changed[i])
