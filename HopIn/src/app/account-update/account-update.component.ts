@@ -8,9 +8,9 @@ import { PassengerAccountOptionsService } from '../services/passengerAccountOpti
 })
 export class AccountUpdateComponent implements OnInit {
 
-  option: string = "settings";
+  option: string = "documents";
 
-  constructor(private passengerAccountOptionsService : PassengerAccountOptionsService) { }
+  constructor(private passengerAccountOptionsService: PassengerAccountOptionsService) { }
 
   ngOnInit(): void {
     this.recieveSelectedOption();
