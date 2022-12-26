@@ -1,3 +1,4 @@
+import { AdminReportOptionsService } from './../services/adminReportOptions.service';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import {Chart, registerables} from 'node_modules/chart.js' 
 import dayjs, { Dayjs } from 'dayjs';
@@ -5,6 +6,7 @@ import { UserGraphService } from '../userGraphService/user-graph.service';
 import { RideForReport } from '../userGraphService/user-graph.service';
 import { Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserService } from '../services/user.service';
 Chart.register(...registerables)
 
 @Component({
@@ -14,9 +16,11 @@ Chart.register(...registerables)
 })
 export class UserGraphComponent implements OnInit {
 
-  _role: String = 'driver';
+  _role: String = 'admin';
+  inputIdFor: String = 'all';
   selectedDates!: {start: Dayjs, end: Dayjs};
-  selectedType: String = 'Distance traveled'
+  selectedType: String = 'Distance traveled';
+  id: number = 1;
   reportVisibility: boolean = false;
   myChart!: Chart;
   data: number[] = [];
@@ -27,9 +31,19 @@ export class UserGraphComponent implements OnInit {
 
 
   constructor(private userGraphService: UserGraphService,
-    public snackBar: MatSnackBar) { }
+    public snackBar: MatSnackBar,
+    private userService: UserService,
+    private adminReportOptionsService: AdminReportOptionsService) { }
 
   ngOnInit(): void {
+    this._role = this.userService.role;
+    this.recieveSelectedOption();
+  }
+
+  recieveSelectedOption(): void {
+    this.adminReportOptionsService.recieveSelectedOption().subscribe((res: any) => {
+      this.inputIdFor = res;
+    });
   }
 
   RenderChart() {
@@ -87,49 +101,26 @@ export class UserGraphComponent implements OnInit {
 }
 
 generateBtnOnClick():void {
-  if (this.selectedDates.start == undefined || this.selectedDates.end == undefined) {
-    this.snackBar.open("Pick a date range!", "", {
+  if (this.selectedDates.start == undefined || this.selectedDates.end == undefined  
+    || (this.inputIdFor != 'all' && this.id == null)) {
+    this.snackBar.open("Wrong input!", "", {
       duration: 2000,
    });
    return;
   }
 
   if (this._role === 'admin') {
-    this.userGraphService.getAll(this.selectedDates.start, this.selectedDates.end).subscribe((res) => {
-      this.rides = res;
-      if (this.selectedType === "Distance traveled") {
-        this.setDataForDistance();
-      } else if (this.selectedType === "Number of rides") {
-        this.setDataForNumberRides();
-      } else {
-        this.setDataForMoneySpent();
-      }
-      this.RenderChart();
-    });
+    if (this.inputIdFor === 'driver') {
+      this.getAllForDriver();
+    } else if (this.inputIdFor === 'passenger') {
+      this.getAllForPassenger();
+    } else {
+      this.getAll();
+    }
   } else if (this._role === 'driver') {
-    this.userGraphService.getAllForDriver(this.selectedDates.start, this.selectedDates.end, 2).subscribe((res) => {
-      this.rides = res;
-      if (this.selectedType === "Distance traveled") {
-        this.setDataForDistance();
-      } else if (this.selectedType === "Number of rides") {
-        this.setDataForNumberRides();
-      } else {
-        this.setDataForMoneySpent();
-      }
-      this.RenderChart();
-    });
+    this.getAllForDriver();
   } else {
-    this.userGraphService.getAllForPassenger(this.selectedDates.start, this.selectedDates.end, 1).subscribe((res) => {
-      this.rides = res;
-      if (this.selectedType === "Distance traveled") {
-        this.setDataForDistance();
-      } else if (this.selectedType === "Number of rides") {
-        this.setDataForNumberRides();
-      } else {
-        this.setDataForMoneySpent();
-      }
-      this.RenderChart();
-    });
+    this.getAllForPassenger();
   }
   
   this.reportVisibility = true;
@@ -198,6 +189,48 @@ setDataForMoneySpent(): void {
     }
   }
   this.average = Math.round(this.total / this.data.length);
+}
+
+private getAll(): void {
+  this.userGraphService.getAll(this.selectedDates.start, this.selectedDates.end).subscribe((res) => {
+    this.rides = res;
+    if (this.selectedType === "Distance traveled") {
+      this.setDataForDistance();
+    } else if (this.selectedType === "Number of rides") {
+      this.setDataForNumberRides();
+    } else {
+      this.setDataForMoneySpent();
+    }
+    this.RenderChart();
+  });
+}
+
+private getAllForDriver(): void {
+  this.userGraphService.getAllForDriver(this.selectedDates.start, this.selectedDates.end, this.id).subscribe((res) => {
+    this.rides = res;
+    if (this.selectedType === "Distance traveled") {
+      this.setDataForDistance();
+    } else if (this.selectedType === "Number of rides") {
+      this.setDataForNumberRides();
+    } else {
+      this.setDataForMoneySpent();
+    }
+    this.RenderChart();
+  });
+}
+
+private getAllForPassenger(): void {
+  this.userGraphService.getAllForPassenger(this.selectedDates.start, this.selectedDates.end, this.id).subscribe((res) => {
+    this.rides = res;
+    if (this.selectedType === "Distance traveled") {
+      this.setDataForDistance();
+    } else if (this.selectedType === "Number of rides") {
+      this.setDataForNumberRides();
+    } else {
+      this.setDataForMoneySpent();
+    }
+    this.RenderChart();
+  });
 }
 
 }

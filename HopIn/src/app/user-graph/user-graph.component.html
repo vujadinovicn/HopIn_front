@@ -1,15 +1,15 @@
-<div id="userGraphContainer" [ngClass]="_role === 'driver' ? 'containerDesign' : 'userGraphContainer'">
+<div id="userGraphContainer" [ngClass]="[this._role === 'driver' ? 'containerDesignDriver' : '', this._role === 'passenger' ? 'containerDesignPassenger' : '', this._role === 'admin' ? 'containerDesignAdmin' : '']">
     <div id="reportInfoContainer">
-        <div class="greeting">
+        <div class="greeting" *ngIf="_role != 'admin'">
             <h2>Hey, Grace</h2>
             <img src="../../assets/vectors/wavingHand.svg">
         </div>
-        <h3>Tell us about the report:</h3>
-        <div class="line"></div>
+        <h3 *ngIf="_role != 'admin'">Tell us about the report:</h3>
+        <div class="line" *ngIf="_role != 'admin'"></div>
 
-        <div class="row" *ngIf="_role === 'admin'">
+        <div class="row" *ngIf="_role === 'admin' && inputIdFor != 'all'">
             <p>Input ID:</p>
-            <input placeholder="Id" type="number">
+            <input placeholder="Id" type="number" [(ngModel)]="id">
         </div>
 
         <div class="row">
@@ -39,7 +39,7 @@
 
         <button id="generateBtn" (click)="generateBtnOnClick()">Generate report</button>
     </div>
-    <div *ngIf="this.reportVisibility === true" [ngClass]="this._role === 'driver' ? 'reportContainerDriver' : 'reportContainerPassenger'">
+    <div *ngIf="this.reportVisibility === true" [ngClass]="this._role === 'passenger' ? 'reportContainerPassenger' : 'reportContainerDriver'">
         <div class="column">
             <h2>Report</h2>
             <div>
