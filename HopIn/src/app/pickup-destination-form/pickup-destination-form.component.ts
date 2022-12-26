@@ -7,7 +7,7 @@ import { autocompleteValidator } from '../validators/autocompleteValidator';
 import { schedulingValidator } from '../validators/schedulingValidator';
 import { timeFormatValidator } from '../validators/timeFormatValidator';
 import { PickupDestinationService } from '../services/pickup-destination.service';
-import { ThisReceiver } from '@angular/compiler';
+import { markFormControlsTouched } from '../validators/formGroupValidators';
 
 @Component({
   selector: 'pickup-destination-form',
@@ -39,6 +39,10 @@ export class PickupDestinationFormComponent implements OnInit {
 
   ngOnInit(): void {
     markFormControlsTouched(this.rideForm);
+    this.listenToMarkers();
+  }
+
+  listenToMarkers() {
     this.pickupDestinationService.receivedPickup().subscribe((address: ShortAddress) => {
       this.markerGenerated[0] = true;
       this.rideForm.get("pickup")?.setValue(address.formatted);
@@ -56,7 +60,10 @@ export class PickupDestinationFormComponent implements OnInit {
   findRoute() {
     if (this.rideForm.valid) {
       this.route.scheduledTime = this.rideForm.get('time')?.value!;
+      
+      // for now, until stepper is implemented properly
       this.route.vehicleTypeName = "STANDARDNO";
+
       this.routingService.route = this.route;
       this.routingService.findRoute();
       this.routingService.receivedRoute().subscribe((route: Route) => {
@@ -115,12 +122,4 @@ export class PickupDestinationFormComponent implements OnInit {
     return calcHours + ":" + (totalMins - calcHours*60);
   }
 
-}
-
-export function markFormControlsTouched(formGroup: FormGroup) {
-  (<any>Object).values(formGroup.controls).forEach((control: FormControl) => {
-    control.valueChanges.subscribe(() => {
-      control.markAsTouched();
-    })
-  });
 }

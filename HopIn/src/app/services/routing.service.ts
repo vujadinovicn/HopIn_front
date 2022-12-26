@@ -59,11 +59,9 @@ export class RoutingService {
         console.log(response);
         this.getRoutePrice(response);
       }
-    })
-
-    
-    
+    })  
   }
+
   getRoutePrice(response: any) {
     let priceDTO : UnregisteredRideSuggestionDTO = {
       vehicleTypeName: this.route.vehicleTypeName,

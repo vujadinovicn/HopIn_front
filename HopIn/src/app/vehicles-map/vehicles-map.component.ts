@@ -1,9 +1,8 @@
+import { MapService } from './../services/map.service';
 import { PickupDestinationService } from './../services/pickup-destination.service';
 import { Component, OnInit } from '@angular/core';
-import { Loader } from '@googlemaps/js-api-loader';
 import { LatLng } from 'ngx-google-places-autocomplete/objects/latLng';
 import { ShortAddress } from '../services/routing.service';
-import { E } from 'chart.js/dist/chunks/helpers.core';
 
 @Component({
   selector: 'vehicles-map',
@@ -13,25 +12,23 @@ import { E } from 'chart.js/dist/chunks/helpers.core';
 export class VehiclesMapComponent implements OnInit {
   
   map : google.maps.Map = {} as google.maps.Map;
-  geocoder: google.maps.Geocoder = {} as google.maps.Geocoder;
+  geocoder: google.maps.Geocoder = new google.maps.Geocoder();
 
   pickup : google.maps.Marker = {} as google.maps.Marker;
   destination : google.maps.Marker = {} as google.maps.Marker;
   currentMarker: string = "Pickup";
 
-  constructor(private pickupDestinationService: PickupDestinationService) { }
+  constructor(private pickupDestinationService: PickupDestinationService,
+              private mapService: MapService) { }
 
   ngOnInit(): void {
-    let loader = new Loader({
-      apiKey: 'AIzaSyADf7wmEupGmb08OGVJR1eNhvtvF6KYuiM&libraries=places&language=en'
-    });
-    
-    loader.load().then(() => {
+    this.mapService.getLoader().load().then(() => {
       this.initMap();
-    });
+      this.configureMap();
+    }); 
   }
 
-  initMap(): void {
+  initMap() {
     this.map = new google.maps.Map(
       document.getElementById("vehicles-map") as HTMLElement,
       {
@@ -46,9 +43,10 @@ export class VehiclesMapComponent implements OnInit {
         mapTypeId: 'roadmap'
       }
     );
+  }
+  
 
-    this.geocoder = new google.maps.Geocoder();
-
+  configureMap(): void {
     this.map.addListener("click", (event: any) => {
       console.log(event);
       this.addMarker(event.latLng.lat(), event.latLng.lng(), this.currentMarker);
@@ -97,7 +95,7 @@ export class VehiclesMapComponent implements OnInit {
           position: { lat: lat, lng: lng},
           title: title,
           draggable: true,
-          label: {text: "A", color: "white"},
+          label: {text: "A", color: "white", fontWeight: "bold"},
         });
 
         this.pickup.addListener('dragend', () => {
@@ -105,6 +103,8 @@ export class VehiclesMapComponent implements OnInit {
         });
 
         this.pickup.addListener('click', () => {
+          this.pickup.setLabel({text: "A", color: "#337D98", fontWeight: "bold"});
+          this.destination.setLabel({text: "B", color: "white", fontWeight: "bold"});
           this.currentMarker = "Pickup";
         });
       }
@@ -119,7 +119,7 @@ export class VehiclesMapComponent implements OnInit {
           position: { lat: lat, lng: lng},
           title: title,
           draggable: true,
-          label: {text: "B", color: "white"},
+          label: {text: "B", color: "white", fontWeight: "bold"},
         });
 
         this.destination.addListener('dragend', () => {
@@ -127,6 +127,8 @@ export class VehiclesMapComponent implements OnInit {
         });
 
         this.destination.addListener('click', () => {
+          this.pickup.setLabel({text: "A", color: "white", fontWeight: "bold"});
+          this.destination.setLabel({text: "B", color: "#337D98", fontWeight: "bold"});
           this.currentMarker = "Destination";
         });
       }
