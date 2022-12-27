@@ -1,8 +1,8 @@
 <div class="allFeedBackOptionsContianer">
-    <div class="pendingContainar" *ngIf="status === 'pending'">
+    <div class="pendingContainar" *ngIf="request.status === 'pending'">
         <p>Waiting admin feedback...</p>
     </div>
-    <div class="declinedContianer" *ngIf="status === 'declined'">
+    <div class="declinedContianer" *ngIf="request.status === 'declined'">
         <div class="left">
             <div class="row firstRow">
                 <img src="../../assets/vectors/profileAvatar.svg" alt="">
@@ -12,13 +12,7 @@
             </div>
             <p id="reasonTitle">Reason:</p>
             <div id="reasonContent">
-                <p>Lorem ipsum dolor sit amet consectetur. 
-                    Sed metus risus amet at at tellus quis aenean. 
-                    Euismod dui platea urna velit vel pellentesque egestas sed at. 
-                    Interdum euismod auctor hendrerit maecenas elit. Lorem ipsum dolor sit amet consectetur. 
-                    Sed metus risus amet at at tellus quis aenean. 
-                    Euismod dui platea urna velit vel pellentesque egestas sed at. 
-                    Interdum euismod auctor hendrerit maecenas elit. </p>
+                <p>{{request.reason}}</p>
             </div>
         </div>
         <div class="right">
@@ -26,7 +20,7 @@
             <button >Declined</button>
         </div>
     </div>
-    <div class="acceptedContianer" *ngIf="status === 'accepted'">
+    <div class="acceptedContianer" *ngIf="request.status === 'accepted'">
         <div class="row firstRow">
             <img src="../../assets/vectors/profileAvatar.svg" alt="">
             <p id="name">Mark Jacobs </p>
