@@ -124,20 +124,33 @@ p {
 
  /* BUTTON */
  button {
-    background-color: #1E4A5A;
-    color: white;
-    font-size: 0.9em;
+    background-color: #EBEBEB;
+    color: rgba(0, 0, 0, 0.8);
+    font-size: 0.8em;
     padding: 0.3em 1em ;
     border-radius: 5px;
     border: 0;
     margin-top: auto;
     font-family: 'Poppins', sans-serif;
     border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+ }
+
+ button > p {
+    margin-right: auto;
  }
 
  button:hover {
     background-color: #337D98;
     cursor: pointer;
+}
+
+#settingsIcon {
+    width: 15px;
+    margin: auto;
+    margin-right: 2px;
 }
 
  @media only screen and (max-width: 900px) {
