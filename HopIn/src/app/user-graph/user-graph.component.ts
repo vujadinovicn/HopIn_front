@@ -14,7 +14,7 @@ Chart.register(...registerables)
 })
 export class UserGraphComponent implements OnInit {
 
-  isDriver: boolean = true;
+  isDriver: boolean = false;
   selectedDates!: {start: Dayjs, end: Dayjs};
   selectedType: String = 'Distance traveled'
   reportVisibility: boolean = false;
