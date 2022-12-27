@@ -1,0 +1,83 @@
+<div>
+<div id="admin-request-title" class="back-light-blue">
+    Account information update
+</div>
+<div id="admin-request-personal-info">
+    <div class="account-settings-form-container">
+        <form [formGroup]="personalInfoForm" fxLayout="column">
+            <div style="width: 100%">
+                <div class="profile-img-container">
+                    <img [src]="profileImgPath" class="profile-img">
+                </div>
+                <div class="name-form-container">
+                    <mat-form-field color="primary" [hideRequiredMarker]="true" id="name">
+                        <mat-label>Name</mat-label>
+                        <input matInput type="text" name="name" formControlName="name"/>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Surname</mat-label>
+                        <input matInput type="text" name="surname" formControlName="surname"/>
+                    </mat-form-field>
+                </div>
+            </div>
+            <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input matInput type="email" name="email" formControlName="email"/>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Address</mat-label>
+                <input matInput type="text" name="address" formControlName="address"/>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Phone number</mat-label>
+                <input matInput type="tel" name="phonenum" formControlName="phonenum"/>
+            </mat-form-field>
+        </form>
+    </div>
+</div>
+<div id="admin-request-password" style="display: none;">
+    <span>Password has been changed.</span>
+</div>
+
+<div id="admin-request-vehicle" style="display: none;">
+    <div class="account-settings-form-container">
+        <form [formGroup]="vehicleInfoForm" fxLayout="column">
+            <mat-form-field [hideRequiredMarker]="true" id="model">
+                <mat-label>Model</mat-label>
+                <input matInput type="text" name="model" formControlName="model"></mat-form-field>
+            <mat-form-field [hideRequiredMarker]="true" id="plates">
+                <mat-label>Plates</mat-label>
+                <input matInput type="text" name="plates" formControlName="plates">
+            </mat-form-field>
+            <mat-form-field [hideRequiredMarker]="true" id="seats">
+                <mat-label>No. seats</mat-label>
+                <input matInput type="number" name="seats" formControlName="seats">
+            </mat-form-field>
+        </form>
+        <div id="request-out-of-form-container">
+            <div class="request-checkbox" style="font-size: 1em">
+                <mat-checkbox  [(ngModel)]="isBabyTransport" [disabled]="true" color="primary">vehicle for babies</mat-checkbox>
+                <mat-checkbox  [(ngModel)]="isPetTransport" [disabled]="true" color="primary">vehicle for pets</mat-checkbox>
+            </div>
+            <div class="request-vehicle-type">
+                <i class='fas fa-car-side' *ngIf="vehicleType == 'car'"></i>
+                <span style="display: block;" *ngIf="vehicleType == 'car'">Car</span>
+
+                <i class='fas fa-shuttle-van' *ngIf="vehicleType == 'van'"></i>
+                <span *ngIf="vehicleType == 'van'">Van</span>
+
+                <i class='fas fa-shuttle-van' *ngIf="vehicleType == 'luxury'"></i>
+                <span *ngIf="vehicleType == 'luxury'">Luxury car</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="admin-request-vehicle" style="display: none">
+    <span>Document has been added/updated.</span>
+    <div class="document-container">
+        <mat-icon>document_scanner</mat-icon>
+        <span (click)="openShowDetailsPopUp()">name</span>
+    </div>
+</div>
+</div>
+
