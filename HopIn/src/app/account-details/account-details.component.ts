@@ -8,9 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountDetailsComponent implements OnInit {
 
-  isDriver: boolean = false;
-  isAdmin: boolean = true;
-  isPassenger: boolean = false;
+  _role: String = 'passenger';
   isLuxury: boolean = false;
   user: ReturnedUser = {
     id: 0,
@@ -50,12 +48,12 @@ export class AccountDetailsComponent implements OnInit {
   constructor(private accountDetailsService: AccountDetailsService) { }
 
   ngOnInit(): void {
-    if(this.isPassenger) {
+    if(this._role === 'passenger') {
       this.accountDetailsService.getPassenger().subscribe((res) => {
         this.user = res;
         this.url = this.user.profilePicture;
       });
-    } else if (this.isDriver) {
+    } else if (this._role === 'driver') {
       this.accountDetailsService.getDriver().subscribe((res) => {
         this.driver = res;
         this.fromDriverToPassenger();
@@ -69,7 +67,7 @@ export class AccountDetailsComponent implements OnInit {
           this.urlVehicleType = "../../assets/vectors/regularCar.svg"
         }
       });
-    } else if (this.isAdmin) {
+    } else if (this._role === 'admin') {
       this.accountDetailsService.getUser().subscribe((res) => {
         this.user = res;
         this.url = this.user.profilePicture;

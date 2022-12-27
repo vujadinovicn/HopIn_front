@@ -38,6 +38,8 @@ import { DocumentDetailsDialogComponent } from './document-details-dialog/docume
 import { DocumentUpdateDialogComponent } from './document-update-dialog/document-update-dialog.component';
 import { DocumentAddDialogComponent } from './document-add-dialog/document-add-dialog.component';
 import { AdminAccountComponent } from './admin-account/admin-account.component';
+import { RequestFeedbackComponent } from './request-feedback/request-feedback.component';
+import { DriverRequestDashboardComponent } from './driver-request-dashboard/driver-request-dashboard.component';
 import { UpdateRequestDetailsComponent } from './update-request-details/update-request-details.component';
 import { AdminRequestDetailsContainerComponent } from './admin-request-details-container/admin-request-details-container.component';
 import { DeclineRequestReasonDialogComponent } from './decline-request-reason-dialog/decline-request-reason-dialog.component';
@@ -69,6 +71,8 @@ import { DeclineRequestReasonDialogComponent } from './decline-request-reason-di
     DocumentDetailsDialogComponent,
     DriverAccountComponent,
     AdminAccountComponent,
+    RequestFeedbackComponent,
+    DriverRequestDashboardComponent,
     UpdateRequestDetailsComponent,
     DocumentUpdateDialogComponent,
     DocumentAddDialogComponent,
