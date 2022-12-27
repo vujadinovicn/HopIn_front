@@ -19,6 +19,18 @@ export class RequestDetailsService {
     return this.http.get<PasswordRequest>(environment.apiHost + '/request/' + requestId + '/password');
   }
 
+  getVehicleRequestById(requestId: number): Observable<VehicleRequest> {
+    return this.http.get<VehicleRequest>(environment.apiHost + '/request/' + requestId + '/vehicle');
+  }
+
+  getInfoRequestById(requestId: number): Observable<InfoRequest> {
+    return this.http.get<InfoRequest>(environment.apiHost + '/request/' + requestId + '/info');
+  }
+
+  getDocumentRequestById(requestId: number): Observable<DocumentRequest> {
+    return this.http.get<DocumentRequest>(environment.apiHost + '/request/' + requestId + '/document');
+  }
+
 }
 
 export interface PasswordRequest {
@@ -36,4 +48,33 @@ export interface Request {
     time: Date;
     reason: String;
     admin: User;
+}
+
+export interface InfoRequest {
+    id: number;
+    name: string;
+    surname: string;
+    profilePicture: string;
+    telephoneNumber: string;
+    email: string;
+    address: string;
+    status: string;
+}
+
+export interface VehicleRequest {
+  id: number;
+  model: String;
+  licenseNumber: String;
+  passengerSeats: number;
+  babyTransport: boolean;
+  petTransport: boolean;
+  status: String;
+}
+
+export interface DocumentRequest {
+  id: number;
+  name: String;
+  docuementImage: String;
+  documentOperationType: String;
+  status: String;
 }
