@@ -1,3 +1,4 @@
+import { PasswordRequest, RequestDetailsService } from './../services/requestDetails.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,19 +8,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RequestFeedbackComponent implements OnInit {
 
-  request: Request = {
-    status: 'declined',
-    reason: 'Lorem ipsum dolor sit amet consectetur. Sed metus risus amet at at tellus quis aenean. Euismod dui platea urna velit vel pellentesque egestas sed at. Interdum euismod auctor hendrerit maecenas elit. Lorem ipsum dolor sit amet consectetur.' 
-    };
 
-  constructor() { }
+  status: String = 'ACCEPTED';
+  reason: String = '';
+  admin: String = '';
+  url: String = '../../assets/vectors/profileAvatar.svg';
+
+  onFileSelect(event: any){
+    if (event.target.files){
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload=(e: any)=>{
+        this.url = reader.result as string;
+      }
+    }
+  }
+
+  constructor(private requestDetialsService: RequestDetailsService) { }
 
   ngOnInit(): void {
+    this.requestDetialsService.getRequestById(1).subscribe((res) => {
+      this.status = res.status;
+      this.reason = res.reason
+      this.admin = res.admin.name + ' ' + res.admin.surname;
+      this.url = res.admin.profilePicture;
+    });
   }
 
 }
 
-export interface Request {
-  status: String;
-  reason: String;
-}

@@ -1,18 +1,18 @@
 <div class="allFeedBackOptionsContianer">
-    <div class="pendingContainar" *ngIf="request.status === 'pending'">
+    <div class="pendingContainar" *ngIf="status === 'PENDING'">
         <p>Waiting admin feedback...</p>
     </div>
-    <div class="declinedContianer" *ngIf="request.status === 'declined'">
+    <div class="declinedContianer" *ngIf="status === 'DENIED'">
         <div class="left">
             <div class="row firstRow">
-                <img src="../../assets/vectors/profileAvatar.svg" alt="">
-                <p id="name">Mark Jacobs </p>
+                <img [src]="url" alt="">
+                <p id="name">{{admin}}</p>
                 <p id="declinedP">&nbsp;declined&nbsp;</p>
                 <p>your request</p>
             </div>
             <p id="reasonTitle">Reason:</p>
             <div id="reasonContent">
-                <p>{{request.reason}}</p>
+                <p>{{reason}}</p>
             </div>
         </div>
         <div class="right">
@@ -20,10 +20,10 @@
             <button >Declined</button>
         </div>
     </div>
-    <div class="acceptedContianer" *ngIf="request.status === 'accepted'">
+    <div class="acceptedContianer" *ngIf="status === 'ACCEPTED'">
         <div class="row firstRow">
-            <img src="../../assets/vectors/profileAvatar.svg" alt="">
-            <p id="name">Mark Jacobs </p>
+            <img [src]="url" alt="">
+            <p id="name">{{admin}}</p>
             <p id="acceptedP">&nbsp;accepted&nbsp;</p>
             <p>your request</p>
         </div>
