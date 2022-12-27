@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RequestFeedbackComponent implements OnInit {
 
+  status: String = 'declined'
+
   constructor() { }
 
   ngOnInit(): void {

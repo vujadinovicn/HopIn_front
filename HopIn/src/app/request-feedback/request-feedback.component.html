@@ -1,8 +1,8 @@
 <div class="allFeedBackOptionsContianer">
-    <div class="pendingContainar">
+    <div class="pendingContainar" *ngIf="status === 'pending'">
         <p>Waiting admin feedback...</p>
     </div>
-    <div class="declinedContianer">
+    <div class="declinedContianer" *ngIf="status === 'declined'">
         <div class="left">
             <div class="row firstRow">
                 <img src="../../assets/vectors/profileAvatar.svg" alt="">
@@ -26,7 +26,7 @@
             <button >Declined</button>
         </div>
     </div>
-    <div class="acceptedContianer">
+    <div class="acceptedContianer" *ngIf="status === 'accepted'">
         <div class="row firstRow">
             <img src="../../assets/vectors/profileAvatar.svg" alt="">
             <p id="name">Mark Jacobs </p>
