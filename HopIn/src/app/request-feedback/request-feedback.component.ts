@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RequestFeedbackComponent implements OnInit {
 
-
+  id: number = 0;
   status: String = 'PENDING';
   reason: String = '';
   admin: String = '';
@@ -28,14 +28,32 @@ export class RequestFeedbackComponent implements OnInit {
   constructor(private requestDetialsService: RequestDetailsService) { }
 
   ngOnInit(): void {
-    this.requestDetialsService.getRequestById(3).subscribe((res) => {
-      console.log(res);
-      this.status = res.status;
-      this.reason = res.reason
-      this.admin = res.admin.name + ' ' + res.admin.surname;
-      this.url = res.admin.profilePicture;
-      this.date = 'at ' + res.time.toString().split('T')[1].slice(0, 5) + ', ' + res.time.toString().split('T')[0];
+    this.recieveRequest();
+    // this.requestDetialsService.getRequestById(this.id).subscribe((res) => {
+    //   console.log(res);
+    //   this.status = res.status;
+    //   this.reason = res.reason
+    //   this.admin = res.admin.name + ' ' + res.admin.surname;
+    //   this.url = res.admin.profilePicture;
+    //   this.date = 'at ' + res.time.toString().split('T')[1].slice(0, 5) + ', ' + res.time.toString().split('T')[0];
 
+    // });
+  }
+
+  recieveRequest(): void {
+    this.requestDetialsService.recieveRequest().subscribe((res) => {
+      this.id = res.id;
+      console.log(res);
+      this.requestDetialsService.getRequestById(this.id).subscribe((res) => {
+        console.log(res);
+        this.status = res.status;
+        this.reason = res.reason
+        if(res.admin != null) {
+          this.admin = res.admin.name + ' ' + res.admin.surname;
+          this.url = res.admin.profilePicture;
+        }
+        this.date = 'at ' + res.time.toString().split('T')[1].slice(0, 5) + ', ' + res.time.toString().split('T')[0];
+      });
     });
   }
 
