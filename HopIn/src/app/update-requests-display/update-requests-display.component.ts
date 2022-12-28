@@ -1,3 +1,4 @@
+import { RequestDetailsService } from './../services/requestDetails.service';
 import { UpdateRequestService, DriverAccountUpdateRequest } from './../services/driver-update-request.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UpdateRequestsDisplayComponent implements OnInit {
 
+  _role: String = 'driver';
   currentOption: string = "pending";
   selectedRequestId: number = -1;
 
@@ -15,7 +17,8 @@ export class UpdateRequestsDisplayComponent implements OnInit {
   procesedRequests: DriverAccountUpdateRequest[] = [];
   requests: DriverAccountUpdateRequest[] = [];
 
-  constructor(private service: UpdateRequestService) { }
+  constructor(private service: UpdateRequestService,
+    private requestDetailsService: RequestDetailsService) { }
 
   ngOnInit(): void {
     this.getPending();
@@ -34,6 +37,8 @@ export class UpdateRequestsDisplayComponent implements OnInit {
   public selectRequest(request: DriverAccountUpdateRequest) {
     this.selectedRequestId = request.id;
     // ovde dodati kod za prikaz requesta preko id-a
+    this.requestDetailsService.sendRequest(request);
+    this.requestDetailsService.sendDetailsDisplayed(true);
   }
 
   public formatDate(dateStr: string): string {

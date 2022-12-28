@@ -1,3 +1,4 @@
+import { RequestDetailsService } from './../services/requestDetails.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DriverRequestDashboardComponent implements OnInit {
 
-  constructor() { }
+  areDetailsDisplayed: boolean = false;
+
+  constructor(private requestDetailsService: RequestDetailsService) { }
 
   ngOnInit(): void {
+    this.recieveDetailsDisplayed();
+  }
+
+  recieveDetailsDisplayed(): void {
+    this.requestDetailsService.recieveDetailsDisplayed().subscribe((res) => { 
+      this.areDetailsDisplayed = res;
+    });
   }
 
 }

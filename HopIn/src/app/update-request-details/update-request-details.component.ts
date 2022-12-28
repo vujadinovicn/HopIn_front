@@ -12,7 +12,8 @@ import { RequestDetailsService } from '../services/requestDetails.service';
 })
 export class UpdateRequestDetailsComponent implements OnInit {
 
-  type: String = 'vehicle';
+  id: number = 0;
+  type: String = 'VEHICLE';
 
   @Output() requestIdItemEvent = new EventEmitter<number>();
   requestIdToParent: number = 0;
@@ -48,32 +49,40 @@ export class UpdateRequestDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.disableFormFields();
-    if (this.type === 'info') {
+    this.recieveRequest();
+  }
+
+  recieveRequest(): void {
+    this.requestDetialsService.recieveRequest().subscribe((res) => { 
+      this.id = res.id;
+      this.type = res.type;
+      this.getFromBack();
+    });
+  }
+
+  getFromBack(): void {
+    if (this.type === 'INFO') {
       this.requestDetialsService.getInfoRequestById(3).subscribe((res) => {
         this.setPersonalInfoFormValue(res);
         this.profileImgPath = res.profilePicture;
-        this.requestIdItemEvent.emit(3);
       });
-    } else if (this.type === 'vehicle') {
+    } else if (this.type === 'VEHICLE') {
       this.requestDetialsService.getVehicleRequestById(4).subscribe((res) => {
         console.log(res);
         this.setVehicleInfoValue(res);
         this.isPetTransport = res.petTransport;
         this.isBabyTransport = res.babyTransport;
         this.vehicleType = res.vehicleType.toLowerCase();
-        this.requestIdItemEvent.emit(4);
       });
-    } else if (this.type === 'password'){
+    } else if (this.type === 'PASSWORD'){
       this.requestDetialsService.getPasswordRequestById(1).subscribe((res) => {
-        this.requestIdItemEvent.emit(1);        
       })
     } 
-    else if (this.type === 'document') {
+    else if (this.type === 'DOCUMENT') {
       this.requestDetialsService.getDocumentRequestById(2).subscribe((res) => {
         this.document.name = res.name;
         this.document.url = res.docuementImage;
         this.documentOperation = res.documentOperationType;
-        this.requestIdItemEvent.emit(2);
       });
     }
   }
