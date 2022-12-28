@@ -31,7 +31,7 @@ export class UpdateRequestService {
 export interface DriverAccountUpdateRequest {
     id: number,
     driver: User,
-    time: Date,
+    time: string,
     type: string,
     status: string
 }

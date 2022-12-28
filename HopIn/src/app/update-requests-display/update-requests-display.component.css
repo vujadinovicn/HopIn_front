@@ -96,19 +96,19 @@ p {
 }
 
 .info-bcg {
-    background-color: #6DAFC7;
+    background-color: #6DAFC7 !important;
 }
 
 .password-bcg {
-    background-color: #D8B78D;
+    background-color: #D8B78D !important;
 }
 
 .vehicle-bcg {
-    background-color: #627C86;
+    background-color: #627C86 !important;
 }
 
 .documents-bcg {
-    background-color: #A0C29D;
+    background-color: #A0C29D !important;
 }
 
 .request-type-tag {
@@ -122,4 +122,8 @@ p {
     bottom: 5px;
     right: 10px;
     position: absolute;
+}
+
+.selected-request-card {
+    border: 1px solid #1E4A5A;
 }

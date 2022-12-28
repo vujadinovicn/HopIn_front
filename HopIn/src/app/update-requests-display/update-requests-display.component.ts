@@ -9,8 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class UpdateRequestsDisplayComponent implements OnInit {
 
   currentOption: string = "pending";
-
-  driverImgPath = "../../assets/vectors/login.svg";
+  selectedRequestId: number = -1;
 
   pendingRequests: DriverAccountUpdateRequest[] = [];
   procesedRequests: DriverAccountUpdateRequest[] = [];
@@ -32,13 +31,22 @@ export class UpdateRequestsDisplayComponent implements OnInit {
     }
   }
 
+  public selectRequest(request: DriverAccountUpdateRequest) {
+    this.selectedRequestId = request.id;
+    // ovde dodati kod za prikaz requesta preko id-a
+  }
+
+  public formatDate(dateStr: string): string {
+    let date = new Date(dateStr);
+    return "at " + date.getHours() + ":" + date.getMinutes() + ", " + date.getDate() + "." + date.getMonth() + "." + date.getFullYear();
+  }
+
   private getPending() {
     this.service.getAllPending().subscribe({
       next: (result: DriverAccountUpdateRequest[]) => {
         console.log(result);
         this.pendingRequests = result;
         this.requests = result;
-        this.requests[0].driver.profilePicture = this.driverImgPath;
       },
       error: (error: any) => {
         alert("Error fetching pending requests :(");
