@@ -1,5 +1,5 @@
 #requests-container {
-    height: 500px;
+    height: 566px !important;
     width: 400px;
     background-color: white;
     padding: 5px 0;
@@ -97,22 +97,6 @@ p {
 
 .dark-gray {
     color: #92989B;
-}
-
-.info-bcg {
-    background-color: #6DAFC7 !important;
-}
-
-.password-bcg {
-    background-color: #D8B78D !important;
-}
-
-.vehicle-bcg {
-    background-color: #627C86 !important;
-}
-
-.documents-bcg {
-    background-color: #A0C29D !important;
 }
 
 .request-type-tag {

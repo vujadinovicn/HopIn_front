@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UpdateRequestsDisplayComponent implements OnInit {
 
-  _role: String = 'driver';
+  _role: String = 'admin';
   currentOption: string = "pending";
   selectedRequestId: number = -1;
 
@@ -47,7 +47,7 @@ export class UpdateRequestsDisplayComponent implements OnInit {
   }
 
   private getPending() {
-    this.service.getAllPending().subscribe({
+    let reaction: any = {
       next: (result: DriverAccountUpdateRequest[]) => {
         console.log(result);
         this.pendingRequests = result;
@@ -56,17 +56,19 @@ export class UpdateRequestsDisplayComponent implements OnInit {
       error: (error: any) => {
         alert("Error fetching pending requests :(");
       }
-    });
+    };
+    let getFunc = this._role == "admin"? this.service.getAllPending().subscribe(reaction): this.service.getAllPendingDriver().subscribe(reaction);
   }
 
   private getProcessed() {
-    this.service.getAllProcessedAdmin().subscribe({
+    let reaction: any = {
       next: (result: DriverAccountUpdateRequest[]) => {
         this.procesedRequests = result;
       },
       error: (error: any) => {
         alert("Error fetching processed requests :(");
       }
-    });
+    };
+    let getFunc = this._role == "admin"? this.service.getAllProcessedAdmin().subscribe(reaction): this.service.getAllProcessedDriver().subscribe(reaction);
   }
 }

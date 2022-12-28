@@ -1,6 +1,6 @@
 <div>
-<div id="admin-request-title" class="back-light-blue">
-    <span>Account information update</span>
+<div id="admin-request-title" [ngClass]="type.toLowerCase() + '-bcg'">
+    <span>{{ type.charAt(0).toUpperCase() + type.slice(1).toLowerCase() }} information update</span>
 </div>
 <div id="admin-request-personal-info" *ngIf="this.type === 'INFO'">
     <div class="account-settings-form-container">

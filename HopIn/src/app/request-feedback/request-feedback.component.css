@@ -6,14 +6,14 @@
 
 .allFeedBackOptionsContianer {
     width: fit-content;
-    height: fit-content;
+    height: 190px;
 }
 
 .pendingContainar {
     width: 35vw;
     height: 18vh;
     background: white;
-    border: 2px solid #D9D9D9;
+    border: 1px solid #D9D9D9;
     padding: 15px;
     border-radius: 10px;
 }
@@ -31,7 +31,7 @@ p {
     width: 35vw;
     height: 18vh;
     background: white;
-    border: 2px solid #D9D9D9;
+    border: 1px solid #D9D9D9;
     padding: 15px;
     align-self: center;
     align-content: center;
@@ -45,7 +45,8 @@ p {
     margin-left: auto;
     display: flex;
     flex-direction: column;
-    width: 35%;
+    min-width: fit-content;
+    width: 20%;
 }
 
 #date {
@@ -83,6 +84,7 @@ button {
     width: fit-content;
     display: flex;
     flex-direction: column;
+    flex: 1;
 }
 img {
     width: 40px;
@@ -104,11 +106,9 @@ img {
     color: #1E4A5A;
 }
 #reasonContent {
-    overflow: scroll;
+    overflow: auto;
     height: 40%;
-    Overflow-y:scroll;
-    overflow-x: hidden;
-    width: 80%;
+    width: 100%;
 }
 
 /* width */
@@ -142,7 +142,7 @@ img {
     width: 35vw;
     height: 7vh;
     background: white;
-    border: 2px solid #D9D9D9;
+    border: 1px solid #D9D9D9;
     padding: 15px;
     align-self: center;
     align-content: center;

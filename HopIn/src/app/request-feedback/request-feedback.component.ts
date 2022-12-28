@@ -8,10 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RequestFeedbackComponent implements OnInit {
 
+  role = "admin";
   id: number = 0;
   status: String = 'PENDING';
   reason: String = '';
-  admin: String = '';
+  admin: String = 'Grace Johns';
   date: String = '';
   url: String = '../../assets/vectors/profileAvatar.svg';
 

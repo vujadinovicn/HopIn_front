@@ -1,7 +1,7 @@
 .mainContainer {
     display: flex;
     flex-direction: row;
-    margin-top: 5vh;
+    margin-top: 3vh;
     padding-bottom: 50px;
 }
 
@@ -28,9 +28,9 @@
 
 #updateDetails {
     width: 35vw;
-    height: fit-content;
+    height: 357px !important;
     background: white;
-    border: 2px solid #D9D9D9;
+    border: 1px solid #D9D9D9;
     padding: 15px;
     padding-bottom: 40px;
     border-radius: 10px;

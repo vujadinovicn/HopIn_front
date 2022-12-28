@@ -6,9 +6,9 @@
         <div class="left">
             <div class="row firstRow">
                 <img [src]="url" alt="">
-                <p id="name">{{admin}}</p>
+                <p id="name">{{ role == 'admin'? "You": admin }}</p>
                 <p id="declinedP">&nbsp;declined&nbsp;</p>
-                <p>your request</p>
+                <p>{{ role == 'admin'? "the": "your" }} request</p>
             </div>
             <p id="reasonTitle">Reason:</p>
             <div id="reasonContent">
@@ -23,9 +23,9 @@
     <div class="acceptedContianer" *ngIf="status === 'ACCEPTED'">
         <div class="row firstRow">
             <img [src]="url" alt="">
-            <p id="name">{{admin}}</p>
+            <p id="name">{{ role == 'admin'? "You": admin }}</p>
             <p id="acceptedP">&nbsp;accepted&nbsp;</p>
-            <p>your request</p>
+            <p>{{ role == 'admin'? "the": "your" }} request</p>
         </div>
         <div class="right">
             <p id="date">{{this.date}}</p>
