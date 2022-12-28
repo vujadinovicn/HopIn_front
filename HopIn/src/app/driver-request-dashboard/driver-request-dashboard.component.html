@@ -1,8 +1,8 @@
 <div class="mainContainer">
-    <div class="left">
-
+    <div class="left" [ngClass]="this.areDetailsDisplayed === true ? 'left-not-alone': 'left-alone'">
+        <update-requests-display></update-requests-display>
     </div>
-    <div class="right">
+    <div class="right" *ngIf="this.areDetailsDisplayed === true">
         <div id="updateDetails">
             <app-update-request-details></app-update-request-details>
         </div>
