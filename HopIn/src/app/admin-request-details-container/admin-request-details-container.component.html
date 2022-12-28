@@ -1,0 +1,7 @@
+<div class="request-details-container border">
+    <app-update-request-details (requestIdItemEvent)="forwardRequestId($event)">
+    </app-update-request-details>
+    <button class="decline-request-button back-red white" (click)="openDeclineReasonPopUp()" mat-raised-button>Decline</button>
+    <button class="accept-request-button back-green white" (click)="acceptRequest()" mat-raised-button>Accept</button>
+
+</div>

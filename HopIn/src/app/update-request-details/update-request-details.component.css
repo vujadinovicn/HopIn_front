@@ -1,0 +1,58 @@
+#admin-request-title {
+    margin: 20px auto;
+    width: 65%;
+    border-radius: 5px;
+    padding: 3px 10px;
+    color: white;
+    text-align: center;
+}
+
+#admin-request-password {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#request-out-of-form-container {
+    display: flex;
+    width: 80%;
+    margin: 20px auto 0 auto;
+    justify-content: space-around;
+}
+
+.request-checkbox {
+    display: inline-block;
+    text-align: initial;
+}
+
+.request-vehicle-type {
+    display: inline-block;
+    color: #B1B1B1;
+}
+
+.request-vehicle-type span{
+    display: block;
+}
+
+#admin-request-vehicle {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#admin-request-document {
+    margin-top: 20px;
+    text-align: center;
+}
+
+mat-checkbox {
+    display: block;
+    font-size: 0.85em !important;
+}
+
+@media screen and (max-width: 1200px){
+    #admin-request-title {
+        width: inherit;
+    }
+    .mat-form-field {
+        width: 100% !important;
+    }
+}

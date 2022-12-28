@@ -22,7 +22,6 @@ import { AccountComponent } from './account/account.component';
 import { UserGraphComponent } from './user-graph/user-graph.component';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import {MatSnackBarModule} from '@angular/material/snack-bar'
-
 import { PickupDestinationFormComponent } from './pickup-destination-form/pickup-destination-form.component';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker'
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
@@ -39,6 +38,11 @@ import { DocumentDetailsDialogComponent } from './document-details-dialog/docume
 import { DocumentUpdateDialogComponent } from './document-update-dialog/document-update-dialog.component';
 import { DocumentAddDialogComponent } from './document-add-dialog/document-add-dialog.component';
 import { AdminAccountComponent } from './admin-account/admin-account.component';
+import { RequestFeedbackComponent } from './request-feedback/request-feedback.component';
+import { DriverRequestDashboardComponent } from './driver-request-dashboard/driver-request-dashboard.component';
+import { UpdateRequestDetailsComponent } from './update-request-details/update-request-details.component';
+import { AdminRequestDetailsContainerComponent } from './admin-request-details-container/admin-request-details-container.component';
+import { DeclineRequestReasonDialogComponent } from './decline-request-reason-dialog/decline-request-reason-dialog.component';
 import { UpdateRequestsDisplayComponent } from './update-requests-display/update-requests-display.component';
 
 @NgModule({
@@ -67,11 +71,17 @@ import { UpdateRequestsDisplayComponent } from './update-requests-display/update
     DriverDocumentsComponent,
     DocumentDetailsDialogComponent,
     DriverAccountComponent,
+    AdminAccountComponent,
+    RequestFeedbackComponent,
+    DriverRequestDashboardComponent,
+    UpdateRequestDetailsComponent,
     DocumentUpdateDialogComponent,
     DocumentAddDialogComponent,
     DriverAccountComponent,
     AdminAccountComponent,
-    UpdateRequestsDisplayComponent,
+    AdminRequestDetailsContainerComponent,
+    DeclineRequestReasonDialogComponent,
+    UpdateRequestsDisplayComponent
   ],
   imports: [
     BrowserModule,

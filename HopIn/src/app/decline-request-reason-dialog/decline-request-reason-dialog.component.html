@@ -1,0 +1,12 @@
+<div id="decline-request-container">
+    <h1 mat-dialog-title class="red" align="center">Decline reason</h1>
+    <div id="text-area-container" mat-dialog-content align="center">
+    <mat-form-field class="example-full-width">
+        <mat-label>Leave a reason</mat-label>
+        <textarea [(ngModel)]="reason" matInput rows="8" cols="40" placeholder="Inappropiate input"></textarea>
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions align="center">
+        <button mat-button (click)="declineRequest()">Submit</button>
+    </div>
+</div>
