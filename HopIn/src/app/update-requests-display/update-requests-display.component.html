@@ -11,20 +11,20 @@
         </div>
     </div>
     <div id="request-cards">
-        <div class="request-card">
-            <img src="../../assets/vectors/profileAvatar.svg" class="driver-photo">
+        <div class="request-card" *ngFor="let request of requests">
+            <img [src]="request.driver.profilePicture" class="driver-photo">
             <div class="driver-info">
-                <p class="driver-name dark-blue">Mark Jacobs</p>
+                <p class="driver-name dark-blue">{{ request.driver.name + " " + request.driver.surname }}</p>
                 <div class="driver-contact-info">
-                    <p class="driver-email dark-gray"><span class="dark-blue">email:</span> mark@gmail.com</p>
-                    <p class="driver-phone dark-gray"><span class="dark-blue">phone num:</span> 0634564221</p>
+                    <p class="driver-email dark-gray"><span class="dark-blue">email:</span> {{ request.driver.email }}</p>
+                    <p class="driver-phone dark-gray"><span class="dark-blue">phone num:</span> {{ request.driver.telephoneNumber }}</p>
                 </div>    
             </div> 
             <p class="request-time dark-gray">
-                at 11:08, 22.11.2022.
+                {{ request.time }}
             </p>
-            <p class="request-type-tag">
-                account info
+            <p class="request-type-tag" ngClass="request.type + '-bcg'">
+                {{ request.type }}
             </p>            
         </div>
     </div>
