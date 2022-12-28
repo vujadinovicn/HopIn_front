@@ -76,9 +76,10 @@ export class UserGraphComponent implements OnInit {
             display: true,
             font: {
               size: 8,
-              style: 'normal'
+              style: 'normal',
+              family: 'sans-serif'
             },
-            color: 'orange'
+            color: 'black'
           },
           
         }
