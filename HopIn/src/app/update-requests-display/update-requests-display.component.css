@@ -44,8 +44,9 @@ p {
 }
 
 #request-cards {
-    padding: 15px 10px;
-    overflow-y: auto;
+    height: 410px;
+    padding: 5px 10px;
+    overflow: auto;
 }
 
 .driver-name {
@@ -60,6 +61,8 @@ p {
     border-radius: 10px;
     position: relative;
     align-items: center;
+    margin-top: 10px;
+    margin-bottom: 5px;
 }
 
 .driver-photo {
@@ -76,6 +79,7 @@ p {
 }
 
 .driver-contact-info {
+    margin-top: 2px;
     line-height: 0.7em;
     font-weight: 300 !important;
 }
