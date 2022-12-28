@@ -8,8 +8,26 @@ import { User } from './user.service';
   providedIn: 'root',
 })
 export class RequestDetailsService {
+  private requestId = new BehaviorSubject<any>({});
+  private detailsDisplayed = new BehaviorSubject<any>({});
  
   constructor(private http: HttpClient) {}
+
+  sendRequest(request: any): void {
+    this.requestId.next(request);
+  }
+
+  recieveRequest(): Observable<any> {
+    return this.requestId.asObservable();
+  }
+
+  sendDetailsDisplayed(isDisplayed: any): void {
+    this.detailsDisplayed.next(isDisplayed);
+  }
+
+  recieveDetailsDisplayed(): Observable<any> {
+    return this.detailsDisplayed.asObservable();
+  }
 
   getRequestById(requestId: number): Observable<Request> {
     return this.http.get<Request>(environment.apiHost + '/request/' + requestId);
