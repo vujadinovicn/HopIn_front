@@ -9,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 export class RequestFeedbackComponent implements OnInit {
 
 
-  status: String = 'ACCEPTED';
+  status: String = 'PENDING';
   reason: String = '';
   admin: String = '';
+  date: String = '';
   url: String = '../../assets/vectors/profileAvatar.svg';
 
   onFileSelect(event: any){
@@ -27,11 +28,14 @@ export class RequestFeedbackComponent implements OnInit {
   constructor(private requestDetialsService: RequestDetailsService) { }
 
   ngOnInit(): void {
-    this.requestDetialsService.getRequestById(1).subscribe((res) => {
+    this.requestDetialsService.getRequestById(3).subscribe((res) => {
+      console.log(res);
       this.status = res.status;
       this.reason = res.reason
       this.admin = res.admin.name + ' ' + res.admin.surname;
       this.url = res.admin.profilePicture;
+      this.date = 'at ' + res.time.toString().split('T')[1].slice(0, 5) + ', ' + res.time.toString().split('T')[0];
+
     });
   }
 
