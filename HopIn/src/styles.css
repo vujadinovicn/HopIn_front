@@ -107,6 +107,31 @@ html, body { height: 100%; width: 100%; margin: 0; font-family: "Poppins", sans-
     font-size: 16px;
 }
 
+/* CUSTOM SCROLLBAR
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #ffffff; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #DCDCDC; 
+    border-radius: 2px;
+    height: 20px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #afafaf; 
+  }
+
  
 
  @media screen and (max-width: 1000px) {
