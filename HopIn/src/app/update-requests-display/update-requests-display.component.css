@@ -7,6 +7,10 @@
     margin-top: 20px;
 }
 
+.height {
+    height: 79vh !important;
+}
+
 #request-header {
     height: 80px;
 }

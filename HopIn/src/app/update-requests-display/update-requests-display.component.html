@@ -1,6 +1,7 @@
-<div id="requests-container" class="border">
+<div id="requests-container" class="border" [ngClass]="this._role === 'driver' ? 'height': ''">
     <div id="requests-header">
-        <h3 class="title dark-blue">Driver account update requests</h3>
+        <h3 *ngIf="this._role === 'admin'" class="title dark-blue">Driver account update requests</h3>
+        <h3 *ngIf="this._role === 'driver'" class="title dark-blue">Account update requests</h3>
         <div id="header-buttons">
             <div class="header-button" [ngClass]="currentOption == 'pending'? 'selected-header-button': ''" (click)="chooseOption('pending')">
                 pending
