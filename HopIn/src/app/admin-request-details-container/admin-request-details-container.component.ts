@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { DeclineRequestReasonDialogComponent } from '../decline-request-reason-dialog/decline-request-reason-dialog.component';
 import { RequestDetailsService } from '../services/requestDetails.service';
 import { SharedService } from '../shared/shared.service';
@@ -13,7 +14,8 @@ export class AdminRequestDetailsContainerComponent implements OnInit {
 
   constructor(private dialog: MatDialog,
     private requestDetailsService: RequestDetailsService,
-    private sharedService : SharedService) { }
+    private sharedService : SharedService,
+    public snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
@@ -27,10 +29,15 @@ export class AdminRequestDetailsContainerComponent implements OnInit {
   acceptRequest(){
     this.requestDetailsService.acceptRequest(this.valueFromChild).subscribe({
       next: (res: any) => {
-        this.sharedService.openResponseSnack();
-      },
+        this.snackBar.open("Response is in console!", "", {
+          duration: 2000,
+          panelClass: ["back-green"]
+        });      },
       error: (error: any) => {
-          this.sharedService.openNoResponseSnack();
+          this.snackBar.open("Haven't got data back!", "", {
+            duration: 2000,
+            panelClass: ["back-dark-blue"]
+          });
       }});
   }
 

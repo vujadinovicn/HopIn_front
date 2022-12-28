@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DocumentDetailsDialogComponent } from '../document-details-dialog/document-details-dialog.component';
 import { RequestDetailsService } from '../services/requestDetails.service';
+import { SharedService } from '../shared/shared.service';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { RequestDetailsService } from '../services/requestDetails.service';
 export class UpdateRequestDetailsComponent implements OnInit {
 
   id: number = 0;
-  type: String = 'VEHICLE';
+  type: String = 'INFO';
 
   @Output() requestIdItemEvent = new EventEmitter<number>();
   requestIdToParent: number = 0;
@@ -43,7 +44,8 @@ export class UpdateRequestDetailsComponent implements OnInit {
   }, [])
 
   constructor(private dialog: MatDialog,
-    private requestDetialsService: RequestDetailsService) { }
+    private requestDetialsService: RequestDetailsService,
+    private sharedService : SharedService) { }
 
   profileImgPath : string = "";
 
@@ -62,27 +64,46 @@ export class UpdateRequestDetailsComponent implements OnInit {
 
   getFromBack(): void {
     if (this.type === 'INFO') {
-      this.requestDetialsService.getInfoRequestById(3).subscribe((res) => {
+      this.requestDetialsService.getInfoRequestById(3).subscribe({
+        next: (res) => {
         this.setPersonalInfoFormValue(res);
         this.profileImgPath = res.profilePicture;
+        },
+        error: (error: any) => {
+          this.sharedService.openNoResponseSnack();
+      }
       });
     } else if (this.type === 'VEHICLE') {
-      this.requestDetialsService.getVehicleRequestById(4).subscribe((res) => {
+      this.requestDetialsService.getVehicleRequestById(4).subscribe({
+        next: (res) => {
         console.log(res);
         this.setVehicleInfoValue(res);
         this.isPetTransport = res.petTransport;
         this.isBabyTransport = res.babyTransport;
         this.vehicleType = res.vehicleType.toLowerCase();
+        },
+        error: (error: any) => {
+              this.sharedService.openNoResponseSnack();
+          }
       });
     } else if (this.type === 'PASSWORD'){
-      this.requestDetialsService.getPasswordRequestById(1).subscribe((res) => {
+      this.requestDetialsService.getPasswordRequestById(1).subscribe({
+        next: (res) => {},
+        error: (error: any) => {
+          this.sharedService.openNoResponseSnack();
+      }
       })
     } 
     else if (this.type === 'DOCUMENT') {
-      this.requestDetialsService.getDocumentRequestById(2).subscribe((res) => {
+      this.requestDetialsService.getDocumentRequestById(2).subscribe({
+        next: (res) => {
         this.document.name = res.name;
         this.document.url = res.docuementImage;
         this.documentOperation = res.documentOperationType;
+        },
+        error: (error: any) => {
+          this.sharedService.openNoResponseSnack();
+      }
       });
     }
   }
