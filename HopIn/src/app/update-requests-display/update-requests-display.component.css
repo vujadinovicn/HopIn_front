@@ -57,7 +57,7 @@ p {
 .request-card {
     display: flex;
     background-color: white;
-    border: 1px solid #DCDCDC;
+    border: 2px solid #DCDCDC;
     border-radius: 10px;
     position: relative;
     align-items: center;
@@ -125,5 +125,13 @@ p {
 }
 
 .selected-request-card {
-    border: 1px solid #1E4A5A;
+    border: 2px solid #1E4A5A !important;
+}
+
+.accepted-request {
+    border: 2px solid #33A02C;
+}
+
+.denied-request {
+    border: 2px solid #A8201A;
 }

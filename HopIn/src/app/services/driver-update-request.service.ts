@@ -20,7 +20,7 @@ export class UpdateRequestService {
     }
 
     getAllProcessedAdmin(): Observable<DriverAccountUpdateRequest[]> {
-        return this.http.get<DriverAccountUpdateRequest[]>(environment.apiHost + '/1/admin/processed');
+        return this.http.get<DriverAccountUpdateRequest[]>(environment.apiHost + '/request/3/admin/processed');
     }
 
     getAllProcessedDriver(): Observable<DriverAccountUpdateRequest[]> {
