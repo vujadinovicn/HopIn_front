@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DocumentDetailsDialogComponent } from '../document-details-dialog/document-details-dialog.component';
@@ -12,12 +12,16 @@ import { RequestDetailsService } from '../services/requestDetails.service';
 })
 export class UpdateRequestDetailsComponent implements OnInit {
 
-  type: String = 'document';
+  type: String = 'vehicle';
+
+  @Output() requestIdItemEvent = new EventEmitter<number>();
+  requestIdToParent: number = 0;
 
   document: Document = {
     name: '',
     url: ''
   }
+
   documentOperation: String = 'ADD';
 
   isPetTransport : boolean = true;
@@ -44,34 +48,42 @@ export class UpdateRequestDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.disableFormFields();
-    //this.adminRequestDetailsForm.controls["name"].disable();
     if (this.type === 'info') {
-      this.requestDetialsService.getInfoRequestById(2).subscribe((res) => {
+      this.requestDetialsService.getInfoRequestById(3).subscribe((res) => {
         this.setPersonalInfoFormValue(res);
         this.profileImgPath = res.profilePicture;
+        this.requestIdItemEvent.emit(3);
       });
     } else if (this.type === 'vehicle') {
-      this.requestDetialsService.getVehicleRequestById(1).subscribe((res) => {
+      this.requestDetialsService.getVehicleRequestById(4).subscribe((res) => {
+        console.log(res);
         this.setVehicleInfoValue(res);
         this.isPetTransport = res.petTransport;
         this.isBabyTransport = res.babyTransport;
+        this.vehicleType = res.vehicleType.toLowerCase();
+        this.requestIdItemEvent.emit(4);
       });
-    } else if (this.type === 'document') {
-      this.requestDetialsService.getDocumentRequestById(1).subscribe((res) => {
+    } else if (this.type === 'password'){
+      this.requestDetialsService.getPasswordRequestById(1).subscribe((res) => {
+        this.requestIdItemEvent.emit(1);        
+      })
+    } 
+    else if (this.type === 'document') {
+      this.requestDetialsService.getDocumentRequestById(2).subscribe((res) => {
         this.document.name = res.name;
         this.document.url = res.docuementImage;
         this.documentOperation = res.documentOperationType;
+        this.requestIdItemEvent.emit(2);
       });
     }
   }
 
-  vehicleType: string = "car";
+  vehicleType: String = "car";
 
   changeVehicleType(s: string){}
 
 
   private disableFormFields(): void{
-    //this.adminRequestDetailsForm.controls["name"].disable();
     (<any>Object).values(this.personalInfoForm.controls).forEach((control: FormControl) => {
       control.disable();
     });
@@ -100,7 +112,7 @@ export class UpdateRequestDetailsComponent implements OnInit {
     this.vehicleInfoForm.setValue({
       model: res.model,
       plates: res.licenseNumber,
-      seats: res.seats,
+      seats: res.passengerSeats,
     })
   }
 

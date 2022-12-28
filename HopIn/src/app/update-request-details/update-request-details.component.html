@@ -2,11 +2,7 @@
 <div id="admin-request-title" class="back-light-blue">
     <span>Account information update</span>
 </div>
-<<<<<<< HEAD
-<div id="admin-request-personal-info" style="display:none">
-=======
 <div id="admin-request-personal-info" *ngIf="this.type === 'info'">
->>>>>>> feature/2.4.3.5-implement-driver-request-reponse-dashboard
     <div class="account-settings-form-container">
         <form [formGroup]="personalInfoForm" fxLayout="column">
             <div style="width: 100%">
@@ -43,7 +39,7 @@
     <span>Password has been changed.</span>
 </div>
 
-<div id="admin-request-vehicle" style="display: none">
+<div id="admin-request-vehicle" *ngIf="this.type === 'vehicle'">
     <div class="account-settings-form-container">
         <form [formGroup]="vehicleInfoForm" fxLayout="column">
             <mat-form-field [hideRequiredMarker]="true" id="model">
@@ -65,7 +61,7 @@
             </div>
             <div class="request-vehicle-type">
                 <i class='fas fa-car-side' *ngIf="vehicleType == 'car'"></i>
-                <span style="display: block;" *ngIf="vehicleType == 'car'">Car</span>
+                <span *ngIf="vehicleType == 'car'">Car</span>
 
                 <i class='fas fa-shuttle-van' *ngIf="vehicleType == 'van'"></i>
                 <span *ngIf="vehicleType == 'van'">Van</span>
