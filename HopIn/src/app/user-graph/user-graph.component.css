@@ -309,6 +309,8 @@ canvas {
 
   .reportContainerPassenger {
     width: 70vw;
+    margin-left: 0;
+    margin-top: 4vh;
   }
 
   .reportContainerDriver {

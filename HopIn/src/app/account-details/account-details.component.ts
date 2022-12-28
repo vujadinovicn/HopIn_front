@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountDetailsComponent implements OnInit {
 
-  _role: String = 'passenger';
+  _role: String = 'driver';
   isLuxury: boolean = false;
   user: ReturnedUser = {
     id: 0,
