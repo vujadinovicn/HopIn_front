@@ -1,6 +1,6 @@
 <div>
 <div id="admin-request-title" class="back-light-blue">
-    Account information update
+    <span>Account information update</span>
 </div>
 <div id="admin-request-personal-info" *ngIf="this.type === 'info'">
     <div class="account-settings-form-container">
@@ -39,7 +39,7 @@
     <span>Password has been changed.</span>
 </div>
 
-<div id="admin-request-vehicle" style="display: none;">
+<div id="admin-request-vehicle" *ngIf="this.type === 'vehicle'">
     <div class="account-settings-form-container">
         <form [formGroup]="vehicleInfoForm" fxLayout="column">
             <mat-form-field [hideRequiredMarker]="true" id="model">
@@ -61,7 +61,7 @@
             </div>
             <div class="request-vehicle-type">
                 <i class='fas fa-car-side' *ngIf="vehicleType == 'car'"></i>
-                <span style="display: block;" *ngIf="vehicleType == 'car'">Car</span>
+                <span *ngIf="vehicleType == 'car'">Car</span>
 
                 <i class='fas fa-shuttle-van' *ngIf="vehicleType == 'van'"></i>
                 <span *ngIf="vehicleType == 'van'">Van</span>

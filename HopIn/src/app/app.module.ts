@@ -43,6 +43,7 @@ import { DriverRequestDashboardComponent } from './driver-request-dashboard/driv
 import { UpdateRequestDetailsComponent } from './update-request-details/update-request-details.component';
 import { AdminRequestDetailsContainerComponent } from './admin-request-details-container/admin-request-details-container.component';
 import { DeclineRequestReasonDialogComponent } from './decline-request-reason-dialog/decline-request-reason-dialog.component';
+import { UpdateRequestsDisplayComponent } from './update-requests-display/update-requests-display.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { DeclineRequestReasonDialogComponent } from './decline-request-reason-di
     AdminAccountComponent,
     AdminRequestDetailsContainerComponent,
     DeclineRequestReasonDialogComponent,
+    UpdateRequestsDisplayComponent
   ],
   imports: [
     BrowserModule,

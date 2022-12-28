@@ -5,7 +5,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class SharedService {
-  private snackMessage$ = new Subject<any>();
+  private snackMessage$ = new BehaviorSubject<any>("");
   newSnackMessage$ = this.snackMessage$.asObservable();
 
   constructor() {}

@@ -2,6 +2,16 @@ h1 {
     margin-bottom: 0 !important;
 }
 
+#decline-request-container{
+    width: 300px;
+}
+
 #text-area-container {
     height: 180px;
+}
+
+@media screen and (max-width: 450px){
+    #decline-request-container{
+        width: 240px;
+    }
 }

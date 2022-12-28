@@ -31,6 +31,20 @@ export class RequestDetailsService {
     return this.http.get<DocumentRequest>(environment.apiHost + '/request/' + requestId + '/document');
   }
 
+  acceptRequest(requestId: number): Observable<any> {
+    const options: any = {
+      responseType: 'text',
+    };
+    return this.http.post<String>(environment.apiHost + '/request/' + requestId + "/" + "3/accept", options);
+  }
+
+  declineRequest(requestId: number, reason: any): Observable<any> {
+    const options: any = {
+      responseType: 'text',
+    };
+    return this.http.post<String>(environment.apiHost + '/request/' + requestId + "/" + "3/deny", reason, options);
+  }
+
 }
 
 export interface PasswordRequest {
@@ -69,6 +83,7 @@ export interface VehicleRequest {
   babyTransport: boolean;
   petTransport: boolean;
   status: String;
+  vehicleType: String;
 }
 
 export interface DocumentRequest {
@@ -77,4 +92,15 @@ export interface DocumentRequest {
   docuementImage: String;
   documentOperationType: String;
   status: String;
+}
+
+export interface AcceptedRequest {
+  id: number,
+  adminId: number
+}
+
+export interface DeclinedRequest {
+  id: number,
+  adminId: number,
+  reason: String
 }

@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { RequestDetailsService } from '../services/requestDetails.service';
+import { SharedService } from '../shared/shared.service';
 
 @Component({
   selector: 'app-decline-request-reason-dialog',
@@ -7,11 +10,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DeclineRequestReasonDialogComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public dialogRef: MatDialogRef<DeclineRequestReasonDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private requestDetailsService : RequestDetailsService,
+    private sharedService : SharedService
+  ) {}
+
+  reason: string = "";
 
   ngOnInit(): void {
   }
 
-  close(): void {}
+  declineRequest(): void {
+    this.requestDetailsService.declineRequest(this.data.requestId, this.reason).subscribe({
+      next: (res: any) => {
+        this.sharedService.openResponseSnack();
+      },
+      error: (error: any) => {
+          this.sharedService.openNoResponseSnack();
+      }});
+    this.dialogRef.close();
+  }
 
 }
