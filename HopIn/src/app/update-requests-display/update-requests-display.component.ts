@@ -25,9 +25,15 @@ export class UpdateRequestsDisplayComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // this.getPending();
+    // this.getProcessed();
+    this.load();
+    this.chooseOption('pending')
+  }
+
+  private load(): void {
     this.getPending();
     this.getProcessed();
-    this.chooseOption('pending')
   }
 
   public chooseOption(chosen: string) {

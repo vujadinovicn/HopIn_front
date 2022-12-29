@@ -47,6 +47,7 @@ export class AccountSettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.role = this.userService.role;
     this.setUserData();
     markFormControlsTouched(this.accountSettingsForm);
 }
@@ -65,7 +66,7 @@ export class AccountSettingsComponent implements OnInit {
   savePassenger(){
     this.userService.updatePassengerPersonalInfo(this.setResponseValue()).subscribe({
       next: (res: any) => {
-        this.router.navigate(['/account-driver']);
+        this.router.navigate(['/account-passenger']);
         this.sharedService.openSnack({
           value: "Response is in console!",
           color: "back-green"}

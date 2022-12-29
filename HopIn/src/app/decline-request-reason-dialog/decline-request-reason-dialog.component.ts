@@ -26,6 +26,7 @@ export class DeclineRequestReasonDialogComponent implements OnInit {
     this.requestDetailsService.declineRequest(this.data.requestId, this.reason).subscribe({
       next: (res: any) => {
         this.sharedService.openResponseSnack();
+        window.location.reload();
       },
       error: (error: any) => {
           this.sharedService.openNoResponseSnack();
