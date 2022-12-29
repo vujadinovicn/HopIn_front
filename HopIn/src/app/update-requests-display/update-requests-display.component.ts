@@ -31,6 +31,7 @@ export class UpdateRequestsDisplayComponent implements OnInit {
   public chooseOption(chosen: string) {
     this.currentOption = chosen;
     this.requestDetailsService.sendIsRequestSelected(false)
+    this.selectedRequestId = -1;
     if (chosen == "pending") {
       this.requests = this.pendingRequests;
     } else {
