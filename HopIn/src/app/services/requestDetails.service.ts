@@ -10,6 +10,8 @@ import { User } from './user.service';
 export class RequestDetailsService {
   private requestId = new BehaviorSubject<any>({});
   private detailsDisplayed = new BehaviorSubject<any>({});
+  private isRequestSelected = new BehaviorSubject<any>({});
+  
  
   constructor(private http: HttpClient) {}
 
@@ -27,6 +29,14 @@ export class RequestDetailsService {
 
   recieveDetailsDisplayed(): Observable<any> {
     return this.detailsDisplayed.asObservable();
+  }
+
+  sendIsRequestSelected(isSelected: any): void {
+    this.isRequestSelected.next(isSelected);
+  }
+
+  recieveIsRequestSelected(): Observable<any> {
+    return this.isRequestSelected.asObservable();
   }
 
   getRequestById(requestId: number): Observable<Request> {

@@ -11,6 +11,8 @@ import { SharedService } from '../shared/shared.service';
 })
 export class AdminRequestDetailsContainerComponent implements OnInit {
 
+  _role: String = 'driver';
+
   constructor(private dialog: MatDialog,
     private requestDetailsService: RequestDetailsService,
     private sharedService : SharedService) { }

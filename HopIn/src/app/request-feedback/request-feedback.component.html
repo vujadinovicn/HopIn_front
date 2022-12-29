@@ -1,4 +1,9 @@
-<div class="allFeedBackOptionsContianer">
+<div *ngIf="this.isRequestSelected === false" class="allFeedBackOptionsContianer">
+    <div class="pendingContainar">
+        <p></p>
+    </div>
+</div>
+<div *ngIf="this.isRequestSelected === true" class="allFeedBackOptionsContianer">
     <div class="pendingContainar" *ngIf="status === 'PENDING'">
         <p>Waiting admin feedback...</p>
     </div>

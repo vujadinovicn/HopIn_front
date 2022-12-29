@@ -15,16 +15,16 @@ export class UpdateRequestService {
         return this.http.get<DriverAccountUpdateRequest[]>(environment.apiHost + '/request/pending');
     }
 
-    getAllPendingDriver(): Observable<DriverAccountUpdateRequest[]> {
-        return new Observable<DriverAccountUpdateRequest[]>();
+    getAllPendingDriver(id: number): Observable<DriverAccountUpdateRequest[]> {
+        return this.http.get<DriverAccountUpdateRequest[]>(environment.apiHost + '/request/' + id + '/driver/pending');
     }
 
     getAllProcessedAdmin(): Observable<DriverAccountUpdateRequest[]> {
         return this.http.get<DriverAccountUpdateRequest[]>(environment.apiHost + '/request/3/admin/processed');
     }
 
-    getAllProcessedDriver(): Observable<DriverAccountUpdateRequest[]> {
-        return new Observable<DriverAccountUpdateRequest[]>();
+    getAllProcessedDriver(id: number): Observable<DriverAccountUpdateRequest[]> {
+        return this.http.get<DriverAccountUpdateRequest[]>(environment.apiHost + '/request/' + id + '/driver/processed');
     }
 }
 

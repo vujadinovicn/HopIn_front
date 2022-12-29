@@ -13,7 +13,8 @@ import { RequestDetailsService } from '../services/requestDetails.service';
 export class UpdateRequestDetailsComponent implements OnInit {
 
   id: number = 0;
-  type: String = 'VEHICLE';
+  type: String = 'INFO';
+  isRequestSelected: boolean = false;
 
   @Output() requestIdItemEvent = new EventEmitter<number>();
   requestIdToParent: number = 0;
@@ -53,6 +54,10 @@ export class UpdateRequestDetailsComponent implements OnInit {
   }
 
   recieveRequest(): void {
+    this.requestDetialsService.recieveIsRequestSelected().subscribe((res) => { 
+      this.isRequestSelected = res;
+    });
+
     this.requestDetialsService.recieveRequest().subscribe((res) => { 
       this.id = res.id;
       this.type = res.type;

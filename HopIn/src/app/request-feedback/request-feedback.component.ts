@@ -8,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RequestFeedbackComponent implements OnInit {
 
-  role = "admin";
+  isRequestSelected: boolean = false;
+  role = "driver";
   id: number = 0;
   status: String = 'PENDING';
   reason: String = '';
@@ -42,6 +43,10 @@ export class RequestFeedbackComponent implements OnInit {
   }
 
   recieveRequest(): void {
+    this.requestDetialsService.recieveIsRequestSelected().subscribe((res) => {
+      this.isRequestSelected = res;
+    });
+
     this.requestDetialsService.recieveRequest().subscribe((res) => {
       this.id = res.id;
       console.log(res);

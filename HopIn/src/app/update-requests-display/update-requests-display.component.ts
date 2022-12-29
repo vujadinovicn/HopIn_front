@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UpdateRequestsDisplayComponent implements OnInit {
 
-  _role: String = 'admin';
+  _role: String = 'driver';
   currentOption: string = "pending";
   selectedRequestId: number = -1;
 
@@ -23,10 +23,12 @@ export class UpdateRequestsDisplayComponent implements OnInit {
   ngOnInit(): void {
     this.getPending();
     this.getProcessed();
+    this.chooseOption('pending')
   }
 
   public chooseOption(chosen: string) {
     this.currentOption = chosen;
+    this.requestDetailsService.sendIsRequestSelected(false)
     if (chosen == "pending") {
       this.requests = this.pendingRequests;
     } else {
@@ -39,6 +41,7 @@ export class UpdateRequestsDisplayComponent implements OnInit {
     // ovde dodati kod za prikaz requesta preko id-a
     this.requestDetailsService.sendRequest(request);
     this.requestDetailsService.sendDetailsDisplayed(true);
+    this.requestDetailsService.sendIsRequestSelected(true);
   }
 
   public formatDate(dateStr: string): string {
@@ -57,7 +60,7 @@ export class UpdateRequestsDisplayComponent implements OnInit {
         alert("Error fetching pending requests :(");
       }
     };
-    let getFunc = this._role == "admin"? this.service.getAllPending().subscribe(reaction): this.service.getAllPendingDriver().subscribe(reaction);
+    let getFunc = this._role == "admin"? this.service.getAllPending().subscribe(reaction): this.service.getAllPendingDriver(2).subscribe(reaction);
   }
 
   private getProcessed() {
@@ -69,6 +72,6 @@ export class UpdateRequestsDisplayComponent implements OnInit {
         alert("Error fetching processed requests :(");
       }
     };
-    let getFunc = this._role == "admin"? this.service.getAllProcessedAdmin().subscribe(reaction): this.service.getAllProcessedDriver().subscribe(reaction);
+    let getFunc = this._role == "admin"? this.service.getAllProcessedAdmin().subscribe(reaction): this.service.getAllProcessedDriver(2).subscribe(reaction);
   }
 }
