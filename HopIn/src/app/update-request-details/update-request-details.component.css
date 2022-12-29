@@ -3,7 +3,7 @@
 }
 
 #admin-request-title {
-    margin: 20px auto;
+    margin: 15px auto 0px auto;
     width: 75% !important;
     border-radius: 5px;
     padding: 3px 10px;
@@ -55,6 +55,8 @@ mat-checkbox {
 @media screen and (max-width: 1200px){
     #admin-request-title {
         width: inherit;
+        margin-top: 20px;
+        margin-bottom: 30px;
     }
     .mat-form-field {
         width: 100% !important;

@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class RequestFeedbackComponent implements OnInit {
 
   isRequestSelected: boolean = false;
-  role = "driver";
+  role = "admin";
   id: number = 0;
   status: String = 'PENDING';
   reason: String = '';

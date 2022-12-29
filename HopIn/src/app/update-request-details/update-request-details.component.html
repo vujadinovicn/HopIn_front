@@ -1,7 +1,7 @@
 <p *ngIf="this.isRequestSelected === false" id="emptyTitle">Time to go through some requests...</p>
 <div *ngIf="this.isRequestSelected === true">
 <div id="admin-request-title" [ngClass]="type.toLowerCase() + '-bcg'">
-    <span>{{ type.charAt(0).toUpperCase() + type.slice(1).toLowerCase() }} information update</span>
+    <span>{{ type.charAt(0).toUpperCase() + type.slice(1).toLowerCase() }} update</span>
 </div>
 <div id="admin-request-personal-info" *ngIf="this.type === 'INFO'">
     <div class="account-settings-form-container">

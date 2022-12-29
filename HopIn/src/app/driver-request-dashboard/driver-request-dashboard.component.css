@@ -1,7 +1,7 @@
 .mainContainer {
     display: flex;
     flex-direction: row;
-    margin-top: 3vh;
+    margin-top: 1vh;
     padding-bottom: 50px;
 }
 
@@ -35,4 +35,78 @@
     padding-bottom: 40px;
     border-radius: 10px;
     height: fit-content;
+}
+
+@media screen and (max-width: 920px) {
+    .mainContainer {
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .left-alone {
+        margin-right: 0;
+    }
+
+    .left {
+        margin-left: 0px;
+        margin-right: 0;
+    }
+
+    .right {
+        margin-right: 0px;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+
+     #updateDetails {
+        width: 368px !important;
+    }
+
+    ::ng-deep .pendingContainar {
+        width: 370px !important;
+    }
+
+    ::ng-deep .acceptedContianer {
+        width: 370px !important;
+    }
+
+    ::ng-deep .declinedContianer {
+        width: 370px !important;
+    }
+
+    ::ng-deep .request-details-container {
+        width: 349px !important;
+    }
+
+    ::ng-deep .request-details-container {
+        padding: 10px 26px !important;
+    }
+
+}
+
+@media screen and (max-width: 450px) {
+    ::ng-deep #requests-container {
+        width: 364px !important;
+    }
+
+    #updateDetails {
+        width: 332px !important;
+    }
+
+    ::ng-deep .pendingContainar {
+        width: 334px !important;
+    }
+
+    ::ng-deep .acceptedContianer {
+        width: 334px !important;
+    }
+
+    ::ng-deep .declinedContianer {
+        width: 334px !important;
+    }
+
+    ::ng-deep .request-details-container {
+        width: 303px !important;
+    }
 }

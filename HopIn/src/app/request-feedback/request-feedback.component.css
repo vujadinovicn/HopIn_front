@@ -11,7 +11,7 @@
 
 .pendingContainar {
     width: 35vw;
-    height: 18vh;
+    height: 16.5vh;
     background: white;
     border: 1px solid #D9D9D9;
     padding: 15px;
@@ -29,7 +29,7 @@ p {
     display: flex;
     flex-direction: row;
     width: 35vw;
-    height: 18vh;
+    height: 16.5vh;
     background: white;
     border: 1px solid #D9D9D9;
     padding: 15px;
