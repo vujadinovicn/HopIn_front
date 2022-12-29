@@ -49,6 +49,34 @@ export class RequestDetailsService {
     return this.http.get<DocumentRequest>(environment.apiHost + '/request/' + requestId + '/document');
   }
 
+  addPasswordRequest(driverId: number, passwordRequest: any): Observable<any> {
+    const options: any = {
+      responseType: 'text',
+    };
+    return this.http.post<any>(environment.apiHost + '/request/2/password/request', passwordRequest, options);
+  }
+
+  sendDocumentRequest(driverId: number, operationNumber: number, documentRequest: any, documentId: number): Observable<any> {
+    const options: any = {
+      responseType: 'text',
+    };
+    return this.http.post<any>(environment.apiHost + '/request/2/' + operationNumber + "/" + documentId +'/document/request', documentRequest, options);
+  }
+
+  addInfoRequest(driverId: number, infoRequest: any): Observable<any> {
+    const options: any = {
+      responseType: 'text',
+    };
+    return this.http.post<any>(environment.apiHost + '/request/2/info/request', infoRequest, options);
+  }
+
+  addVehicleRequest(driverId: number, vehicleRequest: any): Observable<any> {
+    const options: any = {
+      responseType: 'text',
+    };
+    return this.http.post<any>(environment.apiHost + '/request/2/vehicle/request', vehicleRequest, options);
+  }
+
   acceptRequest(requestId: number): Observable<any> {
     const options: any = {
       responseType: 'text',

@@ -7,14 +7,18 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class DocumentService {
-  private value$ = new BehaviorSubject<any>({});
-  selectedValue$ = this.value$.asObservable();
+  private selectedDocument = new Subject<any>();
+  recievedDocument = this.selectedDocument.asObservable();
   private updatedDocument = new Subject<any>();
 
   constructor(private http: HttpClient) {}
 
-  setValue(test: any) {
-    this.value$.next(test);
+  selectDocument(documentId : number){
+    this.selectedDocument.next(documentId);
+  }
+
+  recieveDocument() : Observable<any> {
+    return this.recievedDocument;
   }
   
   getById(driverId: number): Observable<Document[]> {
