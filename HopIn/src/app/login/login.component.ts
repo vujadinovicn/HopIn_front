@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    this.router.navigate(['/account-driver']);
+    this.router.navigate(['/account-passenger']);
   }
 
 }

@@ -26,8 +26,6 @@ const routes: Routes = [
   {path: 'account-passenger', component: AccountComponent},
   {path: 'account-admin', component: AdminAccountComponent},
   {path: 'account-settings', component: AccountUpdateComponent},
-  {path: 'change-password', component: ChangePasswordComponent},
-  {path:'change-payment-info', component: ChangePaymentInfoComponent},
   {path: '**', component: LandingComponent}
 ];
 

@@ -41,7 +41,7 @@
         <mat-error *ngIf="registerForm.get('phonenum')?.errors?.['required']">entering phone number is required</mat-error>
       </mat-form-field>
       <div fxLayout="row" fxLayoutAlign="space-between end">
-        <button class="conf-button" type="submit" mat-raised-button>Register</button>
+        <button class="conf-button" type="submit" mat-raised-button [routerLink]="['/request-dashboard']">Register</button>
       </div>
     </form>
   </div>

@@ -1,5 +1,6 @@
 import { AccountDetailsService } from './../accountDetailsService/account-details.service';
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'account-details',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountDetailsComponent implements OnInit {
 
-  _role: String = 'driver';
+  _role: String = 'passenger';
   isLuxury: boolean = false;
   user: ReturnedUser = {
     id: 0,
@@ -45,12 +46,15 @@ export class AccountDetailsComponent implements OnInit {
     }
   }
 
-  constructor(private accountDetailsService: AccountDetailsService) { }
+  constructor(private accountDetailsService: AccountDetailsService,
+    private userService : UserService) { }
 
   ngOnInit(): void {
+    this._role = this.userService.role;
     if(this._role === 'passenger') {
       this.accountDetailsService.getPassenger().subscribe((res) => {
         this.user = res;
+        console.log(res);
         this.url = this.user.profilePicture;
       });
     } else if (this._role === 'driver') {
@@ -58,10 +62,10 @@ export class AccountDetailsComponent implements OnInit {
         this.driver = res;
         this.fromDriverToPassenger();
         this.url = this.user.profilePicture;
-        if (res.vehicleType == "LUKSUZNO") {
+        if (res.vehicleType == "LUXURY") {
           this.urlVehicleType = "../../assets/vectors/luxuryCar.svg"
           this.isLuxury = true;
-        } else if (res.vehicleType == "KOMBI") {
+        } else if (res.vehicleType == "VAN") {
           this.urlVehicleType = "../../assets/vectors/van.svg"
         } else {
           this.urlVehicleType = "../../assets/vectors/regularCar.svg"

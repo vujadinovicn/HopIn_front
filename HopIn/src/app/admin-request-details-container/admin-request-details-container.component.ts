@@ -28,6 +28,7 @@ export class AdminRequestDetailsContainerComponent implements OnInit {
     this.requestDetailsService.acceptRequest(this.valueFromChild).subscribe({
       next: (res: any) => {
         this.sharedService.openResponseSnack();
+        window.location.reload();
       },
       error: (error: any) => {
           this.sharedService.openNoResponseSnack();

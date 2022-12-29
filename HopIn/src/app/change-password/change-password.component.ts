@@ -16,7 +16,7 @@ import { RequestDetailsService } from '../services/requestDetails.service';
 })
 export class ChangePasswordComponent implements OnInit {
 
-  role: string = "driver";
+  role: string = "passenger";
 
   user : User = {
     id: 0,
@@ -44,6 +44,7 @@ export class ChangePasswordComponent implements OnInit {
               private sharedService: SharedService) { }
 
   ngOnInit(): void {
+    this.role = this.userService.role;
     this.setUserData();
     markFormControlsTouched(this.changePasswordForm);
   }
@@ -63,7 +64,7 @@ export class ChangePasswordComponent implements OnInit {
   private savePassengerPassword() {
     this.userService.updatePassengerPassword(this.setResponseValue()).subscribe({
       next: (res: any) => {
-        this.router.navigate(['/account']);
+        this.router.navigate(['/account-passenger']);
         this.sharedService.openResponseSnack();
       },
       error: (error: any) => {
@@ -76,7 +77,7 @@ export class ChangePasswordComponent implements OnInit {
     console.log(this.setResponseValue());
     this.requestDetailsService.addPasswordRequest(2, this.setResponseValue()).subscribe({
       next: (res: any) => {
-        this.router.navigate(['/account']);
+        this.router.navigate(['/account-driver']);
         this.sharedService.openResponseSnack();
       },
       error: (error: any) => {
