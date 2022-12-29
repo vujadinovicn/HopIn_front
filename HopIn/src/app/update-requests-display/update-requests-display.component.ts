@@ -9,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UpdateRequestsDisplayComponent implements OnInit {
 
+  driverTepPhotoUrl = '../../assets/driver.jpg';
+
   _role: String;
   currentOption: string = "pending";
   selectedRequestId: number = -1;

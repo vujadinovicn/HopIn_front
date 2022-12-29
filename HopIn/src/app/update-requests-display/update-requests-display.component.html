@@ -14,7 +14,8 @@
     <div id="request-cards">
         <div class="request-card" *ngFor="let request of requests" [ngClass]="{'selected-request-card': selectedRequestId == request.id, 'accepted-request': request.status == 'ACCEPTED', 'denied-request': request.status == 'DENIED'}" (click)="selectRequest(request)">
             <div class="driver-data" *ngIf="_role == 'admin'">
-                <img [src]="request.driver.profilePicture" class="driver-photo">
+                <!--[src]= "request.driver.profilePicture" -->
+                <img [src]="driverTepPhotoUrl" class="driver-photo">
                 <div class="driver-info">
                     <p class="driver-name dark-blue">{{ request.driver.name + " " + request.driver.surname }}</p>
                     <div class="driver-contact-info">

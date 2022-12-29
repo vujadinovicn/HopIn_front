@@ -46,6 +46,7 @@ export class UpdateRequestDetailsComponent implements OnInit {
   constructor(private dialog: MatDialog,
     private requestDetialsService: RequestDetailsService) { }
 
+  driverTepPhotoUrl = '../../assets/driver.jpg';    
   profileImgPath : string = "";
 
   ngOnInit(): void {
