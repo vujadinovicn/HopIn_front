@@ -1,50 +1,45 @@
 .request-details-container {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    width: 26.5%;
-    height: 500px;
+    width: 30.5vw;
+    height: 439px;
     padding: 10px 50px;
     background-color: white;
+    display: flex;
+    flex-direction: column;
 }
 
-@media screen and (max-width: 1200px){
+.profile-img-container {
+    margin-top: 0;
+}
+
+@media screen and (max-width: 920px){
     .request-details-container{
         height: 600px;
+        margin: 0 !important;
     }
 }
 
-@media screen and (max-width: 1000px) {
-    .request-details-container {
-        display: block;
-    }
+@media screen and (max-width: 450px) {
 }
 
-@media screen and (max-width: 875px) {
-    .request-details-container {
-        width: 60%;
-    }
+div > div {
+    display: flex;
+    flex-direction: row;
 }
-
 
 .decline-request-button {
-    position: absolute;
-    left: 0;
-    bottom: 0;
     margin-left: 35px;
-    margin-bottom: 35px;
     padding: 0px 20px;
     width: 100px;
+    margin-top: 25px;
+    margin-bottom: 10px;
 }
 
 .accept-request-button {
-    position: absolute;
-    right: 0;
-    bottom: 0;
     margin-right: 35px;
-    margin-bottom: 35px;
+    margin-left: auto;
     padding: 0px 20px;
     width: 100px;
+    margin-top: 25px;
+    margin-bottom: 10px;
+
 }

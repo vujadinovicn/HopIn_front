@@ -132,6 +132,23 @@ html, body { height: 100%; width: 100%; margin: 0; font-family: "Poppins", sans-
     background: #afafaf; 
   }
 
+  
+.info-bcg {
+    background-color: #6DAFC7 !important;
+}
+
+.password-bcg {
+    background-color: #D8B78D !important;
+}
+
+.vehicle-bcg {
+    background-color: #627C86 !important;
+}
+
+.document-bcg {
+    background-color: #A0C29D !important;
+}
+
  
 
  @media screen and (max-width: 1000px) {

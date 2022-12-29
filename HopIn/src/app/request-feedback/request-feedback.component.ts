@@ -8,10 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RequestFeedbackComponent implements OnInit {
 
+  isRequestSelected: boolean = false;
+  role = "admin";
   id: number = 0;
   status: String = 'PENDING';
   reason: String = '';
-  admin: String = '';
+  admin: String = 'Grace Johns';
   date: String = '';
   url: String = '../../assets/vectors/profileAvatar.svg';
 
@@ -41,6 +43,10 @@ export class RequestFeedbackComponent implements OnInit {
   }
 
   recieveRequest(): void {
+    this.requestDetialsService.recieveIsRequestSelected().subscribe((res) => {
+      this.isRequestSelected = res;
+    });
+
     this.requestDetialsService.recieveRequest().subscribe((res) => {
       this.id = res.id;
       console.log(res);

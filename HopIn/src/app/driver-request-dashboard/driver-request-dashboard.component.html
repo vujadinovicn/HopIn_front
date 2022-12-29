@@ -1,11 +1,12 @@
 <div class="mainContainer">
-    <div class="left" [ngClass]="this.areDetailsDisplayed === true ? 'left-not-alone': 'left-alone'">
+    <div class="left left-not-alone" >
         <update-requests-display></update-requests-display>
     </div>
-    <div class="right" *ngIf="this.areDetailsDisplayed === true">
-        <div id="updateDetails">
+    <div class="right">
+        <div *ngIf="this._role == 'driver'" id="updateDetails">
             <app-update-request-details></app-update-request-details>
         </div>
+        <app-admin-request-details-container *ngIf="this._role == 'admin'"></app-admin-request-details-container>
         <app-request-feedback></app-request-feedback>
     </div>
 </div>

@@ -1,5 +1,5 @@
 #requests-container {
-    height: 500px;
+    height: 600px !important;
     width: 400px;
     background-color: white;
     padding: 5px 0;
@@ -99,23 +99,8 @@ p {
     color: #92989B;
 }
 
-.info-bcg {
-    background-color: #6DAFC7 !important;
-}
-
-.password-bcg {
-    background-color: #D8B78D !important;
-}
-
-.vehicle-bcg {
-    background-color: #627C86 !important;
-}
-
-.documents-bcg {
-    background-color: #A0C29D !important;
-}
-
 .request-type-tag {
+    width: 50px;
     display: inline-block;
     height: fit-content;
     font-size: 0.6em;
@@ -126,6 +111,7 @@ p {
     bottom: 5px;
     right: 10px;
     position: absolute;
+    text-align: center;
 }
 
 .selected-request-card {
