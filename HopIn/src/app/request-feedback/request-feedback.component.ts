@@ -59,10 +59,15 @@ export class RequestFeedbackComponent implements OnInit {
         if(res.admin != null) {
           this.admin = res.admin.name + ' ' + res.admin.surname;
           // this.url = res.admin.profilePicture;
-        }
-        this.date = 'at ' + res.time.toString().split('T')[1].slice(0, 5) + ', ' + res.time.toString().split('T')[0];
+        } 
+        this.date = this.formatDate(res.time.toString());
       });
     });
+  }
+
+  public formatDate(dateStr: string): string {
+    let date = new Date(dateStr);
+    return "at " + date.getHours() + ":" + date.getMinutes() + ", " + date.getDate() + "." + date.getMonth() + "." + date.getFullYear();
   }
 
 }
