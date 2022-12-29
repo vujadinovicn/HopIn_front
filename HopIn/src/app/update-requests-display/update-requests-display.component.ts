@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UpdateRequestsDisplayComponent implements OnInit {
 
-  _role: String = 'driver';
+  _role: String;
   currentOption: string = "pending";
   selectedRequestId: number = -1;
 
@@ -18,7 +18,9 @@ export class UpdateRequestsDisplayComponent implements OnInit {
   requests: DriverAccountUpdateRequest[] = [];
 
   constructor(private service: UpdateRequestService,
-    private requestDetailsService: RequestDetailsService) { }
+    private requestDetailsService: RequestDetailsService) {
+      this._role = requestDetailsService.role;
+  }
 
   ngOnInit(): void {
     this.getPending();

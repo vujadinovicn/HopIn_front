@@ -8,6 +8,9 @@ import { User } from './user.service';
   providedIn: 'root',
 })
 export class RequestDetailsService {
+
+  public role: string = "driver";
+
   private requestId = new BehaviorSubject<any>({});
   private detailsDisplayed = new BehaviorSubject<any>({});
   private isRequestSelected = new BehaviorSubject<any>({});

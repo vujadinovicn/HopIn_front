@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class RequestFeedbackComponent implements OnInit {
 
   isRequestSelected: boolean = false;
-  role = "admin";
+  role = '';
   id: number = 0;
   status: String = 'PENDING';
   reason: String = '';
@@ -27,7 +27,9 @@ export class RequestFeedbackComponent implements OnInit {
     }
   }
 
-  constructor(private requestDetialsService: RequestDetailsService) { }
+  constructor(private requestDetialsService: RequestDetailsService) {
+    this.role = requestDetialsService.role;
+  }
 
   ngOnInit(): void {
     this.recieveRequest();
@@ -56,7 +58,7 @@ export class RequestFeedbackComponent implements OnInit {
         this.reason = res.reason
         if(res.admin != null) {
           this.admin = res.admin.name + ' ' + res.admin.surname;
-          this.url = res.admin.profilePicture;
+          // this.url = res.admin.profilePicture;
         }
         this.date = 'at ' + res.time.toString().split('T')[1].slice(0, 5) + ', ' + res.time.toString().split('T')[0];
       });
