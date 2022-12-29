@@ -14,6 +14,7 @@ export class AdminRequestDetailsContainerComponent implements OnInit {
   _role: String;
   isRequestSelected: boolean = false;
   status: String = 'PENDING';
+  id: number = 0;
 
 
   constructor(private dialog: MatDialog,
@@ -33,20 +34,16 @@ export class AdminRequestDetailsContainerComponent implements OnInit {
 
     this.requestDetailsService.recieveRequest().subscribe((res) => { 
       this.status = res.status;
-      console.log(this.status)
+      this.id = res.id;
     });
   }
 
-  valueFromChild : number = 0;
-
-  forwardRequestId(valueFromChild: number) {
-    this.valueFromChild = valueFromChild;
-  }
   
   acceptRequest(){
-    this.requestDetailsService.acceptRequest(this.valueFromChild).subscribe({
+    this.requestDetailsService.acceptRequest(this.id).subscribe({
       next: (res: any) => {
         this.sharedService.openResponseSnack();
+        window.location.reload();
       },
       error: (error: any) => {
           this.sharedService.openNoResponseSnack();
@@ -55,7 +52,7 @@ export class AdminRequestDetailsContainerComponent implements OnInit {
 
   openDeclineReasonPopUp(){
     this.dialog.open(DeclineRequestReasonDialogComponent, {
-      data: {requestId: this.valueFromChild}
+      data: {requestId: this.id}
     });
   }
 

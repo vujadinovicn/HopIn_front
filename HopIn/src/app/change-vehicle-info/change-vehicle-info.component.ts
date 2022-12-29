@@ -54,7 +54,7 @@ export class ChangeVehicleInfoComponent implements OnInit {
       console.log(this.setResponseValue());
       this.requestDetailsService.addVehicleRequest(2, this.setResponseValue()).subscribe({
           next: (res: any) => {
-            this.router.navigate(['/account']);
+            this.router.navigate(['/account-driver']);
             this.sharedService.openResponseSnack();
           },
           error: (error: any) => {

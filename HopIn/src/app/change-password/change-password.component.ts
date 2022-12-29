@@ -44,6 +44,7 @@ export class ChangePasswordComponent implements OnInit {
               private sharedService: SharedService) { }
 
   ngOnInit(): void {
+    this.role = this.userService.role;
     this.setUserData();
     markFormControlsTouched(this.changePasswordForm);
   }
@@ -61,9 +62,10 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   private savePassengerPassword() {
+    console.log(this.setResponseValue())
     this.userService.updatePassengerPassword(this.setResponseValue()).subscribe({
       next: (res: any) => {
-        this.router.navigate(['/account']);
+        this.router.navigate(['/account-passenger']);
         this.sharedService.openResponseSnack();
       },
       error: (error: any) => {
@@ -73,10 +75,13 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   private saveDriverPassword() {
-    console.log(this.setResponseValue());
-    this.requestDetailsService.addPasswordRequest(2, this.setResponseValue()).subscribe({
+    let res = {
+      oldPassword: this.changePasswordForm.value.oldPassword,
+      newPassword: this.changePasswordForm.value.newPassword,
+    }
+    this.requestDetailsService.addPasswordRequest(2, res).subscribe({
       next: (res: any) => {
-        this.router.navigate(['/account']);
+        this.router.navigate(['/account-driver']);
         this.sharedService.openResponseSnack();
       },
       error: (error: any) => {
@@ -111,7 +116,7 @@ export class ChangePasswordComponent implements OnInit {
       profilePicture: this.user.profilePicture,
       telephoneNumber: this.user.telephoneNumber,
       email: this.user.email,
-      oldPassword: this.changePasswordForm.value.oldPassword,
+      password: this.changePasswordForm.value.oldPassword,
       newPassword: this.changePasswordForm.value.newPassword,
       address: this.user.address
     }

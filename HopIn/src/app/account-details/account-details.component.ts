@@ -1,5 +1,6 @@
 import { AccountDetailsService } from './../accountDetailsService/account-details.service';
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'account-details',
@@ -45,9 +46,11 @@ export class AccountDetailsComponent implements OnInit {
     }
   }
 
-  constructor(private accountDetailsService: AccountDetailsService) { }
+  constructor(private accountDetailsService: AccountDetailsService,
+    private userService: UserService) { }
 
   ngOnInit(): void {
+    this._role = this.userService.role;
     if(this._role === 'passenger') {
       this.accountDetailsService.getPassenger().subscribe((res) => {
         this.user = res;
