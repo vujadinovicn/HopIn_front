@@ -13,14 +13,18 @@
     </div>
     <div id="request-cards">
         <div class="request-card" *ngFor="let request of requests" [ngClass]="{'selected-request-card': selectedRequestId == request.id, 'accepted-request': request.status == 'ACCEPTED', 'denied-request': request.status == 'DENIED'}" (click)="selectRequest(request)">
-            <img [src]="request.driver.profilePicture" class="driver-photo">
-            <div class="driver-info">
-                <p class="driver-name dark-blue">{{ request.driver.name + " " + request.driver.surname }}</p>
-                <div class="driver-contact-info">
+            <div class="driver-data" *ngIf="_role == 'admin'">
+                <img [src]="request.driver.profilePicture" class="driver-photo">
+                <div class="driver-info">
+                    <p class="driver-name dark-blue">{{ request.driver.name + " " + request.driver.surname }}</p>
+                    <div class="driver-contact-info">
                     <p class="driver-email dark-gray"><span class="dark-blue">email:</span> {{ request.driver.email }}</p>
                     <p class="driver-phone dark-gray"><span class="dark-blue">phone num:</span> {{ request.driver.telephoneNumber }}</p>
                 </div>    
             </div> 
+            </div>
+            
+            <p class="driver-name dark-blue request-p" *ngIf="_role == 'driver'">Request</p>
             <p class="request-time dark-gray">
                 {{ formatDate(request.time) }}
             </p>
