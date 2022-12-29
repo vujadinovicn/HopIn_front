@@ -12,12 +12,27 @@ import { SharedService } from '../shared/shared.service';
 export class AdminRequestDetailsContainerComponent implements OnInit {
 
   _role: String = 'driver';
+  isRequestSelected: boolean = false;
+  status: String = 'PENDING';
+
 
   constructor(private dialog: MatDialog,
     private requestDetailsService: RequestDetailsService,
     private sharedService : SharedService) { }
 
   ngOnInit(): void {
+    this.recieveRequest();
+  }
+
+  recieveRequest(): void {
+    this.requestDetailsService.recieveIsRequestSelected().subscribe((res) => { 
+      this.isRequestSelected = res;
+    });
+
+    this.requestDetailsService.recieveRequest().subscribe((res) => { 
+      this.status = res.status;
+      console.log(this.status)
+    });
   }
 
   valueFromChild : number = 0;

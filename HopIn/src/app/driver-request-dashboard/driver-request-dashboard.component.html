@@ -3,10 +3,10 @@
         <update-requests-display></update-requests-display>
     </div>
     <div class="right">
-        <div id="updateDetails">
-            <app-update-request-details *ngIf="this._role == 'driver'"></app-update-request-details>
-            <app-admin-request-details-container *ngIf="this._role == 'admin'"></app-admin-request-details-container>
+        <div *ngIf="this._role == 'driver'" id="updateDetails">
+            <app-update-request-details></app-update-request-details>
         </div>
+        <app-admin-request-details-container *ngIf="this._role == 'admin'"></app-admin-request-details-container>
         <app-request-feedback></app-request-feedback>
     </div>
 </div>
