@@ -9,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UpdateRequestsDisplayComponent implements OnInit {
 
-  _role: String = 'driver';
+  driverTepPhotoUrl = '../../assets/driver.jpg';
+
+  _role: String;
   currentOption: string = "pending";
   selectedRequestId: number = -1;
 
@@ -18,7 +20,9 @@ export class UpdateRequestsDisplayComponent implements OnInit {
   requests: DriverAccountUpdateRequest[] = [];
 
   constructor(private service: UpdateRequestService,
-    private requestDetailsService: RequestDetailsService) { }
+    private requestDetailsService: RequestDetailsService) {
+      this._role = requestDetailsService.role;
+  }
 
   ngOnInit(): void {
     this.getPending();
@@ -29,6 +33,7 @@ export class UpdateRequestsDisplayComponent implements OnInit {
   public chooseOption(chosen: string) {
     this.currentOption = chosen;
     this.requestDetailsService.sendIsRequestSelected(false)
+    this.selectedRequestId = -1;
     if (chosen == "pending") {
       this.requests = this.pendingRequests;
     } else {

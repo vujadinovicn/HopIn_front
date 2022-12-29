@@ -58,10 +58,10 @@ export class AccountDetailsComponent implements OnInit {
         this.driver = res;
         this.fromDriverToPassenger();
         this.url = this.user.profilePicture;
-        if (res.vehicleType == "LUKSUZNO") {
+        if (res.vehicleType == "LUXURY") {
           this.urlVehicleType = "../../assets/vectors/luxuryCar.svg"
           this.isLuxury = true;
-        } else if (res.vehicleType == "KOMBI") {
+        } else if (res.vehicleType == "VAN") {
           this.urlVehicleType = "../../assets/vectors/van.svg"
         } else {
           this.urlVehicleType = "../../assets/vectors/regularCar.svg"

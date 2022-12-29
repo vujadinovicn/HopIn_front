@@ -46,6 +46,7 @@ export class UpdateRequestDetailsComponent implements OnInit {
   constructor(private dialog: MatDialog,
     private requestDetialsService: RequestDetailsService) { }
 
+  driverTepPhotoUrl = '../../assets/driver.jpg';    
   profileImgPath : string = "";
 
   ngOnInit(): void {
@@ -67,12 +68,12 @@ export class UpdateRequestDetailsComponent implements OnInit {
 
   getFromBack(): void {
     if (this.type === 'INFO') {
-      this.requestDetialsService.getInfoRequestById(3).subscribe((res) => {
+      this.requestDetialsService.getInfoRequestById(this.id).subscribe((res) => {
         this.setPersonalInfoFormValue(res);
         this.profileImgPath = res.profilePicture;
       });
     } else if (this.type === 'VEHICLE') {
-      this.requestDetialsService.getVehicleRequestById(4).subscribe((res) => {
+      this.requestDetialsService.getVehicleRequestById(this.id).subscribe((res) => {
         console.log(res);
         this.setVehicleInfoValue(res);
         this.isPetTransport = res.petTransport;
@@ -80,11 +81,11 @@ export class UpdateRequestDetailsComponent implements OnInit {
         this.vehicleType = res.vehicleType.toLowerCase();
       });
     } else if (this.type === 'PASSWORD'){
-      this.requestDetialsService.getPasswordRequestById(1).subscribe((res) => {
+      this.requestDetialsService.getPasswordRequestById(this.id).subscribe((res) => {
       })
     } 
     else if (this.type === 'DOCUMENT') {
-      this.requestDetialsService.getDocumentRequestById(2).subscribe((res) => {
+      this.requestDetialsService.getDocumentRequestById(this.id).subscribe((res) => {
         this.document.name = res.name;
         this.document.url = res.docuementImage;
         this.documentOperation = res.documentOperationType;

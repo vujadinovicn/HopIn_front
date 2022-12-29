@@ -11,14 +11,16 @@ import { SharedService } from '../shared/shared.service';
 })
 export class AdminRequestDetailsContainerComponent implements OnInit {
 
-  _role: String = 'driver';
+  _role: String;
   isRequestSelected: boolean = false;
   status: String = 'PENDING';
 
 
   constructor(private dialog: MatDialog,
     private requestDetailsService: RequestDetailsService,
-    private sharedService : SharedService) { }
+    private sharedService : SharedService) {
+      this._role = requestDetailsService.role;
+    }
 
   ngOnInit(): void {
     this.recieveRequest();

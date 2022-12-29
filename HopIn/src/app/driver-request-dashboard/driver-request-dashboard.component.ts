@@ -8,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DriverRequestDashboardComponent implements OnInit {
 
-  _role: String = 'admin';
+  _role: String = '';
 
-  constructor(private requestDetailsService: RequestDetailsService) { }
+  constructor(private requestDetailsService: RequestDetailsService) { 
+    this._role = requestDetailsService.role;
+  }
 
   ngOnInit(): void {
   }
