@@ -14,7 +14,7 @@ export class AccountOptionsComponent implements OnInit {
     private userService: UserService,
     private passengerAccountOptionsService : PassengerAccountOptionsService) { }
 
-  option : string = "documents";
+  option : string = "settings";
   role: string = "passenger";
 
   ngOnInit(): void {

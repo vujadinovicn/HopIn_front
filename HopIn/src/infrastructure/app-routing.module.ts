@@ -25,7 +25,7 @@ const routes: Routes = [
   {path: 'account-driver', component: DriverAccountComponent},
   {path: 'account-passenger', component: AccountComponent},
   {path: 'account-admin', component: AdminAccountComponent},
-  {path: 'account-settings', component: AdminRequestDetailsContainerComponent},
+  {path: 'account-settings', component: AccountUpdateComponent},
   {path: 'change-password', component: ChangePasswordComponent},
   {path:'change-payment-info', component: ChangePaymentInfoComponent},
   {path: '**', component: LandingComponent}
