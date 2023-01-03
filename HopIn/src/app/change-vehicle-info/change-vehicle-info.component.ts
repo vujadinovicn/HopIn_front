@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RequestDetailsService } from '../services/requestDetails.service';
@@ -34,6 +34,8 @@ export class ChangeVehicleInfoComponent implements OnInit {
     plates: new FormControl('', [Validators.required, platesRegexValidator]),
     seats: new FormControl('', [Validators.required, seatsRegexValidator]),
   }, [])
+
+  @Input() parentComponent = '';
 
   constructor(private router: Router,
     private vehicleService: VehicleService,

@@ -17,7 +17,7 @@
             <mat-error *ngIf="vehicleInfoForm.get('seats')?.errors?.['seatsRegexError'] && !vehicleInfoForm.get('seats')?.errors?.['required']">invalid seats format</mat-error>
             <input matInput type="number" name="seats" formControlName="seats">
         </mat-form-field>
-        <button class="conf-button" mat-raised-button type="submit">Save</button>
+        <button *ngIf="parentComponent == 'update'" class="conf-button" mat-raised-button type="submit">Save</button>
     </form>
     <div class="vehicle-checkbox-container">
         <mat-checkbox [(ngModel)]="isBabyTransport" color="primary">vehicle for babies</mat-checkbox>
