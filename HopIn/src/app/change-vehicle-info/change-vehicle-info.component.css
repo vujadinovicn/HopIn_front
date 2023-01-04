@@ -4,6 +4,10 @@
     height: fit-content;
 }
 
+.title {
+   margin-top: 15px;
+}
+
 mat-form-field{
     display: block;
     width: 65%;

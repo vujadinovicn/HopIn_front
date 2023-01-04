@@ -1,4 +1,8 @@
-<div id="add-document-container" class="document-container">
+<div *ngIf="parentComponent == 'register'" id="title-add-container">
+    <span class="driver-register-title">Driver documents</span>
+    <mat-icon (click)="openAddDocumentPopUp()">add_circle_outline</mat-icon>
+</div>
+<div *ngIf="parentComponent == 'update'" id="add-document-container" class="document-container">
     <mat-icon (click)="openAddDocumentPopUp()">add_circle_outline</mat-icon>
     <span>add new document</span>
 </div>

@@ -1,4 +1,5 @@
 <div class="account-settings-form-container">
+    <span *ngIf="parentComponent == 'register'" class="driver-register-title">Driver vehicle</span>
     <form [formGroup]="vehicleInfoForm" (ngSubmit)="save()" fxLayout="column">
         <mat-form-field [hideRequiredMarker]="true" id="model">
             <mat-label>Model</mat-label>

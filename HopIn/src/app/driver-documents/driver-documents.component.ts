@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DocumentUpdateDialogComponent } from '../document-update-dialog/document-update-dialog.component';
 import { DocumentDetailsDialogComponent } from '../document-details-dialog/document-details-dialog.component';
@@ -17,6 +17,8 @@ export class DriverDocumentsComponent implements OnInit {
   licenceUrl = "../../assets/vectors/login.svg";
   
   documents: Document[] = [];
+
+  @Input() parentComponent : string = "";
 
   constructor(private dialog: MatDialog,
     private documentService: DocumentService,

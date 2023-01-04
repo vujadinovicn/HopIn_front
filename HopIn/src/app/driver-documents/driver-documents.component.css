@@ -11,10 +11,24 @@
     cursor: auto;
 }
 
-#add-document-container mat-icon {
+#add-document-container mat-icon, #title-add-container mat-icon {
     transform: scale(1.2);
     color: #1E4A5A;
     cursor: pointer;
+}
+
+#title-add-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+#title-add-container span {
+    margin-left: 20px;
+}
+
+#title-add-container mat-icon {
+    margin-top: 5px;
+    margin-right: 20px;
 }
 
  
