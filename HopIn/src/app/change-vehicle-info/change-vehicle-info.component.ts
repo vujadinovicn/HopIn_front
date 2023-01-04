@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RequestDetailsService } from '../services/requestDetails.service';
@@ -12,7 +12,7 @@ import { modelRegexValidator, platesRegexValidator, seatsRegexValidator } from '
   templateUrl: './change-vehicle-info.component.html',
   styleUrls: ['./change-vehicle-info.component.css']
 })
-export class ChangeVehicleInfoComponent implements OnInit {
+export class ChangeVehicleInfoComponent implements OnInit, OnChanges {
 
   vehicle : Vehicle = {
     _id : 0,
@@ -36,11 +36,18 @@ export class ChangeVehicleInfoComponent implements OnInit {
   }, [])
 
   @Input() parentComponent = '';
+  @Input() formsSubmitted = false;
 
   constructor(private router: Router,
     private vehicleService: VehicleService,
     private requestDetailsService: RequestDetailsService,
     private sharedService : SharedService) { }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['formsSubmitted'].currentValue == true){ 
+      this.vehicleInfoForm.markAllAsTouched();
+    }
+  }
 
   ngOnInit(): void {
     markFormControlsTouched(this.vehicleInfoForm);

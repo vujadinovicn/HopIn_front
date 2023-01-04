@@ -6,16 +6,19 @@
     <div id="driver-register-form-container">
         <div id="left-driver-register-component">
             <div id="info-container"  class="border">
-                <app-driver-register-personal-info></app-driver-register-personal-info> 
+                <app-driver-register-personal-info [formsSubmitted]="formsSubmitted"></app-driver-register-personal-info> 
             </div>     
-            <button class="conf-button" mat-raised-button type="submit">Save</button>
+            <button (click)="save()" class="conf-button" mat-raised-button type="submit">Save</button>
         </div>
         <div id="right-driver-register-component">
             <div id="vehicle-container" class="border">
-                <app-change-vehicle-info [parentComponent]="parentComponent"></app-change-vehicle-info>
+                <app-change-vehicle-info 
+                [parentComponent]="parentComponent"
+                [formsSubmitted]="formsSubmitted"></app-change-vehicle-info>
             </div>
             <div id="document-container" class="border">
-                <app-driver-documents [parentComponent]="parentComponent"></app-driver-documents>
+                <app-driver-documents 
+                [parentComponent]="parentComponent"></app-driver-documents>
             </div>
         </div>
     </div>
