@@ -1,0 +1,10 @@
+<div class="verify-container border fail-border" [ngClass]="isVerified == 'false'? 'display': ''">
+    <p id="err-message">Email verification <span class="red">failed</span>. Account already active or code expired/invalid.</p>
+    <p id="expired">Verification code expired? <button id="send-new-btn" class="conf-button" (click)="resendVerifaction()">Send new code</button>
+    </p> 
+</div>
+
+<div class="verify-container border success-border" [ngClass]="isVerified == 'true'? 'display': ''">
+    <p id="message">Congratulations! Email verification <span class="green">successful</span>, your account is activated :)</p>
+</div>
+<app-snack-bar></app-snack-bar>

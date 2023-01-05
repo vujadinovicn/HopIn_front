@@ -44,6 +44,7 @@ import { UpdateRequestDetailsComponent } from './update-request-details/update-r
 import { AdminRequestDetailsContainerComponent } from './admin-request-details-container/admin-request-details-container.component';
 import { DeclineRequestReasonDialogComponent } from './decline-request-reason-dialog/decline-request-reason-dialog.component';
 import { UpdateRequestsDisplayComponent } from './update-requests-display/update-requests-display.component';
+import { RegistrationVerificationComponent } from './registration-verification/registration-verification.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { UpdateRequestsDisplayComponent } from './update-requests-display/update
     AdminAccountComponent,
     AdminRequestDetailsContainerComponent,
     DeclineRequestReasonDialogComponent,
-    UpdateRequestsDisplayComponent
+    UpdateRequestsDisplayComponent,
+    RegistrationVerificationComponent
   ],
   imports: [
     BrowserModule,

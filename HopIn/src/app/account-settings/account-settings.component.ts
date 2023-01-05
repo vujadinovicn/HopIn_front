@@ -38,7 +38,7 @@ export class AccountSettingsComponent implements OnInit {
     phonenum: new FormControl('', [Validators.required, phonenumRegexValidator]),
   }, [])
 
-  profileImgPath = "../../assets/vectors/login.svg";
+  profileImgPath = "../../assets/images/profile-placeholder.png";
 
   constructor(private router: Router, 
               private userService: UserService,
@@ -64,6 +64,8 @@ export class AccountSettingsComponent implements OnInit {
   }
 
   savePassenger(){
+    console.log(this.setResponseValue());
+    console.log(this.profileImgPath);
     this.userService.updatePassengerPersonalInfo(this.setResponseValue()).subscribe({
       next: (res: any) => {
         this.router.navigate(['/account-passenger']);
@@ -71,6 +73,7 @@ export class AccountSettingsComponent implements OnInit {
           value: "Response is in console!",
           color: "back-green"}
           );
+        console.log(res);
       },
       error: (error: any) => {
           this.sharedService.openNoResponseSnack();
@@ -104,10 +107,11 @@ export class AccountSettingsComponent implements OnInit {
   }
 
   setPassengerData() {
-    this.userService.getByPassengerId(1).subscribe((res: any) => {
+    this.userService.getByPassengerId(4).subscribe((res: any) => {
       this.user = res;
       this.setFormValue(res);
-      this.profileImgPath = res.profilePicture;
+      if (res.profilePicture != null)
+        this.profileImgPath = res.profilePicture;
     });;
   }
 
@@ -115,7 +119,8 @@ export class AccountSettingsComponent implements OnInit {
     this.userService.getByDriverId(2).subscribe((res: any) => {
       this.user = res;
       this.setFormValue(res);
-      this.profileImgPath = res.profilePicture;
+      if (res.profilePicture != null)
+        this.profileImgPath = res.profilePicture;
     });;
   }
 

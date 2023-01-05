@@ -33,7 +33,7 @@ export class AccountDetailsComponent implements OnInit {
     vehicleType: ""
   };
 
-  url : String = "../../assets/vectors/login.svg";
+  url : String = "../../assets/images/profile-placeholder.png";
   urlVehicleType = "../../assets/vectors/regularCar.svg";
 
   onFileSelect(event: any){
@@ -54,13 +54,15 @@ export class AccountDetailsComponent implements OnInit {
     if(this._role === 'passenger') {
       this.accountDetailsService.getPassenger().subscribe((res) => {
         this.user = res;
-        this.url = this.user.profilePicture;
+        if (this.user.profilePicture != null)
+          this.url = this.user.profilePicture;
       });
     } else if (this._role === 'driver') {
       this.accountDetailsService.getDriver().subscribe((res) => {
         this.driver = res;
         this.fromDriverToPassenger();
-        this.url = this.user.profilePicture;
+        if (this.user.profilePicture != null)
+          this.url = this.user.profilePicture;
         if (res.vehicleType == "LUXURY") {
           this.urlVehicleType = "../../assets/vectors/luxuryCar.svg"
           this.isLuxury = true;
@@ -73,7 +75,8 @@ export class AccountDetailsComponent implements OnInit {
     } else if (this._role === 'admin') {
       this.accountDetailsService.getUser().subscribe((res) => {
         this.user = res;
-        this.url = this.user.profilePicture;
+        if (this.user.profilePicture != null)
+          this.url = this.user.profilePicture;
       });
     }
   }
