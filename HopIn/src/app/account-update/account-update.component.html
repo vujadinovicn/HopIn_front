@@ -6,5 +6,7 @@
     <app-change-vehicle-info 
     [parentComponent]="parentComponent"
     *ngIf="option == 'vehicle'"></app-change-vehicle-info>
-    <app-driver-documents *ngIf="option == 'documents'"></app-driver-documents>
+    <app-driver-documents 
+    [parentComponent]="parentComponent"
+    *ngIf="option == 'documents'"></app-driver-documents>
 </div>

@@ -37,7 +37,17 @@
     background-color: white;
 }
 
+#document-container{
+    overflow-y: scroll;
+    --scrollbar-width-height: 15px;
+    height: 95px;
+}
+
 #vehicle-container {
     margin-bottom: 17px;
+}
+
+#register-driver-btn {
+    width: 100%;
 }
 

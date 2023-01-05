@@ -6,13 +6,13 @@
     <mat-icon (click)="openAddDocumentPopUp()">add_circle_outline</mat-icon>
     <span>add new document</span>
 </div>
+<span id="missing-documents" *ngIf="documents.length == 0">waiting on documents...</span>
 <div *ngFor="let document of documents; let i = index;"  class="document-container">
     <mat-icon>document_scanner</mat-icon>
     <span (click)="openShowDetailsPopUp(i)">{{ document.name }}</span>
     <div class="document-btns-container">
         <button id="update-img-btn" type="button" (click)="openUpdateDocumentPopUp(i)">
             <i class="fas fa-pencil-alt"></i>
-            <!-- <input #fileInput type="file" style="display: none" (change)="onFileSelect($event, i)"> -->
         </button>
         <button id="delete-document-btn" (click)="deleteDocument(i)"type="button">
             <mat-icon>delete</mat-icon>

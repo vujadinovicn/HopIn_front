@@ -20,6 +20,7 @@
 #title-add-container {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 5px;
 }
 
 #title-add-container span {
@@ -29,6 +30,11 @@
 #title-add-container mat-icon {
     margin-top: 5px;
     margin-right: 20px;
+}
+
+#missing-documents {
+    font-size: 0.9em;
+    color: #b1b1b1;
 }
 
  
