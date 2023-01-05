@@ -13,7 +13,7 @@ import { addressRegexValidator, nameRegexValidator, passwordRegexValidator, phon
   templateUrl: './driver-register-personal-info.component.html',
   styleUrls: ['./driver-register-personal-info.component.css']
 })
-export class DriverRegisterPersonalInfoComponent implements OnInit, OnChanges {
+export class DriverRegisterPersonalInfoComponent implements OnInit {
 
   registerForm = new FormGroup({
     name: new FormControl('', [Validators.required, nameRegexValidator]),
@@ -32,13 +32,12 @@ export class DriverRegisterPersonalInfoComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     markFormControlsTouched(this.registerForm);
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['formsSubmitted'].currentValue){ 
+    this.driverRegisterService.recieveFormsSubmitted().subscribe((res: any) => {
+      console.log("ssss");
       this.registerForm.markAllAsTouched();
       this.saveDriverRegister();
     }
+    )
   }
 
   private saveDriverRegister(){
@@ -48,7 +47,7 @@ export class DriverRegisterPersonalInfoComponent implements OnInit, OnChanges {
     else {
       this.sharedService.openInvalidInputSnack(); 
      }
-     this.isFormValid.emit(this.registerForm.valid);
+    this.isFormValid.emit(this.registerForm.valid);
   }
 
   private setResponseValue(): any{

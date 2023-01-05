@@ -13,7 +13,7 @@ import { modelRegexValidator, platesRegexValidator, seatsRegexValidator } from '
   templateUrl: './change-vehicle-info.component.html',
   styleUrls: ['./change-vehicle-info.component.css']
 })
-export class ChangeVehicleInfoComponent implements OnInit, OnChanges {
+export class ChangeVehicleInfoComponent implements OnInit {
 
   vehicle : Vehicle = {
     _id : 0,
@@ -48,7 +48,15 @@ export class ChangeVehicleInfoComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     markFormControlsTouched(this.vehicleInfoForm);
-    this.setVehicleData();
+    if (this.parentComponent == "update")
+      this.setVehicleData();
+    else {
+        this.driverRegisterService.recieveFormsSubmitted().subscribe((res: any) => {
+        this.vehicleInfoForm.markAllAsTouched();
+        this.saveDriverRegister();
+      }
+      )
+    }
   }
 
   changeVehicleType(vehicleType: string) : void {
@@ -69,13 +77,6 @@ export class ChangeVehicleInfoComponent implements OnInit, OnChanges {
         });
     } else
         this.sharedService.openInvalidInputSnack();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['formsSubmitted'].currentValue){ 
-      this.vehicleInfoForm.markAllAsTouched();
-      this.saveDriverRegister();
-    }
   }
 
   private saveDriverRegister() {

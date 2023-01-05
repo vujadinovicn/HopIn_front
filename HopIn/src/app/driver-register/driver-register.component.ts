@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { DriverRegisterService } from '../services/driver-register.service';
 import { User } from '../services/user.service';
 import { Vehicle } from '../services/vehicle.service';
@@ -39,27 +39,30 @@ export class DriverRegisterComponent implements OnInit {
 
   documents : Document[] = [];
 
-  constructor(private driverRegisterService: DriverRegisterService,
+  constructor(private cdr: ChangeDetectorRef,
+    private driverRegisterService: DriverRegisterService,
     private sharedService: SharedService) { }
 
   ngOnInit(): void {
   }
 
   changeFormValidity(childIsFormValid: any) : void {
-    //this.formsSubmitted = this.formsSubmitted && childIsFormValid;
+    this.formsSubmitted = this.formsSubmitted && childIsFormValid;
+  }
+
+  changeFormSValidity(childIsFormValid: any) : void {
+    this.formsSubmitted = this.formsSubmitted && childIsFormValid;
   }
 
   recievePersonalInfo(){
     this.driverRegisterService.recievePersonalInfo().subscribe((res: any) => {
       this.driver = res;
-      console.log(this.driver);
     });
   }
 
   recieveVehicleInfo(){
     this.driverRegisterService.recieveVehicleInfo().subscribe((res: any) => {
       this.vehicle = res;
-      console.log(this.vehicle);
     });
   }
 
@@ -69,8 +72,12 @@ export class DriverRegisterComponent implements OnInit {
 
   save() {
     this.formsSubmitted = true;
+    this.driverRegisterService.sendFormsSubmitted(this.formsSubmitted);
     this.recievePersonalInfo();
     this.recieveVehicleInfo();
-  }
 
+    if (this.formsSubmitted == true){
+      console.log("radi");
+    }
+  }
 }

@@ -11,6 +11,8 @@ export class DriverRegisterService {
   recievedPersonalInfo = this.sentPersonalInfo.asObservable();
   private sentVehicleInfo = new Subject<any>();
   recievedVehicleInfo = this.sentVehicleInfo.asObservable();
+  private sentFormsSubmitted = new Subject<any>();
+  recievedFormsSubmitted = this.sentFormsSubmitted.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -28,5 +30,13 @@ export class DriverRegisterService {
 
   recieveVehicleInfo() : Observable<any> {
     return this.recievedVehicleInfo;
+  }
+
+  sendFormsSubmitted(isFormSubmitted: boolean){
+    this.sentFormsSubmitted.next(isFormSubmitted);
+  }
+
+  recieveFormsSubmitted() : Observable<any> {
+    return this.recievedFormsSubmitted;
   }
 }
