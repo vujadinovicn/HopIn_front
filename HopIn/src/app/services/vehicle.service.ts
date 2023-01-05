@@ -32,7 +32,7 @@ export class VehicleService {
       const options: any = {
         responseType: 'text',
       };
-      return this.http.post<string>(environment.apiHost + '/driver/3/vehicle', vehicle, options);
+      return this.http.post<string>(environment.apiHost + '/driver/4/vehicle', vehicle, options);
     }
 }
 

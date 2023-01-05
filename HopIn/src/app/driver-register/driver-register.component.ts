@@ -1,7 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { DriverRegisterService } from '../services/driver-register.service';
+import { DriverService } from '../services/driver.service';
 import { User } from '../services/user.service';
-import { Vehicle } from '../services/vehicle.service';
+import { Vehicle, VehicleService } from '../services/vehicle.service';
 import { SharedService } from '../shared/shared.service';
 
 @Component({
@@ -40,10 +41,14 @@ export class DriverRegisterComponent implements OnInit {
   documents : Document[] = [];
 
   constructor(private cdr: ChangeDetectorRef,
+    private driverService: DriverService,
+    private vehicleService: VehicleService,
     private driverRegisterService: DriverRegisterService,
     private sharedService: SharedService) { }
 
   ngOnInit(): void {
+    this.recievePersonalInfo();
+    this.recieveVehicleInfo();
   }
 
   changeFormValidity(childIsFormValid: any) : void {
@@ -73,11 +78,46 @@ export class DriverRegisterComponent implements OnInit {
   save() {
     this.formsSubmitted = true;
     this.driverRegisterService.sendFormsSubmitted(this.formsSubmitted);
-    this.recievePersonalInfo();
-    this.recieveVehicleInfo();
 
     if (this.formsSubmitted == true){
-      console.log("radi");
+      this.registerDriver();
     }
+  }
+
+  registerDriver(){
+    this.addDriver();
+    //this.addVehicle();
+  }
+
+  private addDriver() {
+    this.driverService.add(this.driver).subscribe({
+      next: (res: any) => {
+        this.sharedService.openSnack({
+          value: "Response is in console!",
+          color: "back-green"
+        }
+        );
+        this.addVehicle();
+      },
+      error: (error: any) => {
+        this.sharedService.openNoResponseSnack();
+      }
+    });
+  }
+
+  private addVehicle() {
+    this.vehicleService.add(this.vehicle).subscribe({
+      next: (res: any) => {
+        this.sharedService.openSnack({
+          value: "Response is in console!",
+          color: "back-green"
+        }
+        );
+        console.log(res);
+      },
+      error: (error: any) => {
+        this.sharedService.openNoResponseSnack();
+      }
+    });
   }
 }

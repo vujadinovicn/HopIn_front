@@ -10,7 +10,7 @@ export class UserService {
   private value$ = new BehaviorSubject<any>({});
   selectedValue$ = this.value$.asObservable();
 
-  _role : string = "passenger";
+  _role : string = "driver";
 
   constructor(private http: HttpClient) {}
 
