@@ -1,3 +1,4 @@
+import { RegistrationVerificationComponent } from './../app/registration-verification/registration-verification.component';
 import { DriverRequestDashboardComponent } from './../app/driver-request-dashboard/driver-request-dashboard.component';
 import { RouteSuggestionComponent } from './../app/route-suggestion/route-suggestion.component';
 import { OrderRideComponent } from './../app/order-ride/order-ride.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
   {path: '', component: LandingComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'verify', component: RegistrationVerificationComponent},
   {path: 'order-ride', component: OrderRideComponent},
   {path: 'route-suggestion', component: RouteSuggestionComponent},
   {path: 'request-dashboard', component: DriverRequestDashboardComponent},

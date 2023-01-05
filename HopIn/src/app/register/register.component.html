@@ -2,7 +2,7 @@
   <div class="reg-left">
     <h2 class="title">Create account</h2>
 
-    <form [formGroup]="registerForm" (ngSubmit)="register()" fxLayout="column">
+    <form #formDirective="ngForm" [formGroup]="registerForm" (ngSubmit)="register(formDirective)" fxLayout="column">
       <mat-form-field [hideRequiredMarker]="true" id="name">
         <mat-label>Name</mat-label>
         <input matInput type="text" name="name" formControlName="name" />
@@ -54,4 +54,4 @@
     <img src="../../assets/vectors/register.svg" height="350px" alt="">
   </div>
 </div>
-
+<app-snack-bar></app-snack-bar>
