@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { DocumentService } from '../services/document.service';
 import { DriverRegisterService } from '../services/driver-register.service';
 import { DriverService } from '../services/driver.service';
 import { User } from '../services/user.service';
@@ -43,6 +44,7 @@ export class DriverRegisterComponent implements OnInit {
   constructor(private cdr: ChangeDetectorRef,
     private driverService: DriverService,
     private vehicleService: VehicleService,
+    private documentService: DocumentService,
     private driverRegisterService: DriverRegisterService,
     private sharedService: SharedService) { }
 
@@ -98,6 +100,7 @@ export class DriverRegisterComponent implements OnInit {
         }
         );
         this.addVehicle();
+        this.addDocuments();
       },
       error: (error: any) => {
         this.sharedService.openNoResponseSnack();
@@ -119,5 +122,19 @@ export class DriverRegisterComponent implements OnInit {
         this.sharedService.openNoResponseSnack();
       }
     });
+  }
+
+  private addDocuments(){
+    for (let document of this.documents){
+      console.log(document);
+      this.documentService.add(document).subscribe({
+        next: (res: any) => {
+          console.log(res);
+        },
+        error: (error: any) => {
+          this.sharedService.openNoResponseSnack();
+        }
+      });
+    }
   }
 }

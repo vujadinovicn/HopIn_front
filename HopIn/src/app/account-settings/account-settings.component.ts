@@ -112,7 +112,7 @@ export class AccountSettingsComponent implements OnInit {
   }
 
   setDriverData(){
-    this.userService.getByDriverId(2).subscribe((res: any) => {
+    this.userService.getByDriverId(4).subscribe((res: any) => {
       this.user = res;
       this.setFormValue(res);
       this.profileImgPath = res.profilePicture;
