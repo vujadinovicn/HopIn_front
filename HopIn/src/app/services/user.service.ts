@@ -10,7 +10,7 @@ export class UserService {
   private value$ = new BehaviorSubject<any>({});
   selectedValue$ = this.value$.asObservable();
 
-  _role : string = "driver";
+  _role : string = "passenger";
 
   constructor(private http: HttpClient) {}
 
@@ -49,11 +49,18 @@ export class UserService {
     return this.http.put<string>(environment.apiHost + '/driver/2', driver, options);
   }
 
+  registerPassenger(passenger: UserDTO): Observable<any> {
+    const options: any = {
+      responseType: 'json',
+    };
+    return this.http.post<User>(environment.apiHost + "/passenger", passenger, options);
+  }
+
   updatePassengerPersonalInfo(passenger: any): Observable<any> {
     const options: any = {
       responseType: 'json',
     };
-    return this.http.put<string>(environment.apiHost + '/passenger/1', passenger, options);
+    return this.http.put<string>(environment.apiHost + '/passenger/4', passenger, options);
   }
 
   updatePassengerPassword(passenger: any): Observable<any> {
@@ -76,3 +83,12 @@ export interface User {
     newPassword: string;
   }
   
+export interface UserDTO {
+    name: string;
+    surname: string;
+    profilePicture: string | null;
+    telephoneNumber: string;
+    email: string;
+    address: string;
+    password: string;
+}

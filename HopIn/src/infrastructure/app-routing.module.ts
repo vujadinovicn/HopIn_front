@@ -1,3 +1,4 @@
+import { RegistrationVerificationComponent } from './../app/registration-verification/registration-verification.component';
 import { DriverRequestDashboardComponent } from './../app/driver-request-dashboard/driver-request-dashboard.component';
 import { RouteSuggestionComponent } from './../app/route-suggestion/route-suggestion.component';
 import { OrderRideComponent } from './../app/order-ride/order-ride.component';
@@ -18,9 +19,10 @@ import { DriverRegisterPersonalInfoComponent } from 'src/app/driver-register-per
 import { DriverRegisterComponent } from 'src/app/driver-register/driver-register.component';
 
 const routes: Routes = [
-  {path: '', component: DriverRegisterComponent},
+  {path: '', component: LandingComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'verify', component: RegistrationVerificationComponent},
   {path: 'order-ride', component: OrderRideComponent},
   {path: 'route-suggestion', component: RouteSuggestionComponent},
   {path: 'request-dashboard', component: DriverRequestDashboardComponent},
@@ -30,7 +32,7 @@ const routes: Routes = [
   {path: 'account-settings', component: AccountUpdateComponent},
   {path: 'change-password', component: ChangePasswordComponent},
   {path:'change-payment-info', component: ChangePaymentInfoComponent},
-  {path: '**', component: DriverRegisterComponent}
+  {path: '**', component: LandingComponent}
 ];
 
 @NgModule({

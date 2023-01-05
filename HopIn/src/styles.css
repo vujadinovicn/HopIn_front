@@ -227,6 +227,10 @@ html, body { height: 100%; width: 100%; margin: 0; font-family: "Poppins", sans-
     color: #A8201A !important;
 }
 
+.green {
+    color: #33A02C !important;
+}
+
 .back-dark-blue {
     background-color: #1E4A5A !important;
 }
