@@ -6,18 +6,27 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class DocumentService {
-  private selectedDocument = new Subject<any>();
-  recievedDocument = this.selectedDocument.asObservable();
-  private updatedDocument = new Subject<any>();
+export class DriverRegisterService {
+  private sentPersonalInfo = new Subject<any>();
+  recievedPersonalInfo = this.sentPersonalInfo.asObservable();
+  private sentVehicleInfo = new Subject<any>();
+  recievedVehicleInfo = this.sentVehicleInfo.asObservable();
 
   constructor(private http: HttpClient) {}
 
-  selectDocument(documentId : number){
-    this.selectedDocument.next(documentId);
+  sendPersonalInfo(personalInfo: any){
+    this.sentPersonalInfo.next(personalInfo);
   }
 
-  recieveDocument() : Observable<any> {
-    return this.recievedDocument;
+  recievePersonalInfo() : Observable<any> {
+    return this.recievedPersonalInfo;
+  }
+
+  sendVehicleInfo(vehicleInfo: any){
+    this.sentVehicleInfo.next(vehicleInfo);
+  }
+
+  recieveVehicleInfo() : Observable<any> {
+    return this.recievedVehicleInfo;
   }
 }

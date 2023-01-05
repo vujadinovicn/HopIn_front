@@ -1,8 +1,11 @@
-import { Input } from '@angular/core';
+import { EventEmitter, Input, Output } from '@angular/core';
 import { OnChanges } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DriverRegisterService } from '../services/driver-register.service';
+import { SharedService } from '../shared/shared.service';
+import { markFormControlsTouched } from '../validators/formGroupValidators';
 import { addressRegexValidator, nameRegexValidator, passwordRegexValidator, phonenumRegexValidator, surnameRegexValidator } from '../validators/user/userValidator';
 
 @Component({
@@ -22,15 +25,40 @@ export class DriverRegisterPersonalInfoComponent implements OnInit, OnChanges {
   })
 
   @Input() formsSubmitted = false;
+  @Output() isFormValid = new EventEmitter<boolean>();
 
-  constructor() { }
+  constructor(private driverRegisterService: DriverRegisterService,
+    private sharedService: SharedService) { }
 
   ngOnInit(): void {
+    markFormControlsTouched(this.registerForm);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['formsSubmitted'].currentValue == true){ 
+    if (changes['formsSubmitted'].currentValue){ 
       this.registerForm.markAllAsTouched();
+      this.saveDriverRegister();
+    }
+  }
+
+  private saveDriverRegister(){
+    if (this.registerForm.valid) {
+      this.driverRegisterService.sendPersonalInfo(this.setResponseValue());
+    }
+    else {
+      this.sharedService.openInvalidInputSnack(); 
+     }
+     this.isFormValid.emit(this.registerForm.valid);
+  }
+
+  private setResponseValue(): any{
+    return {
+      name: this.registerForm.value.name,
+      surname: this.registerForm.value.surname,
+      telephoneNumber: this.registerForm.value.phonenum,
+      email: this.registerForm.value.email,
+      address: this.registerForm.value.address,
+      password: this.registerForm.value.password
     }
   }
 

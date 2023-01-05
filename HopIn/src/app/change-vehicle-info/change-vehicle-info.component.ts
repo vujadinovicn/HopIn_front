@@ -1,6 +1,7 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DriverRegisterService } from '../services/driver-register.service';
 import { RequestDetailsService } from '../services/requestDetails.service';
 import { Vehicle, VehicleService } from '../services/vehicle.service';
 import { SharedService } from '../shared/shared.service';
@@ -37,17 +38,13 @@ export class ChangeVehicleInfoComponent implements OnInit, OnChanges {
 
   @Input() parentComponent = '';
   @Input() formsSubmitted = false;
+  @Output() isFormValid = new EventEmitter<boolean>();
 
   constructor(private router: Router,
     private vehicleService: VehicleService,
     private requestDetailsService: RequestDetailsService,
+    private driverRegisterService: DriverRegisterService,
     private sharedService : SharedService) { }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['formsSubmitted'].currentValue == true){ 
-      this.vehicleInfoForm.markAllAsTouched();
-    }
-  }
 
   ngOnInit(): void {
     markFormControlsTouched(this.vehicleInfoForm);
@@ -72,6 +69,24 @@ export class ChangeVehicleInfoComponent implements OnInit, OnChanges {
         });
     } else
         this.sharedService.openInvalidInputSnack();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['formsSubmitted'].currentValue){ 
+      this.vehicleInfoForm.markAllAsTouched();
+      this.saveDriverRegister();
+    }
+  }
+
+  private saveDriverRegister() {
+    if (this.vehicleInfoForm.valid) {
+      //console.log(this.setResponseValue());
+      this.driverRegisterService.sendVehicleInfo(this.setResponseValue());
+    }
+    else { 
+      this.sharedService.openInvalidInputSnack(); 
+    }
+    this.isFormValid.emit(this.vehicleInfoForm.valid);
   }
 
   private setResponseValue(): any{
