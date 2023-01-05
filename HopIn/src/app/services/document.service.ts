@@ -32,6 +32,13 @@ export class DocumentService {
   recieveUpdate(): Observable<any>{
     return this.updatedDocument.asObservable();
   }
+
+  add(document: any): Observable<any> {
+    const options: any = {
+      responseType: 'text',
+    };
+    return this.http.post<string>(environment.apiHost + '/driver/3/documents', document, options);
+  }
 }
 
 export interface Document {

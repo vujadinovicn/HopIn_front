@@ -20,7 +20,8 @@
             <div id="document-container" class="border">
                 <app-driver-documents 
                 [parentComponent]="parentComponent"
-                (isFormValid)="changeFormValidity($event)"></app-driver-documents>
+                (isFormValid)="changeFormValidity($event)"
+                (sentDocument)="recieveDocument($event)"></app-driver-documents>
             </div>
         </div>
     </div>

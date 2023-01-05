@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DocumentUpdateDialogComponent } from '../document-update-dialog/document-update-dialog.component';
 import { DocumentDetailsDialogComponent } from '../document-details-dialog/document-details-dialog.component';
@@ -19,6 +19,7 @@ export class DriverDocumentsComponent implements OnInit {
   documents: Document[] = [];
 
   @Input() parentComponent : string = "";
+  @Output() sentDocument = new EventEmitter<Document[]>();
 
   constructor(private dialog: MatDialog,
     private documentService: DocumentService,
@@ -70,6 +71,7 @@ export class DriverDocumentsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result.event == 'register'){
         this.documents.push(result.data);
+        this.sentDocument.emit(result.data);
       }}
     );
   }

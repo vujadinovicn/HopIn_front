@@ -26,7 +26,14 @@ export class VehicleService {
           responseType: 'text',
         };
         return this.http.put<string>(environment.apiHost + '/driver/2/vehicle', vehicle, options);
-      }
+    }
+
+    add(vehicle: any): Observable<any> {
+      const options: any = {
+        responseType: 'text',
+      };
+      return this.http.post<string>(environment.apiHost + '/driver/3/vehicle', vehicle, options);
+    }
 }
 
 export interface Vehicle{

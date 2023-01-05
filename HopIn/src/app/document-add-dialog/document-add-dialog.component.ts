@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DocumentService } from '../services/document.service';
+import { DriverRegisterService } from '../services/driver-register.service';
 import { RequestDetailsService } from '../services/requestDetails.service';
 import { SharedService } from '../shared/shared.service';
 import { nameRegexValidator } from '../validators/user/userValidator';
@@ -26,7 +27,8 @@ export class DocumentAddDialogComponent implements OnInit {
     private router: Router, 
     private documentService: DocumentService,
     private sharedService: SharedService,
-    private requestDetailsService: RequestDetailsService
+    private requestDetailsService: RequestDetailsService,
+    private driverRegisterService: DriverRegisterService
   ) {}
 
   ngOnInit(): void {
@@ -47,8 +49,9 @@ export class DocumentAddDialogComponent implements OnInit {
     if (this.addDocumentForm.valid && this.imageSelected){
       if (this.data.parentComponent == "update")
         this.saveExistingDriverDocument();
-      else
+      else{
         this.dialogRef.close({event: "register", data:this.setResponseValue()});
+      }
     } else {
       this.sharedService.openInvalidInputSnack();
     }
