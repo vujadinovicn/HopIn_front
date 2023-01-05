@@ -7,6 +7,7 @@ import { SharedService } from '../shared/shared.service';
 import { markFormControlsTouched } from '../validators/formGroupValidators';
 import { ConfirmValidParentMatcher, passwordMatcher } from '../validators/passwordMatch';
 import { passwordRegexValidator } from '../validators/user/userValidator';
+import { RequestDetailsService } from '../services/requestDetails.service';
 
 @Component({
   selector: 'app-change-password',
@@ -14,6 +15,8 @@ import { passwordRegexValidator } from '../validators/user/userValidator';
   styleUrls: ['./change-password.component.css']
 })
 export class ChangePasswordComponent implements OnInit {
+
+  role: string = "driver";
 
   user : User = {
     id: 0,
@@ -37,32 +40,70 @@ export class ChangePasswordComponent implements OnInit {
 
   constructor(private router: Router,
               private userService: UserService,
-              private passengerAccountOptionsService: PassengerAccountOptionsService,
+              private requestDetailsService : RequestDetailsService,
               private sharedService: SharedService) { }
 
   ngOnInit(): void {
+    this.role = this.userService.role;
     this.setUserData();
     markFormControlsTouched(this.changePasswordForm);
   }
 
   save(): void {
     if (this.changePasswordForm.valid) {
-      console.log(this.setResponseValue())
-      this.userService.updateDriverPassword(this.setResponseValue()).subscribe({
-          next: (res: any) => {
-            this.router.navigate(['/account']);
-            this.sharedService.openResponseSnack()
-          },
-          error: (error: any) => {
-              this.sharedService.openNoResponseSnack();
-          }
-        });
+      if (this.role == "passenger"){
+        this.savePassengerPassword();
+      }
+      else 
+        this.saveDriverPassword();
     } else {
       this.sharedService.openInvalidInputSnack()
     }
   }
 
+  private savePassengerPassword() {
+    console.log(this.setResponseValue())
+    this.userService.updatePassengerPassword(this.setResponseValue()).subscribe({
+      next: (res: any) => {
+        this.router.navigate(['/account-passenger']);
+        this.sharedService.openResponseSnack();
+      },
+      error: (error: any) => {
+        this.sharedService.openNoResponseSnack();
+      }
+    });
+  }
+
+  private saveDriverPassword() {
+    let res = {
+      oldPassword: this.changePasswordForm.value.oldPassword,
+      newPassword: this.changePasswordForm.value.newPassword,
+    }
+    this.requestDetailsService.addPasswordRequest(2, res).subscribe({
+      next: (res: any) => {
+        this.router.navigate(['/account-driver']);
+        this.sharedService.openResponseSnack();
+      },
+      error: (error: any) => {
+        this.sharedService.openNoResponseSnack();
+      }
+    });
+  }
+
   setUserData() {
+    if (this.role == "passenger")
+      this.setPassengerData();
+    else
+      this.setDriverData();
+  }
+
+  private setPassengerData() {
+    this.userService.getByPassengerId(1).subscribe((res: any) => {
+      this.user = res;
+    });;
+  }
+
+  private setDriverData() {
     this.userService.getByDriverId(2).subscribe((res: any) => {
       this.user = res;
     });;

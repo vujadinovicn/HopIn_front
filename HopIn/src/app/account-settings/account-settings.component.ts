@@ -6,6 +6,7 @@ import { PassengerAccountOptionsService } from '../services/passengerAccountOpti
 import { SharedService } from '../shared/shared.service';
 import { markFormControlsTouched } from '../validators/formGroupValidators';
 import { addressRegexValidator, nameRegexValidator, phonenumRegexValidator, surnameRegexValidator } from '../validators/user/userValidator';
+import { RequestDetailsService } from '../services/requestDetails.service';
 
 
 @Component({
@@ -14,6 +15,8 @@ import { addressRegexValidator, nameRegexValidator, phonenumRegexValidator, surn
   styleUrls: ['./account-settings.component.css']
 })
 export class AccountSettingsComponent implements OnInit {
+
+  role: string = "driver";
 
   user : User = {
     id: 0,
@@ -35,43 +38,89 @@ export class AccountSettingsComponent implements OnInit {
     phonenum: new FormControl('', [Validators.required, phonenumRegexValidator]),
   }, [])
 
-  profileImgPath = "../../assets/vectors/login.svg";
+  profileImgPath = "../../assets/images/profile-placeholder.png";
 
   constructor(private router: Router, 
               private userService: UserService,
+              private requestDetailsService : RequestDetailsService,
               private sharedService : SharedService) {
   }
 
   ngOnInit(): void {
+    this.role = this.userService.role;
     this.setUserData();
     markFormControlsTouched(this.accountSettingsForm);
 }
   
   save(): void {
     if (this.accountSettingsForm.valid) {
-      console.log(this.setResponseValue());
-      this.userService.updateDriverPersonalInfo(this.setResponseValue()).subscribe({
-          next: (res: any) => {
-            this.router.navigate(['/account-driver']);
-            this.sharedService.openSnack({
-              value: "Response is in console!",
-              color: "back-green"}
-              );
-          },
-          error: (error: any) => {
-              this.sharedService.openNoResponseSnack();
-          }
-        });
+      if (this.role == "passenger")
+        this.savePassenger();
+      else 
+        this.saveDriver();
     } else
         this.sharedService.openInvalidInputSnack();
 
   }
 
-  setUserData() {
+  savePassenger(){
+    console.log(this.setResponseValue());
+    console.log(this.profileImgPath);
+    this.userService.updatePassengerPersonalInfo(this.setResponseValue()).subscribe({
+      next: (res: any) => {
+        this.router.navigate(['/account-passenger']);
+        this.sharedService.openSnack({
+          value: "Response is in console!",
+          color: "back-green"}
+          );
+        console.log(res);
+      },
+      error: (error: any) => {
+          this.sharedService.openNoResponseSnack();
+      }
+    });
+  }
+
+  saveDriver(){
+    console.log(this.setResponseValue());
+    this.requestDetailsService.addInfoRequest(2, this.setResponseValue()).subscribe({
+      next: (res: any) => {
+        this.router.navigate(['/account-driver']);
+        this.sharedService.openSnack({
+          value: "Response is in console!",
+          color: "back-green"}
+          );
+      },
+      error: (error: any) => {
+          this.sharedService.openNoResponseSnack();
+      }
+    });
+  }
+
+  setUserData(){
+    if (this.role == "passenger") {
+      this.setPassengerData();
+    }
+    else {
+      this.setDriverData();
+    }
+  }
+
+  setPassengerData() {
+    this.userService.getByPassengerId(4).subscribe((res: any) => {
+      this.user = res;
+      this.setFormValue(res);
+      if (res.profilePicture != null)
+        this.profileImgPath = res.profilePicture;
+    });;
+  }
+
+  setDriverData(){
     this.userService.getByDriverId(2).subscribe((res: any) => {
       this.user = res;
       this.setFormValue(res);
-      this.profileImgPath = res.profilePicture;
+      if (res.profilePicture != null)
+        this.profileImgPath = res.profilePicture;
     });;
   }
 

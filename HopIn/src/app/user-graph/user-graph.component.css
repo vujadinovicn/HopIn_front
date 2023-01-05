@@ -80,7 +80,7 @@ p {
     border: none;
     cursor: pointer;
     font-family: 'Poppins', sans-serif;
-    font-size: 0.9em;
+    font-size: 0.8em;
     border-radius: 10px;
     display: flex;
     flex-direction: row;
@@ -139,7 +139,7 @@ p {
   #generateBtn {
     background-color: #1E4A5A;
     color: white;
-    font-size: 0.9em;
+    font-size: 0.8em;
     padding: 0.3em 1em ;
     border-radius: 5px;
     border: 0;
@@ -164,7 +164,7 @@ p {
     height: fit-content;
     align-self: center;
     border: none;
-    font-size: 0.9em;
+    font-size: 0.8em;
     padding: 5px;
   }
 
@@ -243,7 +243,7 @@ p {
 #pdfBtn {
   background-color: #EC9A29;
     color: white;
-    font-size: 0.9em;
+    font-size: 0.8em;
     padding: 0.3em 1em ;
     border-radius: 5px;
     border: 0;
@@ -319,6 +319,8 @@ canvas {
 
   .reportContainerPassenger {
     width: 70vw;
+    margin-left: 0;
+    margin-top: 4vh;
   }
 
   .reportContainerDriver {

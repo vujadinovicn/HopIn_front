@@ -1,5 +1,6 @@
 import { AccountDetailsService } from './../accountDetailsService/account-details.service';
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'account-details',
@@ -8,9 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountDetailsComponent implements OnInit {
 
-  isDriver: boolean = false;
-  isAdmin: boolean = false;
-  isPassenger: boolean = true;
+  _role: String = 'driver';
   isLuxury: boolean = false;
   user: ReturnedUser = {
     id: 0,
@@ -34,7 +33,7 @@ export class AccountDetailsComponent implements OnInit {
     vehicleType: ""
   };
 
-  url : String = "../../assets/vectors/login.svg";
+  url : String = "../../assets/images/profile-placeholder.png";
   urlVehicleType = "../../assets/vectors/regularCar.svg";
 
   onFileSelect(event: any){
@@ -47,32 +46,37 @@ export class AccountDetailsComponent implements OnInit {
     }
   }
 
-  constructor(private accountDetailsService: AccountDetailsService) { }
+  constructor(private accountDetailsService: AccountDetailsService,
+    private userService: UserService) { }
 
   ngOnInit(): void {
-    if(this.isPassenger) {
+    this._role = this.userService.role;
+    if(this._role === 'passenger') {
       this.accountDetailsService.getPassenger().subscribe((res) => {
         this.user = res;
-        this.url = this.user.profilePicture;
+        if (this.user.profilePicture != null)
+          this.url = this.user.profilePicture;
       });
-    } else if (this.isDriver) {
+    } else if (this._role === 'driver') {
       this.accountDetailsService.getDriver().subscribe((res) => {
         this.driver = res;
         this.fromDriverToPassenger();
-        this.url = this.user.profilePicture;
-        if (res.vehicleType == "LUKSUZNO") {
+        if (this.user.profilePicture != null)
+          this.url = this.user.profilePicture;
+        if (res.vehicleType == "LUXURY") {
           this.urlVehicleType = "../../assets/vectors/luxuryCar.svg"
           this.isLuxury = true;
-        } else if (res.vehicleType == "KOMBI") {
+        } else if (res.vehicleType == "VAN") {
           this.urlVehicleType = "../../assets/vectors/van.svg"
         } else {
           this.urlVehicleType = "../../assets/vectors/regularCar.svg"
         }
       });
-    } else if (this.isAdmin) {
+    } else if (this._role === 'admin') {
       this.accountDetailsService.getUser().subscribe((res) => {
         this.user = res;
-        this.url = this.user.profilePicture;
+        if (this.user.profilePicture != null)
+          this.url = this.user.profilePicture;
       });
     }
   }

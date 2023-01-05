@@ -1,9 +1,10 @@
 <div>
-    <h1 mat-dialog-title align="center">{{data.documentName}}</h1>
+  <h1 mat-dialog-title align="center">{{data.name}}</h1>
+    
     <div mat-dialog-content align="center">
       <img [src]="data.url" class="dialog-document-img">
     </div>
     <div mat-dialog-actions align="center">
-      <button mat-button (click)="onNoClick()">Close</button>
+      <button mat-button class="conf-button" (click)="close()">Close</button>
     </div>
 </div>

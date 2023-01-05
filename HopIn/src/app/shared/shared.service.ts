@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SharedService {
-  private snackMessage$ = new BehaviorSubject<any>({});
+  private snackMessage$ = new Subject<any>();
   newSnackMessage$ = this.snackMessage$.asObservable();
 
   constructor() {}

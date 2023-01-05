@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RequestDetailsService } from '../services/requestDetails.service';
 import { Vehicle, VehicleService } from '../services/vehicle.service';
 import { SharedService } from '../shared/shared.service';
 import { markFormControlsTouched } from '../validators/formGroupValidators';
@@ -36,6 +37,7 @@ export class ChangeVehicleInfoComponent implements OnInit {
 
   constructor(private router: Router,
     private vehicleService: VehicleService,
+    private requestDetailsService: RequestDetailsService,
     private sharedService : SharedService) { }
 
   ngOnInit(): void {
@@ -50,9 +52,9 @@ export class ChangeVehicleInfoComponent implements OnInit {
   save() : void {
     if (this.vehicleInfoForm.valid) {
       console.log(this.setResponseValue());
-      this.vehicleService.update(this.setResponseValue()).subscribe({
+      this.requestDetailsService.addVehicleRequest(2, this.setResponseValue()).subscribe({
           next: (res: any) => {
-            this.router.navigate(['/account']);
+            this.router.navigate(['/account-driver']);
             this.sharedService.openResponseSnack();
           },
           error: (error: any) => {

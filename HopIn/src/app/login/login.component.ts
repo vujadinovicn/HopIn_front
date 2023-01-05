@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'login',
@@ -16,13 +18,34 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required])
   })
 
-  constructor(private router: Router) { }
+  constructor(private authService: AuthService, 
+    private router: Router,
+    public snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
 
   login(){
-    this.router.navigate(['/account-driver']);
+    const loginVal = {
+      email: this.loginForm.value.email,
+      password: this.loginForm.value.password,
+    };
+
+    if (this.loginForm.valid) {
+      this.authService.login(loginVal).subscribe({
+        next: (result) => {
+          localStorage.setItem('user', JSON.stringify(result.accessToken));
+          this.authService.setUser();
+          this.router.navigate(['/order-ride']);
+        },
+        error: (error) => {
+          console.log(error)
+          this.snackBar.open("Bad credentials. Please, try again!", "", {
+            duration: 2000,
+         });
+        },
+      });
+    }
   }
 
 }

@@ -101,10 +101,52 @@ html, body { height: 100%; width: 100%; margin: 0; font-family: "Poppins", sans-
     border-radius: 50%;
     border: none;
     padding: 3px 5px;
-    background-color: #B1B1B1;
+    background-color: #D9D9D9;
     color: #1E4A5A;
     cursor: pointer;
     font-size: 16px;
+}
+
+/* CUSTOM SCROLLBAR
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #ffffff; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #DCDCDC; 
+    border-radius: 2px;
+    height: 20px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #afafaf; 
+  }
+
+  
+.info-bcg {
+    background-color: #6DAFC7 !important;
+}
+
+.password-bcg {
+    background-color: #D8B78D !important;
+}
+
+.vehicle-bcg {
+    background-color: #627C86 !important;
+}
+
+.document-bcg {
+    background-color: #A0C29D !important;
 }
 
  
@@ -126,7 +168,7 @@ html, body { height: 100%; width: 100%; margin: 0; font-family: "Poppins", sans-
 @media screen and (max-width: 450px){
     .account-update-container{
         width: 90%;
-        height: 75%;
+        height: 95%;
     }
 }
 
@@ -140,11 +182,29 @@ html, body { height: 100%; width: 100%; margin: 0; font-family: "Poppins", sans-
     text-align: center;
 }
 
+.dialog-document-img {
+    width: 300px;
+    height: 200px;
+}
+
+
+.document-dialog-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
 
  /* COLORS */
 
  .dark-blue {
     color: #1E4A5A;
+ }
+
+ .white {
+    color: white;
  }
 
  .dark-gray { 
@@ -157,6 +217,14 @@ html, body { height: 100%; width: 100%; margin: 0; font-family: "Poppins", sans-
 
 .black {
     color: #383838 !important;
+}
+
+.red {
+    color: #A8201A !important;
+}
+
+.green {
+    color: #33A02C !important;
 }
 
 .back-dark-blue {
@@ -177,6 +245,10 @@ html, body { height: 100%; width: 100%; margin: 0; font-family: "Poppins", sans-
 
 .back-darker-gray {
     background-color: #DCDCDC !important;
+}
+
+.back-light-blue {
+    background-color: #6DAFC7 !important;
 }
  
  

@@ -1,0 +1,45 @@
+.request-details-container {
+    width: 30.5vw;
+    height: 439px;
+    padding: 10px 50px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-img-container {
+    margin-top: 0;
+}
+
+@media screen and (max-width: 920px){
+    .request-details-container{
+        height: 600px;
+        margin: 0 !important;
+    }
+}
+
+@media screen and (max-width: 450px) {
+}
+
+div > div {
+    display: flex;
+    flex-direction: row;
+}
+
+.decline-request-button {
+    margin-left: 35px;
+    padding: 0px 20px;
+    width: 100px;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.accept-request-button {
+    margin-right: 35px;
+    margin-left: auto;
+    padding: 0px 20px;
+    width: 100px;
+    margin-top: 25px;
+    margin-bottom: 10px;
+
+}

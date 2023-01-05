@@ -1,9 +1,9 @@
 import { AdminReportOptionsService } from './../services/adminReportOptions.service';
+import { RideForReport } from './../userGraphService/user-graph.service';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import {Chart, registerables} from 'node_modules/chart.js' 
 import dayjs, { Dayjs } from 'dayjs';
 import { UserGraphService } from '../userGraphService/user-graph.service';
-import { RideForReport } from '../userGraphService/user-graph.service';
 import { Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from '../services/user.service';
@@ -24,7 +24,7 @@ export class UserGraphComponent implements OnInit {
   reportVisibility: boolean = false;
   myChart!: Chart;
   data: number[] = [];
-  labels: string[] = []
+  labels!: string[];
   total: number = 0;
   average: number = 0;
   rides!: RideForReport[] 
@@ -87,10 +87,13 @@ export class UserGraphComponent implements OnInit {
         },
         x: {
           ticks: {
-            display: false,
+            display: true,
             font: {
-              size: 9
-            }
+              size: 8,
+              style: 'normal',
+              family: 'sans-serif'
+            },
+            color: 'black'
           },
           
         }
@@ -138,9 +141,9 @@ setMoneySpentDD():void {
 }
 
 setDataForDistance(): void {
-  let currentDate = this.rides[0].startTime;
+  let currentDate: Date = this.rides[0].startTime;
+  this.labels = [currentDate.toString().split('T')[0]];
   this.data = [this.rides[0].distance];
-  this.labels = [''];
   this.total = this.rides[0].distance;
   for(let i = 1; i < this.rides.length; i++) {
     this.total += this.rides[0].distance;
@@ -149,16 +152,16 @@ setDataForDistance(): void {
     }else {
       currentDate = this.rides[i].startTime;
       this.data.push(this.rides[i].distance);
-      this.labels.push('');
+      this.labels.push(currentDate.toString().split('T')[0]);
     }
   }
   this.average = Math.round(this.total / this.data.length);
 }
 
 setDataForNumberRides(): void {
-  let currentDate = this.rides[0].startTime;
+  let currentDate: Date = this.rides[0].startTime;
+  this.labels = [currentDate.toString().split('T')[0]];
   this.data = [1];
-  this.labels = [''];
   this.total = 1;
   for(let i = 1; i < this.rides.length; i++) {
     this.total += 1;
@@ -167,16 +170,16 @@ setDataForNumberRides(): void {
     }else {
       currentDate = this.rides[i].startTime;
       this.data.push(1);
-      this.labels.push('');
+      this.labels.push(currentDate.toString().split('T')[0]);
     }
   }
   this.average = Math.round(this.total / this.data.length);
 }
 
 setDataForMoneySpent(): void {
-  let currentDate = this.rides[0].startTime;
+  let currentDate: Date = this.rides[0].startTime;
+  this.labels = [currentDate.toString().split('T')[0]];
   this.data = [this.rides[0].totalCost];
-  this.labels = [''];
   this.total = this.rides[0].totalCost;
   for(let i = 1; i < this.rides.length; i++) {
     this.total += this.rides[0].totalCost;
@@ -185,7 +188,7 @@ setDataForMoneySpent(): void {
     }else {
       currentDate = this.rides[i].startTime;
       this.data.push(this.rides[i].totalCost);
-      this.labels.push('');
+      this.labels.push(currentDate.toString().split('T')[0]);
     }
   }
   this.average = Math.round(this.total / this.data.length);

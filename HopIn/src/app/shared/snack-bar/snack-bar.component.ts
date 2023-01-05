@@ -23,7 +23,7 @@ export class SnackBarComponent implements OnInit {
 
   openSnackBar(message: string, action: string, color: string) {
     this._snackBar.open(message, action, {
-      duration: 2000,
+      duration: 5000,
       panelClass: [color]
     });
 }}

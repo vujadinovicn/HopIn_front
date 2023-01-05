@@ -12,7 +12,7 @@ export class AccountDetailsService {
   constructor(private http: HttpClient) { }
 
   getPassenger(): Observable<ReturnedUser> {
-    return this.http.get<ReturnedUser>(environment.apiHost + '/passenger/1');
+    return this.http.get<ReturnedUser>(environment.apiHost + '/passenger/4');
   }
 
   getDriver(): Observable<ReturnedDriver> {
@@ -20,6 +20,6 @@ export class AccountDetailsService {
   }
 
   getUser(): Observable<ReturnedDriver> {
-    return this.http.get<ReturnedDriver>(environment.apiHost + '/user/1');
+    return this.http.get<ReturnedDriver>(environment.apiHost + '/user/4');
   }
 }
