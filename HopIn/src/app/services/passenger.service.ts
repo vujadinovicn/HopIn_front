@@ -15,7 +15,7 @@ export class PassengerService {
         return this.http.get<any>(environment.apiHost + "/passenger/verify?code=" + code);
     }
 
-    resendVerificationMail(email: string) : Observable<any> {
-        return this.http.get<any>(environment.apiHost + "/passenger/activate/resend?email=" + email);
+    resendVerificationMail(code: string) : Observable<any> {
+        return this.http.get<any>(environment.apiHost + "/passenger/activate/resend?code=" + code);
     }
 }

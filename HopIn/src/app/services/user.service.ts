@@ -10,7 +10,7 @@ export class UserService {
   private value$ = new BehaviorSubject<any>({});
   selectedValue$ = this.value$.asObservable();
 
-  _role : string = "driver";
+  _role : string = "passenger";
 
   constructor(private http: HttpClient) {}
 
@@ -60,7 +60,7 @@ export class UserService {
     const options: any = {
       responseType: 'json',
     };
-    return this.http.put<string>(environment.apiHost + '/passenger/1', passenger, options);
+    return this.http.put<string>(environment.apiHost + '/passenger/4', passenger, options);
   }
 
   updatePassengerPassword(passenger: any): Observable<any> {

@@ -7,7 +7,6 @@ import { passwordMatcher } from '../validators/passwordMatch';
 import { ConfirmValidParentMatcher } from '../validators/passwordMatch';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { nameRegexValidator, surnameRegexValidator, addressRegexValidator, phonenumRegexValidator, passwordRegexValidator } from '../validators/user/userValidator';
-import { formatCurrency } from '@angular/common';
 import { markFormControlsTouched } from '../validators/formGroupValidators';
 
 @Component({
