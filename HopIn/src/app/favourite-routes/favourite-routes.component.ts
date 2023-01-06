@@ -1,3 +1,4 @@
+import { AuthService } from './../services/auth.service';
 import { FavouriteRoutesService } from './../favouriteRoutesService/favourite-routes.service';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -11,12 +12,15 @@ export class FavouriteRoutesComponent implements OnInit {
   empty: boolean = false;
   routes: FavouriteRoute[] = [];
   isFavourite: boolean[] = [];
+  _id: number = 0;
 
   constructor( private service: FavouriteRoutesService,
-    public snackBar: MatSnackBar) {}
+    public snackBar: MatSnackBar,
+    private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.service.getAll().subscribe({
+    this._id = this.authService.getId();
+    this.service.getAll(this._id).subscribe({
       next: (res) => {
         this.routes = res;
         this.isFavourite = new Array(this.routes.length).fill(true);
@@ -29,7 +33,7 @@ export class FavouriteRoutesComponent implements OnInit {
   }
 
   removeRoute(index: number): void {
-    this.service.removeFavoriteRoute(index+1).subscribe({
+    this.service.removeFavoriteRoute(index+1, this._id).subscribe({
       next: (res) => {
         this.isFavourite[index] = false;
       },
@@ -42,7 +46,7 @@ export class FavouriteRoutesComponent implements OnInit {
   }
 
   returnRoute(index: number): void {
-    this.service.addFavoriteRoute(index+1).subscribe({
+    this.service.addFavoriteRoute(index+1, this._id).subscribe({
       next: (res) => {
         this.isFavourite[index] = true;
       },
