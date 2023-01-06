@@ -1,3 +1,4 @@
+import { AuthService } from './../services/auth.service';
 import { RequestDetailsService } from './../services/requestDetails.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -10,8 +11,8 @@ export class DriverRequestDashboardComponent implements OnInit {
 
   _role: String = '';
 
-  constructor(private requestDetailsService: RequestDetailsService) { 
-    this._role = requestDetailsService.role;
+  constructor(private authService: AuthService) { 
+    this._role = authService.getRole();
   }
 
   ngOnInit(): void {

@@ -1,3 +1,4 @@
+import { AuthService } from './../services/auth.service';
 import { RequestDetailsService } from './../services/requestDetails.service';
 import { UpdateRequestService, DriverAccountUpdateRequest } from './../services/driver-update-request.service';
 import { Component, OnInit } from '@angular/core';
@@ -20,13 +21,12 @@ export class UpdateRequestsDisplayComponent implements OnInit {
   requests: DriverAccountUpdateRequest[] = [];
 
   constructor(private service: UpdateRequestService,
-    private requestDetailsService: RequestDetailsService) {
-      this._role = requestDetailsService.role;
+    private requestDetailsService: RequestDetailsService, private authService: AuthService) {
+      this._role = this.authService.getRole();
+      console.log(this.authService.getId());
   }
 
   ngOnInit(): void {
-    // this.getPending();
-    // this.getProcessed();
     this.load();
     this.chooseOption('pending')
   }
@@ -49,7 +49,6 @@ export class UpdateRequestsDisplayComponent implements OnInit {
 
   public selectRequest(request: DriverAccountUpdateRequest) {
     this.selectedRequestId = request.id;
-    // ovde dodati kod za prikaz requesta preko id-a
     this.requestDetailsService.sendRequest(request);
     this.requestDetailsService.sendDetailsDisplayed(true);
     this.requestDetailsService.sendIsRequestSelected(true);

@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import { environment } from './../../environments/environment';
 import { Observable } from 'rxjs';
 import { Injectable } from "@angular/core";
@@ -9,22 +10,22 @@ import { HttpClient } from '@angular/common/http';
 })
 export class UpdateRequestService {
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private authService: AuthService) {}
 
     getAllPending(): Observable<DriverAccountUpdateRequest[]> {
         return this.http.get<DriverAccountUpdateRequest[]>(environment.apiHost + '/request/pending');
     }
 
     getAllPendingDriver(id: number): Observable<DriverAccountUpdateRequest[]> {
-        return this.http.get<DriverAccountUpdateRequest[]>(environment.apiHost + '/request/' + id + '/driver/pending');
+        return this.http.get<DriverAccountUpdateRequest[]>(environment.apiHost + '/request/' + this.authService.getId() + '/driver/pending');
     }
 
     getAllProcessedAdmin(): Observable<DriverAccountUpdateRequest[]> {
-        return this.http.get<DriverAccountUpdateRequest[]>(environment.apiHost + '/request/3/admin/processed');
+        return this.http.get<DriverAccountUpdateRequest[]>(environment.apiHost + '/request/' +  this.authService.getId() + '/admin/processed');
     }
 
     getAllProcessedDriver(id: number): Observable<DriverAccountUpdateRequest[]> {
-        return this.http.get<DriverAccountUpdateRequest[]>(environment.apiHost + '/request/' + id + '/driver/processed');
+        return this.http.get<DriverAccountUpdateRequest[]>(environment.apiHost + '/request/' +  this.authService.getId() + '/driver/processed');
     }
 }
 
