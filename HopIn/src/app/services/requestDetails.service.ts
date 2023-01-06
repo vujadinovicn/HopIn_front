@@ -80,7 +80,7 @@ export class RequestDetailsService {
     const options: any = {
       responseType: 'text',
     };
-    return this.http.post<any>(environment.apiHost + '/request/2/info/request', infoRequest, options);
+    return this.http.post<any>(environment.apiHost + '/request/' + driverId + '/info/request', infoRequest, options);
   }
 
   addVehicleRequest(driverId: number, vehicleRequest: any): Observable<any> {
