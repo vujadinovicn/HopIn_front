@@ -27,6 +27,10 @@ export class AuthService {
     });
   }
 
+  getUser(): Observable<any> {
+    return this.user$;
+  }
+
   getRole(): any {
     if (this.isLoggedIn()) {
       const accessToken: any = localStorage.getItem('user');
