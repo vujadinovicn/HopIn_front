@@ -22,7 +22,7 @@ export class DocumentService {
   }
   
   getById(driverId: number): Observable<Document[]> {
-    return this.http.get<Document[]>(environment.apiHost + "/driver/4" + "/documents");
+    return this.http.get<Document[]>(environment.apiHost + "/driver/" + driverId + "/documents");
   }
 
   sendUpdate(updatedDocument: any){

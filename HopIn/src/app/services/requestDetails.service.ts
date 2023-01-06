@@ -73,7 +73,7 @@ export class RequestDetailsService {
     const options: any = {
       responseType: 'text',
     };
-    return this.http.post<any>(environment.apiHost + '/request/2/' + operationNumber + "/" + documentId +'/document/request', documentRequest, options);
+    return this.http.post<any>(environment.apiHost + '/request/' + driverId + '/' + operationNumber + "/" + documentId +'/document/request', documentRequest, options);
   }
 
   addInfoRequest(driverId: number, infoRequest: any): Observable<any> {

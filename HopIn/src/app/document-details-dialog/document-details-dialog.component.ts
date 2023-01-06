@@ -12,8 +12,7 @@ export class DocumentDetailsDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<DocumentDetailsDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private documentService: DocumentService
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
   ngOnInit(): void {

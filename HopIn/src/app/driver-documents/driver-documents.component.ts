@@ -6,6 +6,7 @@ import { DocumentService } from '../services/document.service';
 import { DocumentAddDialogComponent } from '../document-add-dialog/document-add-dialog.component';
 import { RequestDetailsService } from '../services/requestDetails.service';
 import { SharedService } from '../shared/shared.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-driver-documents',
@@ -16,23 +17,28 @@ export class DriverDocumentsComponent implements OnInit {
 
   licenceUrl = "../../assets/vectors/login.svg";
   
+  id: number = 0;
   documents: Document[] = [];
 
   @Input() parentComponent : string = "";
   @Output() sentDocument = new EventEmitter<Document[]>();
 
   constructor(private dialog: MatDialog,
+    private authService: AuthService,
     private documentService: DocumentService,
     private sharedService: SharedService,
     private requestDetailsService: RequestDetailsService) { }
 
   ngOnInit(): void {
+    this.authService.getUser().subscribe((res) => {
+      this.id = this.authService.getId();
+    })
     if (this.parentComponent == "update")
       this.loadExistingDriverDocuments();
   }
 
   private loadExistingDriverDocuments(){
-    this.documentService.getById(4).subscribe((res: any) => {
+    this.documentService.getById(this.id).subscribe((res: any) => {
       this.documents = res;
     }
     );
@@ -50,7 +56,7 @@ export class DriverDocumentsComponent implements OnInit {
       name: "forDelete",
       documentImage: "forDelete"
     };
-    this.requestDetailsService.sendDocumentRequest(2, 3, document, this.documents[index].id).subscribe({
+    this.requestDetailsService.sendDocumentRequest(this.id, 3, document, this.documents[index].id).subscribe({
       next: (res: any) => {
         this.sharedService.openSnack({
           value: "Response is in console!",
