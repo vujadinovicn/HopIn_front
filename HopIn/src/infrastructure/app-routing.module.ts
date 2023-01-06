@@ -19,7 +19,7 @@ import { DriverRegisterPersonalInfoComponent } from 'src/app/driver-register-per
 import { DriverRegisterComponent } from 'src/app/driver-register/driver-register.component';
 
 const routes: Routes = [
-  {path: '', component: LandingComponent},
+  {path: '', component: DriverRegisterComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'verify', component: RegistrationVerificationComponent},
@@ -32,7 +32,7 @@ const routes: Routes = [
   {path: 'account-settings', component: AccountUpdateComponent},
   {path: 'change-password', component: ChangePasswordComponent},
   {path:'change-payment-info', component: ChangePaymentInfoComponent},
-  {path: '**', component: LandingComponent}
+  {path: '**', component: DriverRegisterComponent}
 ];
 
 @NgModule({

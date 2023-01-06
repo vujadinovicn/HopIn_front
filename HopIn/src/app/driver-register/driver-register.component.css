@@ -1,10 +1,9 @@
 #driver-register-container {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
     width: 60%;
+    margin: auto;
 }
 
 
@@ -23,12 +22,12 @@
     flex-wrap: wrap;
 }
 
-#left-driver-register-component {
+#left-driver-register-component, #right-driver-register-component {
     width: 48%;
 }
 
-#right-driver-register-component {
-    width: 48%;
+#right-driver-register-component button {
+    display: none;
 }
 
 #vehicle-container, #document-container, #info-container {
@@ -49,5 +48,37 @@
 
 #register-driver-btn {
     width: 100%;
+}
+
+@media screen and (max-width: 1000px) {
+    #left-driver-register-component, #right-driver-register-component {
+        width: 100%;
+    }
+
+    #left-driver-register-component button {
+        display: none;
+    }
+
+    #right-driver-register-component button {
+        display: block;
+    }
+
+    #right-driver-register-component  {
+        margin-top: 17px;
+    }
+}
+@media screen and (max-width: 1000px) {
+    #driver-register-container {
+        width: 80%;
+    }
+    
+
+    #vehicle-container ::ng-deep mat-form-field{
+        width: 80% !important;
+    }
+
+    #document-container {
+        height: 150px;
+    }
 }
 
