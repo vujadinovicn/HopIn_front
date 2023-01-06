@@ -42,4 +42,12 @@ export class ToolbarComponent implements OnInit {
     this.router.navigate(['login']);
   }
 
+  openAccount(): void {
+    if (this.role === 'ROLE_DRIVER') {
+      this.router.navigate(['account-driver'])
+    } else {
+      this.router.navigate(['account-passenger'])
+    }
+  }
+
 }
