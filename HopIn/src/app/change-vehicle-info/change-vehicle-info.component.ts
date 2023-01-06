@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DriverRegisterService } from '../services/driver-register.service';
 import { RequestDetailsService } from '../services/requestDetails.service';
 import { Vehicle, VehicleService } from '../services/vehicle.service';
 import { SharedService } from '../shared/shared.service';
@@ -35,14 +36,27 @@ export class ChangeVehicleInfoComponent implements OnInit {
     seats: new FormControl('', [Validators.required, seatsRegexValidator]),
   }, [])
 
+  @Input() parentComponent = '';
+  @Input() formsSubmitted = false;
+  @Output() isFormValid = new EventEmitter<boolean>();
+
   constructor(private router: Router,
     private vehicleService: VehicleService,
     private requestDetailsService: RequestDetailsService,
+    private driverRegisterService: DriverRegisterService,
     private sharedService : SharedService) { }
 
   ngOnInit(): void {
     markFormControlsTouched(this.vehicleInfoForm);
-    this.setVehicleData();
+    if (this.parentComponent == "update")
+      this.setVehicleData();
+    else {
+        this.driverRegisterService.recieveFormsSubmitted().subscribe((res: any) => {
+        this.vehicleInfoForm.markAllAsTouched();
+        this.saveDriverRegister();
+      }
+      )
+    }
   }
 
   changeVehicleType(vehicleType: string) : void {
@@ -63,6 +77,17 @@ export class ChangeVehicleInfoComponent implements OnInit {
         });
     } else
         this.sharedService.openInvalidInputSnack();
+  }
+
+  private saveDriverRegister() {
+    if (this.vehicleInfoForm.valid) {
+      //console.log(this.setResponseValue());
+      this.driverRegisterService.sendVehicleInfo(this.setResponseValue());
+    }
+    else { 
+      this.sharedService.openInvalidInputSnack(); 
+    }
+    this.isFormValid.emit(this.vehicleInfoForm.valid);
   }
 
   private setResponseValue(): any{

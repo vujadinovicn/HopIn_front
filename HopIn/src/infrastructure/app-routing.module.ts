@@ -15,6 +15,8 @@ import { DriverAccountComponent } from 'src/app/driver-account/driver-account.co
 import { AccountUpdateComponent } from 'src/app/account-update/account-update.component';
 import { AdminAccountComponent } from 'src/app/admin-account/admin-account.component';
 import { AdminRequestDetailsContainerComponent } from 'src/app/admin-request-details-container/admin-request-details-container.component';
+import { DriverRegisterPersonalInfoComponent } from 'src/app/driver-register-personal-info/driver-register-personal-info.component';
+import { DriverRegisterComponent } from 'src/app/driver-register/driver-register.component';
 
 const routes: Routes = [
   {path: '', component: LandingComponent},

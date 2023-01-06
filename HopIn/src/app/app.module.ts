@@ -44,6 +44,8 @@ import { UpdateRequestDetailsComponent } from './update-request-details/update-r
 import { AdminRequestDetailsContainerComponent } from './admin-request-details-container/admin-request-details-container.component';
 import { DeclineRequestReasonDialogComponent } from './decline-request-reason-dialog/decline-request-reason-dialog.component';
 import { UpdateRequestsDisplayComponent } from './update-requests-display/update-requests-display.component';
+import { DriverRegisterPersonalInfoComponent } from './driver-register-personal-info/driver-register-personal-info.component';
+import { DriverRegisterComponent } from './driver-register/driver-register.component';
 import { RegistrationVerificationComponent } from './registration-verification/registration-verification.component';
 
 @NgModule({
@@ -83,6 +85,8 @@ import { RegistrationVerificationComponent } from './registration-verification/r
     AdminRequestDetailsContainerComponent,
     DeclineRequestReasonDialogComponent,
     UpdateRequestsDisplayComponent,
+    DriverRegisterPersonalInfoComponent,
+    DriverRegisterComponent,
     RegistrationVerificationComponent
   ],
   imports: [

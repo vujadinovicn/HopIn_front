@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User, UserService } from '../services/user.service';
 import { PassengerAccountOptionsService } from '../services/passengerAccountOptions.service';
@@ -116,7 +116,7 @@ export class AccountSettingsComponent implements OnInit {
   }
 
   setDriverData(){
-    this.userService.getByDriverId(2).subscribe((res: any) => {
+    this.userService.getByDriverId(4).subscribe((res: any) => {
       this.user = res;
       this.setFormValue(res);
       if (res.profilePicture != null)

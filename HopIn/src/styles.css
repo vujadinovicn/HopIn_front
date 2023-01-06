@@ -194,6 +194,10 @@ html, body { height: 100%; width: 100%; margin: 0; font-family: "Poppins", sans-
     align-items: center;
 }
 
+.driver-register-title{
+    font-size: 1.3em;
+}
+
 
 
 
