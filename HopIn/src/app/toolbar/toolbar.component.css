@@ -100,6 +100,7 @@ a {
 
 .navbar-menu a:hover {
     color: #337D98;
+    cursor: pointer;
 }
 
 .navbar-toggler {

@@ -1,3 +1,4 @@
+import { AuthService } from './../services/auth.service';
 import { AccountDetailsService } from './../accountDetailsService/account-details.service';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
@@ -9,7 +10,8 @@ import { UserService } from '../services/user.service';
 })
 export class AccountDetailsComponent implements OnInit {
 
-  _role: String = 'driver';
+  _role: String = '';
+  _id: number = 0;
   isLuxury: boolean = false;
   user: ReturnedUser = {
     id: 0,
@@ -47,18 +49,23 @@ export class AccountDetailsComponent implements OnInit {
   }
 
   constructor(private accountDetailsService: AccountDetailsService,
-    private userService: UserService) { }
+    private authService: AuthService) { }
 
   ngOnInit(): void {
-    this._role = this.userService.role;
-    if(this._role === 'passenger') {
-      this.accountDetailsService.getPassenger().subscribe((res) => {
+
+    this.authService.getUser().subscribe((res) => {
+      this._role = res;
+      this._id = this.authService.getId();
+    })
+
+    if(this._role === 'ROLE_PASSENGER') {
+      this.accountDetailsService.getPassenger(this._id).subscribe((res) => {
         this.user = res;
         if (this.user.profilePicture != null)
           this.url = this.user.profilePicture;
       });
-    } else if (this._role === 'driver') {
-      this.accountDetailsService.getDriver().subscribe((res) => {
+    } else if (this._role === 'ROLE_DRIVER') {
+      this.accountDetailsService.getDriver(this._id).subscribe((res) => {
         this.driver = res;
         this.fromDriverToPassenger();
         if (this.user.profilePicture != null)
@@ -72,8 +79,8 @@ export class AccountDetailsComponent implements OnInit {
           this.urlVehicleType = "../../assets/vectors/regularCar.svg"
         }
       });
-    } else if (this._role === 'admin') {
-      this.accountDetailsService.getUser().subscribe((res) => {
+    } else if (this._role === 'ROLE_ADMIN') {
+      this.accountDetailsService.getUser(this._id).subscribe((res) => {
         this.user = res;
         if (this.user.profilePicture != null)
           this.url = this.user.profilePicture;

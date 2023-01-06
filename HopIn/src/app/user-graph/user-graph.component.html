@@ -1,4 +1,4 @@
-<div id="userGraphContainer" [ngClass]="isDriver ? 'containerDesign' : 'userGraphContainer'">
+<div id="userGraphContainer" [ngClass]="this._role === 'ROLE_DRIVER'? 'containerDesign' : 'userGraphContainer'">
     <div id="reportInfoContainer">
         <div class="greeting">
             <h2>Hey, Grace</h2>
@@ -14,8 +14,8 @@
                 <div class="dropdown-content">
                   <a (click)="setDistanceTraveledDD()">Distance traveled</a>
                   <a (click)="setRidesNumDD()">Number of rides</a>
-                  <a (click)="setMoneySpentDD()" *ngIf="this.isDriver === false">Money spent</a>
-                  <a (click)="setMoneySpentDD()" *ngIf="this.isDriver === true">Money earnd</a>
+                  <a (click)="setMoneySpentDD()" *ngIf="this._role === 'ROLE_PASSENGER'">Money spent</a>
+                  <a (click)="setMoneySpentDD()" *ngIf="this._role === 'ROLE_DRIVER'">Money earnd</a>
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
 
         <button id="generateBtn" (click)="generateBtnOnClick()">Generate report</button>
     </div>
-    <div *ngIf="this.reportVisibility === true" [ngClass]="isDriver ? 'reportContainerDriver' : 'reportContainerPassenger'">
+    <div *ngIf="this.reportVisibility === true" [ngClass]="this._role === 'ROLE_DRIVER' ? 'reportContainerDriver' : 'reportContainerPassenger'">
         <div class="column">
             <h2>Report</h2>
             <div>

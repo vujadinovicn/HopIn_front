@@ -27,6 +27,10 @@ export class AuthService {
     });
   }
 
+  getUser(): Observable<any> {
+    return this.user$;
+  }
+
   getRole(): any {
     if (this.isLoggedIn()) {
       const accessToken: any = localStorage.getItem('user');
@@ -35,6 +39,16 @@ export class AuthService {
       return role;
     }
     return null;
+  }
+
+  getId(): any {
+    if (this.isLoggedIn()) {
+      const accessToken: any = localStorage.getItem('user');
+      const helper = new JwtHelperService();
+      const role = helper.decodeToken(accessToken).id;
+      return role;
+    }
+    return 0;
   }
 
   isLoggedIn(): boolean {

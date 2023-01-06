@@ -1,4 +1,6 @@
+import { AuthService } from './../services/auth.service';
 import { Component, ComponentFactoryResolver, NgModuleRef,  OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'toolbar',
@@ -9,9 +11,11 @@ export class ToolbarComponent implements OnInit {
 
   role: any;
 
-  constructor() { 
-    this.role = null;
-
+  constructor(private authService: AuthService,
+    private router: Router) { 
+    this.authService.getUser().subscribe((res) => {
+      this.role = res;
+    })
   }
 
   ngOnInit(): void {
@@ -30,6 +34,20 @@ export class ToolbarComponent implements OnInit {
   
       navbarMenu.style.display = 'flex'
     })
+  }
+
+  logout(): void {
+    localStorage.removeItem('user');
+    this.authService.setUser();
+    this.router.navigate(['login']);
+  }
+
+  openAccount(): void {
+    if (this.role === 'ROLE_DRIVER') {
+      this.router.navigate(['account-driver'])
+    } else {
+      this.router.navigate(['account-passenger'])
+    }
   }
 
 }

@@ -1,10 +1,10 @@
-<div id="account-container" [ngClass]="[this._role === 'driver' ? 'account-container-driver' : '', this._role === 'admin' ? 'account-container-admin': '', this._role === 'passenger' ? 'account-container-passenger': '']">
+<div id="account-container" [ngClass]="[this._role === 'ROLE_DRIVER' ? 'account-container-driver' : '', this._role === 'ROLE_ADMIN' ? 'account-container-admin': '', this._role === 'ROLE_PASSENGER' ? 'account-container-passenger': '']">
     <img [src]="url" class="profile-img">
   
     <p id="userName">{{ user.name + " " + user.surname }}</p>
-    <p class="roleText" *ngIf="this._role === 'passenger'">passenger</p>
-    <p class="roleText" *ngIf="this._role === 'driver'">driver</p>
-    <p class="roleText" *ngIf="this._role === 'admin'">admin</p>
+    <p class="roleText" *ngIf="this._role === 'ROLE_PASSENGER'">passenger</p>
+    <p class="roleText" *ngIf="this._role === 'ROLE_DRIVER'">driver</p>
+    <p class="roleText" *ngIf="this._role === 'ROLE_ADMIN'">admin</p>
 
     <!-- CONTACT INFO -->
     <div class="sectionTitle">
@@ -36,11 +36,11 @@
 
 
      <!-- PAYMENT INFO -->
-     <div *ngIf="this._role === 'passenger'" class="sectionTitle">
+     <div *ngIf="this._role === 'ROLE_PASSENGER'" class="sectionTitle">
         <p>Payment Info</p>
         <div class="line"></div>
     </div>
-    <div *ngIf="this._role === 'passenger'" class="data">
+    <div *ngIf="this._role === 'ROLE_PASSENGER'" class="data">
         <div class="keyValue">
             <p class="key">Card:</p>
             <p id="card" class="value">**** **** *** 111</p>
@@ -53,11 +53,11 @@
 
 
     <!-- VEHICLE INFO -->
-    <div *ngIf="this._role === 'driver'" class="sectionTitle">
+    <div *ngIf="this._role === 'ROLE_DRIVER'" class="sectionTitle">
         <p>Vehicle Info</p>
         <div class="line"></div>
     </div>
-    <div *ngIf="this._role === 'driver'" class="data" id="vehicleDataContainer">
+    <div *ngIf="this._role === 'ROLE_DRIVER'" class="data" id="vehicleDataContainer">
         <div>
             <div class="keyValue">
                 <p class="key">Model:</p>

@@ -27,16 +27,16 @@ export class FavouriteRoutesService {
   private favouriteRoutes: FavouriteRoute[] = []
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<FavouriteRoute[]> {
-    return this.http.get<FavouriteRoute[]>(environment.apiHost + '/passenger/1/favouriteRoutes');
+  getAll(id: number): Observable<FavouriteRoute[]> {
+    return this.http.get<FavouriteRoute[]>(environment.apiHost + '/passenger/' + id + '/favouriteRoutes');
   }
 
-  removeFavoriteRoute(routeId: number): Observable<void> {
-    return this.http.post<void>(environment.apiHost + '/passenger/1/remove/route?routeId=' + routeId, null);
+  removeFavoriteRoute(routeId: number, passengerId: number): Observable<void> {
+    return this.http.post<void>(environment.apiHost + '/passenger/' + passengerId + '/remove/route?routeId=' + routeId, null);
   }
 
-  addFavoriteRoute(routeId: number): Observable<void> {
-    return this.http.post<void>(environment.apiHost + '/passenger/1/add/route?routeId=' + routeId, null)
+  addFavoriteRoute(routeId: number, passengerId: number): Observable<void> {
+    return this.http.post<void>(environment.apiHost + '/passenger/' + passengerId + '/add/route?routeId=' + routeId, null)
   }
 
 }

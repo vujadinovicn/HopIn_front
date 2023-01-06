@@ -1,3 +1,4 @@
+import { AuthService } from './../services/auth.service';
 import { RideForReport } from './../userGraphService/user-graph.service';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import {Chart, registerables} from 'node_modules/chart.js' 
@@ -14,7 +15,8 @@ Chart.register(...registerables)
 })
 export class UserGraphComponent implements OnInit {
 
-  isDriver: boolean = true;
+  _role: String = '';
+  _id: number = 0;
   selectedDates!: {start: Dayjs, end: Dayjs};
   selectedType: String = 'Distance traveled'
   reportVisibility: boolean = false;
@@ -27,9 +29,14 @@ export class UserGraphComponent implements OnInit {
 
 
   constructor(private userGraphService: UserGraphService,
-    public snackBar: MatSnackBar) { }
+    public snackBar: MatSnackBar,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.authService.getUser().subscribe((res) => {
+      this._role = res;
+      this._id = this.authService.getId();
+    })
   }
 
   RenderChart() {
@@ -97,7 +104,7 @@ generateBtnOnClick():void {
    return;
   }
 
-  this.userGraphService.getAll(this.selectedDates.start, this.selectedDates.end, this.isDriver).subscribe((res) => {
+  this.userGraphService.getAll(this.selectedDates.start, this.selectedDates.end, this._role, this._id).subscribe((res) => {
     this.rides = res;
     
     if(res.length != 0) {
