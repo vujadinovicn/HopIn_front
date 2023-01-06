@@ -1,7 +1,7 @@
+import { RedirectionService } from './../services/redirection.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -19,8 +19,8 @@ export class LoginComponent implements OnInit {
   })
 
   constructor(private authService: AuthService, 
-    private router: Router,
-    public snackBar: MatSnackBar) { }
+    public snackBar: MatSnackBar,
+    private redirectionService: RedirectionService) { }
 
   ngOnInit(): void {
   }
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
         next: (result) => {
           localStorage.setItem('user', JSON.stringify(result.accessToken));
           this.authService.setUser();
-          this.router.navigate(['/order-ride']);
+          this.redirectionService.openHome(this.authService.getRole());
         },
         error: (error) => {
           console.log(error)
@@ -47,5 +47,4 @@ export class LoginComponent implements OnInit {
       });
     }
   }
-
 }

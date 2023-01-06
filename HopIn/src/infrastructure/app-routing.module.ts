@@ -1,3 +1,5 @@
+import { HomeDriverComponent } from './../app/home-driver/home-driver.component';
+import { HomeAdminComponent } from './../app/home-admin/home-admin.component';
 import { RegistrationVerificationComponent } from './../app/registration-verification/registration-verification.component';
 import { DriverRequestDashboardComponent } from './../app/driver-request-dashboard/driver-request-dashboard.component';
 import { RouteSuggestionComponent } from './../app/route-suggestion/route-suggestion.component';
@@ -24,6 +26,8 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'verify', component: RegistrationVerificationComponent},
   {path: 'order-ride', component: OrderRideComponent},
+  {path: 'home-admin', component: HomeAdminComponent},
+  {path: 'home-driver', component: HomeDriverComponent},
   {path: 'route-suggestion', component: RouteSuggestionComponent},
   {path: 'request-dashboard', component: DriverRequestDashboardComponent},
   {path: 'account-driver', component: DriverAccountComponent},

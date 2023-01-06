@@ -14,7 +14,7 @@
   
       <div class="navbar-menu" id="open-navbar1">
         <div class="navbar-nav">
-            <a *ngIf="role != null" [routerLink]="['/order-ride']">Home</a>
+            <a *ngIf="role != null" (click)="openHome(role)">Home</a>
             <a (click)="openAccount()" *ngIf="role === 'ROLE_PASSENGER' || role === 'ROLE_DRIVER'">Account</a>
             <a *ngIf="role === 'ROLE_ADMIN'">Reports</a>
             <a *ngIf="role === 'ROLE_ADMIN'">Drivers</a>

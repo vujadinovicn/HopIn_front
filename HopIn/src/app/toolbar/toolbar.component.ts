@@ -1,3 +1,5 @@
+import { RedirectionService } from './../services/redirection.service';
+import { SharedService } from './../shared/shared.service';
 import { AuthService } from './../services/auth.service';
 import { Component, ComponentFactoryResolver, NgModuleRef,  OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -12,7 +14,7 @@ export class ToolbarComponent implements OnInit {
   role: any;
 
   constructor(private authService: AuthService,
-    private router: Router) { 
+    private router: Router, private redirectionService: RedirectionService) { 
     this.authService.getUser().subscribe((res) => {
       this.role = res;
     })
@@ -48,6 +50,10 @@ export class ToolbarComponent implements OnInit {
     } else {
       this.router.navigate(['account-passenger'])
     }
+  }
+
+  openHome(role: string) {
+    this.redirectionService.openHome(role);
   }
 
 }
