@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DocumentService } from '../services/document.service';
+import { DriverRegisterService } from '../services/driver-register.service';
 import { RequestDetailsService } from '../services/requestDetails.service';
 import { SharedService } from '../shared/shared.service';
 import { nameRegexValidator } from '../validators/user/userValidator';
@@ -14,7 +15,7 @@ import { nameRegexValidator } from '../validators/user/userValidator';
 })
 export class DocumentAddDialogComponent implements OnInit {
 
-  selected: boolean = false;
+  imageSelected: boolean = false;
   url : string = "";
   addDocumentForm = new FormGroup({
     name: new FormControl('', [Validators.required, nameRegexValidator]),
@@ -26,7 +27,8 @@ export class DocumentAddDialogComponent implements OnInit {
     private router: Router, 
     private documentService: DocumentService,
     private sharedService: SharedService,
-    private requestDetailsService: RequestDetailsService
+    private requestDetailsService: RequestDetailsService,
+    private driverRegisterService: DriverRegisterService
   ) {}
 
   ngOnInit(): void {
@@ -38,29 +40,38 @@ export class DocumentAddDialogComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0]);
       reader.onload=(e: any)=>{
         this.url = reader.result as string;
-        this.selected = true;
+        this.imageSelected = true;
       }
     }
   }
 
   save(): void {
-    if (this.addDocumentForm.valid && this.selected){
-      this.requestDetailsService.sendDocumentRequest(2, 1, this.setResponseValue(), 0).subscribe({
-        next: (res: any) => {
-          this.router.navigate(['/account-driver']);
-          this.sharedService.openSnack({
-            value: "Response is in console!",
-            color: "back-green"}
-            );
-        },
-        error: (error: any) => {
-            this.sharedService.openNoResponseSnack();
-        }
-      });
-      this.dialogRef.close();
+    if (this.addDocumentForm.valid && this.imageSelected){
+      if (this.data.parentComponent == "update")
+        this.saveExistingDriverDocument();
+      else{
+        this.dialogRef.close({event: "register", data:this.setResponseValue()});
+      }
     } else {
       this.sharedService.openInvalidInputSnack();
     }
+  }
+
+  private saveExistingDriverDocument() {
+    this.requestDetailsService.sendDocumentRequest(2, 1, this.setResponseValue(), 0).subscribe({
+      next: (res: any) => {
+        this.router.navigate(['/account-driver']);
+        this.sharedService.openSnack({
+          value: "Response is in console!",
+          color: "back-green"
+        }
+        );
+      },
+      error: (error: any) => {
+        this.sharedService.openNoResponseSnack();
+      }
+    });
+    this.dialogRef.close({event: "update"});
   }
 
   private setResponseValue(): any{

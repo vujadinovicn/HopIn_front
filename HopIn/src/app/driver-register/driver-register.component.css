@@ -1,0 +1,53 @@
+#driver-register-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 60%;
+}
+
+
+#driver-register-title {
+    margin-top: 20px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #D9D9D9;
+    font-size: 25px;
+}
+
+#driver-register-form-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#left-driver-register-component {
+    width: 48%;
+}
+
+#right-driver-register-component {
+    width: 48%;
+}
+
+#vehicle-container, #document-container, #info-container {
+    text-align: center;
+    padding: 20px 0 20px 0;
+    background-color: white;
+}
+
+#document-container{
+    overflow-y: scroll;
+    --scrollbar-width-height: 15px;
+    height: 95px;
+}
+
+#vehicle-container {
+    margin-bottom: 17px;
+}
+
+#register-driver-btn {
+    width: 100%;
+}
+

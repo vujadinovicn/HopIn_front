@@ -22,7 +22,7 @@ export class DocumentService {
   }
   
   getById(driverId: number): Observable<Document[]> {
-    return this.http.get<Document[]>(environment.apiHost + "/driver/2" + "/documents");
+    return this.http.get<Document[]>(environment.apiHost + "/driver/4" + "/documents");
   }
 
   sendUpdate(updatedDocument: any){
@@ -31,6 +31,13 @@ export class DocumentService {
 
   recieveUpdate(): Observable<any>{
     return this.updatedDocument.asObservable();
+  }
+
+  add(document: any): Observable<any> {
+    const options: any = {
+      responseType: 'text',
+    };
+    return this.http.post<string>(environment.apiHost + '/driver/4/documents', document, options);
   }
 }
 

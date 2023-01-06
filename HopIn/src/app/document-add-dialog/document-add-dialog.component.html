@@ -14,7 +14,7 @@
         <input #fileInput type="file" style="display: none" (change)="onFileSelect($event)">
     </button>
   </div>
-  <div *ngIf="selected" mat-dialog-content align="center">
+  <div *ngIf="imageSelected" mat-dialog-content align="center">
       <img [src]="url" class="dialog-document-img">
   </div>
   <div mat-dialog-actions align="center">
