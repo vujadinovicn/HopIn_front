@@ -11,15 +11,15 @@ export class AccountDetailsService {
 
   constructor(private http: HttpClient) { }
 
-  getPassenger(): Observable<ReturnedUser> {
-    return this.http.get<ReturnedUser>(environment.apiHost + '/passenger/4');
+  getPassenger(id: number): Observable<ReturnedUser> {
+    return this.http.get<ReturnedUser>(environment.apiHost + '/passenger/' + id);
   }
 
-  getDriver(): Observable<ReturnedDriver> {
-    return this.http.get<ReturnedDriver>(environment.apiHost + '/driver/2');
+  getDriver(id: number): Observable<ReturnedDriver> {
+    return this.http.get<ReturnedDriver>(environment.apiHost + '/driver/' + id);
   }
 
-  getUser(): Observable<ReturnedDriver> {
-    return this.http.get<ReturnedDriver>(environment.apiHost + '/user/4');
+  getUser(id: number): Observable<ReturnedDriver> {
+    return this.http.get<ReturnedDriver>(environment.apiHost + '/user/' + id);
   }
 }
