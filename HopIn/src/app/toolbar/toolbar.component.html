@@ -18,6 +18,7 @@
             <a (click)="openAccount()" *ngIf="role === 'ROLE_PASSENGER' || role === 'ROLE_DRIVER'">Account</a>
             <a *ngIf="role === 'ROLE_ADMIN'">Reports</a>
             <a *ngIf="role === 'ROLE_ADMIN'">Drivers</a>
+            <a *ngIf="role === 'ROLE_ADMIN'" [routerLink]="['/request-dashboard']">Update requests</a>
             <a *ngIf="role === 'ROLE_ADMIN'">Chat</a>
             <a *ngIf="role != null">History</a>
             <a (click)="logout()" *ngIf="role != null">Log out</a>
