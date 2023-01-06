@@ -66,7 +66,7 @@ export class RequestDetailsService {
     const options: any = {
       responseType: 'text',
     };
-    return this.http.post<any>(environment.apiHost + '/request/2/password/request', passwordRequest, options);
+    return this.http.post<any>(environment.apiHost + '/request/' + driverId + '/password/request', passwordRequest, options);
   }
 
   sendDocumentRequest(driverId: number, operationNumber: number, documentRequest: any, documentId: number): Observable<any> {

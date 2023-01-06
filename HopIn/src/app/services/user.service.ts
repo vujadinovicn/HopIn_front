@@ -67,7 +67,7 @@ export class UserService {
     const options: any = {
       responseType: 'text',
     };
-    return this.http.put<string>(environment.apiHost + '/passenger/1', passenger, options);
+    return this.http.put<string>(environment.apiHost + '/passenger/' + passenger.id, passenger, options);
   }
 }
 
