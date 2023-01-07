@@ -7,15 +7,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class VehicleService {
-
-    private value$ = new BehaviorSubject<any>({});
-    selectedValue$ = this.value$.asObservable();
-
+  
     constructor(private http: HttpClient) {}
-
-    setValue(test: any) {
-        this.value$.next(test);
-    }
 
     getById(driverId: number): Observable<Vehicle> {
         return this.http.get<Vehicle>(environment.apiHost + '/driver/' + driverId + '/vehicle');

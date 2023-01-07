@@ -7,9 +7,6 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class DriverService {
-  private value$ = new BehaviorSubject<any>({});
-  selectedValue$ = this.value$.asObservable();
-
   constructor(private http: HttpClient) {}
 
   add(driver: any): Observable<any> {

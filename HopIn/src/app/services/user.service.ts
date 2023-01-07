@@ -7,24 +7,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class UserService {
-  private value$ = new BehaviorSubject<any>({});
-  selectedValue$ = this.value$.asObservable();
-
-  _role : string = "passenger";
-
+  
   constructor(private http: HttpClient) {}
-
-  setValue(test: any) {
-    this.value$.next(test);
-  }
-
-  get role(): string {
-    return this._role;
-  }
-
-  set role(r : string){
-    this._role = r;
-  }
 
 
   getByPassengerId(passengerId: number): Observable<User> {
