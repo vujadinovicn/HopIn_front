@@ -9,7 +9,6 @@ import { User } from './user.service';
 })
 export class RequestDetailsService {
 
-  public role: string = "admin";
 
   private requestId = new BehaviorSubject<any>({});
   private detailsDisplayed = new BehaviorSubject<any>({});
@@ -90,18 +89,18 @@ export class RequestDetailsService {
     return this.http.post<any>(environment.apiHost + '/request/' + driverId + '/vehicle/request', vehicleRequest, options);
   }
 
-  acceptRequest(requestId: number): Observable<any> {
+  acceptRequest(requestId: number, adminId: number): Observable<any> {
     const options: any = {
       responseType: 'text',
     };
-    return this.http.post<String>(environment.apiHost + '/request/' + requestId + "/" + "3/accept", options);
+    return this.http.post<String>(environment.apiHost + '/request/' + requestId + "/" + adminId + "/accept", options);
   }
 
-  declineRequest(requestId: number, reason: any): Observable<any> {
+  declineRequest(requestId: number, adminId: number, reason: any): Observable<any> {
     const options: any = {
       responseType: 'text',
     };
-    return this.http.post<String>(environment.apiHost + '/request/' + requestId + "/" + "3/deny", reason, options);
+    return this.http.post<String>(environment.apiHost + '/request/' + requestId + "/" + adminId + "/deny", reason, options);
   }
 
 }
