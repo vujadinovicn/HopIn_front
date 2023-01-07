@@ -33,11 +33,11 @@ export class DocumentService {
     return this.updatedDocument.asObservable();
   }
 
-  add(document: any): Observable<any> {
+  add(document: any, driverId: number): Observable<any> {
     const options: any = {
       responseType: 'text',
     };
-    return this.http.post<string>(environment.apiHost + '/driver/4/documents', document, options);
+    return this.http.post<string>(environment.apiHost + '/driver/' + driverId + '/documents', document, options);
   }
 }
 

@@ -13,6 +13,7 @@ import { SharedService } from '../shared/shared.service';
 })
 export class DriverRegisterComponent implements OnInit {
 
+  driverId: number = 0;
   parentComponent = "register";
   formsSubmitted : boolean = false;
 
@@ -94,6 +95,7 @@ export class DriverRegisterComponent implements OnInit {
   private addDriver() {
     this.driverService.add(this.driver).subscribe({
       next: (res: any) => {
+        this.driverId = res.id;
         this.sharedService.openSnack({
           value: "Response is in console!",
           color: "back-green"
@@ -109,7 +111,7 @@ export class DriverRegisterComponent implements OnInit {
   }
 
   private addVehicle() {
-    this.vehicleService.add(this.vehicle).subscribe({
+    this.vehicleService.add(this.vehicle, this.driverId).subscribe({
       next: (res: any) => {
         this.sharedService.openSnack({
           value: "Response is in console!",
@@ -127,7 +129,7 @@ export class DriverRegisterComponent implements OnInit {
   private addDocuments(){
     for (let document of this.documents){
       console.log(document);
-      this.documentService.add(document).subscribe({
+      this.documentService.add(document, this.driverId).subscribe({
         next: (res: any) => {
           console.log(res);
         },

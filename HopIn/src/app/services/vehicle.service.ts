@@ -21,18 +21,18 @@ export class VehicleService {
         return this.http.get<Vehicle>(environment.apiHost + '/driver/' + driverId + '/vehicle');
     }
 
-    update(vehicle: any): Observable<any> {
+    update(vehicle: any, driverId: number): Observable<any> {
         const options: any = {
           responseType: 'text',
         };
-        return this.http.put<string>(environment.apiHost + '/driver/2/vehicle', vehicle, options);
+        return this.http.put<string>(environment.apiHost + '/driver/' + driverId + '/vehicle', vehicle, options);
     }
 
-    add(vehicle: any): Observable<any> {
+    add(vehicle: any, driverId: number): Observable<any> {
       const options: any = {
         responseType: 'text',
       };
-      return this.http.post<string>(environment.apiHost + '/driver/4/vehicle', vehicle, options);
+      return this.http.post<string>(environment.apiHost + '/driver/' + driverId + '/vehicle', vehicle, options);
     }
 }
 

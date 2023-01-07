@@ -9,6 +9,7 @@ import { User } from './user.service';
 })
 export class RequestDetailsService {
 
+  public role: string = "admin";
 
   private requestId = new BehaviorSubject<any>({});
   private detailsDisplayed = new BehaviorSubject<any>({});
