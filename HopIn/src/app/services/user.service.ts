@@ -7,24 +7,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class UserService {
-  private value$ = new BehaviorSubject<any>({});
-  selectedValue$ = this.value$.asObservable();
-
-  _role : string = "passenger";
-
+  
   constructor(private http: HttpClient) {}
-
-  setValue(test: any) {
-    this.value$.next(test);
-  }
-
-  get role(): string {
-    return this._role;
-  }
-
-  set role(r : string){
-    this._role = r;
-  }
 
 
   getByPassengerId(passengerId: number): Observable<User> {
@@ -60,14 +44,14 @@ export class UserService {
     const options: any = {
       responseType: 'json',
     };
-    return this.http.put<string>(environment.apiHost + '/passenger/4', passenger, options);
+    return this.http.put<string>(environment.apiHost + '/passenger/' + passenger.id, passenger, options);
   }
 
   updatePassengerPassword(passenger: any): Observable<any> {
     const options: any = {
       responseType: 'text',
     };
-    return this.http.put<string>(environment.apiHost + '/passenger/1', passenger, options);
+    return this.http.put<string>(environment.apiHost + '/passenger/' + passenger.id, passenger, options);
   }
 }
 

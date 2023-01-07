@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 import { PassengerAccountOptionsService } from '../services/passengerAccountOptions.service';
 import { UserService } from '../services/user.service';
  
@@ -11,7 +12,7 @@ import { UserService } from '../services/user.service';
 export class AccountOptionsComponent implements OnInit {
 
   constructor(private router: Router, 
-    private userService: UserService,
+    private authService: AuthService,
     private passengerAccountOptionsService : PassengerAccountOptionsService) { }
 
   option : string = "settings";
@@ -19,7 +20,9 @@ export class AccountOptionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectOption(this.option);
-    this.role = this.userService.role;
+    this.authService.getUser().subscribe((res) => {
+      this.role = res;
+    })
   }
 
   selectOption(option: string){

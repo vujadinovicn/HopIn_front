@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 import { DocumentService } from '../services/document.service';
 import { DriverRegisterService } from '../services/driver-register.service';
 import { RequestDetailsService } from '../services/requestDetails.service';
@@ -17,6 +18,8 @@ export class DocumentAddDialogComponent implements OnInit {
 
   imageSelected: boolean = false;
   url : string = "";
+  id: number = 0;
+
   addDocumentForm = new FormGroup({
     name: new FormControl('', [Validators.required, nameRegexValidator]),
   }, [])
@@ -25,13 +28,15 @@ export class DocumentAddDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<DocumentAddDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private router: Router, 
-    private documentService: DocumentService,
+    private authService: AuthService,
     private sharedService: SharedService,
-    private requestDetailsService: RequestDetailsService,
-    private driverRegisterService: DriverRegisterService
+    private requestDetailsService: RequestDetailsService
   ) {}
 
   ngOnInit(): void {
+    this.authService.getUser().subscribe((res) => {
+      this.id = this.authService.getId();
+    })
   }
 
   onFileSelect(event: any){
@@ -58,7 +63,7 @@ export class DocumentAddDialogComponent implements OnInit {
   }
 
   private saveExistingDriverDocument() {
-    this.requestDetailsService.sendDocumentRequest(2, 1, this.setResponseValue(), 0).subscribe({
+    this.requestDetailsService.sendDocumentRequest(this.id, 1, this.setResponseValue(), 0).subscribe({
       next: (res: any) => {
         this.router.navigate(['/account-driver']);
         this.sharedService.openSnack({

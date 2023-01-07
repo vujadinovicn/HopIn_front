@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DeclineRequestReasonDialogComponent } from '../decline-request-reason-dialog/decline-request-reason-dialog.component';
+import { AuthService } from '../services/auth.service';
 import { RequestDetailsService } from '../services/requestDetails.service';
 import { SharedService } from '../shared/shared.service';
 
@@ -11,19 +12,25 @@ import { SharedService } from '../shared/shared.service';
 })
 export class AdminRequestDetailsContainerComponent implements OnInit {
 
-  _role: String;
+  role: string = "driver";
+  requestId: number = 0;
+  adminId : number = 0;
+
   isRequestSelected: boolean = false;
   status: String = 'PENDING';
-  id: number = 0;
 
 
   constructor(private dialog: MatDialog,
+    private authService: AuthService,
     private requestDetailsService: RequestDetailsService,
     private sharedService : SharedService) {
-      this._role = requestDetailsService.role;
     }
 
   ngOnInit(): void {
+    this.authService.getUser().subscribe((res) => {
+      this.role = res;
+      this.adminId = this.authService.getId();
+    })
     this.recieveRequest();
   }
 
@@ -34,13 +41,13 @@ export class AdminRequestDetailsContainerComponent implements OnInit {
 
     this.requestDetailsService.recieveRequest().subscribe((res) => { 
       this.status = res.status;
-      this.id = res.id;
+      this.requestId = res.id;
     });
   }
 
   
   acceptRequest(){
-    this.requestDetailsService.acceptRequest(this.id).subscribe({
+    this.requestDetailsService.acceptRequest(this.requestId, this.adminId).subscribe({
       next: (res: any) => {
         this.sharedService.openResponseSnack();
         window.location.reload();
@@ -52,7 +59,7 @@ export class AdminRequestDetailsContainerComponent implements OnInit {
 
   openDeclineReasonPopUp(){
     this.dialog.open(DeclineRequestReasonDialogComponent, {
-      data: {requestId: this.id}
+      data: {requestId: this.requestId}
     });
   }
 

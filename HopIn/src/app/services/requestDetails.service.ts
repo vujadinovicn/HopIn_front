@@ -66,42 +66,42 @@ export class RequestDetailsService {
     const options: any = {
       responseType: 'text',
     };
-    return this.http.post<any>(environment.apiHost + '/request/2/password/request', passwordRequest, options);
+    return this.http.post<any>(environment.apiHost + '/request/' + driverId + '/password/request', passwordRequest, options);
   }
 
   sendDocumentRequest(driverId: number, operationNumber: number, documentRequest: any, documentId: number): Observable<any> {
     const options: any = {
       responseType: 'text',
     };
-    return this.http.post<any>(environment.apiHost + '/request/2/' + operationNumber + "/" + documentId +'/document/request', documentRequest, options);
+    return this.http.post<any>(environment.apiHost + '/request/' + driverId + '/' + operationNumber + "/" + documentId +'/document/request', documentRequest, options);
   }
 
   addInfoRequest(driverId: number, infoRequest: any): Observable<any> {
     const options: any = {
       responseType: 'text',
     };
-    return this.http.post<any>(environment.apiHost + '/request/2/info/request', infoRequest, options);
+    return this.http.post<any>(environment.apiHost + '/request/' + driverId + '/info/request', infoRequest, options);
   }
 
   addVehicleRequest(driverId: number, vehicleRequest: any): Observable<any> {
     const options: any = {
       responseType: 'text',
     };
-    return this.http.post<any>(environment.apiHost + '/request/2/vehicle/request', vehicleRequest, options);
+    return this.http.post<any>(environment.apiHost + '/request/' + driverId + '/vehicle/request', vehicleRequest, options);
   }
 
-  acceptRequest(requestId: number): Observable<any> {
+  acceptRequest(requestId: number, adminId: number): Observable<any> {
     const options: any = {
       responseType: 'text',
     };
-    return this.http.post<String>(environment.apiHost + '/request/' + requestId + "/" + "3/accept", options);
+    return this.http.post<String>(environment.apiHost + '/request/' + requestId + "/" + adminId + "/accept", options);
   }
 
-  declineRequest(requestId: number, reason: any): Observable<any> {
+  declineRequest(requestId: number, adminId: number, reason: any): Observable<any> {
     const options: any = {
       responseType: 'text',
     };
-    return this.http.post<String>(environment.apiHost + '/request/' + requestId + "/" + "3/deny", reason, options);
+    return this.http.post<String>(environment.apiHost + '/request/' + requestId + "/" + adminId + "/deny", reason, options);
   }
 
 }

@@ -7,6 +7,7 @@ import { SharedService } from '../shared/shared.service';
 import { markFormControlsTouched } from '../validators/formGroupValidators';
 import { addressRegexValidator, nameRegexValidator, phonenumRegexValidator, surnameRegexValidator } from '../validators/user/userValidator';
 import { RequestDetailsService } from '../services/requestDetails.service';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -17,6 +18,7 @@ import { RequestDetailsService } from '../services/requestDetails.service';
 export class AccountSettingsComponent implements OnInit {
 
   role: string = "driver";
+  id : number = 0;
 
   user : User = {
     id: 0,
@@ -41,31 +43,34 @@ export class AccountSettingsComponent implements OnInit {
   profileImgPath = "../../assets/images/profile-placeholder.png";
 
   constructor(private router: Router, 
+              private authService: AuthService,
               private userService: UserService,
               private requestDetailsService : RequestDetailsService,
               private sharedService : SharedService) {
   }
 
   ngOnInit(): void {
-    this.role = this.userService.role;
+    this.authService.getUser().subscribe((res) => {
+      this.role = res;
+      this.id = this.authService.getId();
+    })
     this.setUserData();
     markFormControlsTouched(this.accountSettingsForm);
 }
   
   save(): void {
     if (this.accountSettingsForm.valid) {
-      if (this.role == "passenger")
+      if (this.role == "ROLE_PASSENGER")
         this.savePassenger();
-      else 
+      else if (this.role == "ROLE_DRIVER")
         this.saveDriver();
+      else {}
     } else
         this.sharedService.openInvalidInputSnack();
 
   }
 
   savePassenger(){
-    console.log(this.setResponseValue());
-    console.log(this.profileImgPath);
     this.userService.updatePassengerPersonalInfo(this.setResponseValue()).subscribe({
       next: (res: any) => {
         this.router.navigate(['/account-passenger']);
@@ -83,7 +88,7 @@ export class AccountSettingsComponent implements OnInit {
 
   saveDriver(){
     console.log(this.setResponseValue());
-    this.requestDetailsService.addInfoRequest(2, this.setResponseValue()).subscribe({
+    this.requestDetailsService.addInfoRequest(this.id, this.setResponseValue()).subscribe({
       next: (res: any) => {
         this.router.navigate(['/account-driver']);
         this.sharedService.openSnack({
@@ -98,16 +103,17 @@ export class AccountSettingsComponent implements OnInit {
   }
 
   setUserData(){
-    if (this.role == "passenger") {
+    if (this.role == "ROLE_PASSENGER") {
       this.setPassengerData();
     }
-    else {
+    else if (this.role == "ROLE_DRIVER"){
       this.setDriverData();
     }
+    else {}
   }
 
   setPassengerData() {
-    this.userService.getByPassengerId(4).subscribe((res: any) => {
+    this.userService.getByPassengerId(this.id).subscribe((res: any) => {
       this.user = res;
       this.setFormValue(res);
       if (res.profilePicture != null)
@@ -116,7 +122,7 @@ export class AccountSettingsComponent implements OnInit {
   }
 
   setDriverData(){
-    this.userService.getByDriverId(4).subscribe((res: any) => {
+    this.userService.getByDriverId(this.id).subscribe((res: any) => {
       this.user = res;
       this.setFormValue(res);
       if (res.profilePicture != null)
@@ -146,6 +152,7 @@ export class AccountSettingsComponent implements OnInit {
 
   private setResponseValue(): any{
     return {
+      id: this.id,
       name: this.accountSettingsForm.value.name,
       surname: this.accountSettingsForm.value.surname,
       profilePicture: this.profileImgPath,

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 import { DriverRegisterService } from '../services/driver-register.service';
 import { RequestDetailsService } from '../services/requestDetails.service';
 import { Vehicle, VehicleService } from '../services/vehicle.service';
@@ -29,6 +30,8 @@ export class ChangeVehicleInfoComponent implements OnInit {
   vehicleType : string = "car";
   isBabyTransport : boolean = false;
   isPetTransport: boolean = false;
+  role: string = "driver";
+  id: number = 0;
 
   vehicleInfoForm = new FormGroup({
     model: new FormControl('', [Validators.required, modelRegexValidator]),
@@ -41,12 +44,18 @@ export class ChangeVehicleInfoComponent implements OnInit {
   @Output() isFormValid = new EventEmitter<boolean>();
 
   constructor(private router: Router,
+    private authService: AuthService,
     private vehicleService: VehicleService,
     private requestDetailsService: RequestDetailsService,
     private driverRegisterService: DriverRegisterService,
     private sharedService : SharedService) { }
 
   ngOnInit(): void {
+    this.authService.getUser().subscribe((res) => {
+      this.role = res;
+      this.id = this.authService.getId();
+    })
+
     markFormControlsTouched(this.vehicleInfoForm);
     if (this.parentComponent == "update")
       this.setVehicleData();
@@ -66,7 +75,7 @@ export class ChangeVehicleInfoComponent implements OnInit {
   save() : void {
     if (this.vehicleInfoForm.valid) {
       console.log(this.setResponseValue());
-      this.requestDetailsService.addVehicleRequest(2, this.setResponseValue()).subscribe({
+      this.requestDetailsService.addVehicleRequest(this.id, this.setResponseValue()).subscribe({
           next: (res: any) => {
             this.router.navigate(['/account-driver']);
             this.sharedService.openResponseSnack();
@@ -81,7 +90,6 @@ export class ChangeVehicleInfoComponent implements OnInit {
 
   private saveDriverRegister() {
     if (this.vehicleInfoForm.valid) {
-      //console.log(this.setResponseValue());
       this.driverRegisterService.sendVehicleInfo(this.setResponseValue());
     }
     else { 
@@ -103,7 +111,7 @@ export class ChangeVehicleInfoComponent implements OnInit {
   }
 
   setVehicleData() {
-    this.vehicleService.getById(2).subscribe((res: any) => {
+    this.vehicleService.getById(this.id).subscribe((res: any) => {
       this.vehicle = res;
       this.vehicleInfoForm.setValue({
         model: res.model,

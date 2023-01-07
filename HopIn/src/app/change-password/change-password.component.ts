@@ -8,6 +8,7 @@ import { markFormControlsTouched } from '../validators/formGroupValidators';
 import { ConfirmValidParentMatcher, passwordMatcher } from '../validators/passwordMatch';
 import { passwordRegexValidator } from '../validators/user/userValidator';
 import { RequestDetailsService } from '../services/requestDetails.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-change-password',
@@ -17,6 +18,7 @@ import { RequestDetailsService } from '../services/requestDetails.service';
 export class ChangePasswordComponent implements OnInit {
 
   role: string = "driver";
+  id: number = 0;
 
   user : User = {
     id: 0,
@@ -39,22 +41,26 @@ export class ChangePasswordComponent implements OnInit {
   }, [passwordMatcher("newPassword", "confNewPassword")])
 
   constructor(private router: Router,
+              private authService: AuthService,
               private userService: UserService,
               private requestDetailsService : RequestDetailsService,
               private sharedService: SharedService) { }
 
   ngOnInit(): void {
-    this.role = this.userService.role;
+    this.authService.getUser().subscribe((res) => {
+      this.role = res;
+      this.id = this.authService.getId();
+    })
     this.setUserData();
     markFormControlsTouched(this.changePasswordForm);
   }
 
   save(): void {
     if (this.changePasswordForm.valid) {
-      if (this.role == "passenger"){
+      if (this.role == "ROLE_PASSENGER"){
         this.savePassengerPassword();
       }
-      else 
+      else if (this.role == "ROLE_DRIVER")
         this.saveDriverPassword();
     } else {
       this.sharedService.openInvalidInputSnack()
@@ -62,7 +68,6 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   private savePassengerPassword() {
-    console.log(this.setResponseValue())
     this.userService.updatePassengerPassword(this.setResponseValue()).subscribe({
       next: (res: any) => {
         this.router.navigate(['/account-passenger']);
@@ -79,7 +84,7 @@ export class ChangePasswordComponent implements OnInit {
       oldPassword: this.changePasswordForm.value.oldPassword,
       newPassword: this.changePasswordForm.value.newPassword,
     }
-    this.requestDetailsService.addPasswordRequest(2, res).subscribe({
+    this.requestDetailsService.addPasswordRequest(this.id, res).subscribe({
       next: (res: any) => {
         this.router.navigate(['/account-driver']);
         this.sharedService.openResponseSnack();
@@ -91,26 +96,27 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   setUserData() {
-    if (this.role == "passenger")
+    if (this.role == "ROLE_PASSENGER")
       this.setPassengerData();
-    else
+    else if (this.role == "ROLE_DRIVER")
       this.setDriverData();
   }
 
   private setPassengerData() {
-    this.userService.getByPassengerId(1).subscribe((res: any) => {
+    this.userService.getByPassengerId(this.id).subscribe((res: any) => {
       this.user = res;
     });;
   }
 
   private setDriverData() {
-    this.userService.getByDriverId(2).subscribe((res: any) => {
+    this.userService.getByDriverId(this.id).subscribe((res: any) => {
       this.user = res;
     });;
   }
 
   private setResponseValue(): any{
     return {
+      id: this.id,
       name: this.user.name,
       surname: this.user.surname,
       profilePicture: this.user.profilePicture,

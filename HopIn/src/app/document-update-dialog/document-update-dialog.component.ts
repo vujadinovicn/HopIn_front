@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 import { DocumentService } from '../services/document.service';
 import { RequestDetailsService } from '../services/requestDetails.service';
 import { SharedService } from '../shared/shared.service';
@@ -14,6 +15,8 @@ import { nameRegexValidator } from '../validators/user/userValidator';
 })
 export class DocumentUpdateDialogComponent implements OnInit {
 
+  id: number = 0;
+  
   updateDocumentForm = new FormGroup({
     name: new FormControl('', [Validators.required, nameRegexValidator]),
   }, [])
@@ -21,13 +24,16 @@ export class DocumentUpdateDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<DocumentUpdateDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private documentService: DocumentService,
+    private authService: AuthService,
     private sharedService: SharedService,
     private router: Router,
     private requestDetailsService: RequestDetailsService
   ) {}
 
   ngOnInit(): void {
+    this.authService.getUser().subscribe((res) => {
+      this.id = this.authService.getId();
+    })
     this.setFormValue();
   }
 
@@ -43,7 +49,7 @@ export class DocumentUpdateDialogComponent implements OnInit {
 
   save(): void {
     if (this.updateDocumentForm.valid){
-      this.requestDetailsService.sendDocumentRequest(2, 2, this.setResponseValue(), this.data.id).subscribe({
+      this.requestDetailsService.sendDocumentRequest(this.id, 2, this.setResponseValue(), this.data.id).subscribe({
         next: (res: any) => {
           this.router.navigate(['/account-driver']);
           this.sharedService.openSnack({
