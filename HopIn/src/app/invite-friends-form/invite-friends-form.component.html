@@ -1,0 +1,28 @@
+<div id="invite-container" class="border">
+    <h3 id="tell-us" class="dark-blue">Anyone else riding with you?</h3>
+    <div id="enter-email">
+        <form [formGroup]="inviteForm">
+            <div class="email-input-cont">
+                <mat-form-field id="friends-email-input">
+                    <mat-label>Enter their email</mat-label>
+                    <input matInput type="email" name="email" formControlName="email"/>
+                    <mat-icon class="location-icon" matPrefix>mail</mat-icon>
+                    <mat-error *ngIf="inviteForm.get('email')?.errors?.['required']">entering email is required</mat-error>
+                    <mat-error *ngIf="inviteForm.get('email')?.errors?.['email']">invalid email format</mat-error>
+                </mat-form-field>
+                <mat-icon (click)="addPassenger()" class="add-button">add_circle_outline</mat-icon>
+            </div>
+        </form>
+    </div>
+    <div id="added-friends">
+        <h4 class="dark-blue">Invites will be sent to:</h4>
+        <div id="invited-cards-cont">
+            <div class="invited-card border">
+                <img src="../../assets/images/driver.jpg" class="passenger-photo">
+                <p>Lia Tompson</p>
+                <mat-icon (click)="removePassenger()" class="exit-btn">add</mat-icon>
+            </div>
+        </div>
+    </div>
+    <button id="order-ride-btn" class="conf-button" mat-raised-button type="button" (click)="orderRide()" >order ride</button>
+</div>

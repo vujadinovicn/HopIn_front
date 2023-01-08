@@ -1,4 +1,4 @@
-::ng-deep pickup-destination-form, vehicle-preferences-form {
+::ng-deep pickup-destination-form, vehicle-preferences-form, invite-friends-form {
     height: fit-content;
     width: fit-content;
     position: absolute;
@@ -66,7 +66,7 @@
         left: 15%;
     }
 
-    ::ng-deep pickup-destination-form, vehicle-preferences-form {
+    ::ng-deep pickup-destination-form, vehicle-preferences-form, invite-friends-form {
         left: -20%;
     }
 }
@@ -82,7 +82,7 @@
         background-color: black;
     }
 
-    ::ng-deep pickup-destination-form, vehicle-preferences-form {
+    ::ng-deep pickup-destination-form, vehicle-preferences-form, invite-friends-form {
         display: block;
         left: 0; 
         right: 0; 
@@ -110,7 +110,7 @@
         height: 305px;
     }
 
-    ::ng-deep vehicle-preferences-form {
+    ::ng-deep vehicle-preferences-form, invite-friends-form {
         margin-top: 0;
         width: 100%;
         position: relative;

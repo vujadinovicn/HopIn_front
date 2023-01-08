@@ -48,6 +48,7 @@ import { DriverRegisterPersonalInfoComponent } from './driver-register-personal-
 import { DriverRegisterComponent } from './driver-register/driver-register.component';
 import { RegistrationVerificationComponent } from './registration-verification/registration-verification.component';
 import { VehiclePreferencesFormComponent } from './vehicle-preferences-form/vehicle-preferences-form.component';
+import { InviteFriendsFormComponent } from './invite-friends-form/invite-friends-form.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import { VehiclePreferencesFormComponent } from './vehicle-preferences-form/vehi
     DriverRegisterPersonalInfoComponent,
     DriverRegisterComponent,
     RegistrationVerificationComponent,
-    VehiclePreferencesFormComponent
+    VehiclePreferencesFormComponent,
+    InviteFriendsFormComponent
   ],
   imports: [
     BrowserModule,
