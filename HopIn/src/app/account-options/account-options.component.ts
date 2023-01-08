@@ -11,18 +11,15 @@ import { UserService } from '../services/user.service';
 })
 export class AccountOptionsComponent implements OnInit {
 
-  constructor(private router: Router, 
-    private authService: AuthService,
-    private passengerAccountOptionsService : PassengerAccountOptionsService) { }
-
   option : string = "settings";
-  role: string = "passenger";
+  role: string = "ROLE_PASSENGER";
+
+  constructor(private authService: AuthService,
+    private passengerAccountOptionsService : PassengerAccountOptionsService) { }
 
   ngOnInit(): void {
     this.selectOption(this.option);
-    this.authService.getUser().subscribe((res) => {
-      this.role = res;
-    })
+    this.getRole();
   }
 
   selectOption(option: string){
@@ -30,7 +27,13 @@ export class AccountOptionsComponent implements OnInit {
     this.sendSelectedOption(option);
   }
 
-  sendSelectedOption(option: string): void {
+  private sendSelectedOption(option: string): void {
     this.passengerAccountOptionsService.sendSelectedOption(option);
+  }
+
+  private getRole() {
+    this.authService.getUser().subscribe((res) => {
+      this.role = res;
+    });
   }
 }

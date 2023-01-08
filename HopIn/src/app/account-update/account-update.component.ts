@@ -17,7 +17,7 @@ export class AccountUpdateComponent implements OnInit {
     this.recieveSelectedOption();
   }
 
-  recieveSelectedOption(): void {
+  private recieveSelectedOption(): void {
     this.passengerAccountOptionsService.recieveSelectedOption().subscribe((res: any) => {
       this.option = res;
     });
