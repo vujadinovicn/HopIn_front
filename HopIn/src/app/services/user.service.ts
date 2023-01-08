@@ -35,7 +35,7 @@ export class UserService {
 
   updatePassengerPassword(passenger: any): Observable<any> {
     const options: any = {
-      responseType: 'text',
+      responseType: 'json',
     };
     return this.http.put<string>(environment.apiHost + '/passenger/' + passenger.id, passenger, options);
   }

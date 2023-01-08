@@ -35,7 +35,7 @@ export class DocumentService {
 
   add(document: any, driverId: number): Observable<any> {
     const options: any = {
-      responseType: 'text',
+      responseType: 'json',
     };
     return this.http.post<string>(environment.apiHost + '/driver/' + driverId + '/documents', document, options);
   }
