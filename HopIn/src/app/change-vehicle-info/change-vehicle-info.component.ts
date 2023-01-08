@@ -16,6 +16,8 @@ import { modelRegexValidator, platesRegexValidator, seatsRegexValidator } from '
 })
 export class ChangeVehicleInfoComponent implements OnInit {
 
+  id: number = 0;
+
   vehicle : Vehicle = {
     _id : 0,
     model: "",
@@ -30,7 +32,6 @@ export class ChangeVehicleInfoComponent implements OnInit {
   vehicleType : string = "car";
   isBabyTransport : boolean = false;
   isPetTransport: boolean = false;
-  id: number = 0;
 
   vehicleInfoForm = new FormGroup({
     model: new FormControl('', [Validators.required, modelRegexValidator]),
@@ -50,11 +51,12 @@ export class ChangeVehicleInfoComponent implements OnInit {
     private sharedService : SharedService) { }
 
   ngOnInit(): void {
-    this.authService.getUser().subscribe((res) => {
-      this.id = this.authService.getId();
-    })
-
+    this.getDriverId();
+    this.setBehaviorForParentComponent();
     markFormControlsTouched(this.vehicleInfoForm);
+  }
+
+  private setBehaviorForParentComponent() {
     if (this.parentComponent == "update")
       this.setVehicleData();
     else {
@@ -62,7 +64,7 @@ export class ChangeVehicleInfoComponent implements OnInit {
         this.vehicleInfoForm.markAllAsTouched();
         this.saveDriverRegister();
       }
-      )
+      );
     }
   }
 
@@ -71,19 +73,23 @@ export class ChangeVehicleInfoComponent implements OnInit {
   }
 
   save() : void {
+    this.saveDriverUpdate();
+  }
+
+  private saveDriverUpdate() {
     if (this.vehicleInfoForm.valid) {
-      console.log(this.setResponseValue());
       this.requestDetailsService.addVehicleRequest(this.id, this.setResponseValue()).subscribe({
-          next: (res: any) => {
-            this.router.navigate(['/account-driver']);
-            this.sharedService.openResponseSnack();
-          },
-          error: (error: any) => {
-              this.sharedService.openNoResponseSnack();
-          }
-        });
-    } else
-        this.sharedService.openInvalidInputSnack();
+        next: () => {
+          this.router.navigate(['/account-driver']);
+          this.sharedService.openResponseSnack();
+        },
+        error: () => {
+          this.sharedService.openNoResponseSnack();
+        }
+      });
+    }
+    else
+      this.sharedService.openInvalidInputSnack();
   }
 
   private saveDriverRegister() {
@@ -94,6 +100,12 @@ export class ChangeVehicleInfoComponent implements OnInit {
       this.sharedService.openInvalidInputSnack(); 
     }
     this.isFormValid.emit(this.vehicleInfoForm.valid);
+  }
+
+  private getDriverId() {
+    this.authService.getUser().subscribe((res) => {
+      this.id = this.authService.getId();
+    });
   }
 
   private setResponseValue(): any{
@@ -108,7 +120,7 @@ export class ChangeVehicleInfoComponent implements OnInit {
     }
   }
 
-  setVehicleData() {
+  private setVehicleData() {
     this.vehicleService.getById(this.id).subscribe((res: any) => {
       this.vehicle = res;
       this.vehicleInfoForm.setValue({

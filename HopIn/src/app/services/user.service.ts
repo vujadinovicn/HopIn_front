@@ -62,3 +62,17 @@ export interface UserDTO {
     address: string;
     password: string;
 }
+
+export interface MethodsForRole{
+  serviceSendToBackMethod: any,
+  serviceGetMethod: any,
+  routerNavigation: any
+}
+
+export class MethodsForRoleImpl implements MethodsForRole {
+  serviceSendToBackMethod: any;
+  serviceGetMethod: any;
+  routerNavigation: any;
+
+  constructor(){}
+}

@@ -95,7 +95,7 @@ export class DriverDocumentsComponent implements OnInit {
     this.updateDocumentDisplay(index);
   }
 
-  private updateDocumentDisplay(index: number) {
+  updateDocumentDisplay(index: number) {
     this.documentService.recieveUpdate().subscribe((res: any) => {
       this.documents[index].name = res.name;
       this.documents[index].documentImage = res.documentImage;
