@@ -57,6 +57,7 @@ export class RegisterComponent implements OnInit {
           resetForm(this.registerForm, formDirective);
         },
         error: (err: HttpErrorResponse) => {
+          console.log(err);
           this.sharedService.openSnack({
             value: "Registration failed, email may already be in use.",
             color: "back-red"

@@ -7,6 +7,49 @@
     margin-left: 20px;
 }
 
+::ng-deep mat-horizontal-stepper {
+    width: 50%;
+    position: absolute;
+    left: 25%;
+    top: -53px;
+    z-index: 40;
+    background-color: black;
+    
+}
+
+::ng-deep .mat-horizontal-content-container {
+    padding: 0 !important;
+}
+::ng-deep .mat-horizontal-stepper-header {
+    height: 50px !important;
+}
+
+::ng-deep .mat-stepper-horizontal {
+    background-color: #1E4A5A;
+}
+
+::ng-deep .mat-step-header .mat-step-label {
+    color: white;
+}
+::ng-deep .mat-step-header .mat-step-label.mat-step-label-active {
+    color: white;
+}
+
+::ng-deep .mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
+    background-color: #EC9A29 !important;
+}
+::ng-deep .mat-step-header .mat-step-icon-state-edit {
+    background-color: #EC9A29 !important;
+}
+::ng-deep .mat-stepper-horizontal-line {
+    border-top-color: white !important;
+}
+
+::ng-deep .mat-step-icon {
+    background-color: white;
+    color: black;
+}
+
 @media screen and (max-width: 700px) {
     pickup-destination-form {
         display: block;
