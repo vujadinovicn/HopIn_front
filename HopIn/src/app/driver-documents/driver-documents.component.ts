@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DocumentUpdateDialogComponent } from '../document-update-dialog/document-update-dialog.component';
 import { DocumentDetailsDialogComponent } from '../document-details-dialog/document-details-dialog.component';
-import { DocumentService } from '../services/document.service';
+import { DocumentReturned, DocumentService } from '../services/document.service';
 import { DocumentAddDialogComponent } from '../document-add-dialog/document-add-dialog.component';
 import { RequestDetailsService } from '../services/requestDetails.service';
 import { SharedService } from '../shared/shared.service';
@@ -18,10 +18,10 @@ export class DriverDocumentsComponent implements OnInit {
   licenceUrl = "../../assets/vectors/login.svg";
   
   id: number = 0;
-  documents: Document[] = [];
+  documents: DocumentReturned[] = [];
 
   @Input() parentComponent : string = "";
-  @Output() sentDocument = new EventEmitter<Document[]>();
+  @Output() sentDocument = new EventEmitter<DocumentReturned[]>();
 
   constructor(private dialog: MatDialog,
     private authService: AuthService,
@@ -101,11 +101,4 @@ export class DriverDocumentsComponent implements OnInit {
       this.documents[index].documentImage = res.documentImage;
     });
   }
-}
-
-export interface Document {
-  id: number,
-  name: String,
-  documentImage: string,
-  driverId: number
 }

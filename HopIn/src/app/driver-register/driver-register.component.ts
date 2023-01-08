@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { DocumentService } from '../services/document.service';
+import { DocumentReturned, DocumentService } from '../services/document.service';
 import { DriverRegisterService } from '../services/driver-register.service';
 import { DriverService } from '../services/driver.service';
 import { User } from '../services/user.service';
@@ -40,10 +40,9 @@ export class DriverRegisterComponent implements OnInit {
     vehicleType: ""
   }
 
-  documents : Document[] = [];
+  documents : DocumentReturned[] = [];
 
-  constructor(private cdr: ChangeDetectorRef,
-    private driverService: DriverService,
+  constructor(private driverService: DriverService,
     private vehicleService: VehicleService,
     private documentService: DocumentService,
     private driverRegisterService: DriverRegisterService,
@@ -52,14 +51,6 @@ export class DriverRegisterComponent implements OnInit {
   ngOnInit(): void {
     this.recievePersonalInfo();
     this.recieveVehicleInfo();
-  }
-
-  changeFormValidity(childIsFormValid: any) : void {
-    this.formsSubmitted = this.formsSubmitted && childIsFormValid;
-  }
-
-  changeFormSValidity(childIsFormValid: any) : void {
-    this.formsSubmitted = this.formsSubmitted && childIsFormValid;
   }
 
   recievePersonalInfo(){
@@ -78,21 +69,23 @@ export class DriverRegisterComponent implements OnInit {
     this.documents.push(document);
   }
 
+  changeVehicleInfoFormValidity(childIsFormValid: any) : void {
+    this.formsSubmitted = this.formsSubmitted && childIsFormValid;
+  }
+
+  changePersonalInfoFormValidity(childIsFormValid: any) : void {
+    this.formsSubmitted = this.formsSubmitted && childIsFormValid;
+  }
+
   save() {
     this.formsSubmitted = true;
     this.driverRegisterService.sendFormsSubmitted(this.formsSubmitted);
-
     if (this.formsSubmitted == true){
       this.registerDriver();
     }
   }
 
-  registerDriver(){
-    this.addDriver();
-    //this.addVehicle();
-  }
-
-  private addDriver() {
+  private registerDriver() {
     this.driverService.add(this.driver).subscribe({
       next: (res: any) => {
         this.driverId = res.id;

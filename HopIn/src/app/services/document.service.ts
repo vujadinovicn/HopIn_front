@@ -21,8 +21,8 @@ export class DocumentService {
     return this.recievedDocument;
   }
   
-  getById(driverId: number): Observable<Document[]> {
-    return this.http.get<Document[]>(environment.apiHost + "/driver/" + driverId + "/documents");
+  getById(driverId: number): Observable<DocumentReturned[]> {
+    return this.http.get<DocumentReturned[]>(environment.apiHost + "/driver/" + driverId + "/documents");
   }
 
   sendUpdate(updatedDocument: any){
@@ -41,10 +41,14 @@ export class DocumentService {
   }
 }
 
-export interface Document {
+export interface DocumentReturned {
   id: number,
   name: String,
   documentImage: string,
   driverId: number
 }
 
+export interface Document {
+  name: String;
+  url: String;
+}

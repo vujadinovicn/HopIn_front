@@ -12,7 +12,6 @@ import { SharedService } from '../shared/shared.service';
 })
 export class AdminRequestDetailsContainerComponent implements OnInit {
 
-  role: string = "driver";
   requestId: number = 0;
   adminId : number = 0;
 
@@ -27,18 +26,24 @@ export class AdminRequestDetailsContainerComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.authService.getUser().subscribe((res) => {
-      this.role = res;
-      this.adminId = this.authService.getId();
-    })
+    this.getAdminId();
+    this.checkIfRequestIsSelected();
     this.recieveRequest();
   }
 
-  recieveRequest(): void {
+  private getAdminId() {
+    this.authService.getUser().subscribe(() => {
+      this.adminId = this.authService.getId();
+    });
+  }
+
+  checkIfRequestIsSelected(): void {
     this.requestDetailsService.recieveIsRequestSelected().subscribe((res) => { 
       this.isRequestSelected = res;
     });
+  }
 
+  recieveRequest(): void {
     this.requestDetailsService.recieveRequest().subscribe((res) => { 
       this.status = res.status;
       this.requestId = res.id;
