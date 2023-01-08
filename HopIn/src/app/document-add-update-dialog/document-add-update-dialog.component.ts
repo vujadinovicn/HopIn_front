@@ -18,7 +18,7 @@ export class DocumentAddUpdateDialogComponent implements OnInit {
 
   imageSelected: boolean = false;
   url : string = "";
-  id: number = 0;
+  adminId: number = 0;
 
   addDocumentForm = new FormGroup({
     name: new FormControl('', [Validators.required, nameRegexValidator]),
@@ -41,7 +41,7 @@ export class DocumentAddUpdateDialogComponent implements OnInit {
 
   private getAdminId() {
     this.authService.getUser().subscribe((res) => {
-      this.id = this.authService.getId();
+      this.adminId = this.authService.getId();
     });
   }
 
@@ -81,7 +81,7 @@ export class DocumentAddUpdateDialogComponent implements OnInit {
     let documentId = 0;
     if (this.data.action == "update")
       documentId = this.data.id;
-    this.requestDetailsService.sendDocumentRequest(this.id, 1, this.setResponseValue(), documentId).subscribe({
+    this.requestDetailsService.sendDocumentRequest(this.adminId, 1, this.setResponseValue(), documentId).subscribe({
       next: (res: any) => {
         this.router.navigate(['/account-driver']);
         this.sharedService.openSnack({

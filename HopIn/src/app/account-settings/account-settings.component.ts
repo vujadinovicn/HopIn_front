@@ -17,8 +17,8 @@ import { AuthService } from '../services/auth.service';
 })
 export class AccountSettingsComponent implements OnInit {
 
-  role: string = "ROLE_DRIVER";
-  id : number = 0;
+  userRole: string = "ROLE_DRIVER";
+  userId : number = 0;
 
   methodsForRole: MethodsForRoleImpl = {
     serviceSendToBackMethod: "",
@@ -88,7 +88,7 @@ export class AccountSettingsComponent implements OnInit {
   }
 
   setUserData() {
-    this.methodsForRole.serviceGetMethod(this.id).subscribe((res: any) => {
+    this.methodsForRole.serviceGetMethod(this.userId).subscribe((res: any) => {
       this.user = res;
       this.setFormValue(res);
       if (res.profilePicture != null)
@@ -108,23 +108,21 @@ export class AccountSettingsComponent implements OnInit {
 
   private getRoleAndId() {
     this.authService.getUser().subscribe((res) => {
-      this.role = res;
-      this.id = this.authService.getId();
+      this.userRole = res;
+      this.userId = this.authService.getId();
     });
   }
 
   private generateMethodsForRole() {
-    if (this.role == "ROLE_PASSENGER") {
+    if (this.userRole == "ROLE_PASSENGER") {
       this.methodsForRole.serviceSendToBackMethod = () => {
         return this.userService.updatePassengerPersonalInfo(this.setResponseValue());
       }
       this.methodsForRole.serviceGetMethod = (id: number) => this.userService.getByPassengerId(id);
       this.methodsForRole.routerNavigation = () => this.router.navigate(['/account-passenger']);
-    }else if (this.role == "ROLE_DRIVER") {
+    }else if (this.userRole == "ROLE_DRIVER") {
       this.methodsForRole.serviceSendToBackMethod = () => {
-        console.log("ss");
-        console.log(this.setResponseValue());
-        return this.requestDetailsService.addInfoRequest(this.id, this.setResponseValue());
+        return this.requestDetailsService.addInfoRequest(this.userId, this.setResponseValue());
       }
       this.methodsForRole.serviceGetMethod = (id: number) => this.userService.getByDriverId(id);
       this.methodsForRole.routerNavigation = () => this.router.navigate(['/account-driver']);
@@ -143,7 +141,7 @@ export class AccountSettingsComponent implements OnInit {
 
   private setResponseValue(): any{
     return {
-      id: this.id,
+      id: this.userId,
       name: this.accountSettingsForm.value.name,
       surname: this.accountSettingsForm.value.surname,
       profilePicture: this.profileImgPath,

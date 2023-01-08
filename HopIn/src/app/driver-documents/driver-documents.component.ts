@@ -16,7 +16,7 @@ export class DriverDocumentsComponent implements OnInit {
 
   licenceUrl = "../../assets/vectors/login.svg";
   
-  id: number = 0;
+  driverId: number = 0;
   documents: DocumentReturned[] = [];
 
   @Input() parentComponent : string = "";
@@ -36,12 +36,12 @@ export class DriverDocumentsComponent implements OnInit {
 
   private getDriverId() {
     this.authService.getUser().subscribe((res) => {
-      this.id = this.authService.getId();
+      this.driverId = this.authService.getId();
     });
   }
 
   private loadExistingDriverDocuments(){
-    this.documentService.getById(this.id).subscribe((res: any) => {
+    this.documentService.getById(this.driverId).subscribe((res: any) => {
       this.documents = res;
     }
     );
@@ -56,7 +56,7 @@ export class DriverDocumentsComponent implements OnInit {
 
   private deleteExistingDriverDocument(index: number) {
     let document = this.setValueForDelete();
-    this.requestDetailsService.sendDocumentRequest(this.id, 3, document, this.documents[index].id).subscribe({
+    this.requestDetailsService.sendDocumentRequest(this.driverId, 3, document, this.documents[index].id).subscribe({
       next: (res: any) => {
         this.sharedService.openSnack({
           value: "Response is in console!",

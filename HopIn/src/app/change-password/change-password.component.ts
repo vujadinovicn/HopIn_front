@@ -17,8 +17,9 @@ import { AuthService } from '../services/auth.service';
 })
 export class ChangePasswordComponent implements OnInit {
 
-  role: string = "ROLE_DRIVER";
-  id: number = 0;
+  userRole: string = "ROLE_DRIVER";
+  userId: number = 0;
+
   methodsForRole: MethodsForRoleImpl = {
     serviceSendToBackMethod: "",
     serviceGetMethod: "",
@@ -84,28 +85,28 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   setUserData() {
-    this.methodsForRole.serviceGetMethod(this.id).subscribe((res: any) => {
+    this.methodsForRole.serviceGetMethod(this.userId).subscribe((res: any) => {
       this.user = res;
     });;
   }
 
   private getRoleAndId() {
     this.authService.getUser().subscribe((res) => {
-      this.role = res;
-      this.id = this.authService.getId();
+      this.userRole = res;
+      this.userId = this.authService.getId();
     });
   }
 
   private generateMethodsForRole() {
-    if (this.role == "ROLE_PASSENGER") {
+    if (this.userRole == "ROLE_PASSENGER") {
       this.methodsForRole.serviceSendToBackMethod = () => {
         return this.userService.updatePassengerPassword(this.setResponseValue());
       }
       this.methodsForRole.serviceGetMethod = (id: number) => this.userService.getByPassengerId(id);
       this.methodsForRole.routerNavigation = () => this.router.navigate(['/account-passenger']);
-    }else if (this.role == "ROLE_DRIVER") {
+    }else if (this.userRole == "ROLE_DRIVER") {
       this.methodsForRole.serviceSendToBackMethod = () => {
-        return this.requestDetailsService.addPasswordRequest(this.id, this.setOnlyPasswordResponseValue());
+        return this.requestDetailsService.addPasswordRequest(this.userId, this.setOnlyPasswordResponseValue());
       }
       this.methodsForRole.serviceGetMethod = (id: number) => this.userService.getByDriverId(id);
       this.methodsForRole.routerNavigation = () => this.router.navigate(['/account-driver']);
@@ -114,7 +115,7 @@ export class ChangePasswordComponent implements OnInit {
 
   private setResponseValue(): any{
     return {
-      id: this.id,
+      id: this.userId,
       name: this.user.name,
       surname: this.user.surname,
       profilePicture: this.user.profilePicture,

@@ -16,7 +16,7 @@ import { modelRegexValidator, platesRegexValidator, seatsRegexValidator } from '
 })
 export class ChangeVehicleInfoComponent implements OnInit {
 
-  id: number = 0;
+  driverId: number = 0;
 
   vehicle : Vehicle = {
     _id : 0,
@@ -78,7 +78,7 @@ export class ChangeVehicleInfoComponent implements OnInit {
 
   private saveDriverUpdate() {
     if (this.vehicleInfoForm.valid) {
-      this.requestDetailsService.addVehicleRequest(this.id, this.setResponseValue()).subscribe({
+      this.requestDetailsService.addVehicleRequest(this.driverId, this.setResponseValue()).subscribe({
         next: () => {
           this.router.navigate(['/account-driver']);
           this.sharedService.openResponseSnack();
@@ -104,7 +104,7 @@ export class ChangeVehicleInfoComponent implements OnInit {
 
   private getDriverId() {
     this.authService.getUser().subscribe((res) => {
-      this.id = this.authService.getId();
+      this.driverId = this.authService.getId();
     });
   }
 
@@ -121,7 +121,7 @@ export class ChangeVehicleInfoComponent implements OnInit {
   }
 
   private setVehicleData() {
-    this.vehicleService.getById(this.id).subscribe((res: any) => {
+    this.vehicleService.getById(this.driverId).subscribe((res: any) => {
       this.vehicle = res;
       this.vehicleInfoForm.setValue({
         model: res.model,

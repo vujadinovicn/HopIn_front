@@ -13,7 +13,7 @@ import { RequestDetailsService } from '../services/requestDetails.service';
 })
 export class UpdateRequestDetailsComponent implements OnInit {
 
-  id: number = 0;
+  requestId: number = 0;
   type: String = 'INFO';
   isRequestSelected: boolean = false;
 
@@ -82,7 +82,7 @@ export class UpdateRequestDetailsComponent implements OnInit {
 
   recieveRequest(): void {
     this.requestDetailsService.recieveRequest().subscribe((res) => { 
-      this.id = res.id;
+      this.requestId = res.id;
       this.type = res.type;
       this.getFromBack();
     });
@@ -101,14 +101,14 @@ export class UpdateRequestDetailsComponent implements OnInit {
   }
 
   private getPersonalInfoRequest() {
-    this.requestDetailsService.getInfoRequestById(this.id).subscribe((res) => {
+    this.requestDetailsService.getInfoRequestById(this.requestId).subscribe((res) => {
       this.setPersonalInfoFormValue(res);
       this.profileImgPath = res.profilePicture;
     });
   }
 
   private getVehicleRequest() {
-    this.requestDetailsService.getVehicleRequestById(this.id).subscribe((res) => {
+    this.requestDetailsService.getVehicleRequestById(this.requestId).subscribe((res) => {
       this.setVehicleInfoValue(res);
       this.isPetTransport = res.petTransport;
       this.isBabyTransport = res.babyTransport;
@@ -117,12 +117,12 @@ export class UpdateRequestDetailsComponent implements OnInit {
   }
 
   private getPasswordRequest() {
-    this.requestDetailsService.getPasswordRequestById(this.id).subscribe((res) => {
+    this.requestDetailsService.getPasswordRequestById(this.requestId).subscribe((res) => {
     });
   }
 
   private getDocumentRequest() {
-    this.requestDetailsService.getDocumentRequestById(this.id).subscribe((res) => {
+    this.requestDetailsService.getDocumentRequestById(this.requestId).subscribe((res) => {
       this.document.name = res.name;
       this.document.url = res.docuementImage;
       this.documentOperation = res.documentOperationType;
