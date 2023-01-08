@@ -30,7 +30,6 @@ export class ChangeVehicleInfoComponent implements OnInit {
   vehicleType : string = "car";
   isBabyTransport : boolean = false;
   isPetTransport: boolean = false;
-  role: string = "driver";
   id: number = 0;
 
   vehicleInfoForm = new FormGroup({
@@ -52,7 +51,6 @@ export class ChangeVehicleInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.getUser().subscribe((res) => {
-      this.role = res;
       this.id = this.authService.getId();
     })
 

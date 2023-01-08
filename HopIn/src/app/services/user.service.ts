@@ -19,20 +19,6 @@ export class UserService {
     return this.http.get<User>(environment.apiHost + '/driver/' + driverId);
   }
 
-  updateDriverPersonalInfo(driver: any): Observable<any> {
-    const options: any = {
-      responseType: 'json',
-    };
-    return this.http.put<string>(environment.apiHost + '/driver/2', driver, options);
-  }
-
-  updateDriverPassword(driver: any): Observable<any> {
-    const options: any = {
-      responseType: 'json',
-    };
-    return this.http.put<string>(environment.apiHost + '/driver/2', driver, options);
-  }
-
   registerPassenger(passenger: UserDTO): Observable<any> {
     const options: any = {
       responseType: 'json',

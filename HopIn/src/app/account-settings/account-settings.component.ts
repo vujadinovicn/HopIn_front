@@ -17,7 +17,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class AccountSettingsComponent implements OnInit {
 
-  role: string = "driver";
+  role: string = "ROLE_DRIVER";
   id : number = 0;
 
   user : User = {
