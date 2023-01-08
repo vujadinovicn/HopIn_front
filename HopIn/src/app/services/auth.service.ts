@@ -41,6 +41,16 @@ export class AuthService {
     return null;
   }
 
+  getEmail(): any {
+    if (this.isLoggedIn()) {
+      const accessToken: any = localStorage.getItem('user');
+      const helper = new JwtHelperService();
+      const role = helper.decodeToken(accessToken).email;
+      return role;
+    }
+    return null;
+  }
+
   getId(): any {
     if (this.isLoggedIn()) {
       const accessToken: any = localStorage.getItem('user');

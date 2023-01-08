@@ -1,3 +1,13 @@
 <!-- <ng-container *ngComponentOutlet="currentComponent"></ng-container> -->
-<pickup-destination-form></pickup-destination-form>
+<mat-horizontal-stepper [@.disabled]="true"  #stepper linear>
+    <mat-step label="Pickup and destination" completed="false">
+        <pickup-destination-form [stepper]="stepper"></pickup-destination-form>
+    </mat-step>
+    <mat-step label="Vehicle preferences" completed="false">
+        <vehicle-preferences-form [stepper]="stepper" ></vehicle-preferences-form>
+    </mat-step>
+    <mat-step label="Linking friends" [editable]="false">
+
+    </mat-step>
+</mat-horizontal-stepper>
 <vehicles-map></vehicles-map>

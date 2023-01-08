@@ -47,6 +47,7 @@ import { UpdateRequestsDisplayComponent } from './update-requests-display/update
 import { DriverRegisterPersonalInfoComponent } from './driver-register-personal-info/driver-register-personal-info.component';
 import { DriverRegisterComponent } from './driver-register/driver-register.component';
 import { RegistrationVerificationComponent } from './registration-verification/registration-verification.component';
+import { VehiclePreferencesFormComponent } from './vehicle-preferences-form/vehicle-preferences-form.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,8 @@ import { RegistrationVerificationComponent } from './registration-verification/r
     UpdateRequestsDisplayComponent,
     DriverRegisterPersonalInfoComponent,
     DriverRegisterComponent,
-    RegistrationVerificationComponent
+    RegistrationVerificationComponent,
+    VehiclePreferencesFormComponent
   ],
   imports: [
     BrowserModule,

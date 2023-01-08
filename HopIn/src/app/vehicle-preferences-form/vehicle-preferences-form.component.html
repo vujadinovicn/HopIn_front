@@ -1,0 +1,35 @@
+<div class="step-container border">
+    <h3 id="tell-us" class="dark-blue">What’s your vehicle type?</h3>
+    <form>
+        <div class="vehicle-type-container">
+            <button class="icon-button" [ngClass]="{'light-blue': vehicleType=='car'}" (click)="changeVehicleType('car')" mat-flat-button>
+                <i class='fas fa-car-side'></i>
+                <span>Car</span>
+            </button>
+            <button class="icon-button" [ngClass]="{'light-blue': vehicleType=='van'}" (click)="changeVehicleType('van')" mat-flat-button>
+                <i class='fas fa-shuttle-van'></i>
+                <span>Van</span>
+            </button>
+            <button class="icon-button" [ngClass]="{'light-blue': vehicleType=='luxury'}" (click)="changeVehicleType('luxury')" mat-flat-button>
+                <i class='fas fa-shuttle-van'></i>
+                <span>Luxury car</span>
+            </button>
+        </div>
+        <h4 class="dark-blue">Any special guests?</h4>
+        <div class="vehicle-checkbox-container">
+            <button class="icon-button smaller" [ngClass]="{'light-blue': isBabyTransport}" (click)="isBabyTransport = !isBabyTransport" mat-flat-button>
+                <i class='fas fa-baby'></i>
+                <span>vehicle for babies</span>
+            </button>
+            <button class="icon-button smaller" [ngClass]="{'light-blue': isPetTransport}" (click)="isPetTransport = !isPetTransport" mat-flat-button>
+                <i class='fas fa-dog'></i>
+                <span>vehicle for pets</span>
+            </button>
+        </div>
+        <div id="buttons-container">
+            <button id="order-ride-btn" class="conf-button" mat-raised-button type="button" (click)="orderRide()" >order ride</button>
+            <button id="next-step-btn" class="conf-button" mat-raised-button type="button" (click)="nextStep()" >next -></button>
+        </div>
+        
+    </form>
+</div>
