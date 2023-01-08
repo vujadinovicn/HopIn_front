@@ -27,14 +27,15 @@ export class VehiclePreferencesFormComponent implements OnInit {
 
   nextStep() {
     this.updateValues();
+
+    this.stepper.selected!.completed = true;
     this.stepper.next();
   }
 
   orderRide() {
     this.updateValues();
     this.setDefaultUser();
-    console.log("RUTA IZ ORDERA");
-    console.log(this.routingService.route.passengers);
+
     this.routingService.findRoute();
   }
 

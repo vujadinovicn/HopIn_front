@@ -82,8 +82,8 @@ export class PickupDestinationFormComponent implements OnInit {
       this.route.scheduledTime = this.rideForm.get('time')?.value!;
       this.routingService.route = this.route;
 
+      this.stepper.selected!.completed = true;
       this.stepper.next();
-        
     }
   }
 
