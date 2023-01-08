@@ -48,13 +48,13 @@ export class PickupDestinationFormComponent implements OnInit {
   listenToMarkers() {
     this.pickupDestinationService.receivedPickup().subscribe((address: ShortAddress) => {
       this.markerGenerated[0] = true;
-      this.rideForm.get("pickup")?.setValue(address.formatted);
+      this.rideForm.get("pickup")?.setValue(address.address);
       this.route.pickup = address;
     });
 
     this.pickupDestinationService.receivedDestination().subscribe((address: ShortAddress) => {
       this.markerGenerated[1] = true;
-      this.rideForm.get("destination")?.setValue(address.formatted);
+      this.rideForm.get("destination")?.setValue(address.address);
       this.route.destination = address;
     });
   }
@@ -91,9 +91,9 @@ export class PickupDestinationFormComponent implements OnInit {
     this.markerGenerated[0] = false;
     if (this.checkAutocompleteValidity(address, 0, 'pickup')) {
       this.route.pickup = {
-        formatted: address.formatted_address,
-        lat: address.geometry.location.lat(),
-        lng: address.geometry.location.lng(),
+        address: address.formatted_address,
+        latitude: address.geometry.location.lat(),
+        longitude: address.geometry.location.lng(),
       }
     }
   }
@@ -102,9 +102,9 @@ export class PickupDestinationFormComponent implements OnInit {
     this.markerGenerated[1] = false;
     if (this.checkAutocompleteValidity(address, 1, 'destination')) {
       this.route.destination = {
-        formatted: address.formatted_address,
-        lat: address.geometry.location.lat(),
-        lng: address.geometry.location.lng(),
+        address: address.formatted_address,
+        latitude: address.geometry.location.lat(),
+        longitude: address.geometry.location.lng(),
       }
     }
   }

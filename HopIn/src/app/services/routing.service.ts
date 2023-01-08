@@ -20,12 +20,6 @@ export class RoutingService {
     this.route.babyTransport = false;
     this.route.petTransport = false;
     this.route.vehicleTypeName = 'CAR';
-    this.route.passengers = [{
-      // id: this.authService.getId(),
-      // email: this.authService.getEmail()
-      id: 1,
-      email: 'tile'
-    }];
   }
 
   updateRoute(route: Route) {
@@ -50,12 +44,12 @@ export class RoutingService {
   
     let request: google.maps.DirectionsRequest = {
       origin: {
-        lat: this.route.pickup.lat,
-        lng: this.route.pickup.lng
+        lat: this.route.pickup.latitude,
+        lng: this.route.pickup.longitude
       },
       destination: {
-        lat: this.route.destination.lat,
-        lng: this.route.destination.lng
+        lat: this.route.destination.latitude,
+        lng: this.route.destination.longitude
       },
       travelMode: google.maps.TravelMode.DRIVING,
     };
@@ -105,9 +99,9 @@ export interface Route {
 }
 
 export interface ShortAddress {
-  formatted: string,
-  lat: number,
-  lng: number
+  address: string,
+  latitude: number,
+  longitude: number
 }
 
 export interface RidePassenger {

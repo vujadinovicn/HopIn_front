@@ -1,3 +1,4 @@
+import { AuthService } from './../services/auth.service';
 import { RoutingService } from './../services/routing.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatStepper } from '@angular/material/stepper';
@@ -15,7 +16,7 @@ export class VehiclePreferencesFormComponent implements OnInit {
   isBabyTransport : boolean = false;
   isPetTransport: boolean = false;
 
-  constructor(private routingService: RoutingService) { }
+  constructor(private routingService: RoutingService, private authService: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -31,8 +32,9 @@ export class VehiclePreferencesFormComponent implements OnInit {
 
   orderRide() {
     this.updateValues();
+    this.setDefaultUser();
     console.log("RUTA IZ ORDERA");
-    console.log(this.routingService.route);
+    console.log(this.routingService.route.passengers);
     this.routingService.findRoute();
   }
 
@@ -40,6 +42,13 @@ export class VehiclePreferencesFormComponent implements OnInit {
     this.routingService.route.babyTransport = this.isBabyTransport;
     this.routingService.route.petTransport = this.isPetTransport;
     this.routingService.route.vehicleTypeName = this.vehicleType.toUpperCase();
+  }
+
+  private setDefaultUser() {
+    this.routingService.route.passengers = [{
+      id: this.authService.getId(),
+      email: this.authService.getEmail()
+    }];
   }
 
 }
