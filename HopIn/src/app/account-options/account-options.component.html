@@ -7,15 +7,15 @@
       [ngClass]="{'dark-blue' : option == 'password', 'dark-gray': option != 'password'}">
         <span class="responsive-span">change</span> password
     </div>
-    <div class="account-options" (click)="selectOption('payment')" *ngIf="role == 'ROLE_PASSENGER'"
+    <div class="account-options" (click)="selectOption('payment')" *ngIf="userRole == 'ROLE_PASSENGER'"
     [ngClass]="{'dark-blue' : option == 'payment', 'dark-gray': option != 'payment'}">
         <span class="responsive-span">change</span> payment info
     </div>
     <div class="account-options" (click)="selectOption('vehicle')"
-    [ngClass]="{'dark-blue' : option == 'vehicle', 'dark-gray': option != 'vehicle'}" *ngIf="role == 'ROLE_DRIVER'">
+    [ngClass]="{'dark-blue' : option == 'vehicle', 'dark-gray': option != 'vehicle'}" *ngIf="userRole == 'ROLE_DRIVER'">
         <span class="responsive-span">change</span> vehicle info
     </div>
-    <div class="account-options" (click)="selectOption('documents')" *ngIf="role == 'ROLE_DRIVER'"
+    <div class="account-options" (click)="selectOption('documents')" *ngIf="userRole == 'ROLE_DRIVER'"
     [ngClass]="{'dark-blue' : option == 'documents', 'dark-gray': option != 'documents'}">
         <span class="responsive-span">change</span> documents
     </div>

@@ -29,12 +29,12 @@ export class DriverDocumentsComponent implements OnInit {
     private requestDetailsService: RequestDetailsService) { }
 
   ngOnInit(): void {
-    this.getDriverId();
+    this.setDriverId();
     if (this.parentComponent == "update")
       this.loadExistingDriverDocuments();
   }
 
-  private getDriverId() {
+  private setDriverId() {
     this.authService.getUser().subscribe((res) => {
       this.driverId = this.authService.getId();
     });

@@ -51,7 +51,7 @@ export class ChangeVehicleInfoComponent implements OnInit {
     private sharedService : SharedService) { }
 
   ngOnInit(): void {
-    this.getDriverId();
+    this.setDriverId();
     this.setBehaviorForParentComponent();
     markFormControlsTouched(this.vehicleInfoForm);
   }
@@ -102,7 +102,7 @@ export class ChangeVehicleInfoComponent implements OnInit {
     this.isFormValid.emit(this.vehicleInfoForm.valid);
   }
 
-  private getDriverId() {
+  private setDriverId() {
     this.authService.getUser().subscribe((res) => {
       this.driverId = this.authService.getId();
     });

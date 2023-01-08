@@ -34,12 +34,12 @@ export class DocumentAddUpdateDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getAdminId();
+    this.setAdminId();
     this.setImageData();
     this.setFormValue();
   }
 
-  private getAdminId() {
+  private setAdminId() {
     this.authService.getUser().subscribe((res) => {
       this.adminId = this.authService.getId();
     });

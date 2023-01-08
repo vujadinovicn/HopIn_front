@@ -53,7 +53,7 @@ export class ChangePasswordComponent implements OnInit {
               private sharedService: SharedService) { }
 
   ngOnInit(): void {
-    this.getRoleAndId();
+    this.setUserRoleAndId();
     this.generateMethodsForRole();
     this.setUserData();
     markFormControlsTouched(this.changePasswordForm);
@@ -90,7 +90,7 @@ export class ChangePasswordComponent implements OnInit {
     });;
   }
 
-  private getRoleAndId() {
+  private setUserRoleAndId() {
     this.authService.getUser().subscribe((res) => {
       this.userRole = res;
       this.userId = this.authService.getId();

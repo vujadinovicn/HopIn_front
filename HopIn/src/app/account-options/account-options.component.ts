@@ -12,14 +12,14 @@ import { UserService } from '../services/user.service';
 export class AccountOptionsComponent implements OnInit {
 
   option : string = "settings";
-  role: string = "ROLE_PASSENGER";
+  userRole: string = "ROLE_PASSENGER";
 
   constructor(private authService: AuthService,
     private passengerAccountOptionsService : PassengerAccountOptionsService) { }
 
   ngOnInit(): void {
     this.selectOption(this.option);
-    this.getRole();
+    this.setRole();
   }
 
   selectOption(option: string){
@@ -31,9 +31,9 @@ export class AccountOptionsComponent implements OnInit {
     this.passengerAccountOptionsService.sendSelectedOption(option);
   }
 
-  private getRole() {
+  private setRole() {
     this.authService.getUser().subscribe((res) => {
-      this.role = res;
+      this.userRole = res;
     });
   }
 }

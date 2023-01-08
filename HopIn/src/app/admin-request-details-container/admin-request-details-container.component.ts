@@ -26,12 +26,12 @@ export class AdminRequestDetailsContainerComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.getAdminId();
+    this.setAdminId();
     this.checkIfRequestIsSelected();
     this.recieveRequest();
   }
 
-  private getAdminId() {
+  private setAdminId() {
     this.authService.getUser().subscribe(() => {
       this.adminId = this.authService.getId();
     });

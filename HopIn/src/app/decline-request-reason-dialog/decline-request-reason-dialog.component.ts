@@ -23,10 +23,10 @@ export class DeclineRequestReasonDialogComponent implements OnInit {
   adminId: number = 0;
 
   ngOnInit(): void {
-    this.getAdminId();
+    this.setAdminId();
   }
 
-  private getAdminId() {
+  private setAdminId() {
     this.authService.getUser().subscribe((res) => {
       this.adminId = this.authService.getId();
     });

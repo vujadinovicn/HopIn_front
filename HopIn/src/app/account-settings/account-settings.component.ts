@@ -56,7 +56,7 @@ export class AccountSettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getRoleAndId();
+    this.setUserRoleAndId();
     this.generateMethodsForRole();
     this.setUserData();
     markFormControlsTouched(this.accountSettingsForm);
@@ -106,7 +106,7 @@ export class AccountSettingsComponent implements OnInit {
     }
   }
 
-  private getRoleAndId() {
+  private setUserRoleAndId() {
     this.authService.getUser().subscribe((res) => {
       this.userRole = res;
       this.userId = this.authService.getId();
