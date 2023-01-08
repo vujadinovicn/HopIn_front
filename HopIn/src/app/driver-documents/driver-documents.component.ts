@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DocumentUpdateDialogComponent } from '../document-update-dialog/document-update-dialog.component';
 import { DocumentDetailsDialogComponent } from '../document-details-dialog/document-details-dialog.component';
 import { DocumentReturned, DocumentService } from '../services/document.service';
-import { DocumentAddDialogComponent } from '../document-add-dialog/document-add-dialog.component';
+import { DocumentAddUpdateDialogComponent } from '../document-add-update-dialog/document-add-update-dialog.component';
 import { RequestDetailsService } from '../services/requestDetails.service';
 import { SharedService } from '../shared/shared.service';
 import { AuthService } from '../services/auth.service';
@@ -30,11 +29,15 @@ export class DriverDocumentsComponent implements OnInit {
     private requestDetailsService: RequestDetailsService) { }
 
   ngOnInit(): void {
-    this.authService.getUser().subscribe((res) => {
-      this.id = this.authService.getId();
-    })
+    this.getDriverId();
     if (this.parentComponent == "update")
       this.loadExistingDriverDocuments();
+  }
+
+  private getDriverId() {
+    this.authService.getUser().subscribe((res) => {
+      this.id = this.authService.getId();
+    });
   }
 
   private loadExistingDriverDocuments(){
@@ -52,10 +55,7 @@ export class DriverDocumentsComponent implements OnInit {
   }
 
   private deleteExistingDriverDocument(index: number) {
-    let document = {
-      name: "forDelete",
-      documentImage: "forDelete"
-    };
+    let document = this.setValueForDelete();
     this.requestDetailsService.sendDocumentRequest(this.id, 3, document, this.documents[index].id).subscribe({
       next: (res: any) => {
         this.sharedService.openSnack({
@@ -70,15 +70,27 @@ export class DriverDocumentsComponent implements OnInit {
     });
   }
 
+  private setValueForDelete() {
+    return {
+      name: "forDelete",
+      documentImage: "forDelete"
+    };
+  }
+
   openAddDocumentPopUp(): void {
-    let dialogRef = this.dialog.open(DocumentAddDialogComponent, {
-      data: {url: "../../assets/vectors/share.svg", parentComponent: this.parentComponent}
+    let dialogRef = this.dialog.open(DocumentAddUpdateDialogComponent, {
+      data: {action: "add", url: "../../assets/vectors/share.svg", parentComponent: this.parentComponent}
     });
-    dialogRef.afterClosed().subscribe(result => {
-      if(result.event == 'register'){
+    this.addDocumentDisplay(dialogRef);
+  }
+
+  private addDocumentDisplay(dialogRef: any) {
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result.event == 'register') {
         this.documents.push(result.data);
         this.sentDocument.emit(result.data);
-      }}
+      }
+    }
     );
   }
 
@@ -89,8 +101,8 @@ export class DriverDocumentsComponent implements OnInit {
   }
 
   openUpdateDocumentPopUp(index: number){
-    this.dialog.open(DocumentUpdateDialogComponent, {
-      data: {name: this.documents[index].name, url: this.documents[index].documentImage, id: this.documents[index].id, parentComponent: this.parentComponent},
+    this.dialog.open(DocumentAddUpdateDialogComponent, {
+      data: {action: "update", name: this.documents[index].name, url: this.documents[index].documentImage, id: this.documents[index].id, parentComponent: this.parentComponent},
     })
     this.updateDocumentDisplay(index);
   }

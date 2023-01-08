@@ -122,6 +122,8 @@ export class AccountSettingsComponent implements OnInit {
       this.methodsForRole.routerNavigation = () => this.router.navigate(['/account-passenger']);
     }else if (this.role == "ROLE_DRIVER") {
       this.methodsForRole.serviceSendToBackMethod = () => {
+        console.log("ss");
+        console.log(this.setResponseValue());
         return this.requestDetailsService.addInfoRequest(this.id, this.setResponseValue());
       }
       this.methodsForRole.serviceGetMethod = (id: number) => this.userService.getByDriverId(id);

@@ -35,8 +35,7 @@ import { AccountUpdateComponent } from './account-update/account-update.componen
 import { ChangeVehicleInfoComponent } from './change-vehicle-info/change-vehicle-info.component';
 import { DriverDocumentsComponent } from './driver-documents/driver-documents.component';
 import { DocumentDetailsDialogComponent } from './document-details-dialog/document-details-dialog.component';
-import { DocumentUpdateDialogComponent } from './document-update-dialog/document-update-dialog.component';
-import { DocumentAddDialogComponent } from './document-add-dialog/document-add-dialog.component';
+import { DocumentAddUpdateDialogComponent } from './document-add-update-dialog/document-add-update-dialog.component';
 import { AdminAccountComponent } from './admin-account/admin-account.component';
 import { RequestFeedbackComponent } from './request-feedback/request-feedback.component';
 import { DriverRequestDashboardComponent } from './driver-request-dashboard/driver-request-dashboard.component';
@@ -78,8 +77,7 @@ import { RegistrationVerificationComponent } from './registration-verification/r
     RequestFeedbackComponent,
     DriverRequestDashboardComponent,
     UpdateRequestDetailsComponent,
-    DocumentUpdateDialogComponent,
-    DocumentAddDialogComponent,
+    DocumentAddUpdateDialogComponent,
     DriverAccountComponent,
     AdminAccountComponent,
     AdminRequestDetailsContainerComponent,

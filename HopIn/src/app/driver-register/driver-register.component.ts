@@ -87,13 +87,8 @@ export class DriverRegisterComponent implements OnInit {
 
   private registerDriver() {
     this.driverService.add(this.driver).subscribe({
-      next: (res: any) => {
+      next: (res: User) => {
         this.driverId = res.id;
-        this.sharedService.openSnack({
-          value: "Response is in console!",
-          color: "back-green"
-        }
-        );
         this.addVehicle();
         this.addDocuments();
       },
@@ -104,13 +99,9 @@ export class DriverRegisterComponent implements OnInit {
   }
 
   private addVehicle() {
+    console.log(this.driverId);
     this.vehicleService.add(this.vehicle, this.driverId).subscribe({
       next: (res: any) => {
-        this.sharedService.openSnack({
-          value: "Response is in console!",
-          color: "back-green"
-        }
-        );
         console.log(res);
       },
       error: (error: any) => {
@@ -121,7 +112,6 @@ export class DriverRegisterComponent implements OnInit {
 
   private addDocuments(){
     for (let document of this.documents){
-      console.log(document);
       this.documentService.add(document, this.driverId).subscribe({
         next: (res: any) => {
           console.log(res);
@@ -131,5 +121,9 @@ export class DriverRegisterComponent implements OnInit {
         }
       });
     }
+    this.sharedService.openSnack({
+          value: "Response is in console!",
+          color: "back-green"
+        });
   }
 }
