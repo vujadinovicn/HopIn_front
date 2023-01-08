@@ -9,23 +9,13 @@ import { Component, OnInit, ɵsetAllowDuplicateNgModuleIdsForTest } from '@angul
 })
 export class OrderRideComponent implements OnInit {
 
-  componentStack: any[] = [PickupDestinationFormComponent];
-  currentComponent: any = this.componentStack[this.componentStack.length - 1];
+
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  public addComponent(component: any) {
-    alert(component);
-    if (component == "route-suggestion") {
-      this.componentStack.push(RouteSuggestionComponent);
-    } else {
-      if (component == "pickup-form") {
-        this.componentStack.pop();
-      }
-    }
-  }
+ 
 
 }

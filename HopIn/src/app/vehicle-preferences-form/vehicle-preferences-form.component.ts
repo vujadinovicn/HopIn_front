@@ -1,15 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-vehicle-preferences-form',
+  selector: 'vehicle-preferences-form',
   templateUrl: './vehicle-preferences-form.component.html',
   styleUrls: ['./vehicle-preferences-form.component.css']
 })
 export class VehiclePreferencesFormComponent implements OnInit {
 
+  vehicleType : string = "car";
+  isBabyTransport : boolean = false;
+  isPetTransport: boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  changeVehicleType(vehicleType: string) : void {
+    this.vehicleType = vehicleType.toLowerCase();
   }
 
 }

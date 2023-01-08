@@ -1,4 +1,4 @@
-::ng-deep pickup-destination-form {
+::ng-deep pickup-destination-form, vehicle-preferences-form {
     height: fit-content;
     width: fit-content;
     position: absolute;
@@ -49,6 +49,8 @@
     background-color: white;
     color: black;
 }
+
+
 
 @media screen and (max-width: 700px) {
     pickup-destination-form {
