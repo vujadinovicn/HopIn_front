@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { RoutingService } from './../services/routing.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'vehicle-preferences-form',
@@ -7,17 +9,37 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VehiclePreferencesFormComponent implements OnInit {
 
+  @Input() stepper: MatStepper = {} as MatStepper;
+
   vehicleType : string = "car";
   isBabyTransport : boolean = false;
   isPetTransport: boolean = false;
 
-  constructor() { }
+  constructor(private routingService: RoutingService) { }
 
   ngOnInit(): void {
   }
 
   changeVehicleType(vehicleType: string) : void {
     this.vehicleType = vehicleType.toLowerCase();
+  }
+
+  nextStep() {
+    this.updateValues();
+    this.stepper.next();
+  }
+
+  orderRide() {
+    this.updateValues();
+    console.log("RUTA IZ ORDERA");
+    console.log(this.routingService.route);
+    this.routingService.findRoute();
+  }
+
+  private updateValues() {
+    this.routingService.route.babyTransport = this.isBabyTransport;
+    this.routingService.route.petTransport = this.isPetTransport;
+    this.routingService.route.vehicleTypeName = this.vehicleType.toUpperCase();
   }
 
 }

@@ -32,6 +32,20 @@ form {
  } */
 
 
+#order-ride-btn {
+    background-color: #33A02C !important;
+    color: white;
+}
+
+#buttons-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#buttons-container button {
+    width: 35%;
+}
+
  .light-blue {
     color: #337D98;
     border: 2px solid #337D98;
@@ -41,7 +55,7 @@ form {
     font-size: 24px;
  }
 
- form > button {
+ form > button.icon-button {
     position: absolute;
     right: 50%;
     bottom: 0;

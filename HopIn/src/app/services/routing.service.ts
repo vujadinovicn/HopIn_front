@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject, Observable } from 'rxjs';
 import { UnregisteredRideSuggestionDTO, RouteService } from './route.service';
@@ -15,7 +16,17 @@ export class RoutingService {
   private directionsService: google.maps.DirectionsService = {} as google.maps.DirectionsService;
 
 
-  constructor(private routeService: RouteService) { }
+  constructor(private routeService: RouteService, private authService: AuthService) { 
+    this.route.babyTransport = false;
+    this.route.petTransport = false;
+    this.route.vehicleTypeName = 'CAR';
+    this.route.passengers = [{
+      // id: this.authService.getId(),
+      // email: this.authService.getEmail()
+      id: 1,
+      email: 'tile'
+    }];
+  }
 
   updateRoute(route: Route) {
     this.route = route;
@@ -56,8 +67,11 @@ export class RoutingService {
         this.route.distance= response?.routes[0].legs[0].distance?.value!;
         this.route.durationFormatted = response?.routes[0].legs[0].duration?.text!;
         this.route.duration = response?.routes[0].legs[0].duration?.value!;
-        console.log(response);
-        this.getRoutePrice(response);
+        if (this.authService.getRole() == 'ROLE_ANONYMUS') {
+          this.getRoutePrice(response);
+        } 
+        else 
+          this.updateRoute(this.route);
       }
     })  
   }
@@ -84,11 +98,19 @@ export interface Route {
   duration: number,
   durationFormatted: string,
   price: number,
-  vehicleTypeName: string
+  vehicleTypeName: string,
+  babyTransport: boolean,
+  petTransport: boolean,
+  passengers: RidePassenger[]
 }
 
 export interface ShortAddress {
   formatted: string,
   lat: number,
   lng: number
+}
+
+export interface RidePassenger {
+  id: number,
+  email: string
 }

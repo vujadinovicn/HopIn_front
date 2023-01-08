@@ -5,6 +5,7 @@
     z-index: 20;
     margin-top: 20px;
     margin-left: 20px;
+    left: -50%;
 }
 
 ::ng-deep mat-horizontal-stepper {
@@ -16,6 +17,7 @@
     background-color: black;
     
 }
+
 
 ::ng-deep .mat-horizontal-content-container {
     padding: 0 !important;
@@ -39,6 +41,9 @@
     background-color: #EC9A29 !important;
 }
 ::ng-deep .mat-step-header .mat-step-icon-state-edit {
+    background-color: #EC9A29 !important;
+}
+::ng-deep .mat-step-header .mat-step-icon-state-done {
     background-color: #EC9A29 !important;
 }
 ::ng-deep .mat-stepper-horizontal-line {

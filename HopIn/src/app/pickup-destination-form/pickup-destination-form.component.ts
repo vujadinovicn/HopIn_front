@@ -1,7 +1,8 @@
+import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
 import { ShortAddress, Route, RoutingService } from './../services/routing.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Address } from 'ngx-google-places-autocomplete/objects/address';
 import { autocompleteValidator } from '../validators/autocompleteValidator';
 import { schedulingValidator } from '../validators/schedulingValidator';
@@ -15,6 +16,8 @@ import { markFormControlsTouched } from '../validators/formGroupValidators';
   styleUrls: ['./pickup-destination-form.component.css']
 })
 export class PickupDestinationFormComponent implements OnInit {
+
+  @Input() stepper: MatStepper = {} as MatStepper;
 
   chosenAddress: Address[] = [];
 
@@ -33,7 +36,7 @@ export class PickupDestinationFormComponent implements OnInit {
   route: Route = {} as Route;
 
   constructor(private routingService: RoutingService, private router: Router,
-              private pickupDestinationService: PickupDestinationService ) { 
+              private pickupDestinationService: PickupDestinationService) { 
     this.role = 'USER';
   }
 
@@ -70,6 +73,17 @@ export class PickupDestinationFormComponent implements OnInit {
         this.router.navigate(['/route-suggestion']);
       });
       
+    }
+  }
+
+  nextStep() {
+    this.rideForm.markAllAsTouched();
+    if (this.rideForm.valid) {
+      this.route.scheduledTime = this.rideForm.get('time')?.value!;
+      this.routingService.route = this.route;
+
+      this.stepper.next();
+        
     }
   }
 
