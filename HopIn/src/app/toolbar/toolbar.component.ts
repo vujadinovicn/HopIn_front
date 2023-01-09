@@ -1,5 +1,5 @@
 import { AuthService } from './../services/auth.service';
-import { Component, ComponentFactoryResolver, NgModuleRef,  OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver, EventEmitter, NgModuleRef,  OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class ToolbarComponent implements OnInit {
 
   role: any;
+  checked: boolean = true;
 
   constructor(private authService: AuthService,
     private router: Router) { 
@@ -34,6 +35,11 @@ export class ToolbarComponent implements OnInit {
   
       navbarMenu.style.display = 'flex'
     })
+  }
+
+  toggleChange(): void {
+    !this.checked;
+    console.log(this.checked);
   }
 
   logout(): void {
