@@ -1,3 +1,4 @@
+import { WorkingHours, WorkingHoursService } from './../services/working-hours.service';
 import { AuthService } from './../services/auth.service';
 import { Component, ComponentFactoryResolver, EventEmitter, NgModuleRef,  OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
@@ -10,12 +11,22 @@ import { Router } from '@angular/router';
 export class ToolbarComponent implements OnInit {
 
   role: any;
-  checked: boolean = true;
+  checked: boolean = false;
+  workingHours: WorkingHours = {
+    id: 0,
+    start: '',
+    end: ''
+  }
 
   constructor(private authService: AuthService,
-    private router: Router) { 
+    private router: Router,
+    private workingHoursService: WorkingHoursService) { 
     this.authService.getUser().subscribe((res) => {
       this.role = res;
+      if (this.role === 'ROLE_DRIVER') {
+        this.checked = true;
+        this.toggleChange();
+      }
     })
   }
 
@@ -39,12 +50,31 @@ export class ToolbarComponent implements OnInit {
 
   toggleChange(): void {
     !this.checked;
-    console.log(this.checked);
+
+    console.log(this.checked)
+    if (this.checked === true) {
+      this.workingHoursService.startCounting(this.authService.getId()).subscribe((res) => {
+        this.workingHours = res;
+        console.log(this.workingHours);
+      });    
+    } else {
+      this.workingHoursService.endCounting(this.workingHours.id).subscribe((res) => {
+        this.workingHours = res;
+        console.log(this.workingHours);
+      });
+    }
+
   }
 
   logout(): void {
     localStorage.removeItem('user');
     this.authService.setUser();
+    if (this.checked === true) {
+      this.workingHoursService.endCounting(this.workingHours.id).subscribe((res) => {
+        this.workingHours = res;
+        console.log(this.workingHours);
+      });    
+    }
     this.router.navigate(['login']);
   }
 
