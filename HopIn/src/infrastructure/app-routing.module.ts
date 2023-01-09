@@ -1,3 +1,4 @@
+import { InviteFriendsFormComponent } from './../app/invite-friends-form/invite-friends-form.component';
 import { RegistrationVerificationComponent } from './../app/registration-verification/registration-verification.component';
 import { DriverRequestDashboardComponent } from './../app/driver-request-dashboard/driver-request-dashboard.component';
 import { RouteSuggestionComponent } from './../app/route-suggestion/route-suggestion.component';
@@ -32,7 +33,7 @@ const routes: Routes = [
   {path: 'account-settings', component: AccountUpdateComponent},
   {path: 'change-password', component: ChangePasswordComponent},
   {path:'change-payment-info', component: ChangePaymentInfoComponent},
-  {path: '**', component: LandingComponent}
+  {path: '**', component: InviteFriendsFormComponent}
 ];
 
 @NgModule({

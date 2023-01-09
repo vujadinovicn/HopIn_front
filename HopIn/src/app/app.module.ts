@@ -1,4 +1,6 @@
-import { NgModule } from '@angular/core';
+import { AuthService } from './services/auth.service';
+import { SocketService } from './services/socket.service';
+import { NgModule, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from '../infrastructure/app-routing.module';
@@ -49,6 +51,7 @@ import { DriverRegisterComponent } from './driver-register/driver-register.compo
 import { RegistrationVerificationComponent } from './registration-verification/registration-verification.component';
 import { VehiclePreferencesFormComponent } from './vehicle-preferences-form/vehicle-preferences-form.component';
 import { InviteFriendsFormComponent } from './invite-friends-form/invite-friends-form.component';
+import { InviteDialogComponent } from './invite-dialog/invite-dialog.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +94,8 @@ import { InviteFriendsFormComponent } from './invite-friends-form/invite-friends
     DriverRegisterComponent,
     RegistrationVerificationComponent,
     VehiclePreferencesFormComponent,
-    InviteFriendsFormComponent
+    InviteFriendsFormComponent,
+    InviteDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -107,7 +111,16 @@ import { InviteFriendsFormComponent } from './invite-friends-form/invite-friends
     GooglePlaceModule,
     CommonModule
   ],
-  providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline', hideRequiredMarker: 'true' }}],
+  providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline', hideRequiredMarker: 'true' }}, SocketService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+  constructor(private socketService: SocketService, private authService: AuthService) {
+    this.authService.getUser().subscribe((user) => {
+      this.socketService.closeWebSocketConnection();
+      if (user != null) {
+        this.socketService.openWebSocketConnection();
+      }
+    });
+  }
+}

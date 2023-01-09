@@ -25,7 +25,7 @@ export class RouteService {
         return this.http.post<RideDTO>(environment.apiHost + '/ride', ride, this.httpOptions);
     }
 
-    private toRideDto(route: Route): RideDTO {
+    public toRideDto(route: Route): RideDTO {
         return {
             locations: [route.pickup, route.destination],
             passengers: route.passengers,

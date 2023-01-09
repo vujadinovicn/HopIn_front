@@ -1,3 +1,9 @@
+import { UserService } from './../services/user.service';
+import { AuthService } from './../services/auth.service';
+import { Routes } from '@angular/router';
+import { RouteService } from './../services/route.service';
+import { RoutingService } from './../services/routing.service';
+import { SocketService } from './../services/socket.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SharedService } from './../shared/shared.service';
 import { PassengerService } from './../services/passenger.service';
@@ -5,6 +11,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { markFormControlsTouched } from '../validators/formGroupValidators';
 import { User } from '../services/user.service';
+
+import * as Stomp from 'stompjs';
+import * as SockJS from 'sockjs-client';
 
 @Component({
   selector: 'invite-friends-form',
@@ -21,7 +30,9 @@ export class InviteFriendsFormComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email])
   });
 
-  constructor(private passengerService: PassengerService, private sharedService: SharedService) { }
+  constructor(private passengerService: PassengerService, private sharedService: SharedService,
+    private socketService: SocketService, private routingService: RoutingService, private routeService: RouteService,
+    private authService: AuthService, private userService: UserService) { }
 
   ngOnInit(): void {
     markFormControlsTouched(this.inviteForm);
@@ -64,7 +75,21 @@ export class InviteFriendsFormComponent implements OnInit {
   }
 
   sendInvites() {
+    console.log(this.authService.getId());
+    this.userService.getByPassengerId(this.authService.getId()).subscribe({
+    next: (user) => {
+      let from = user;
 
+      this.passengers.forEach(passenger => {
+        this.socketService.sendInvite({from: from, ride: this.routeService.toRideDto(this.routingService.route)}, passenger.id);
+      });
+    },
+    error: (err) => {
+      this.sharedService.openSnack({
+        value: "An error occured while trying to send invites.",
+        color: "back-red"
+      });
+    }});
   }
 
 
