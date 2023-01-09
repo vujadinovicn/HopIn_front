@@ -73,6 +73,10 @@ form {
 
 }
 
+.display {
+    display: block !important;
+}
+
 .add-button {
     transform: scale(1.5);
     color: #337D98;
