@@ -27,6 +27,16 @@ export class AuthService {
     });
   }
 
+  refresh(): Observable<TokenDTO> {
+    const tokens = {
+      accessToken: localStorage.getItem('user'),
+      refreshToken: localStorage.getItem('refreshToken'),
+    };
+    return this.http.post<TokenDTO>(environment.apiHost + '/user/refresh', tokens, {
+      headers: this.headers,
+    });
+  }
+
   getUser(): Observable<any> {
     return this.user$;
   }
@@ -86,9 +96,13 @@ export class AuthService {
     return localStorage.getItem('user');
   }
 
+  getRefreshToken() {
+    return localStorage.getItem('refreshToken');
+  }
+
 }
 
 export interface TokenDTO {
     accessToken: Token;
-    expiresIn: number;
+    refreshToken: Token;
 }
