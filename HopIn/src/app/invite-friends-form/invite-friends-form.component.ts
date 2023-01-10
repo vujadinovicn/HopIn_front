@@ -3,7 +3,7 @@ import { AuthService } from './../services/auth.service';
 import { Routes } from '@angular/router';
 import { RouteService } from './../services/route.service';
 import { RoutingService } from './../services/routing.service';
-import { SocketService } from './../services/socket.service';
+import { SocketService, InviteResponse } from './../services/socket.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SharedService } from './../shared/shared.service';
 import { PassengerService } from './../services/passenger.service';
@@ -24,11 +24,14 @@ export class InviteFriendsFormComponent implements OnInit {
 
   hasOthers: boolean = false;
 
-  passengers: User[] = [];
+  passengersInvited: User[] = [];
+  invitationResponses: (boolean | null)[] = [];
 
   inviteForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email])
   });
+
+  invitationSent: boolean = false;
 
   constructor(private passengerService: PassengerService, private sharedService: SharedService,
     private socketService: SocketService, private routingService: RoutingService, private routeService: RouteService,
@@ -40,11 +43,22 @@ export class InviteFriendsFormComponent implements OnInit {
 
   addPassenger() {
     this.passengerService.findByEmail(this.inviteForm.value.email!).subscribe({
-      next: (passenger) => {
-        if (!this.hasOthers) {
-          this.showLinkedFriends();
+      next: (passenger: User) => {
+
+        if (passenger.id != this.authService.getId()) {
+          if (!this.hasOthers) {
+            this.showLinkedFriends();
+          }
+          this.passengersInvited.push(passenger);
         }
-        this.passengers.push(passenger);
+        else {
+          this.sharedService.openSnack({
+            value: "Can't send invite to yourself.",
+            color: "back-red"
+          });
+        }
+
+       
       }, 
       error: (err: HttpErrorResponse) => {
         if (err.status == 404)
@@ -66,23 +80,33 @@ export class InviteFriendsFormComponent implements OnInit {
   }
 
   removePassenger(i: number) {
-    this.passengers.splice(i, 1);
-    console.log(this.passengers);
+    this.passengersInvited.splice(i, 1);
+    console.log(this.passengersInvited);
   }
 
   orderRide() {
-
+    console.log(this.routingService.route);
+    this.socketService.unsubscribeFromInviteResponse();
   }
 
   sendInvites() {
-    console.log(this.authService.getId());
     this.userService.getByPassengerId(this.authService.getId()).subscribe({
     next: (user) => {
       let from = user;
 
-      this.passengers.forEach(passenger => {
-        this.socketService.sendInvite({from: from, ride: this.routeService.toRideDto(this.routingService.route)}, passenger.id);
+      this.socketService.receivedInviteResponse().subscribe((response: InviteResponse) => {
+        response.response? this.passengerAccepted(response.passengerId) : this.passengerDeclined(response.passengerId);
       });
+
+      this.invitationSent = true;
+
+      this.routingService.setDefaultUser();
+
+      this.passengersInvited.forEach(passenger => {
+        this.socketService.sendInvite({from: from, ride: this.routeService.toRideDto(this.routingService.route)}, passenger.id);
+        this.invitationResponses.push(null);
+      });
+
     },
     error: (err) => {
       this.sharedService.openSnack({
@@ -92,5 +116,23 @@ export class InviteFriendsFormComponent implements OnInit {
     }});
   }
 
+  private passengerAccepted(id: number) {
+    let passenger = this.passengersInvited.find(x => x.id == id);
+
+    if (passenger != undefined) {
+      let i = this.passengersInvited.indexOf(passenger);
+      this.routingService.route.passengers.push({id: passenger.id, email: passenger.email});
+      this.invitationResponses[i] = true;
+    }
+  }
+
+  private passengerDeclined(id: number) {
+    let passenger = this.passengersInvited.find(x => x.id == id);
+
+    if (passenger != undefined) {
+      let i = this.passengersInvited.indexOf(passenger);
+      this.invitationResponses[i] = false;
+    }
+  }
 
 }

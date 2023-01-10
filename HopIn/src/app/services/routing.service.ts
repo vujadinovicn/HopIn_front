@@ -81,6 +81,13 @@ export class RoutingService {
       this.updateResponse(response);
     });
   }
+
+  setDefaultUser() {
+    this.route.passengers = [{
+      id: this.authService.getId(),
+      email: this.authService.getEmail()
+    }];
+  }
 }
 
 export interface Route {

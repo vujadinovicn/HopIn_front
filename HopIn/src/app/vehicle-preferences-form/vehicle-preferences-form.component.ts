@@ -34,7 +34,7 @@ export class VehiclePreferencesFormComponent implements OnInit {
 
   orderRide() {
     this.updateValues();
-    this.setDefaultUser();
+    this.routingService.setDefaultUser();
 
     this.routingService.findRoute();
   }
@@ -45,11 +45,6 @@ export class VehiclePreferencesFormComponent implements OnInit {
     this.routingService.route.vehicleTypeName = this.vehicleType.toUpperCase();
   }
 
-  private setDefaultUser() {
-    this.routingService.route.passengers = [{
-      id: this.authService.getId(),
-      email: this.authService.getEmail()
-    }];
-  }
+  
 
 }
