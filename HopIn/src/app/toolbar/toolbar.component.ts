@@ -1,7 +1,8 @@
 import { WorkingHours, WorkingHoursService } from './../services/working-hours.service';
 import { AuthService } from './../services/auth.service';
 import { Component, ComponentFactoryResolver, EventEmitter, NgModuleRef,  OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'toolbar',
@@ -21,16 +22,12 @@ export class ToolbarComponent implements OnInit {
   constructor(private authService: AuthService,
     private router: Router,
     private workingHoursService: WorkingHoursService) { 
-    this.authService.getUser().subscribe((res) => {
-      this.role = res;
-      if (this.role === 'ROLE_DRIVER') {
-        this.checked = true;
-        this.toggleChange();
-      }
-    })
   }
 
   ngOnInit(): void {
+    this.authService.getUser().subscribe((res) => {
+      this.role = res;
+    })
     this.handleSmallScreens();
   }
 
@@ -41,7 +38,7 @@ export class ToolbarComponent implements OnInit {
   
       if (navbarMenu.style.display === 'flex') {
         navbarMenu.style.display = 'none'
-        return
+        return 
       }
   
       navbarMenu.style.display = 'flex'
@@ -51,7 +48,7 @@ export class ToolbarComponent implements OnInit {
   toggleChange(): void {
     !this.checked;
 
-    console.log(this.checked)
+    console.log(this.checked) 
     if (this.checked === true) {
       this.workingHoursService.startCounting(this.authService.getId()).subscribe((res) => {
         this.workingHours = res;
@@ -63,7 +60,7 @@ export class ToolbarComponent implements OnInit {
         console.log(this.workingHours);
       });
     }
-
+ 
   }
 
   logout(): void {
@@ -71,8 +68,8 @@ export class ToolbarComponent implements OnInit {
     this.authService.setUser();
     if (this.checked === true) {
       this.workingHoursService.endCounting(this.workingHours.id).subscribe((res) => {
-        this.workingHours = res;
-        console.log(this.workingHours);
+        this.workingHours = res; 
+        this.checked = false;
       });    
     }
     this.router.navigate(['login']);
