@@ -1,3 +1,4 @@
+import { OrderRideNotregisteredComponent } from './../app/order-ride-notregistered/order-ride-notregistered.component';
 import { InviteFriendsFormComponent } from './../app/invite-friends-form/invite-friends-form.component';
 import { RegistrationVerificationComponent } from './../app/registration-verification/registration-verification.component';
 import { DriverRequestDashboardComponent } from './../app/driver-request-dashboard/driver-request-dashboard.component';
@@ -25,6 +26,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'verify', component: RegistrationVerificationComponent},
   {path: 'order-ride', component: OrderRideComponent},
+  {path: 'order-ride-unreg', component: OrderRideNotregisteredComponent},
   {path: 'route-suggestion', component: RouteSuggestionComponent},
   {path: 'request-dashboard', component: DriverRequestDashboardComponent},
   {path: 'account-driver', component: DriverAccountComponent},
