@@ -50,6 +50,8 @@ import { DriverRegisterPersonalInfoComponent } from './driver-register-personal-
 import { DriverRegisterComponent } from './driver-register/driver-register.component';
 import { RegistrationVerificationComponent } from './registration-verification/registration-verification.component';
 import { VehiclePreferencesFormComponent } from './vehicle-preferences-form/vehicle-preferences-form.component';
+import { TokenInterceptor } from './interceptor/TokenInterceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InviteFriendsFormComponent } from './invite-friends-form/invite-friends-form.component';
 import { InviteDialogComponent } from './invite-dialog/invite-dialog.component';
 import { RouteSuggestionDetailsComponent } from './route-suggestion-details/route-suggestion-details.component';
@@ -116,6 +118,11 @@ import { OrderRideNotregisteredComponent } from './order-ride-notregistered/orde
     CommonModule
   ],
   providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline', hideRequiredMarker: 'true' }}, SocketService],
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  },],
   bootstrap: [AppComponent]
 })
 export class AppModule { 

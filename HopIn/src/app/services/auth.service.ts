@@ -27,6 +27,16 @@ export class AuthService {
     });
   }
 
+  refresh(): Observable<TokenDTO> {
+    const tokens = {
+      accessToken: localStorage.getItem('user'),
+      refreshToken: localStorage.getItem('refreshToken'),
+    };
+    return this.http.post<TokenDTO>(environment.apiHost + '/user/refresh', tokens, {
+      headers: this.headers,
+    });
+  }
+
   getUser(): Observable<any> {
     return this.user$;
   }
@@ -52,6 +62,16 @@ export class AuthService {
     return null;
   }
 
+  isTokenExpired(): any {
+    if (this.isLoggedIn()) {
+      const accessToken: any = localStorage.getItem('user');
+      const helper = new JwtHelperService();
+      return helper.isTokenExpired(accessToken);
+      
+    }
+    return false;
+  }
+
   getId(): any {
     if (this.isLoggedIn()) {
       const accessToken: any = localStorage.getItem('user');
@@ -73,9 +93,17 @@ export class AuthService {
     this.user$.next(this.getRole());
   }
 
+  getToken() {
+    return localStorage.getItem('user');
+  }
+
+  getRefreshToken() {
+    return localStorage.getItem('refreshToken');
+  }
+
 }
 
 export interface TokenDTO {
     accessToken: Token;
-    expiresIn: number;
+    refreshToken: Token;
 }
