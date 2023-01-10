@@ -52,6 +52,7 @@ import { RegistrationVerificationComponent } from './registration-verification/r
 import { VehiclePreferencesFormComponent } from './vehicle-preferences-form/vehicle-preferences-form.component';
 import { InviteFriendsFormComponent } from './invite-friends-form/invite-friends-form.component';
 import { InviteDialogComponent } from './invite-dialog/invite-dialog.component';
+import { RouteSuggestionDetailsComponent } from './route-suggestion-details/route-suggestion-details.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +96,8 @@ import { InviteDialogComponent } from './invite-dialog/invite-dialog.component';
     RegistrationVerificationComponent,
     VehiclePreferencesFormComponent,
     InviteFriendsFormComponent,
-    InviteDialogComponent
+    InviteDialogComponent,
+    RouteSuggestionDetailsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,4 @@
+import { Route } from './routing.service';
 import { InviteDialogComponent } from './../invite-dialog/invite-dialog.component';
 import { RideDTO } from './route.service';
 import { AuthService } from './auth.service';
@@ -66,7 +67,9 @@ export class SocketService {
                 let invite: RideInvite = JSON.parse(message.body);
 
                 this.dialog.open(InviteDialogComponent, {
-                    data: {invite: invite}
+                    data: {invite: invite},
+                    width: 'fit-content',
+                    height : 'fit-content'
                 });
             });
         });
@@ -82,7 +85,7 @@ export class SocketService {
 
 export interface RideInvite {
     from: User,
-    ride: RideDTO
+    route: Route
 }
 
 export interface InviteResponse {

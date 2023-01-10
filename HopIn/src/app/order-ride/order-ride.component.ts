@@ -12,17 +12,14 @@ import { MatStepper } from '@angular/material/stepper';
 })
 export class OrderRideComponent implements OnInit {
 
+  isEditable: boolean = true;
+
   rideForm: FormGroup = {} as FormGroup;
   @ViewChild('stepper') private stepper: MatStepper = {} as MatStepper;
 
   constructor(private routingService: RoutingService) { }
 
   ngOnInit(): void {
-    this.routingService.receivedRoute().subscribe((response) => {
-      console.log(response);
-    });
-
-    console.log(this.rideForm);
   }
 
  

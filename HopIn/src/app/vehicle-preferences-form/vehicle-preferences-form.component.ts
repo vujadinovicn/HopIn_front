@@ -1,6 +1,6 @@
 import { AuthService } from './../services/auth.service';
 import { RoutingService } from './../services/routing.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatStepper } from '@angular/material/stepper';
 
 @Component({
@@ -10,6 +10,7 @@ import { MatStepper } from '@angular/material/stepper';
 })
 export class VehiclePreferencesFormComponent implements OnInit {
 
+  @Output() disableOtherStepsEvent = new EventEmitter<boolean>();
   @Input() stepper: MatStepper = {} as MatStepper;
 
   vehicleType : string = "car";
@@ -29,6 +30,7 @@ export class VehiclePreferencesFormComponent implements OnInit {
     this.updateValues();
 
     this.stepper.selected!.completed = true;
+    this.disableOtherStepsEvent.emit(true);
     this.stepper.next();
   }
 

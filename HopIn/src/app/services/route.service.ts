@@ -27,7 +27,7 @@ export class RouteService {
 
     public toRideDto(route: Route): RideDTO {
         return {
-            locations: [route.pickup, route.destination],
+            locations: [{"departure": route.pickup, "destination": route.destination}],
             passengers: route.passengers,
             vehicleType: route.vehicleTypeName,
             babyTransport: route.babyTransport,
@@ -46,8 +46,13 @@ export interface UnregisteredRideSuggestionDTO {
     distance: number
 }
 
+export interface Location {
+    departure: ShortAddress,
+    destination:ShortAddress
+}
+
 export interface RideDTO {
-    locations: ShortAddress[],
+    locations: Location[],
     passengers: RidePassenger[],
     vehicleType: string,
     babyTransport: boolean,

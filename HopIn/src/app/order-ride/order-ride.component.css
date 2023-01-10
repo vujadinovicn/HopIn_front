@@ -110,7 +110,11 @@
         height: 305px;
     }
 
-    ::ng-deep vehicle-preferences-form, invite-friends-form {
+    ::ng-deep invite-friends-form {
+        margin-top: 0;
+    }
+
+    ::ng-deep vehicle-preferences-form {
         margin-top: 0;
         width: 100%;
         position: relative;

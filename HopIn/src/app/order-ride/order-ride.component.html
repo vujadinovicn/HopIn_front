@@ -1,12 +1,12 @@
 <!-- <ng-container *ngComponentOutlet="currentComponent"></ng-container> -->
 <mat-horizontal-stepper [@.disabled]="true"  #stepper linear>
-    <mat-step label="Pickup and destination" completed="false">
+    <mat-step label="Pickup and destination" completed="false" [editable]="isEditable">
         <pickup-destination-form [stepper]="stepper"></pickup-destination-form>
     </mat-step>
-    <mat-step label="Vehicle preferences" completed="false">
-        <vehicle-preferences-form [stepper]="stepper" ></vehicle-preferences-form>
+    <mat-step label="Vehicle preferences" completed="false" [editable]="isEditable">
+        <vehicle-preferences-form [stepper]="stepper" (disableOtherStepsEvent)="isEditable = false"></vehicle-preferences-form>
     </mat-step>
-    <mat-step label="Linking friends" [editable]="false">
+    <mat-step label="Linking friends">
         <invite-friends-form></invite-friends-form>
     </mat-step>
 </mat-horizontal-stepper>

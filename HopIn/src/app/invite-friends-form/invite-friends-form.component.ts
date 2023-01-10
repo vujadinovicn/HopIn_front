@@ -1,14 +1,15 @@
+import { Subscription } from 'rxjs';
 import { UserService } from './../services/user.service';
 import { AuthService } from './../services/auth.service';
-import { Routes } from '@angular/router';
+
 import { RouteService } from './../services/route.service';
-import { RoutingService } from './../services/routing.service';
+import { Route, RoutingService } from './../services/routing.service';
 import { SocketService, InviteResponse } from './../services/socket.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SharedService } from './../shared/shared.service';
 import { PassengerService } from './../services/passenger.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { markFormControlsTouched } from '../validators/formGroupValidators';
 import { User } from '../services/user.service';
 
@@ -85,8 +86,11 @@ export class InviteFriendsFormComponent implements OnInit {
   }
 
   orderRide() {
-    console.log(this.routingService.route);
     this.socketService.unsubscribeFromInviteResponse();
+    console.log(this.routingService.route);
+    this.routeService.createRide(this.routingService.route).subscribe((res) => {
+      console.log(res);
+    });
   }
 
   sendInvites() {
@@ -98,12 +102,10 @@ export class InviteFriendsFormComponent implements OnInit {
         response.response? this.passengerAccepted(response.passengerId) : this.passengerDeclined(response.passengerId);
       });
 
-      this.invitationSent = true;
-
       this.routingService.setDefaultUser();
 
       this.passengersInvited.forEach(passenger => {
-        this.socketService.sendInvite({from: from, ride: this.routeService.toRideDto(this.routingService.route)}, passenger.id);
+        this.socketService.sendInvite({from: from, route: this.routingService.route}, passenger.id);
         this.invitationResponses.push(null);
       });
 
@@ -114,6 +116,29 @@ export class InviteFriendsFormComponent implements OnInit {
         color: "back-red"
       });
     }});
+  }
+
+  populateRide(type: string) {
+    if (type == 'invites') {
+      this.invitationSent = true;
+      this.routingService.invite = true;
+      this.routingService.findRoute();
+      let sub: Subscription = this.routingService.receivedRoute().subscribe((route: Route) => {
+        this.sendInvites();
+        this.routingService.invite = false;
+        sub.unsubscribe();
+      });
+    } else {
+      if (type == 'order') {
+        this.routingService.findRoute();
+        let sub: Subscription = this.routingService.receivedRoute().subscribe((route: Route) => {
+          this.orderRide();
+          sub.unsubscribe();
+        });
+      }
+    }
+    
+    
   }
 
   private passengerAccepted(id: number) {

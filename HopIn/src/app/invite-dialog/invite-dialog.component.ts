@@ -15,7 +15,9 @@ export class InviteDialogComponent implements OnInit {
     private authService: AuthService,
     public dialogRef: MatDialogRef<InviteDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+  ) {
+    dialogRef.disableClose = true;
+  }
 
   ngOnInit(): void {
   }
