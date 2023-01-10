@@ -51,6 +51,16 @@ export class AuthService {
     return null;
   }
 
+  isTokenExpired(): any {
+    if (this.isLoggedIn()) {
+      const accessToken: any = localStorage.getItem('user');
+      const helper = new JwtHelperService();
+      return helper.isTokenExpired(accessToken);
+      
+    }
+    return false;
+  }
+
   getId(): any {
     if (this.isLoggedIn()) {
       const accessToken: any = localStorage.getItem('user');
@@ -70,6 +80,10 @@ export class AuthService {
 
   setUser(): void {
     this.user$.next(this.getRole());
+  }
+
+  getToken() {
+    return localStorage.getItem('user');
   }
 
 }
