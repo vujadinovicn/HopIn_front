@@ -21,19 +21,36 @@ export class RouteService {
     }
 
     createRide(route: Route) {
+        console.log(route);
         let ride = this.toRideDto(route);
-        return this.http.post<RideDTO>(environment.apiHost + '/ride', ride, this.httpOptions);
+        console.log(ride);
+        return this.http.post<any>(environment.apiHost + '/ride', ride, this.httpOptions);
     }
 
-    private toRideDto(route: Route): RideDTO {
+    convertScheduledTime(scheduledTime: string): Date | null {
+        if (scheduledTime != "") {
+            let time = new Date();
+            let timeSplit = scheduledTime.split(":");
+            time.setHours(+timeSplit[0]);
+            time.setMinutes(+timeSplit[1]);
+            if (time < new Date()) {
+                time.setDate(time.getDate() + 1);
+            }
+            return time;
+        } else {
+            return null;
+        }
+    }
+
+    public toRideDto(route: Route): RideDTO {
         return {
-            locations: [route.pickup, route.destination],
+            locations: [{"departure": route.pickup, "destination": route.destination}],
             passengers: route.passengers,
             vehicleType: route.vehicleTypeName,
             babyTransport: route.babyTransport,
             petTransport: route.petTransport,
             //
-            scheduledTime: route.scheduledTime,
+            scheduledTime: this.convertScheduledTime(route.scheduledTime),
             distance: route.distance,
             duration: route.duration,
             price: route.price
@@ -46,15 +63,22 @@ export interface UnregisteredRideSuggestionDTO {
     distance: number
 }
 
+export interface Location {
+    departure: ShortAddress,
+    destination:ShortAddress
+}
+
 export interface RideDTO {
-    locations: ShortAddress[],
+    locations: Location[],
     passengers: RidePassenger[],
     vehicleType: string,
     babyTransport: boolean,
     petTransport: boolean,
     //
-    scheduledTime: string,
+    scheduledTime: Date | null,
     distance: number,
     duration: number,
     price: number,
 }
+
+

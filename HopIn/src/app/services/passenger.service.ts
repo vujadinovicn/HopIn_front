@@ -11,6 +11,10 @@ export class PassengerService {
 
     constructor(private http: HttpClient) {}
 
+    findByEmail(email: string) : Observable<any> {
+        return this.http.get<any>(environment.apiHost + "/passenger/email/" + email);
+    }
+
     verifyRegistration(code: string) : Observable<any> {
         return this.http.get<any>(environment.apiHost + "/passenger/verify?code=" + code);
     }
