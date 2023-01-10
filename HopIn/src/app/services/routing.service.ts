@@ -14,6 +14,7 @@ export class RoutingService {
   public response = new BehaviorSubject<any>({});
 
   private directionsService: google.maps.DirectionsService = {} as google.maps.DirectionsService;
+  invite: boolean = false;
 
 
   constructor(private routeService: RouteService, private authService: AuthService) { 
@@ -61,13 +62,8 @@ export class RoutingService {
         this.route.distance= response?.routes[0].legs[0].distance?.value!;
         this.route.durationFormatted = response?.routes[0].legs[0].duration?.text!;
         this.route.duration = response?.routes[0].legs[0].duration?.value!;
-        if (this.authService.getRole() == 'ROLE_ANONYMUS') {
-          this.getRoutePrice(response);
-        } 
-        else 
-          this.updateRoute(this.route);
-      }
-    })  
+        this.getRoutePrice(response);
+    }})  
   }
 
   getRoutePrice(response: any) {
@@ -80,6 +76,13 @@ export class RoutingService {
       this.updateRoute(this.route);
       this.updateResponse(response);
     });
+  }
+
+  setDefaultUser() {
+    this.route.passengers = [{
+      id: this.authService.getId(),
+      email: this.authService.getEmail()
+    }];
   }
 }
 

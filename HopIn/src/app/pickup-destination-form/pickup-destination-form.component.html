@@ -15,7 +15,7 @@
             <mat-error *ngIf="rideForm.get('destination')?.errors?.['required']">entering destination is required</mat-error>
             <mat-error *ngIf="rideForm.get('destination')?.errors?.['autocompleteNotUsed'] && !rideForm.get('destination')?.errors?.['required']">please choose one of the autocomplete options</mat-error>
         </mat-form-field>
-        <div id="pickup-time" *ngIf="role === 'USER'">
+        <div id="pickup-time" *ngIf="role === 'ROLE_PASSENGER'">
             <mat-form-field>
                 <mat-label>Schedule for later</mat-label>
                 <input matInput [ngxTimepicker]="picker" [format]="24" formControlName="time" >
@@ -25,8 +25,7 @@
                 <mat-error *ngIf="rideForm.get('time')?.errors?.['timeNotAlowed']">schedule max 5h in advance</mat-error>
             </mat-form-field>
         </div>
-        <button id="find-route-btn" class="conf-button" mat-raised-button type="submit" *ngIf="role === 'ROLE_ANONYMUS'">find route -></button>    
-        <!-- *ngIf="role === 'ROLE_PASSENGER'" -->
-        <button id="next-step-btn" class="conf-button" mat-raised-button type="button" (click)="nextStep()" >next -></button>    
+        <button id="find-route-btn" class="conf-button" mat-raised-button type="submit" *ngIf="role == null">find route -></button>    
+        <button id="next-step-btn" class="conf-button" mat-raised-button type="button" (click)="nextStep()" *ngIf="role === 'ROLE_PASSENGER'">next -></button>    
     </form>
 </div>

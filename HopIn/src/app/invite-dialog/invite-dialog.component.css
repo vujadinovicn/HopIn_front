@@ -1,0 +1,90 @@
+.left-icon-card {
+    height: 60px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 60px calc(100% - 65px);
+    column-gap: 5px;
+    border: 1px solid #E6E6E6;
+    border-radius: 10px;
+    margin-bottom: 13px;
+}
+
+h1 { 
+    font-weight: bold;
+}
+
+::ng-deep .mat-dialog-content {
+    overflow: hidden;
+    max-height: 100%;
+    min-width: 400px;
+}
+
+::ng-deep .mat-dialog-actions {
+    margin-bottom: 0px;
+}
+
+.icon-container {
+    display: flex;
+    width: 25px;
+    height: 36px;
+    background-color: #1E4A5A;
+    padding: 12px 18px;
+    border-radius: 10px 0 0 10px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    float: left;
+    font-size: 0.8em;
+}
+
+.icon-container i {
+    color: white;
+    padding: 0 !important;
+}
+
+.icon-container img {
+    width: 100%;
+}
+
+.icon-container i {
+    font-size: 2em;
+    color: white;
+    padding: 0 !important;
+}
+
+.content-container {
+    height: 40px;
+    padding: 10px;
+    text-align: left;
+    float: left;
+    align-items: center;
+    /* margin-left: 10px; */
+}
+
+.small-title {
+    font-size: 0.9em;
+    margin: 0;
+    margin-bottom: -3px;
+    color: #1E4A5A !important;
+}
+
+.card-content {
+    width: calc(100%);
+    font-size: 1.1em;
+    margin: 0;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-right: 10px;
+}
+
+h1 { 
+    margin-bottom: 30px;
+}
+
+@media screen and (max-width: 600px) {
+    ::ng-deep .mat-dialog-content {
+        min-width: 250px;
+    }
+}

@@ -12,7 +12,7 @@ export class RouteSuggestionComponent implements OnInit {
 
   route: Route = {} as Route;
 
-  constructor(private routingService: RoutingService) { 
+  constructor(public routingService: RoutingService) { 
     this.route = routingService.route;
   }
 

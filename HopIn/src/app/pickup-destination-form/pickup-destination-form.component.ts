@@ -1,3 +1,4 @@
+import { AuthService } from './../services/auth.service';
 import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
 import { ShortAddress, Route, RoutingService } from './../services/routing.service';
@@ -36,8 +37,8 @@ export class PickupDestinationFormComponent implements OnInit {
   route: Route = {} as Route;
 
   constructor(private routingService: RoutingService, private router: Router,
-              private pickupDestinationService: PickupDestinationService) { 
-    this.role = 'USER';
+              private pickupDestinationService: PickupDestinationService, private authService: AuthService) { 
+    this.role = this.authService.getRole();
   }
 
   ngOnInit(): void {
@@ -79,8 +80,9 @@ export class PickupDestinationFormComponent implements OnInit {
   nextStep() {
     this.rideForm.markAllAsTouched();
     if (this.rideForm.valid) {
-      this.route.scheduledTime = this.rideForm.get('time')?.value!;
-      this.routingService.route = this.route;
+      this.routingService.route.scheduledTime = this.rideForm.get('time')?.value!;
+      this.routingService.route.pickup = this.route.pickup;
+      this.routingService.route.destination = this.route.destination;
 
       this.stepper.selected!.completed = true;
       this.stepper.next();
