@@ -43,7 +43,8 @@ export class SocketService {
     }
 
     unsubscribeFromInviteResponse() {
-        this.invitesResSubs.unsubscribe();
+        if (this.invitesResSubs != undefined)
+            this.invitesResSubs.unsubscribe();
     }
 
     sendInviteResponse(res: InviteResponse, to: number) {
@@ -65,12 +66,15 @@ export class SocketService {
             this.stompClient.subscribe("/topic/invites/" + this.authService.getId(), (message: Message) => {
 
                 let invite: RideInvite = JSON.parse(message.body);
-
-                this.dialog.open(InviteDialogComponent, {
-                    data: {invite: invite},
-                    width: 'fit-content',
-                    height : 'fit-content'
-                });
+                if (invite.route == null) {
+                    this.dialog.closeAll();
+                } else {
+                    this.dialog.open(InviteDialogComponent, {
+                        data: {invite: invite},
+                        width: 'fit-content',
+                        height : 'fit-content'
+                    });
+                }
             });
         });
     }
@@ -85,7 +89,7 @@ export class SocketService {
 
 export interface RideInvite {
     from: User,
-    route: Route
+    route: Route | null
 }
 
 export interface InviteResponse {

@@ -62,13 +62,8 @@ export class RoutingService {
         this.route.distance= response?.routes[0].legs[0].distance?.value!;
         this.route.durationFormatted = response?.routes[0].legs[0].duration?.text!;
         this.route.duration = response?.routes[0].legs[0].duration?.value!;
-        if (this.authService.getRole() == 'ROLE_ANONYMUS' || this.invite) {
-          this.getRoutePrice(response);
-        } 
-        else 
-          this.updateRoute(this.route);
-      }
-    })  
+        this.getRoutePrice(response);
+    }})  
   }
 
   getRoutePrice(response: any) {

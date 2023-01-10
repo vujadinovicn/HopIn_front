@@ -33,6 +33,7 @@ export class InviteFriendsFormComponent implements OnInit {
   });
 
   invitationSent: boolean = false;
+  from: User = {} as User;
 
   constructor(private passengerService: PassengerService, private sharedService: SharedService,
     private socketService: SocketService, private routingService: RoutingService, private routeService: RouteService,
@@ -87,25 +88,32 @@ export class InviteFriendsFormComponent implements OnInit {
 
   orderRide() {
     this.socketService.unsubscribeFromInviteResponse();
-    console.log(this.routingService.route);
+    this.cancelInvitations();
     this.routeService.createRide(this.routingService.route).subscribe((res) => {
       console.log(res);
+    });
+  }
+
+  cancelInvitations() {
+    let i = 0;
+    this.passengersInvited.forEach((passenger: User) => {
+      if (this.invitationResponses[i] == null) {
+        this.socketService.sendInvite({from: this.from, route: null}, passenger.id);
+      }
     });
   }
 
   sendInvites() {
     this.userService.getByPassengerId(this.authService.getId()).subscribe({
     next: (user) => {
-      let from = user;
+      this.from = user;
 
       this.socketService.receivedInviteResponse().subscribe((response: InviteResponse) => {
         response.response? this.passengerAccepted(response.passengerId) : this.passengerDeclined(response.passengerId);
       });
 
-      this.routingService.setDefaultUser();
-
       this.passengersInvited.forEach(passenger => {
-        this.socketService.sendInvite({from: from, route: this.routingService.route}, passenger.id);
+        this.socketService.sendInvite({from: this.from, route: this.routingService.route}, passenger.id);
         this.invitationResponses.push(null);
       });
 
@@ -121,11 +129,9 @@ export class InviteFriendsFormComponent implements OnInit {
   populateRide(type: string) {
     if (type == 'invites') {
       this.invitationSent = true;
-      this.routingService.invite = true;
       this.routingService.findRoute();
       let sub: Subscription = this.routingService.receivedRoute().subscribe((route: Route) => {
         this.sendInvites();
-        this.routingService.invite = false;
         sub.unsubscribe();
       });
     } else {
@@ -148,6 +154,7 @@ export class InviteFriendsFormComponent implements OnInit {
       let i = this.passengersInvited.indexOf(passenger);
       this.routingService.route.passengers.push({id: passenger.id, email: passenger.email});
       this.invitationResponses[i] = true;
+      console.log(this.routingService.route.passengers);
     }
   }
 

@@ -1,3 +1,4 @@
+import { AuthService } from './../services/auth.service';
 import { RoutingService } from './../services/routing.service';
 import { FormGroup } from '@angular/forms';
 import { PickupDestinationFormComponent } from './../pickup-destination-form/pickup-destination-form.component';
@@ -17,7 +18,8 @@ export class OrderRideComponent implements OnInit {
   rideForm: FormGroup = {} as FormGroup;
   @ViewChild('stepper') private stepper: MatStepper = {} as MatStepper;
 
-  constructor(private routingService: RoutingService) { }
+  constructor(private routingService: RoutingService) {
+  }
 
   ngOnInit(): void {
   }

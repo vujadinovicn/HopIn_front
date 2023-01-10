@@ -28,7 +28,8 @@ export class VehiclePreferencesFormComponent implements OnInit {
 
   nextStep() {
     this.updateValues();
-
+    this.routingService.setDefaultUser();
+    
     this.stepper.selected!.completed = true;
     this.disableOtherStepsEvent.emit(true);
     this.stepper.next();

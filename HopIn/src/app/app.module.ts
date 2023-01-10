@@ -53,6 +53,7 @@ import { VehiclePreferencesFormComponent } from './vehicle-preferences-form/vehi
 import { InviteFriendsFormComponent } from './invite-friends-form/invite-friends-form.component';
 import { InviteDialogComponent } from './invite-dialog/invite-dialog.component';
 import { RouteSuggestionDetailsComponent } from './route-suggestion-details/route-suggestion-details.component';
+import { OrderRideNotregisteredComponent } from './order-ride-notregistered/order-ride-notregistered.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +98,8 @@ import { RouteSuggestionDetailsComponent } from './route-suggestion-details/rout
     VehiclePreferencesFormComponent,
     InviteFriendsFormComponent,
     InviteDialogComponent,
-    RouteSuggestionDetailsComponent
+    RouteSuggestionDetailsComponent,
+    OrderRideNotregisteredComponent
   ],
   imports: [
     BrowserModule,
