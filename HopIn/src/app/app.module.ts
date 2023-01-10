@@ -48,6 +48,9 @@ import { DriverRegisterPersonalInfoComponent } from './driver-register-personal-
 import { DriverRegisterComponent } from './driver-register/driver-register.component';
 import { RegistrationVerificationComponent } from './registration-verification/registration-verification.component';
 import { VehiclePreferencesFormComponent } from './vehicle-preferences-form/vehicle-preferences-form.component';
+import { TokenInterceptor } from './interceptor/TokenInterceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -105,7 +108,12 @@ import { VehiclePreferencesFormComponent } from './vehicle-preferences-form/vehi
     GooglePlaceModule,
     CommonModule
   ],
-  providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline', hideRequiredMarker: 'true' }}],
+  providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline', hideRequiredMarker: 'true' }},
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
