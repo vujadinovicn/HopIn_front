@@ -22,6 +22,12 @@ export class AccountOptionsComponent implements OnInit {
     this.selectOption(this.option);
     this.authService.getUser().subscribe((res) => {
       this.role = res;
+      if (this.role === 'ROLE_ADMIN') {
+        this.option = 'allReports'
+      } else {
+        this.option = 'settings'
+      }
+      this.selectOption(this.option);
     })
   }
 
