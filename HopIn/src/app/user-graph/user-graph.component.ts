@@ -115,8 +115,8 @@ generateBtnOnClick():void {
       duration: 2000,
    });
    return;
-  } else if (this._option != 'allReports' && this.id_input == 0) {
-    this.snackBar.open("Enter id!", "", {
+  } else if (this._role === 'ROLE_ADMIN' && this._option != 'allReports' && this.id_input < 1) {
+    this.snackBar.open("Id must be greater than 0!", "", {
       duration: 2000,
    });
    return;
@@ -166,6 +166,9 @@ getAll(role: String, id: number) {
       this.labels = [];
       this.average = 0;
       this.total = 0;
+      this.snackBar.open("Sorry, we don't have any data for entered parameters!", "", {
+        duration: 2000,
+     });
     }
     this.RenderChart();
   });
