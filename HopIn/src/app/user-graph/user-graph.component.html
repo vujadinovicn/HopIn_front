@@ -1,5 +1,41 @@
-<div id="userGraphContainer" [ngClass]="this._role === 'ROLE_DRIVER'? 'containerDesign' : 'userGraphContainer'">
-    <div id="reportInfoContainer">
+<div id="userGraphContainer" [ngClass]="[this._role === 'ROLE_DRIVER' ? 'containerDesignDriver' : '', this._role === 'ROLE_ADMIN' ? 'containerDesignAdmin': '', this._role === 'ROLE_PASSENGER' ? 'containerDesignPassenger': '']">
+    <div id="reportInfoAdmin" *ngIf="this._role === 'ROLE_ADMIN'">
+        <div class="row" *ngIf="this._option != 'allReports'">
+            <p *ngIf="this._option == 'driverReports'">Choose driver</p>
+            <p *ngIf="this._option == 'passengerReports'">Choose passenger</p>
+            <input type="number" [(ngModel)]="id_input" placeholder="Enter ID">
+        </div>
+
+        <div class="row">
+            <p>Choose the criteria:</p>
+            <div class="dropdown">
+                <button class="dropbtn">{{this.selectedType}}</button>
+                <div class="dropdown-content">
+                  <a (click)="setDistanceTraveledDD()">Distance traveled</a>
+                  <a (click)="setRidesNumDD()">Number of rides</a>
+                  <a (click)="setMoneySpentDD()">Money spent</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <p>Choose date range:</p>
+            <input type="text" matInput
+                ngxDaterangepickerMd
+                [(ngModel)]="selectedDates"
+                [locale]="{applyLabel: 'ok', format: 'DD-MM-YYYY'}"
+                startKey="start"
+                endKey="end"
+                name="daterange"
+                placeholder="Date range"/>
+        </div>
+
+        <button id="generateBtn" class="generateBtnAdmin" (click)="generateBtnOnClick()">Generate report</button>
+    </div>
+
+
+    <!-- REPORT INFO FOR DRIVER AND PASSENGER -->
+    <div id="reportInfoContainer" class="reportInfoContainer" *ngIf="this._role === 'ROLE_DRIVER' || this._role === 'ROLE_PASSENGER'">
         <div class="greeting">
             <h2>Hey, Grace</h2>
             <img src="../../assets/vectors/wavingHand.svg">
@@ -34,7 +70,10 @@
 
         <button id="generateBtn" (click)="generateBtnOnClick()">Generate report</button>
     </div>
-    <div *ngIf="this.reportVisibility === true" [ngClass]="this._role === 'ROLE_DRIVER' ? 'reportContainerDriver' : 'reportContainerPassenger'">
+
+
+    <!-- GRAPH VIEW -->
+    <div *ngIf="this.reportVisibility === true" [ngClass]="[this._role === 'ROLE_DRIVER' ? 'reportContainerDriver' : '', this._role === 'ROLE_ADMIN' ? 'reportContainerAdmin': '', this._role === 'ROLE_PASSENGER' ? 'reportContainerPassenger': '']">
         <div class="column">
             <h2>Report</h2>
             <div>
