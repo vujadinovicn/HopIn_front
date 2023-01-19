@@ -56,6 +56,7 @@ import { InviteFriendsFormComponent } from './invite-friends-form/invite-friends
 import { InviteDialogComponent } from './invite-dialog/invite-dialog.component';
 import { RouteSuggestionDetailsComponent } from './route-suggestion-details/route-suggestion-details.component';
 import { OrderRideNotregisteredComponent } from './order-ride-notregistered/order-ride-notregistered.component';
+import { AdminReportsComponent } from './admin-reports/admin-reports.component';
 
 @NgModule({
   declarations: [
@@ -101,7 +102,8 @@ import { OrderRideNotregisteredComponent } from './order-ride-notregistered/orde
     InviteFriendsFormComponent,
     InviteDialogComponent,
     RouteSuggestionDetailsComponent,
-    OrderRideNotregisteredComponent
+    OrderRideNotregisteredComponent,
+    AdminReportsComponent
   ],
   imports: [
     BrowserModule,
