@@ -117,7 +117,7 @@ import { OrderRideNotregisteredComponent } from './order-ride-notregistered/orde
     GooglePlaceModule,
     CommonModule
   ],
-  providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline', hideRequiredMarker: 'true' }}, SocketService],
+  providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline', hideRequiredMarker: 'true' }}, SocketService,
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
