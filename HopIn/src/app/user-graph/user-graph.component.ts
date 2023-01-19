@@ -124,9 +124,11 @@ generateBtnOnClick():void {
 
   if (this._role === 'ROLE_ADMIN') {
     if (this._option === 'driverReports') {
-      this.getAll('ROLE_DRIVER', this.id_input)
+      this.getAll('ROLE_DRIVER', this.id_input);
+    } else if (this._option === 'passengerReports') {
+      this.getAll('ROLE_PASSENGER', this.id_input);
     } else {
-      this.getAll('ROLE_PASSENGER', this.id_input)
+      this.getAll('ROLE_ADMIN', this.id_input);
     }
 
   } else {
