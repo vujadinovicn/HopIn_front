@@ -20,7 +20,7 @@ export class WorkingHoursService {
   endCounting(workingHoursId: number): Observable<WorkingHours> {
     const endDto: WorkingHoursEndDTO = {
         end: new Date()
-    };
+    }; 
     return this.http.put<WorkingHours>(environment.apiHost + '/driver/working-hour/' + workingHoursId, endDto);
   }
 }

@@ -27,6 +27,10 @@ export class ToolbarComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getUser().subscribe((res) => {
       this.role = res;
+      if (this.role === 'ROLE_DRIVER') {
+        this.setActive();
+        this.checked = true;
+      }
     })
     this.handleSmallScreens();
   }
@@ -45,33 +49,24 @@ export class ToolbarComponent implements OnInit {
     })
   }
 
-  toggleChange(): void {
+  public toggleChange(): void {
     !this.checked;
-
-    console.log(this.checked) 
-    if (this.checked === true) {
-      this.workingHoursService.startCounting(this.authService.getId()).subscribe((res) => {
-        this.workingHours = res;
-        console.log(this.workingHours);
-      });    
+    console.log('stanjeeeeeeeeeeeeee: ' + this.checked) 
+    if (this.checked == true) {
+      this.setActive();    
     } else {
-      this.workingHoursService.endCounting(this.workingHours.id).subscribe((res) => {
-        this.workingHours = res;
-        console.log(this.workingHours);
-      });
+      this.setInactive();
     }
  
   }
 
   logout(): void {
+    if (this.checked === true) {
+      this.setInactive();
+      this.checked = false;
+    }
     localStorage.removeItem('user');
     this.authService.setUser();
-    if (this.checked === true) {
-      this.workingHoursService.endCounting(this.workingHours.id).subscribe((res) => {
-        this.workingHours = res; 
-        this.checked = false;
-      });    
-    }
     this.router.navigate(['login']);
   }
 
@@ -81,6 +76,22 @@ export class ToolbarComponent implements OnInit {
     } else {
       this.router.navigate(['account-passenger'])
     }
+  }
+
+  setActive(): void {
+    this.workingHoursService.startCounting(this.authService.getId()).subscribe((res) => {
+      this.workingHours = res;
+      this.checked = true;
+      console.log(this.workingHours);
+    }); 
+  }
+
+  setInactive(): void {
+    this.workingHoursService.endCounting(this.workingHours.id).subscribe((res) => {
+      this.workingHours = res;
+      this.checked = false;
+      console.log(this.workingHours);
+    });
   }
 
 }
