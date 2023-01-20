@@ -57,6 +57,7 @@ import { InviteDialogComponent } from './invite-dialog/invite-dialog.component';
 import { RouteSuggestionDetailsComponent } from './route-suggestion-details/route-suggestion-details.component';
 import { OrderRideNotregisteredComponent } from './order-ride-notregistered/order-ride-notregistered.component';
 import { AdminReportsComponent } from './admin-reports/admin-reports.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -103,7 +104,8 @@ import { AdminReportsComponent } from './admin-reports/admin-reports.component';
     InviteDialogComponent,
     RouteSuggestionDetailsComponent,
     OrderRideNotregisteredComponent,
-    AdminReportsComponent
+    AdminReportsComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
