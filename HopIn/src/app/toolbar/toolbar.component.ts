@@ -1,8 +1,12 @@
+import { Message } from 'stompjs';
 import { WorkingHours, WorkingHoursService } from './../services/working-hours.service';
 import { AuthService } from './../services/auth.service';
 import { Component, ComponentFactoryResolver, EventEmitter, NgModuleRef,  OnInit, Output } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { ThisReceiver } from '@angular/compiler';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { interval, Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'toolbar',
@@ -11,6 +15,7 @@ import { ThisReceiver } from '@angular/compiler';
 })
 export class ToolbarComponent implements OnInit {
 
+  subscription!: Subscription;
   role: any;
   checked: boolean = false;
   workingHours: WorkingHours = {
@@ -18,9 +23,12 @@ export class ToolbarComponent implements OnInit {
     start: '',
     end: ''
   }
+  currentDate: Date = new Date();
+  workedSecunds: number = 0;
 
   constructor(private authService: AuthService,
     private router: Router,
+    public snackBar: MatSnackBar,
     private workingHoursService: WorkingHoursService) { 
   }
 
@@ -33,6 +41,26 @@ export class ToolbarComponent implements OnInit {
       }
     })
     this.handleSmallScreens();
+    // setInterval(this.checkShiftEnd, 1800);
+    const source = interval(1800);
+    this.subscription = source.subscribe(val => this.checkShiftEnd());
+  }
+
+  checkShiftEnd() {
+    if (this.checked) {
+      this.workedSecunds = this.workedSecunds + 2;
+      console.log(this.workedSecunds);
+      if (this.workedSecunds >= 28800) {
+        this.setInactive();
+      }
+    }
+
+    if ((new Date()).getDate != this.currentDate.getDate) {
+      this.setInactive();
+      this.currentDate = new Date();
+      this.workedSecunds = 0;
+      this.setActive();
+    }
   }
 
   handleSmallScreens(): void {
@@ -51,7 +79,6 @@ export class ToolbarComponent implements OnInit {
 
   public toggleChange(): void {
     !this.checked;
-    console.log('stanjeeeeeeeeeeeeee: ' + this.checked) 
     if (this.checked == true) {
       this.setActive();    
     } else {
@@ -79,18 +106,33 @@ export class ToolbarComponent implements OnInit {
   }
 
   setActive(): void {
-    this.workingHoursService.startCounting(this.authService.getId()).subscribe((res) => {
-      this.workingHours = res;
-      this.checked = true;
-      console.log(this.workingHours);
-    }); 
+    this.workingHoursService.startCounting(this.authService.getId()).subscribe({
+      next: (res: any) => {
+        this.workingHours = res;
+        // console.log(this.workingHours);
+      },
+      error: (error: any) => {
+        this.snackBar.open(error.message, "", {
+          duration: 2000,
+       });
+      }
+    });
+    
+    
+    
   }
 
   setInactive(): void {
-    this.workingHoursService.endCounting(this.workingHours.id).subscribe((res) => {
-      this.workingHours = res;
-      this.checked = false;
-      console.log(this.workingHours);
+    this.workingHoursService.endCounting(this.workingHours.id).subscribe({
+      next: (res: any) => {
+        this.workingHours = res;
+        // console.log(this.workingHours);
+      },
+      error: (error: any) => {
+        this.snackBar.open(error.Message, "", {
+          duration: 2000,
+       });
+      }
     });
   }
 
