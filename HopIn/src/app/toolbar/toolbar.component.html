@@ -5,13 +5,15 @@
                 HopIn
             </a>
 
-            <!-- <button class="navbar-toggler" data-toggle="open-navbar1">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-            </button> -->
             <mat-slide-toggle *ngIf="role === 'ROLE_DRIVER'" [(ngModel)]="checked" (change)="toggleChange()">
             </mat-slide-toggle>
+
+            <button class="navbar-toggler" data-toggle="open-navbar1">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+            </button>
+            
         </div>  
   
       <div class="navbar-menu" id="open-navbar1">

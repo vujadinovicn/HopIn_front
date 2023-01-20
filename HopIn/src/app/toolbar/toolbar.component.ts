@@ -5,7 +5,7 @@ import { Component, ComponentFactoryResolver, EventEmitter, NgModuleRef,  OnInit
 import { NavigationStart, Router } from '@angular/router';
 import { ThisReceiver } from '@angular/compiler';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { interval, Subscription } from 'rxjs';
+import {map, Subscription, timer} from 'rxjs';  
 
 
 @Component({
@@ -15,7 +15,7 @@ import { interval, Subscription } from 'rxjs';
 })
 export class ToolbarComponent implements OnInit {
 
-  subscription!: Subscription;
+  timerSubscription!: Subscription; 
   role: any;
   checked: boolean = false;
   workingHours: WorkingHours = {
@@ -24,7 +24,7 @@ export class ToolbarComponent implements OnInit {
     end: ''
   }
   currentDate: Date = new Date();
-  workedSecunds: number = 0;
+  workedMiliSecs: number = 0;
 
   constructor(private authService: AuthService,
     private router: Router,
@@ -41,26 +41,23 @@ export class ToolbarComponent implements OnInit {
       }
     })
     this.handleSmallScreens();
-    // setInterval(this.checkShiftEnd, 1800);
-    const source = interval(1800);
-    this.subscription = source.subscribe(val => this.checkShiftEnd());
+
+    // this.timerSubscription = timer(0, 1000).pipe( 
+    //   map(() => { 
+    //     this.testInterval(); // load data contains the http request 
+    //   }) 
+    // ).subscribe(); 
+    setInterval(function () {
+      console.log("caooo")
+  }, 1000);
   }
 
-  checkShiftEnd() {
-    if (this.checked) {
-      this.workedSecunds = this.workedSecunds + 2;
-      console.log(this.workedSecunds);
-      if (this.workedSecunds >= 28800) {
-        this.setInactive();
-      }
-    }
+  ngOnDestroy(): void { 
+    // this.timerSubscription.unsubscribe(); 
+  }
 
-    if ((new Date()).getDate != this.currentDate.getDate) {
-      this.setInactive();
-      this.currentDate = new Date();
-      this.workedSecunds = 0;
-      this.setActive();
-    }
+  testInterval() {
+    console.log("caoooo")
   }
 
   handleSmallScreens(): void {
@@ -115,6 +112,7 @@ export class ToolbarComponent implements OnInit {
         this.snackBar.open(error.message, "", {
           duration: 2000,
        });
+       this.checked = false;
       }
     });
     
@@ -126,10 +124,13 @@ export class ToolbarComponent implements OnInit {
     this.workingHoursService.endCounting(this.workingHours.id).subscribe({
       next: (res: any) => {
         this.workingHours = res;
-        // console.log(this.workingHours);
+        let end = new Date(this.workingHours.end);
+        let start = new Date(this.workingHours.start);
+        let diff = end.valueOf() - start.valueOf();
+        this.workedMiliSecs = this.workedMiliSecs + diff;
       },
       error: (error: any) => {
-        this.snackBar.open(error.Message, "", {
+        this.snackBar.open(error.message, "", {
           duration: 2000,
        });
       }
