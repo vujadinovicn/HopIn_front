@@ -41,19 +41,6 @@ export class ToolbarComponent implements OnInit {
       }
     })
     this.handleSmallScreens();
-
-    // this.timerSubscription = timer(0, 1000).pipe( 
-    //   map(() => { 
-    //     this.testInterval(); // load data contains the http request 
-    //   }) 
-    // ).subscribe(); 
-    setInterval(function () {
-      console.log("caooo")
-  }, 1000);
-  }
-
-  ngOnDestroy(): void { 
-    // this.timerSubscription.unsubscribe(); 
   }
 
   testInterval() {
@@ -109,7 +96,7 @@ export class ToolbarComponent implements OnInit {
         // console.log(this.workingHours);
       },
       error: (error: any) => {
-        this.snackBar.open(error.message, "", {
+        this.snackBar.open(error.error.message, "", {
           duration: 2000,
        });
        this.checked = false;
@@ -130,9 +117,10 @@ export class ToolbarComponent implements OnInit {
         this.workedMiliSecs = this.workedMiliSecs + diff;
       },
       error: (error: any) => {
-        this.snackBar.open(error.message, "", {
+        this.snackBar.open(error.error.message, "", {
           duration: 2000,
        });
+       this.checked = true;
       }
     });
   }
