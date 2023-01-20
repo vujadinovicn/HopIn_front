@@ -1,22 +1,34 @@
 <div id="passenger-account-options-container">
-    <div class="account-options" (click)="selectOption('settings')" 
+    <div class="account-options" (click)="selectOption('settings')" *ngIf="role != 'ROLE_ADMIN'" 
     [ngClass]="{'dark-blue' : option == 'settings', 'dark-gray': option != 'settings'}">
         <span class="responsive-span">account</span> settings
     </div>
-    <div class="account-options" (click)="selectOption('password')"
+    <div class="account-options" (click)="selectOption('password')" *ngIf="role != 'ROLE_ADMIN'"
       [ngClass]="{'dark-blue' : option == 'password', 'dark-gray': option != 'password'}">
         <span class="responsive-span">change</span> password
     </div>
-    <div class="account-options" (click)="selectOption('payment')" *ngIf="role == 'passenger'"
+    <div class="account-options" (click)="selectOption('payment')" *ngIf="role == 'ROLE_PASSENGER'"
     [ngClass]="{'dark-blue' : option == 'payment', 'dark-gray': option != 'payment'}">
         <span class="responsive-span">change</span> payment info
     </div>
     <div class="account-options" (click)="selectOption('vehicle')"
-    [ngClass]="{'dark-blue' : option == 'vehicle', 'dark-gray': option != 'vehicle'}" *ngIf="role == 'driver'">
+    [ngClass]="{'dark-blue' : option == 'vehicle', 'dark-gray': option != 'vehicle'}" *ngIf="role == 'ROLE_DRIVER'">
         <span class="responsive-span">change</span> vehicle info
     </div>
-    <div class="account-options" (click)="selectOption('documents')" *ngIf="role == 'driver'"
+    <div class="account-options" (click)="selectOption('documents')" *ngIf="role == 'ROLE_DRIVER'"
     [ngClass]="{'dark-blue' : option == 'documents', 'dark-gray': option != 'documents'}">
         <span class="responsive-span">change</span> documents
+    </div>
+    <div class="account-options" (click)="selectOption('allReports')" *ngIf="role == 'ROLE_ADMIN'"
+    [ngClass]="{'dark-blue' : option == 'allReports', 'dark-gray': option != 'allReports'}">
+        <span class="responsive-span">all reports</span>
+    </div>
+    <div class="account-options" (click)="selectOption('passengerReports')" *ngIf="role == 'ROLE_ADMIN'"
+    [ngClass]="{'dark-blue' : option == 'passengerReports', 'dark-gray': option != 'passengerReports'}">
+        <span class="responsive-span">passenger reports</span> 
+    </div>
+    <div class="account-options" (click)="selectOption('driverReports')" *ngIf="role == 'ROLE_ADMIN'"
+    [ngClass]="{'dark-blue' : option == 'driverReports', 'dark-gray': option != 'driverReports'}">
+        <span class="responsive-span">driver reports</span> 
     </div>
 </div>

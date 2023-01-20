@@ -16,11 +16,15 @@ export class UserGraphService {
 
   getAll(from: Dayjs, to:Dayjs, role: String, id: number): Observable<RideForReport[]> {
     if(role === 'ROLE_DRIVER') {
-      return this.http.get<RideForReport[]>(environment.apiHost + '/driver/' + id + '/ride/date?from=' +
+        return this.http.get<RideForReport[]>(environment.apiHost + '/driver/' + id + '/ride/date?from=' +
+        from.format('YYYY/MM/DD') + '&to=' + to.format('YYYY/MM/DD'));
+    } else if (role === 'ROLE_PASSENGER') {
+        return this.http.get<RideForReport[]>(environment.apiHost + '/passenger/' + id + '/ride/date?from=' +
+        from.format('YYYY/MM/DD') + '&to=' + to.format('YYYY/MM/DD'));
+    } else {
+      return this.http.get<RideForReport[]>(environment.apiHost + '/ride/date/range?from=' +
       from.format('YYYY/MM/DD') + '&to=' + to.format('YYYY/MM/DD'));
     }
-    return this.http.get<RideForReport[]>(environment.apiHost + '/passenger/' + id + '/ride/date?from=' +
-    from.format('YYYY/MM/DD') + '&to=' + to.format('YYYY/MM/DD'));
   }
 }
 

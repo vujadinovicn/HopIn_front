@@ -1,3 +1,4 @@
+import { AdminReportsComponent } from './../app/admin-reports/admin-reports.component';
 import { OrderRideNotregisteredComponent } from './../app/order-ride-notregistered/order-ride-notregistered.component';
 import { InviteFriendsFormComponent } from './../app/invite-friends-form/invite-friends-form.component';
 import { RegistrationVerificationComponent } from './../app/registration-verification/registration-verification.component';
@@ -32,6 +33,7 @@ const routes: Routes = [
   {path: 'account-driver', component: DriverAccountComponent},
   {path: 'account-passenger', component: AccountComponent},
   {path: 'account-admin', component: AdminAccountComponent},
+  {path: 'admin-reports', component: AdminReportsComponent},
   {path: 'account-settings', component: AccountUpdateComponent},
   {path: 'change-password', component: ChangePasswordComponent},
   {path:'change-payment-info', component: ChangePaymentInfoComponent},
