@@ -53,6 +53,10 @@ export class UserService {
     };
     return this.http.put<string>(environment.apiHost + '/passenger/' + passenger.id, passenger, options);
   }
+
+  sendResetPasswordEmail(email: string): Observable<String> {
+    return this.http.get<String>(environment.apiHost + "/user/" + email + "/resetPasswordEmail");
+  }
 }
 
 export interface User {
