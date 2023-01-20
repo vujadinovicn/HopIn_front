@@ -58,6 +58,7 @@ import { RouteSuggestionDetailsComponent } from './route-suggestion-details/rout
 import { OrderRideNotregisteredComponent } from './order-ride-notregistered/order-ride-notregistered.component';
 import { AdminReportsComponent } from './admin-reports/admin-reports.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -105,7 +106,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     RouteSuggestionDetailsComponent,
     OrderRideNotregisteredComponent,
     AdminReportsComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
