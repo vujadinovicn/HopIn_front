@@ -1,8 +1,9 @@
 import { SharedService } from './../shared/shared.service';
 import { UserService } from './../services/user.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormGroupDirective } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
+import { resetForm } from '../register/register.component';
 
 @Component({
   selector: 'app-forgot-password',
@@ -27,13 +28,14 @@ export class ForgotPasswordComponent implements OnInit {
           this.sharedService.openSnack({
             value: "Email with reset code has been sent!",
             color: "back-green"
-          })
+          });
+
         },
         error: (err) => {
           this.sharedService.openSnack({
             value: err.error,
             color: "back-red"
-          })
+          });
         }
       });
   }

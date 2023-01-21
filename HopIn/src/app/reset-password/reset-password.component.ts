@@ -1,8 +1,10 @@
+import { SharedService } from './../shared/shared.service';
+import { User, UserService, ResetPasswordDTO } from './../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { markFormControlsTouched } from '../validators/formGroupValidators';
-import { passwordMatcher } from '../validators/passwordMatch';
+import { ConfirmValidParentMatcher, passwordMatcher } from '../validators/passwordMatch';
 import { passwordRegexValidator } from '../validators/user/userValidator';
 
 @Component({
@@ -19,8 +21,10 @@ export class ResetPasswordComponent implements OnInit {
 
 
   code: string = '';
+  confirmValidParentMatcher = new ConfirmValidParentMatcher();
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private userService: UserService,
+              private sharedService: SharedService) { }
 
   ngOnInit(): void {
     markFormControlsTouched(this.resetPasswordForm);
@@ -34,7 +38,27 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   resetPassword() {
-
+    if (this.resetPasswordForm.valid) {
+      let dto: ResetPasswordDTO = {
+        code: this.code,
+        newPassword: this.resetPasswordForm.value.password!
+      }
+      this.userService.resetPassword(dto).subscribe({
+        next: (res) => {
+          this.sharedService.openSnack({
+            value: "Password successfully changed!",
+            color: "back-green"
+          });
+        },
+        error: (err) => {
+          console.log(err);
+          this.sharedService.openSnack({
+            value: err.error.message,
+            color: "back-red"
+          });
+        }
+      });
+    }
   }
 
 }

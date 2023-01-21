@@ -57,6 +57,10 @@ export class UserService {
   sendResetPasswordEmail(email: string): Observable<String> {
     return this.http.get<String>(environment.apiHost + "/user/" + email + "/resetPasswordEmail");
   }
+
+  resetPassword(dto: ResetPasswordDTO) {
+    return this.http.put<string>(environment.apiHost + "/user/0/resetPassword", dto);
+  }
 }
 
 export interface User {
@@ -79,4 +83,9 @@ export interface UserDTO {
     email: string;
     address: string;
     password: string;
+}
+
+export interface ResetPasswordDTO {
+  code: string,
+  newPassword: string
 }
