@@ -1,0 +1,124 @@
+p {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+#favourite-rides-container {
+    width: 45vw;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    padding: 25px 0px;
+    height: fit-content;
+    margin-top: 5vh;
+    margin-left: auto;
+    margin-right: auto;
+    /* Overflow-y:scroll;
+    overflow-x: hidden; */
+}
+
+h2 {
+    margin: 0;
+}
+
+h3 {
+    color: #EC9A29;
+}
+
+h4 {
+    margin: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+    color: #1E4A5A;
+}
+
+.line {
+    height: 3px;
+    width: 100%;
+    background-color: #D9D9D9;
+    margin-bottom: 2%;
+}
+
+#historyCard {
+    width: 98%;
+    height: fit-content;
+    padding: 10px 0 10px 10px;
+    border: 1px solid #E6E6E6;
+    border-radius: 10px;
+    margin-top: 10px;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+}
+
+/* GLOBAL */
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.row > p {
+    font-size: 0.8em;
+}
+
+.key {
+    color: #1E4A5A;
+    margin-right: 0.5em;
+}
+
+
+/* LEFT SIDE */
+#left {
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+
+#carImg {
+    width: 1.8em;
+    height: 1.8em;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+img {
+    width: 100%;
+    height: 100%
+}
+
+
+.imgContainer {
+    width: 1em;
+    height: 1em;
+    margin-left: 0.6em;
+    margin-right: 0.5em;
+}
+
+
+
+/* RIGHT SIDE */
+#right {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+}
+
+.rightImgContainer {
+    width: 1.8em;
+    height: 1.8em;
+    margin-right: 8px;
+}
+
+#right > .row {
+    margin-bottom: auto;
+    margin-left: auto;
+}
+
+igc-rating {
+    color: yellow;
+    border-color: black;
+    margin-right: 8px;
+    font-size: 2em;
+}
+

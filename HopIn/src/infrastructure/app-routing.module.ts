@@ -1,3 +1,4 @@
+import { RideHistoryComponent } from './../app/ride-history/ride-history.component';
 import { AdminReportsComponent } from './../app/admin-reports/admin-reports.component';
 import { OrderRideNotregisteredComponent } from './../app/order-ride-notregistered/order-ride-notregistered.component';
 import { InviteFriendsFormComponent } from './../app/invite-friends-form/invite-friends-form.component';
@@ -34,6 +35,7 @@ const routes: Routes = [
   {path: 'account-passenger', component: AccountComponent},
   {path: 'account-admin', component: AdminAccountComponent},
   {path: 'admin-reports', component: AdminReportsComponent},
+  {path: 'ride-history', component: RideHistoryComponent},
   {path: 'account-settings', component: AccountUpdateComponent},
   {path: 'change-password', component: ChangePasswordComponent},
   {path:'change-payment-info', component: ChangePaymentInfoComponent},

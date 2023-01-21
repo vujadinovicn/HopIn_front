@@ -57,6 +57,8 @@ import { InviteDialogComponent } from './invite-dialog/invite-dialog.component';
 import { RouteSuggestionDetailsComponent } from './route-suggestion-details/route-suggestion-details.component';
 import { OrderRideNotregisteredComponent } from './order-ride-notregistered/order-ride-notregistered.component';
 import { AdminReportsComponent } from './admin-reports/admin-reports.component';
+import { RideHistoryComponent } from './ride-history/ride-history.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
   declarations: [
@@ -103,7 +105,8 @@ import { AdminReportsComponent } from './admin-reports/admin-reports.component';
     InviteDialogComponent,
     RouteSuggestionDetailsComponent,
     OrderRideNotregisteredComponent,
-    AdminReportsComponent
+    AdminReportsComponent,
+    RideHistoryComponent
   ],
   imports: [
     BrowserModule,
@@ -125,6 +128,7 @@ import { AdminReportsComponent } from './admin-reports/admin-reports.component';
     useClass: TokenInterceptor,
     multi: true
   },],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { 
