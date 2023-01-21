@@ -25,6 +25,7 @@
     "@material/snackbar": "^14.0.0",
     "chart.js": "^4.0.1",
     "dayjs": "^1.11.7",
+    "igniteui-webcomponents": "^4.1.1",
     "net": "^1.0.2",
     "ngx-daterangepicker-material": "^6.0.4",
     "ngx-google-places-autocomplete": "^2.0.5",
