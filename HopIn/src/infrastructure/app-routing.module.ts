@@ -1,3 +1,6 @@
+import { ResetPasswordComponent } from './../app/reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './../app/forgot-password/forgot-password.component';
+import { FormControl } from '@angular/forms';
 import { AdminReportsComponent } from './../app/admin-reports/admin-reports.component';
 import { OrderRideNotregisteredComponent } from './../app/order-ride-notregistered/order-ride-notregistered.component';
 import { InviteFriendsFormComponent } from './../app/invite-friends-form/invite-friends-form.component';
@@ -26,6 +29,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'verify', component: RegistrationVerificationComponent},
+  {path: 'reset-password', component: ResetPasswordComponent},
   {path: 'order-ride', component: OrderRideComponent},
   {path: 'order-ride-unreg', component: OrderRideNotregisteredComponent},
   {path: 'route-suggestion', component: RouteSuggestionComponent},
@@ -37,6 +41,7 @@ const routes: Routes = [
   {path: 'account-settings', component: AccountUpdateComponent},
   {path: 'change-password', component: ChangePasswordComponent},
   {path:'change-payment-info', component: ChangePaymentInfoComponent},
+  {path:'forgot-password', component: ForgotPasswordComponent},
   {path: '**', component: LandingComponent}
 ];
 
