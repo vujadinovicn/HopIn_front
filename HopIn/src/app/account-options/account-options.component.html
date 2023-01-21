@@ -21,14 +21,14 @@
     </div>
     <div class="account-options" (click)="selectOption('allReports')" *ngIf="role == 'ROLE_ADMIN'"
     [ngClass]="{'dark-blue' : option == 'allReports', 'dark-gray': option != 'allReports'}">
-        <span class="responsive-span">all reports</span>
+    all <span class="responsive-span">reports</span>
     </div>
     <div class="account-options" (click)="selectOption('passengerReports')" *ngIf="role == 'ROLE_ADMIN'"
     [ngClass]="{'dark-blue' : option == 'passengerReports', 'dark-gray': option != 'passengerReports'}">
-        <span class="responsive-span">passenger reports</span> 
+    passenger <span class="responsive-span">reports</span> 
     </div>
     <div class="account-options" (click)="selectOption('driverReports')" *ngIf="role == 'ROLE_ADMIN'"
     [ngClass]="{'dark-blue' : option == 'driverReports', 'dark-gray': option != 'driverReports'}">
-        <span class="responsive-span">driver reports</span> 
+    driver <span class="responsive-span">reports</span> 
     </div>
 </div>

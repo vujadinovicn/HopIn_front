@@ -294,17 +294,27 @@ canvas {
 
 
 @media only screen and (max-width: 900px) {
-  .containerDesign {
+  .containerDesignPassenger  {
     margin: 0;
     margin-top: 4vh;
     margin-left: 0 !important;
-  }
-
-  #userGraphContainer {
     flex-direction: column;
   }
 
-  #reportContainer {
+  .containerDesignDriver {
+    flex-direction: column;
+    margin-left: 0 !important;
+  }
+
+  .reportContainerAdmin {
+    width: 70vw;
+    height: fit-content;
+    margin-top: 4vh !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #reportContainerPassenger {
     margin-left: 0;
     width: 70vw;
     margin-top: 5vh;
@@ -340,6 +350,12 @@ canvas {
     font-size: 0.7em;
   }
 
+  .generateBtnAdmin {
+    align-self: center;
+    margin-top: 5px;
+    font-size: 0.7em;
+  }
+
 
   /* GRAPH SIDE */
 
@@ -352,6 +368,11 @@ canvas {
   .reportContainerDriver {
     width: 70vw;
   }
+
+  .reportContainerAdmin {
+    width: 70vw;
+    margin-left: 0;
+    margin-top: 4vh;  }
 
   .column {
     align-items: center;

@@ -134,7 +134,7 @@ a {
 /* SCREEN DIFFERENCE */
 
 /* signUp button */
-@media screen and (min-width: 700px) {
+@media screen and (min-width: 900px) {
     #signUp {
         background-color: white;
         color: #1E4A5A;
@@ -149,10 +149,13 @@ a {
 
 
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 900px) {
     .navbar-toggler {
         display: block;
         background-color: #1E4A5A;
+    }
+    mat-slide-toggle {
+        margin-right: auto !important;
     }
 
     .navbar-header {
