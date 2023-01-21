@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { defineComponents, IgcRatingComponent } from 'igniteui-webcomponents';
-
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'ride-history',
   templateUrl: './ride-history.component.html',
@@ -8,10 +7,23 @@ import { defineComponents, IgcRatingComponent } from 'igniteui-webcomponents';
 })
 export class RideHistoryComponent implements OnInit {
 
-  constructor() { }
+  public form!: FormGroup;
+  rating: number;
+
+  constructor(private fb: FormBuilder) {
+    this.rating = 0;
+    this.form = this.fb.group({
+      rating: ['', Validators.required],
+    })
+   }
 
   ngOnInit(): void {
-      defineComponents(IgcRatingComponent);
   }
+
+  ratingStyle = {
+    starsStyle: {'height' : '22px', 'width' : '22px'},
+    ratingStyle: {'font-size' : '18px'},
+    countStyle: {'font-size' : '14px'}
+}
 
 }

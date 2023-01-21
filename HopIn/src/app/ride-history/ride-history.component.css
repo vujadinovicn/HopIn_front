@@ -115,10 +115,15 @@ img {
     margin-left: auto;
 }
 
-igc-rating {
-    color: yellow;
-    border-color: black;
+#stars {
     margin-right: 8px;
-    font-size: 2em;
 }
+
+::ng-deep label.star {
+    padding: 0 5px !important;
+    font-size: 20px !important;
+}
+
+
+
 

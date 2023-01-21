@@ -59,6 +59,8 @@ import { OrderRideNotregisteredComponent } from './order-ride-notregistered/orde
 import { AdminReportsComponent } from './admin-reports/admin-reports.component';
 import { RideHistoryComponent } from './ride-history/ride-history.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgxStarRatingModule } from 'ngx-star-rating';
+
 
 @NgModule({
   declarations: [
@@ -120,7 +122,9 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     HttpClientModule, MatSnackBarModule,
     NgxMaterialTimepickerModule,
     GooglePlaceModule,
-    CommonModule
+    CommonModule,
+    NgxStarRatingModule
+    
   ],
   providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline', hideRequiredMarker: 'true' }}, SocketService,
   {

@@ -1,0 +1,60 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div id="favourite-rides-container">
+    <h2>Ride history</h2>
+    <div class="line"></div>
+
+    <div id="historyCard">
+        <div id="left">
+            <div class="row">
+                <div id="carImg">
+                    <img src="../../assets/vectors/car.svg">
+                </div>
+                <h4>Novi Sad -> Belgrade</h4>
+            </div>
+
+            <div class="row">
+                <div class="imgContainer">
+                    <img src="../../assets/vectors/calendar-alt.svg">
+                </div>
+                <p class="key">Date: </p>
+                <p class="value">20.01.2023 11:30</p>
+            </div>
+
+            <div class="row">
+                <div class="imgContainer">
+                    <img src="../../assets/vectors/distance.svg">
+                </div>
+                <p class="key">Distance: </p>
+                <p class="value">1.2 km</p>
+            </div>
+
+            <div class="row">
+                <div class="imgContainer">
+                    <img src="../../assets/vectors/passenger.svg">
+                </div>
+                <p class="key">Passengers: </p>
+                <p class="value">1</p>
+            </div>
+
+            <div class="row">
+                <div class="imgContainer">
+                    <img src="../../assets/vectors/moneyBag.svg">
+                </div>
+                <p class="key">Price(RSD): </p>
+                <p class="value">300</p>
+            </div>
+        </div>
+
+        <div id="right">
+            <div class="row">
+                <div class="rightImgContainer"><img src="../../assets/vectors/chatIcon.svg"></div>
+                <div class="rightImgContainer"><img src="../../assets/vectors/heart_red.svg"></div>
+            </div>
+            <div id="stars">
+                <ngx-star-rating [id]="'rating'"></ngx-star-rating>
+            </div>
+        </div>
+
+    </div>
+</div>
