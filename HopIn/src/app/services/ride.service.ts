@@ -13,7 +13,7 @@ export class RideService {
 
   getAll(id: number): Observable<AllRidesDTO> {
     return this.http.get<AllRidesDTO>(environment.apiHost + '/passenger/' + id + '/all/rides');
-  } 
+  }
 }
 
 export interface AllRidesDTO {
