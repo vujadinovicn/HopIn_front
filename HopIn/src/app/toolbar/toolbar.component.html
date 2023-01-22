@@ -23,7 +23,7 @@
             <a *ngIf="role === 'ROLE_ADMIN'" [routerLink]="['/admin-reports']">Reports</a>
             <a *ngIf="role === 'ROLE_ADMIN'">Drivers</a>
             <a *ngIf="role === 'ROLE_ADMIN'">Chat</a>
-            <a *ngIf="role != null">History</a>
+            <a *ngIf="role != null" [routerLink]="['/ride-history']">History</a>
             <a (click)="logout()" *ngIf="role != null">Log out</a>
             <a *ngIf="role === null" [routerLink]="['/login']">Log in</a>
             <a id="signUp" *ngIf="role === null" [routerLink]="['/register']">Sign up</a>  
