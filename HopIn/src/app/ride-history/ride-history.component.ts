@@ -47,33 +47,69 @@ export class RideHistoryComponent implements OnInit {
       this._id = this.authService.getId();
     })
 
-    this.getRides();
+    if (this._role != 'ROLE_ADMIN') {
+      this.getRides();
+    }
   }
 
   getRides() {
     if (this._role === 'ROLE_PASSENGER') {
-      this.rideService.getAllPassengerRides(this._id).subscribe({
-        next: (res) => {
-          this.rides = res.results
-          this.getRatings();
-          this.setFavorites();
-        },
-        error: (error: any) => {
-          console.log(error)
-        } 
-      });
+      this.getPassengerRides(this._id);
+    } else if (this._role === 'ROLE_DRIVER') {
+      this.getDriverRides(this._id);
     } else {
-      this.rideService.getAllDriverRides(this._id).subscribe({
-        next: (res) => {
-          this.rides = res.results
-          this.getRatings();
-          this.setFavorites();
-        },
-        error: (error: any) => {
-          console.log(error)
-        } 
-      });
+      if (this.id_input < 1) {
+        this.snackBar.open("Id must be greater than 0!", "", {
+          duration: 2000,
+       });
+      }
+      if (this.isPassenger) {
+        this.getPassengerRides(this.id_input);
+      } else {
+        this.getDriverRides(this.id_input);
+      }
     }
+  }
+
+  getPassengerRides(id: number) {
+    this.rideService.getAllPassengerRides(id).subscribe({
+      next: (res) => {
+        this.rides = res.results
+        if (res.results.length === 0) {
+          this.snackBar.open("System didn't find any past rides.", "", {
+            duration: 2000,
+         });
+        }
+        this.getRatings();
+        this.setFavorites();
+      },
+      error: (error: any) => {
+        this.rides = [];
+        this.snackBar.open("Passenger does not exist!", "", {
+          duration: 2000,
+       });
+      } 
+    });
+  }
+
+  getDriverRides(id: number) {
+    this.rideService.getAllDriverRides(id).subscribe({
+      next: (res) => {
+        this.rides = res.results
+        if (res.results.length === 0) {
+          this.snackBar.open("System didn't find any past rides.", "", {
+            duration: 2000,
+         });
+        }
+        this.getRatings();
+        this.setFavorites();
+      },
+      error: (error: any) => {
+        this.rides = [];
+        this.snackBar.open("Driver does not exist!", "", {
+          duration: 2000,
+       });      } 
+    });
   }
 
   getRatings() {

@@ -139,7 +139,8 @@ img {
 }
 
 #idInput {
-    height: 1.8em;
+    height: 1.5em;
+    width: 10em;
     margin-left: 1em;
     border: 2px solid rgba(0, 0, 0, 0.758);
     border-radius: 10px;
@@ -148,7 +149,27 @@ img {
 #adminRideInfo > div {
     margin-top: auto;
     margin-bottom: auto;
+    display: flex;
+    flex-direction: column;
 }
 
+#generateBtn {
+    background-color: #1E4A5A;
+    color: white;
+    font-size: 0.8em;
+    padding: 0.3em 1em ;
+    border-radius: 5px;
+    border: 0;
+    height: fit-content;
+    width: 11em;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 3px;
+    margin-left: auto;
+  }
+
+  #generateBtn:hover {
+    background-color: #337D98;
+    cursor: pointer;
+}
 
 

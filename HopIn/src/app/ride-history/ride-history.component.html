@@ -2,7 +2,7 @@
 
 <div id="favourite-rides-container">
 
-    <div id="adminRideInfo" class="row">
+    <div id="adminRideInfo" class="row" *ngIf="this._role === 'ROLE_ADMIN'">
         <div id="options">
             <div class="row">
                 <input [(ngModel)]="isPassenger" type="radio" name="DriverPassenger" value="Driver" [value]="false">
@@ -13,10 +13,13 @@
                 <label for="Passenger">Passenger</label>
             </div>
         </div>
-        <div class="row">
-            <label *ngIf="this.isPassenger === true">Choose passenger</label>
-            <label *ngIf="this.isPassenger === false">Choose driver</label>
-            <input id="idInput" type="number" [(ngModel)]="id_input" placeholder="Enter ID">
+        <div>
+            <div class="row">
+                <label *ngIf="this.isPassenger === true">Choose passenger</label>
+                <label *ngIf="this.isPassenger === false">Choose driver</label>
+                <input id="idInput" type="number" [(ngModel)]="id_input" placeholder="Enter ID">
+            </div>
+            <button id="generateBtn" (click)="getRides()">Show</button>
         </div>
     </div>
 
