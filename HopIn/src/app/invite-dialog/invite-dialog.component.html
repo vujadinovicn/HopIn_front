@@ -1,0 +1,10 @@
+<div>
+    <h1 mat-dialog-title align="center" class="dark-blue">{{"Ride Invitation from " + data.invite.from.name}}</h1>
+  
+      <div mat-dialog-content align="center">
+        <route-suggestion-details [route]="data.invite.route"></route-suggestion-details>
+      <div mat-dialog-actions align="center">
+        <button mat-button class="conf-button back-red" (click)="declineInvitation()">Decline</button>
+        <button mat-button class="conf-button back-green" (click)="acceptInvitation()">Accept</button>
+      </div>
+</div>

@@ -69,9 +69,9 @@ export class VehiclesMapComponent implements OnInit {
       if (status == google.maps.GeocoderStatus.OK) {
         let chosenResponse = response?.at(0);
         let address: ShortAddress = {
-          formatted: chosenResponse?.formatted_address!,
-          lat: chosenResponse?.geometry.location.lat()!,
-          lng: chosenResponse?.geometry.location.lng()!
+          address: chosenResponse?.formatted_address!,
+          latitude: chosenResponse?.geometry.location.lat()!,
+          longitude: chosenResponse?.geometry.location.lng()!
         }
         if (type == "Pickup") {
           this.pickupDestinationService.updatePickup(address);

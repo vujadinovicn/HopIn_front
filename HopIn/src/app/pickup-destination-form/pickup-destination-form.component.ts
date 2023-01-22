@@ -1,7 +1,9 @@
+import { AuthService } from './../services/auth.service';
+import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
 import { ShortAddress, Route, RoutingService } from './../services/routing.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Address } from 'ngx-google-places-autocomplete/objects/address';
 import { autocompleteValidator } from '../validators/autocompleteValidator';
 import { schedulingValidator } from '../validators/schedulingValidator';
@@ -15,6 +17,8 @@ import { markFormControlsTouched } from '../validators/formGroupValidators';
   styleUrls: ['./pickup-destination-form.component.css']
 })
 export class PickupDestinationFormComponent implements OnInit {
+
+  @Input() stepper: MatStepper = {} as MatStepper;
 
   chosenAddress: Address[] = [];
 
@@ -33,8 +37,8 @@ export class PickupDestinationFormComponent implements OnInit {
   route: Route = {} as Route;
 
   constructor(private routingService: RoutingService, private router: Router,
-              private pickupDestinationService: PickupDestinationService ) { 
-    this.role = 'USER';
+              private pickupDestinationService: PickupDestinationService, private authService: AuthService) { 
+    this.role = this.authService.getRole();
   }
 
   ngOnInit(): void {
@@ -45,13 +49,13 @@ export class PickupDestinationFormComponent implements OnInit {
   listenToMarkers() {
     this.pickupDestinationService.receivedPickup().subscribe((address: ShortAddress) => {
       this.markerGenerated[0] = true;
-      this.rideForm.get("pickup")?.setValue(address.formatted);
+      this.rideForm.get("pickup")?.setValue(address.address);
       this.route.pickup = address;
     });
 
     this.pickupDestinationService.receivedDestination().subscribe((address: ShortAddress) => {
       this.markerGenerated[1] = true;
-      this.rideForm.get("destination")?.setValue(address.formatted);
+      this.rideForm.get("destination")?.setValue(address.address);
       this.route.destination = address;
     });
   }
@@ -73,13 +77,25 @@ export class PickupDestinationFormComponent implements OnInit {
     }
   }
 
+  nextStep() {
+    this.rideForm.markAllAsTouched();
+    if (this.rideForm.valid) {
+      this.routingService.route.scheduledTime = this.rideForm.get('time')?.value!;
+      this.routingService.route.pickup = this.route.pickup;
+      this.routingService.route.destination = this.route.destination;
+
+      this.stepper.selected!.completed = true;
+      this.stepper.next();
+    }
+  }
+
   public handlePickupChange(address: Address) {
     this.markerGenerated[0] = false;
     if (this.checkAutocompleteValidity(address, 0, 'pickup')) {
       this.route.pickup = {
-        formatted: address.formatted_address,
-        lat: address.geometry.location.lat(),
-        lng: address.geometry.location.lng(),
+        address: address.formatted_address,
+        latitude: address.geometry.location.lat(),
+        longitude: address.geometry.location.lng(),
       }
     }
   }
@@ -88,9 +104,9 @@ export class PickupDestinationFormComponent implements OnInit {
     this.markerGenerated[1] = false;
     if (this.checkAutocompleteValidity(address, 1, 'destination')) {
       this.route.destination = {
-        formatted: address.formatted_address,
-        lat: address.geometry.location.lat(),
-        lng: address.geometry.location.lng(),
+        address: address.formatted_address,
+        latitude: address.geometry.location.lat(),
+        longitude: address.geometry.location.lng(),
       }
     }
   }

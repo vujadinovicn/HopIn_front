@@ -1,6 +1,10 @@
+import { AuthService } from './../services/auth.service';
+import { RoutingService } from './../services/routing.service';
+import { FormGroup } from '@angular/forms';
 import { PickupDestinationFormComponent } from './../pickup-destination-form/pickup-destination-form.component';
 import { RouteSuggestionComponent } from '../route-suggestion/route-suggestion.component';
-import { Component, OnInit, ɵsetAllowDuplicateNgModuleIdsForTest } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ɵsetAllowDuplicateNgModuleIdsForTest } from '@angular/core';
+import { MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'order-ride',
@@ -9,23 +13,17 @@ import { Component, OnInit, ɵsetAllowDuplicateNgModuleIdsForTest } from '@angul
 })
 export class OrderRideComponent implements OnInit {
 
-  componentStack: any[] = [PickupDestinationFormComponent];
-  currentComponent: any = this.componentStack[this.componentStack.length - 1];
+  isEditable: boolean = true;
 
-  constructor() { }
+  rideForm: FormGroup = {} as FormGroup;
+  @ViewChild('stepper') private stepper: MatStepper = {} as MatStepper;
+
+  constructor(private routingService: RoutingService) {
+  }
 
   ngOnInit(): void {
   }
 
-  public addComponent(component: any) {
-    alert(component);
-    if (component == "route-suggestion") {
-      this.componentStack.push(RouteSuggestionComponent);
-    } else {
-      if (component == "pickup-form") {
-        this.componentStack.pop();
-      }
-    }
-  }
+ 
 
 }

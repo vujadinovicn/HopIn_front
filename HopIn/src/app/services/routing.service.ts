@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject, Observable } from 'rxjs';
 import { UnregisteredRideSuggestionDTO, RouteService } from './route.service';
@@ -13,9 +14,14 @@ export class RoutingService {
   public response = new BehaviorSubject<any>({});
 
   private directionsService: google.maps.DirectionsService = {} as google.maps.DirectionsService;
+  invite: boolean = false;
 
 
-  constructor(private routeService: RouteService) { }
+  constructor(private routeService: RouteService, private authService: AuthService) { 
+    this.route.babyTransport = false;
+    this.route.petTransport = false;
+    this.route.vehicleTypeName = 'CAR';
+  }
 
   updateRoute(route: Route) {
     this.route = route;
@@ -39,12 +45,12 @@ export class RoutingService {
   
     let request: google.maps.DirectionsRequest = {
       origin: {
-        lat: this.route.pickup.lat,
-        lng: this.route.pickup.lng
+        lat: this.route.pickup.latitude,
+        lng: this.route.pickup.longitude
       },
       destination: {
-        lat: this.route.destination.lat,
-        lng: this.route.destination.lng
+        lat: this.route.destination.latitude,
+        lng: this.route.destination.longitude
       },
       travelMode: google.maps.TravelMode.DRIVING,
     };
@@ -57,10 +63,8 @@ export class RoutingService {
         this.route.distance= response?.routes[0].legs[0].distance?.value!;
         this.route.durationFormatted = response?.routes[0].legs[0].duration?.text!;
         this.route.duration = response?.routes[0].legs[0].duration?.value!;
-        console.log(response);
         this.getRoutePrice(response);
-      }
-    })  
+    }})  
   }
 
   // showSteps(directionResult: any) {
@@ -91,6 +95,13 @@ export class RoutingService {
       this.updateResponse(response);
     });
   }
+
+  setDefaultUser() {
+    this.route.passengers = [{
+      id: this.authService.getId(),
+      email: this.authService.getEmail()
+    }];
+  }
 }
 
 export interface Route {
@@ -102,11 +113,19 @@ export interface Route {
   duration: number,
   durationFormatted: string,
   price: number,
-  vehicleTypeName: string
+  vehicleTypeName: string,
+  babyTransport: boolean,
+  petTransport: boolean,
+  passengers: RidePassenger[]
 }
 
 export interface ShortAddress {
-  formatted: string,
-  lat: number,
-  lng: number
+  address: string,
+  latitude: number,
+  longitude: number
+}
+
+export interface RidePassenger {
+  id: number,
+  email: string
 }

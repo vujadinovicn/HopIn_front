@@ -5,18 +5,22 @@
                 HopIn
             </a>
 
+            <mat-slide-toggle *ngIf="role === 'ROLE_DRIVER'" [(ngModel)]="checked" (change)="toggleChange()">
+            </mat-slide-toggle>
+
             <button class="navbar-toggler" data-toggle="open-navbar1">
                     <div></div>
                     <div></div>
                     <div></div>
             </button>
+            
         </div>  
   
       <div class="navbar-menu" id="open-navbar1">
         <div class="navbar-nav">
             <a *ngIf="role != null" [routerLink]="['/order-ride']">Home</a>
             <a (click)="openAccount()" *ngIf="role === 'ROLE_PASSENGER' || role === 'ROLE_DRIVER'">Account</a>
-            <a *ngIf="role === 'ROLE_ADMIN'">Reports</a>
+            <a *ngIf="role === 'ROLE_ADMIN'" [routerLink]="['/admin-reports']">Reports</a>
             <a *ngIf="role === 'ROLE_ADMIN'">Drivers</a>
             <a *ngIf="role === 'ROLE_ADMIN'">Chat</a>
             <a *ngIf="role != null">History</a>

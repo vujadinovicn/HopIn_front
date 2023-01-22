@@ -1,4 +1,4 @@
-.userGraphContainer {
+.containerDesignPassenger {
     align-self: center;
     display: flex;
     flex-direction: row;
@@ -6,7 +6,14 @@
     margin-bottom: 30vh;
 }
 
-.containerDesign {
+.containerDesignAdmin {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5vh;
+}
+
+.containerDesignDriver {
   flex-direction: column !important;
   display: flex;
   margin-left: 30px !important;
@@ -23,6 +30,16 @@
     height: 40vh;
     border: 1px solid #E6E6E6;
     border-radius: 10px;
+    width: 32vw;
+}
+
+#reportInfoAdmin {
+  display: flex;
+    flex-direction: column;
+    align-items: left;
+    background-color: white;
+    padding: 10px 25px;
+    height: fit-content;
     width: 32vw;
 }
 
@@ -57,6 +74,8 @@ h2 {
 p {
     margin: 0;
     padding: 5px;
+    font-size: 14px;
+    color: #B1B1B1;
 }
 
 
@@ -139,6 +158,12 @@ p {
     margin-top: auto;
   }
 
+  .generateBtnAdmin {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3vh !important;
+  }
+
   #generateBtn:hover {
     background-color: #337D98;
     cursor: pointer;
@@ -192,6 +217,17 @@ p {
     border-radius: 10px;
     width: 32vw;
     margin-top: 2vh;
+}
+
+.reportContainerAdmin {
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  background-color: white;
+  padding: 25px 25px;
+  height: 40vh;
+  width: 32vw;
+  margin-top: 2vh;
 }
 
 .column {
@@ -258,17 +294,27 @@ canvas {
 
 
 @media only screen and (max-width: 900px) {
-  .containerDesign {
+  .containerDesignPassenger  {
     margin: 0;
     margin-top: 4vh;
     margin-left: 0 !important;
-  }
-
-  #userGraphContainer {
     flex-direction: column;
   }
 
-  #reportContainer {
+  .containerDesignDriver {
+    flex-direction: column;
+    margin-left: 0 !important;
+  }
+
+  .reportContainerAdmin {
+    width: 70vw;
+    height: fit-content;
+    margin-top: 4vh !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #reportContainerPassenger {
     margin-left: 0;
     width: 70vw;
     margin-top: 5vh;
@@ -304,6 +350,12 @@ canvas {
     font-size: 0.7em;
   }
 
+  .generateBtnAdmin {
+    align-self: center;
+    margin-top: 5px;
+    font-size: 0.7em;
+  }
+
 
   /* GRAPH SIDE */
 
@@ -316,6 +368,11 @@ canvas {
   .reportContainerDriver {
     width: 70vw;
   }
+
+  .reportContainerAdmin {
+    width: 70vw;
+    margin-left: 0;
+    margin-top: 4vh;  }
 
   .column {
     align-items: center;

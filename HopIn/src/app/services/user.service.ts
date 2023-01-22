@@ -39,6 +39,14 @@ export class UserService {
     };
     return this.http.put<string>(environment.apiHost + '/passenger/' + passenger.id, passenger, options);
   }
+
+  sendResetPasswordEmail(email: string): Observable<String> {
+    return this.http.get<String>(environment.apiHost + "/user/" + email + "/resetPasswordEmail");
+  }
+
+  resetPassword(dto: ResetPasswordDTO) {
+    return this.http.put<string>(environment.apiHost + "/user/0/resetPassword", dto);
+  }
 }
 
 export interface User {
@@ -75,4 +83,8 @@ export class MethodsForRoleImpl implements MethodsForRole {
   routerNavigation: any;
 
   constructor(){}
+}
+export interface ResetPasswordDTO {
+  code: string,
+  newPassword: string
 }

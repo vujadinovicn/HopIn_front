@@ -119,12 +119,22 @@ a {
 }
 
 
+/* TOGGLE BUTTON */
+
+:host ::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+    background-color: #77BF6C ;
+}
+
+:host ::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb  {
+    background-color: #29C325 ;
+}
+
 
 
 /* SCREEN DIFFERENCE */
 
 /* signUp button */
-@media screen and (min-width: 700px) {
+@media screen and (min-width: 900px) {
     #signUp {
         background-color: white;
         color: #1E4A5A;
@@ -139,10 +149,13 @@ a {
 
 
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 900px) {
     .navbar-toggler {
         display: block;
         background-color: #1E4A5A;
+    }
+    mat-slide-toggle {
+        margin-right: auto !important;
     }
 
     .navbar-header {

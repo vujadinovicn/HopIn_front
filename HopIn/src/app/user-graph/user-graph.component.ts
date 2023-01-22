@@ -1,3 +1,4 @@
+import { PassengerAccountOptionsService } from './../services/passengerAccountOptions.service';
 import { AuthService } from './../services/auth.service';
 import { RideForReport } from './../userGraphService/user-graph.service';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
@@ -16,6 +17,7 @@ Chart.register(...registerables)
 export class UserGraphComponent implements OnInit {
 
   _role: String = '';
+  _option: String = '';
   _id: number = 0;
   selectedDates!: {start: Dayjs, end: Dayjs};
   selectedType: String = 'Distance traveled'
@@ -25,18 +27,29 @@ export class UserGraphComponent implements OnInit {
   labels!: string[];
   total: number = 0;
   average: number = 0;
-  rides!: RideForReport[] 
+  rides!: RideForReport[];
+  id_input: number = 0;
 
 
   constructor(private userGraphService: UserGraphService,
     public snackBar: MatSnackBar,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private passengerAccountOptionsService: PassengerAccountOptionsService) { }
 
   ngOnInit(): void {
     this.authService.getUser().subscribe((res) => {
       this._role = res;
       this._id = this.authService.getId();
+      if (this._role === 'ROLE_ADMIN') { this.reportVisibility = true; }
     })
+
+    this.recieveSelectedOption();
+  }
+
+  recieveSelectedOption(): void {
+    this.passengerAccountOptionsService.recieveSelectedOption().subscribe((res: any) => {
+      this._option = res;
+    });
   }
 
   RenderChart() {
@@ -102,9 +115,42 @@ generateBtnOnClick():void {
       duration: 2000,
    });
    return;
+  } else if (this._role === 'ROLE_ADMIN' && this._option != 'allReports' && this.id_input < 1) {
+    this.snackBar.open("Id must be greater than 0!", "", {
+      duration: 2000,
+   });
+   return;
   }
 
-  this.userGraphService.getAll(this.selectedDates.start, this.selectedDates.end, this._role, this._id).subscribe((res) => {
+  if (this._role === 'ROLE_ADMIN') {
+    if (this._option === 'driverReports') {
+      this.getAll('ROLE_DRIVER', this.id_input);
+    } else if (this._option === 'passengerReports') {
+      this.getAll('ROLE_PASSENGER', this.id_input);
+    } else {
+      this.getAll('ROLE_ADMIN', this.id_input);
+    }
+
+  } else {
+    this.getAll(this._role, this._id);
+  }
+  
+  this.reportVisibility = true;
+
+}
+
+setDistanceTraveledDD():void {
+  this.selectedType = "Distance traveled"
+}
+setRidesNumDD():void {
+  this.selectedType = "Number of rides"
+}
+setMoneySpentDD():void {
+  this.selectedType = "Money spent"
+}
+
+getAll(role: String, id: number) {
+  this.userGraphService.getAll(this.selectedDates.start, this.selectedDates.end, role, id).subscribe((res) => {
     this.rides = res;
     
     if(res.length != 0) {
@@ -120,22 +166,12 @@ generateBtnOnClick():void {
       this.labels = [];
       this.average = 0;
       this.total = 0;
+      this.snackBar.open("Sorry, we don't have any data for entered parameters!", "", {
+        duration: 2000,
+     });
     }
     this.RenderChart();
   });
-  
-  this.reportVisibility = true;
-
-}
-
-setDistanceTraveledDD():void {
-  this.selectedType = "Distance traveled"
-}
-setRidesNumDD():void {
-  this.selectedType = "Number of rides"
-}
-setMoneySpentDD():void {
-  this.selectedType = "Money spent"
 }
 
 setDataForDistance(): void {

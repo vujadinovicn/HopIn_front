@@ -1,76 +1,7 @@
 <div id="route-suggestion-content">
     <div id="ride-details" class="border">
         <h1 class="title">Estimated ride details</h1>
-        <div class="left-icon-card">
-            <div class="icon-container">
-                <i class="fa fa-map-marker" aria-hidden="true"></i>
-            </div>
-            <div class="content-container">
-                <div>
-                    <p class="dark-blue small-title" >Pick up location:</p>
-                    <p id="pickup-location" class="card-content">{{ route.pickup.formatted }}</p>
-                </div>
-            </div>
-        </div>
-        <div class="left-icon-card">
-            <div class="icon-container">
-                <i class="fa fa-map-marker" aria-hidden="true"></i>
-            </div>
-            <div class="content-container">
-                <div>
-                    <p class="dark-blue small-title" >Destination:</p>
-                    <p id="destination-location" class="card-content">{{ route.destination.formatted }}</p>
-                </div>
-            </div>
-        </div>
-        <div id="smaller-cards-container">
-            <div class="left-icon-card smaller-card">
-                <div class="icon-container back-darker-gray">
-                    <img src="../../assets/vectors/distance.svg">    
-                </div>
-                <div class="content-container">
-                    <div>
-                        <p class="dark-blue small-title" >Distance:</p>
-                        <p id="distance" class="card-content">{{ route.distanceFormatted }}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="left-icon-card smaller-card">
-                <div class="icon-container back-darker-gray">
-                    <i class="fa-solid fa-stopwatch black"></i>
-                </div>
-                <div class="content-container">
-                    <div>
-                        <p class="dark-blue small-title" >Duration:</p>
-                        <p id="duration" class="card-content">{{ route.durationFormatted }}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="left-icon-card smaller-card">
-                <div class="icon-container back-darker-gray">
-                    <i class="fa fa-car black" aria-hidden="true"></i>  
-                </div>
-                <div class="content-container">
-                    <div>
-                        <p class="dark-blue small-title" >Vehicle:</p>
-                        <p id="distance" class="card-content">{{ route.vehicleTypeName }}</p>
-                    </div>
-                </div>
-            </div>
-        
-            <div class="left-icon-card smaller-card">
-                <div class="icon-container back-darker-gray">
-                    <i class="fa-solid fa-sack-dollar black"></i>
-                </div>
-                <div class="content-container">
-                    <div>
-                        <p class="dark-blue small-title" >Price:</p>
-                        <p id="duration" class="card-content">{{ route.price }} RSD</p>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
+        <route-suggestion-details [route]="this.routingService.route"></route-suggestion-details>
         <div id="bottom-text">
             <p>Interested in this ride?</p>
             <a href="#" [routerLink]="['/login']"><span class="orange">Log in</span> and Hop In!</a>

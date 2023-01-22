@@ -1,0 +1,49 @@
+::ng-deep pickup-destination-form {
+    height: fit-content;
+    width: fit-content;
+    position: absolute;
+    z-index: 20;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+@media screen and (max-width: 700px) {
+    pickup-destination-form {
+        display: block;
+        left: 0; 
+        right: 0; 
+        margin-left: auto; 
+        margin-right: auto; ;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    pickup-destination-form {
+        margin-top: 0;
+        width: 100%;
+        position: relative;
+        height: 239px;
+    }
+
+    ::ng-deep .border {
+        border-radius: 0px !important;
+    }
+
+    ::ng-deep #tell-us {
+        margin-top: 10px !important;
+    }
+
+    ::ng-deep #unreg-ride-container {
+        width: 100% !important;
+        padding-bottom: 13px !important;
+    }
+
+    ::ng-deep #find-route-btn {
+        margin-top: 16px !important;
+    }
+
+    ::ng-deep #map {
+        position: relative;
+        height: calc(100% - 277px) !important;
+    }
+}

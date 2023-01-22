@@ -1,3 +1,4 @@
+import { SocketService } from './../services/socket.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService, 
     private router: Router,
-    public snackBar: MatSnackBar) { }
+    public snackBar: MatSnackBar,
+    private socketService: SocketService) { }
 
   ngOnInit(): void {
   }
@@ -35,6 +37,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(loginVal).subscribe({
         next: (result) => {
           localStorage.setItem('user', JSON.stringify(result.accessToken));
+          localStorage.setItem('refreshToken', JSON.stringify(result.refreshToken));
           this.authService.setUser();
           this.router.navigate(['/order-ride']);
         },

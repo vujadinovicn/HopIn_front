@@ -1,9 +1,9 @@
 <div id="passenger-account-options-container">
-    <div class="account-options" (click)="selectOption('settings')" 
+    <div class="account-options" (click)="selectOption('settings')" *ngIf="userRole != 'ROLE_ADMIN'" 
     [ngClass]="{'dark-blue' : option == 'settings', 'dark-gray': option != 'settings'}">
         <span class="responsive-span">account</span> settings
     </div>
-    <div class="account-options" (click)="selectOption('password')"
+    <div class="account-options" (click)="selectOption('password')" *ngIf="userRole != 'ROLE_ADMIN'"
       [ngClass]="{'dark-blue' : option == 'password', 'dark-gray': option != 'password'}">
         <span class="responsive-span">change</span> password
     </div>
@@ -18,5 +18,17 @@
     <div class="account-options" (click)="selectOption('documents')" *ngIf="userRole == 'ROLE_DRIVER'"
     [ngClass]="{'dark-blue' : option == 'documents', 'dark-gray': option != 'documents'}">
         <span class="responsive-span">change</span> documents
+    </div>
+    <div class="account-options" (click)="selectOption('allReports')" *ngIf="userRole == 'ROLE_ADMIN'"
+    [ngClass]="{'dark-blue' : option == 'allReports', 'dark-gray': option != 'allReports'}">
+    all <span class="responsive-span">reports</span>
+    </div>
+    <div class="account-options" (click)="selectOption('passengerReports')" *ngIf="userRole == 'ROLE_ADMIN'"
+    [ngClass]="{'dark-blue' : option == 'passengerReports', 'dark-gray': option != 'passengerReports'}">
+    passenger <span class="responsive-span">reports</span> 
+    </div>
+    <div class="account-options" (click)="selectOption('driverReports')" *ngIf="userRole == 'ROLE_ADMIN'"
+    [ngClass]="{'dark-blue' : option == 'driverReports', 'dark-gray': option != 'driverReports'}">
+    driver <span class="responsive-span">reports</span> 
     </div>
 </div>

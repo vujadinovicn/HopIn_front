@@ -18,13 +18,22 @@ export class AccountOptionsComponent implements OnInit {
     private passengerAccountOptionsService : PassengerAccountOptionsService) { }
 
   ngOnInit(): void {
-    this.selectOption(this.option);
     this.setRole();
+    this.selectOptionIfAdminRole();
+    this.selectOption(this.option);
   }
 
   selectOption(option: string){
     this.option = option;
     this.sendSelectedOption(option);
+  }
+
+  selectOptionIfAdminRole(): void {
+    if (this.userRole === 'ROLE_ADMIN') {
+      this.option = 'allReports'
+    } else {
+      this.option = 'settings'
+    }
   }
 
   private sendSelectedOption(option: string): void {
@@ -34,6 +43,6 @@ export class AccountOptionsComponent implements OnInit {
   private setRole() {
     this.authService.getUser().subscribe((res) => {
       this.userRole = res;
-    });
+    })
   }
 }
