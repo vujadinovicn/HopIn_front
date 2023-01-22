@@ -16,14 +16,14 @@ export class VehicleService {
 
     update(vehicle: any, driverId: number): Observable<any> {
         const options: any = {
-          responseType: 'text',
+          responseType: 'json',
         };
         return this.http.put<string>(environment.apiHost + '/driver/' + driverId + '/vehicle', vehicle, options);
     }
 
     add(vehicle: any, driverId: number): Observable<any> {
       const options: any = {
-        responseType: 'text',
+        responseType: 'json',
       };
       return this.http.post<string>(environment.apiHost + '/driver/' + driverId + '/vehicle', vehicle, options);
     }

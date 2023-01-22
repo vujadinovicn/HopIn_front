@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User, UserService } from '../services/user.service';
+import { MethodsForRoleImpl, User, UserService } from '../services/user.service';
 import { PassengerAccountOptionsService } from '../services/passengerAccountOptions.service';
 import { SharedService } from '../shared/shared.service';
 import { markFormControlsTouched } from '../validators/formGroupValidators';
@@ -17,8 +17,14 @@ import { AuthService } from '../services/auth.service';
 })
 export class ChangePasswordComponent implements OnInit {
 
-  role: string = "driver";
-  id: number = 0;
+  userRole: string = "ROLE_DRIVER";
+  userId: number = 0;
+
+  methodsForRole: MethodsForRoleImpl = {
+    serviceSendToBackMethod: "",
+    serviceGetMethod: "",
+    routerNavigation: ""
+  };
 
   user : User = {
     id: 0,
@@ -47,76 +53,69 @@ export class ChangePasswordComponent implements OnInit {
               private sharedService: SharedService) { }
 
   ngOnInit(): void {
-    this.authService.getUser().subscribe((res) => {
-      this.role = res;
-      this.id = this.authService.getId();
-    })
+    this.setUserRoleAndId();
+    this.generateMethodsForRole();
     this.setUserData();
     markFormControlsTouched(this.changePasswordForm);
   }
 
   save(): void {
     if (this.changePasswordForm.valid) {
-      if (this.role == "ROLE_PASSENGER"){
-        this.savePassengerPassword();
-      }
-      else if (this.role == "ROLE_DRIVER")
-        this.saveDriverPassword();
+      this.sendToBack();
     } else {
-      this.sharedService.openInvalidInputSnack()
+        this.sharedService.openInvalidInputSnack();
     }
   }
 
-  private savePassengerPassword() {
-    this.userService.updatePassengerPassword(this.setResponseValue()).subscribe({
+  private sendToBack() {
+    this.methodsForRole.serviceSendToBackMethod().subscribe({
       next: (res: any) => {
-        this.router.navigate(['/account-passenger']);
-        this.sharedService.openResponseSnack();
+        this.methodsForRole.routerNavigation();
+        this.sharedService.openSnack({
+          value: "Response is in console!",
+          color: "back-green"
+        }
+        );
+        console.log(res);
       },
-      error: (error: any) => {
-        this.sharedService.openNoResponseSnack();
-      }
-    });
-  }
-
-  private saveDriverPassword() {
-    let res = {
-      oldPassword: this.changePasswordForm.value.oldPassword,
-      newPassword: this.changePasswordForm.value.newPassword,
-    }
-    this.requestDetailsService.addPasswordRequest(this.id, res).subscribe({
-      next: (res: any) => {
-        this.router.navigate(['/account-driver']);
-        this.sharedService.openResponseSnack();
-      },
-      error: (error: any) => {
+      error: () => {
         this.sharedService.openNoResponseSnack();
       }
     });
   }
 
   setUserData() {
-    if (this.role == "ROLE_PASSENGER")
-      this.setPassengerData();
-    else if (this.role == "ROLE_DRIVER")
-      this.setDriverData();
-  }
-
-  private setPassengerData() {
-    this.userService.getByPassengerId(this.id).subscribe((res: any) => {
+    this.methodsForRole.serviceGetMethod(this.userId).subscribe((res: any) => {
       this.user = res;
     });;
   }
 
-  private setDriverData() {
-    this.userService.getByDriverId(this.id).subscribe((res: any) => {
-      this.user = res;
-    });;
+  private setUserRoleAndId() {
+    this.authService.getUser().subscribe((res) => {
+      this.userRole = res;
+      this.userId = this.authService.getId();
+    });
+  }
+
+  private generateMethodsForRole() {
+    if (this.userRole == "ROLE_PASSENGER") {
+      this.methodsForRole.serviceSendToBackMethod = () => {
+        return this.userService.updatePassengerPassword(this.setResponseValue());
+      }
+      this.methodsForRole.serviceGetMethod = (id: number) => this.userService.getByPassengerId(id);
+      this.methodsForRole.routerNavigation = () => this.router.navigate(['/account-passenger']);
+    }else if (this.userRole == "ROLE_DRIVER") {
+      this.methodsForRole.serviceSendToBackMethod = () => {
+        return this.requestDetailsService.addPasswordRequest(this.userId, this.setOnlyPasswordResponseValue());
+      }
+      this.methodsForRole.serviceGetMethod = (id: number) => this.userService.getByDriverId(id);
+      this.methodsForRole.routerNavigation = () => this.router.navigate(['/account-driver']);
+    }
   }
 
   private setResponseValue(): any{
     return {
-      id: this.id,
+      id: this.userId,
       name: this.user.name,
       surname: this.user.surname,
       profilePicture: this.user.profilePicture,
@@ -128,4 +127,10 @@ export class ChangePasswordComponent implements OnInit {
     }
   }
 
+  private setOnlyPasswordResponseValue(): any {
+    return {
+      oldPassword: this.changePasswordForm.value.oldPassword,
+      newPassword: this.changePasswordForm.value.newPassword,
+    }
+  }
 }

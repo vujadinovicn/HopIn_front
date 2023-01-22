@@ -19,20 +19,6 @@ export class UserService {
     return this.http.get<User>(environment.apiHost + '/driver/' + driverId);
   }
 
-  updateDriverPersonalInfo(driver: any): Observable<any> {
-    const options: any = {
-      responseType: 'json',
-    };
-    return this.http.put<string>(environment.apiHost + '/driver/2', driver, options);
-  }
-
-  updateDriverPassword(driver: any): Observable<any> {
-    const options: any = {
-      responseType: 'json',
-    };
-    return this.http.put<string>(environment.apiHost + '/driver/2', driver, options);
-  }
-
   registerPassenger(passenger: UserDTO): Observable<any> {
     const options: any = {
       responseType: 'json',
@@ -49,7 +35,7 @@ export class UserService {
 
   updatePassengerPassword(passenger: any): Observable<any> {
     const options: any = {
-      responseType: 'text',
+      responseType: 'json',
     };
     return this.http.put<string>(environment.apiHost + '/passenger/' + passenger.id, passenger, options);
   }
@@ -85,6 +71,19 @@ export interface UserDTO {
     password: string;
 }
 
+export interface MethodsForRole{
+  serviceSendToBackMethod: any,
+  serviceGetMethod: any,
+  routerNavigation: any
+}
+
+export class MethodsForRoleImpl implements MethodsForRole {
+  serviceSendToBackMethod: any;
+  serviceGetMethod: any;
+  routerNavigation: any;
+
+  constructor(){}
+}
 export interface ResetPasswordDTO {
   code: string,
   newPassword: string
