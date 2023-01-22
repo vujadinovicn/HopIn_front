@@ -1,6 +1,26 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <div id="favourite-rides-container">
+
+    <div id="adminRideInfo" class="row">
+        <div id="options">
+            <div class="row">
+                <input [(ngModel)]="isPassenger" type="radio" name="DriverPassenger" value="Driver" [value]="false">
+                <label for="Driver">Driver</label>
+            </div>
+            <div class="row">
+                <input [(ngModel)]="isPassenger" type="radio" name="DriverPassenger" value = "Passenger" [value]="true">
+                <label for="Passenger">Passenger</label>
+            </div>
+        </div>
+        <div class="row">
+            <label *ngIf="this.isPassenger === true">Choose passenger</label>
+            <label *ngIf="this.isPassenger === false">Choose driver</label>
+            <input id="idInput" type="number" [(ngModel)]="id_input" placeholder="Enter ID">
+        </div>
+    </div>
+
+
     <h2>Ride history</h2>
     <div class="line"></div>
 

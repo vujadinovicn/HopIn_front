@@ -10,7 +10,7 @@ p {
     align-items: left;
     padding: 25px 0px;
     height: fit-content;
-    margin-top: 5vh;
+    margin-top: 2vh;
     margin-left: auto;
     margin-right: auto;
     /* Overflow-y:scroll;
@@ -19,6 +19,7 @@ p {
 
 h2 {
     margin: 0;
+    margin-top: 2vh;
 }
 
 h3 {
@@ -124,6 +125,30 @@ img {
     font-size: 20px !important;
 }
 
+
+/* ADMIN ROLE */
+/* #adminRideInfo {
+    display: flex;
+    flex-direction: ro;
+} */
+
+#options {
+    display: flex;
+    flex-direction: column;
+    margin-right: auto;
+}
+
+#idInput {
+    height: 1.8em;
+    margin-left: 1em;
+    border: 2px solid rgba(0, 0, 0, 0.758);
+    border-radius: 10px;
+}
+
+#adminRideInfo > div {
+    margin-top: auto;
+    margin-bottom: auto;
+}
 
 
 

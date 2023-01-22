@@ -7,6 +7,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FavouriteRoute } from '../favourite-routes/favourite-routes.component';
 import { distinct } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PassengerAccountOptionsService } from '../services/passengerAccountOptions.service';
 @Component({
   selector: 'ride-history',
   templateUrl: './ride-history.component.html',
@@ -16,11 +17,12 @@ export class RideHistoryComponent implements OnInit {
 
   _role: String = ''
   _id: number = 0
-  rating = 4
   rides: RideReturnedDTO[] = []
   ratings: number[] = []
   isfavoriteRoutes: boolean[] = [];
   favoriteRoutes: FavouriteRoute[] = [];
+  id_input: number = 0;
+  isPassenger: boolean = false;
 
   emptyFavorite: FavouriteRoute = {
     id: 0,
@@ -34,7 +36,8 @@ export class RideHistoryComponent implements OnInit {
     private reviewService: ReviewService,
     private favoriteRouteService: FavouriteRoutesService,
     public snackBar: MatSnackBar,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private passengerAccountOptionsService: PassengerAccountOptionsService) {
 
    }
 
