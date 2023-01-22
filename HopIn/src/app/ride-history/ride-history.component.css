@@ -172,4 +172,14 @@ img {
     cursor: pointer;
 }
 
+@media only screen and (max-width: 900px) {
+    #favourite-rides-container {
+        width: 90vw;
+    }
+
+    .chooseLabels {
+        display: none;
+    }
+}
+
 

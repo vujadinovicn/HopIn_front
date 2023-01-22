@@ -15,8 +15,8 @@
         </div>
         <div>
             <div class="row">
-                <label *ngIf="this.isPassenger === true">Choose passenger</label>
-                <label *ngIf="this.isPassenger === false">Choose driver</label>
+                <label class="chooseLabels" *ngIf="this.isPassenger === true">Choose passenger</label>
+                <label class="chooseLabels" *ngIf="this.isPassenger === false">Choose driver</label>
                 <input id="idInput" type="number" [(ngModel)]="id_input" placeholder="Enter ID">
             </div>
             <button id="generateBtn" (click)="getRides()">Show</button>
