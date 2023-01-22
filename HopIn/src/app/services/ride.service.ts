@@ -11,8 +11,12 @@ import { Location } from '../favourite-routes/favourite-routes.component';
 export class RideService {
   constructor(private http: HttpClient) {}
 
-  getAll(id: number): Observable<AllRidesDTO> {
+  getAllPassengerRides(id: number): Observable<AllRidesDTO> {
     return this.http.get<AllRidesDTO>(environment.apiHost + '/passenger/' + id + '/all/rides');
+  }
+
+  getAllDriverRides(id: number): Observable<AllRidesDTO> {
+    return this.http.get<AllRidesDTO>(environment.apiHost + '/driver/' + id + '/all/rides');
   }
 }
 
