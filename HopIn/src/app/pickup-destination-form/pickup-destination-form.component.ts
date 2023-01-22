@@ -62,7 +62,7 @@ export class PickupDestinationFormComponent implements OnInit {
       this.route.scheduledTime = this.rideForm.get('time')?.value!;
       
       // for now, until stepper is implemented properly
-      this.route.vehicleTypeName = "CAR";
+      this.route.vehicleTypeName = "STANDARD";
 
       this.routingService.route = this.route;
       this.routingService.findRoute();

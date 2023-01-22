@@ -52,6 +52,7 @@ export class RoutingService {
     this.directionsService.route(request, (response, status) => {
 
       if (status == google.maps.DirectionsStatus.OK) {
+        console.log(response?.routes[0].legs[0].steps);
         this.route.distanceFormatted = response?.routes[0].legs[0].distance?.text!;
         this.route.distance= response?.routes[0].legs[0].distance?.value!;
         this.route.durationFormatted = response?.routes[0].legs[0].duration?.text!;
@@ -61,6 +62,23 @@ export class RoutingService {
       }
     })  
   }
+
+  // showSteps(directionResult: any) {
+  //   // For each step, place a marker, and add the text to the marker's
+  //   // info window. Also attach the marker to an array so we
+  //   // can keep track of it and remove it when calculating new
+  //   // routes.
+  //   var myRoute = directionResult.routes[0].legs[0];
+  
+  //   for (var i = 0; i < myRoute.steps.length; i++) {
+  //       var marker = new google.maps.Marker({
+  //         position: myRoute.steps[i].start_point,
+  //         map: map
+  //       });
+  //       attachInstructionText(marker, myRoute.steps[i].instructions);
+  //       markerArray[i] = marker;
+  //   }
+  // }
 
   getRoutePrice(response: any) {
     let priceDTO : UnregisteredRideSuggestionDTO = {
