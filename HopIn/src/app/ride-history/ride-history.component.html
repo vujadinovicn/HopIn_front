@@ -49,11 +49,11 @@
         <div id="right">
             <div class="row">
                 <div class="rightImgContainer"><img src="../../assets/vectors/chatIcon.svg"></div>
-                <div *ngIf="this.isfavoriteRoutes[indexOfelement] === true" class="rightImgContainer" (click)="removeRoute(indexOfelement)"><img src="../../assets/vectors/heart_red.svg"></div>
-                <div *ngIf="this.isfavoriteRoutes[indexOfelement] === false" class="rightImgContainer" (click)="returnRoute(indexOfelement)"><img src="../../assets/vectors/heart_empty.svg"></div>
+                <div *ngIf="this.isfavoriteRoutes[indexOfelement] === true && this._role === 'ROLE_PASSENGER'" class="rightImgContainer" (click)="removeRoute(indexOfelement)"><img src="../../assets/vectors/heart_red.svg"></div>
+                <div *ngIf="this.isfavoriteRoutes[indexOfelement] === false && this._role === 'ROLE_PASSENGER'" class="rightImgContainer" (click)="returnRoute(indexOfelement)"><img src="../../assets/vectors/heart_empty.svg"></div>
             </div>
             <div id="stars">
-                <ngx-star-rating [ngModel]="ratings[indexOfelement]" [id]="'rating'+indexOfelement"></ngx-star-rating>
+                <ngx-star-rating [ngModel]="ratings[indexOfelement]" [id]="'rating'+indexOfelement" [disabled]="true"></ngx-star-rating>
             </div>
         </div>
 

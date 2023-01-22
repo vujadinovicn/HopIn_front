@@ -48,16 +48,29 @@ export class RideHistoryComponent implements OnInit {
   }
 
   getRides() {
-    this.rideService.getAll(this._id).subscribe({
-      next: (res) => {
-        this.rides = res.results
-        this.getRatings();
-        this.setFavorites();
-      },
-      error: (error: any) => {
-        console.log(error)
-      } 
-    });
+    if (this._role === 'ROLE_PASSENGER') {
+      this.rideService.getAllPassengerRides(this._id).subscribe({
+        next: (res) => {
+          this.rides = res.results
+          this.getRatings();
+          this.setFavorites();
+        },
+        error: (error: any) => {
+          console.log(error)
+        } 
+      });
+    } else {
+      this.rideService.getAllDriverRides(this._id).subscribe({
+        next: (res) => {
+          this.rides = res.results
+          this.getRatings();
+          this.setFavorites();
+        },
+        error: (error: any) => {
+          console.log(error)
+        } 
+      });
+    }
   }
 
   getRatings() {
@@ -77,7 +90,7 @@ export class RideHistoryComponent implements OnInit {
               counter++;
             }
           }
-          this.ratings.push(ride.id);
+          this.ratings.push(0);
           if (sum != 0) {
             this.ratings.pop();
             this.ratings.push(sum/counter);
