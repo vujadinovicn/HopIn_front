@@ -1,5 +1,5 @@
 #card {
-    width: 30vw;
+    width: 37vw;
     height: 20vh;
     display: flex;
     flex-direction: row;
@@ -41,7 +41,7 @@ p {
 }
 
 #profilePic > img {
-    height: 60%;
+    height: 70%;
     margin-right: 12px;
     margin-left: 12px;
 }

@@ -63,6 +63,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { RideInfoCardComponent } from './ride-info-card/ride-info-card.component';
 import { RideHistoryDetailsComponent } from './ride-history-details/ride-history-details.component';
+import { DriverInfoCardComponent } from './driver-info-card/driver-info-card.component';
 
 @NgModule({
   declarations: [
@@ -113,7 +114,8 @@ import { RideHistoryDetailsComponent } from './ride-history-details/ride-history
     ForgotPasswordComponent,
     ResetPasswordComponent,
     RideInfoCardComponent,
-    RideHistoryDetailsComponent
+    RideHistoryDetailsComponent,
+    DriverInfoCardComponent
   ],
   imports: [
     BrowserModule,
