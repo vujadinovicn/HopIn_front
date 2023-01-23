@@ -6,7 +6,7 @@
 #upper {
     display: flex;
     flex-direction: row;
-    width: 80%;
+    width: fit-content;
     border: 2px solid;
     border: 1px solid #E6E6E6;
     border-radius: 10px;
@@ -17,7 +17,9 @@
 }
 
 #map {
-    width: 40%;
+    width: 35vw;
     margin-left: auto;
+    margin: 10px;
+    border-radius: 10px;
 }
 
