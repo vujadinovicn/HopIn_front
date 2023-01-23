@@ -61,6 +61,8 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NgxStarRatingModule } from 'ngx-star-rating';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { RideInfoCardComponent } from './ride-info-card/ride-info-card.component';
+import { RideHistoryDetailsComponent } from './ride-history-details/ride-history-details.component';
 
 @NgModule({
   declarations: [
@@ -109,7 +111,9 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     AdminReportsComponent,
     RideHistoryComponent,
     ForgotPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    RideInfoCardComponent,
+    RideHistoryDetailsComponent
   ],
   imports: [
     BrowserModule,

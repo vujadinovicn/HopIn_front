@@ -21,10 +21,16 @@ export class RideHistoryComponent implements OnInit {
   _role: String = ''
   _id: number = 0
   currentRidesToShow: RideReturnedDTO[] = [];
-  rides: RideReturnedDTO[] = []
-  ratings: number[] = []
+  rides: RideReturnedDTO[] = [];
+
+  ratings: number[] = [];
+  currentRatingsToShow: number[] = [];
+
   isfavoriteRoutes: boolean[] = [];
+  currentIsFavoriteRoutesToShow: boolean[] = [];
+
   favoriteRoutes: FavouriteRoute[] = [];
+  currentFavoriteRoutesToShow: FavouriteRoute[] = [];
   id_input: number = 0;
   isPassenger: boolean = false;
   selectedType: String = 'Date';
@@ -59,6 +65,8 @@ export class RideHistoryComponent implements OnInit {
 
   onPageChange($event: any) {
     this.currentRidesToShow =  this.rides.slice($event.pageIndex*$event.pageSize, $event.pageIndex*$event.pageSize + $event.pageSize);
+    this.currentRatingsToShow = this.ratings.slice($event.pageIndex*$event.pageSize, $event.pageIndex*$event.pageSize + $event.pageSize);
+    this.currentIsFavoriteRoutesToShow = this.isfavoriteRoutes.slice($event.pageIndex*$event.pageSize, $event.pageIndex*$event.pageSize + $event.pageSize);
   }
 
   getRides() {
@@ -133,6 +141,7 @@ export class RideHistoryComponent implements OnInit {
 
   getRatings() {
     this.ratings = [];
+    this.currentRatingsToShow = [];
     for (let ride of this.rides.reverse()) {
       this.reviewService.getAll(ride.id).subscribe({
         next: (res) => {
@@ -153,6 +162,7 @@ export class RideHistoryComponent implements OnInit {
             this.ratings.pop();
             this.ratings.push(sum/counter);
           }
+          this.currentRatingsToShow = this.ratings;
         },
         error: (error: any) => {
           console.log(error)
@@ -181,10 +191,14 @@ export class RideHistoryComponent implements OnInit {
           }
         }
         console.log(this.favoriteRoutes);
+        this.currentFavoriteRoutesToShow = this.favoriteRoutes;
+        this.currentIsFavoriteRoutesToShow = this.isfavoriteRoutes;
       },
       error: (error: any) => {
         this.isfavoriteRoutes = new Array(this.rides.length).fill(false);
         this.favoriteRoutes = new Array(this.rides.length).fill(this.emptyFavorite);
+        this.currentFavoriteRoutesToShow = this.favoriteRoutes;
+        this.currentIsFavoriteRoutesToShow = this.isfavoriteRoutes;
       } 
     });
   }
@@ -232,10 +246,18 @@ export class RideHistoryComponent implements OnInit {
     } else {
       this.rides = this.rides.sort((a, b) => (a.distance < b.distance) ? -1 : 1)
     }
+    this.getRatings();
+    this.setFavorites();
     this.currentRidesToShow = this.rides;
     if (this.rides.length > 3) {
       this.currentRidesToShow = this.rides.slice(0,3);
+      this.currentIsFavoriteRoutesToShow = this.isfavoriteRoutes.slice(0,3);
+      this.currentRatingsToShow = this.ratings.slice(0,3);
     }
+  }
+
+  openDetails(): void {
+
   }
 
 
