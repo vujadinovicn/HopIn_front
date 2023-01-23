@@ -44,6 +44,7 @@ p {
     height: 70%;
     margin-right: 12px;
     margin-left: 12px;
+    border-radius: 50px;
 }
 
 #info {
