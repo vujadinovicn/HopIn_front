@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { LocationNoId } from './vehicle.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,4 +16,13 @@ export class DriverService {
     };
     return this.http.post<string>(environment.apiHost + '/driver', driver, options);
   }
+
+  getActiveVehicles(): Observable<any[]> {
+    return this.http.get<any[]>(environment.apiHost + "/driver/active-vehicles");
+  }
+}
+
+export interface ActiveVehicle {
+  id: number,
+  currentLocation: LocationNoId
 }
