@@ -2,12 +2,15 @@ import { FavouriteRoutesService } from './../favouriteRoutesService/favourite-ro
 import { AuthService } from './../services/auth.service';
 import { ReviewService, CompleteRideReviewDTO } from './../services/review.service';
 import { RideService, RideReturnedDTO } from './../services/ride.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FavouriteRoute } from '../favourite-routes/favourite-routes.component';
 import { distinct } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PassengerAccountOptionsService } from '../services/passengerAccountOptions.service';
+import { FormControl } from '@angular/forms';
+import { MatSort } from '@angular/material/sort';
+import { MatSortable, Sort } from '@angular/material/sort/sort';
 @Component({
   selector: 'ride-history',
   templateUrl: './ride-history.component.html',
@@ -24,6 +27,7 @@ export class RideHistoryComponent implements OnInit {
   favoriteRoutes: FavouriteRoute[] = [];
   id_input: number = 0;
   isPassenger: boolean = false;
+  selectedType: String = 'Date';
 
   emptyFavorite: FavouriteRoute = {
     id: 0,
@@ -94,6 +98,7 @@ export class RideHistoryComponent implements OnInit {
       },
       error: (error: any) => {
         this.rides = [];
+        this.currentRidesToShow = [];
         this.snackBar.open("Passenger does not exist!", "", {
           duration: 2000,
        });
@@ -105,6 +110,10 @@ export class RideHistoryComponent implements OnInit {
     this.rideService.getAllDriverRides(id).subscribe({
       next: (res) => {
         this.rides = res.results
+        this.currentRidesToShow = res.results;
+        if (res.results.length > 3) {
+          this.currentRidesToShow = res.results.slice(0,3);
+        }
         if (res.results.length === 0) {
           this.snackBar.open("System didn't find any past rides.", "", {
             duration: 2000,
@@ -115,6 +124,7 @@ export class RideHistoryComponent implements OnInit {
       },
       error: (error: any) => {
         this.rides = [];
+        this.currentRidesToShow = [];
         this.snackBar.open("Driver does not exist!", "", {
           duration: 2000,
        });      } 
@@ -210,6 +220,22 @@ export class RideHistoryComponent implements OnInit {
        });
       } 
     });
+  }
+
+  setDropDownContent(option: String) {
+    this.selectedType = option;
+
+    if(option === 'Date') {
+      this.rides = this.rides.sort((a, b) => (a.startTime < b.startTime) ? -1 : 1)
+    } else if (option === 'Price') {
+      this.rides = this.rides.sort((a, b) => (a.totalCost < b.totalCost) ? -1 : 1)
+    } else {
+      this.rides = this.rides.sort((a, b) => (a.distance < b.distance) ? -1 : 1)
+    }
+    this.currentRidesToShow = this.rides;
+    if (this.rides.length > 3) {
+      this.currentRidesToShow = this.rides.slice(0,3);
+    }
   }
 
 

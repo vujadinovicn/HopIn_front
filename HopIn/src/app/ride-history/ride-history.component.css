@@ -58,6 +58,11 @@ h4 {
     flex-direction: row;
 }
 
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
 .row > p {
     font-size: 0.8em;
 }
@@ -171,6 +176,77 @@ img {
     background-color: #337D98;
     cursor: pointer;
 }
+
+/* DROPDOWN */
+
+.dropbtn {
+    background-color: #D9D9D9;
+    color: black;
+    padding: 5px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8em;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    width: 11em;
+    height: fit-content;
+    /* margin-left: auto; */
+    margin-top: auto;
+  }
+
+.dropbtn::after {
+    content: url("../../assets/vectors/dropDown.svg");
+    height: 15px;
+    margin-left: auto;
+}
+  
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: 1vh;
+    border-radius: 10px;
+    width: fit-content;
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    width: 8em;
+    margin-left: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }
+  
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  /* Change the background color of the dropdown button when the dropdown content is shown */
+  .dropdown:hover .dropbtn {
+    background-color: #337D98;
+  }
 
 @media only screen and (max-width: 900px) {
     #favourite-rides-container {

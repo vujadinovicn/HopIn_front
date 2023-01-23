@@ -24,7 +24,17 @@
     </div>
 
 
-    <h2>Ride history</h2>
+    <div class="row">
+        <h2>Ride history</h2>
+        <div class="dropdown">
+            <button class="dropbtn">{{this.selectedType}}</button>
+                    <div class="dropdown-content">
+                    <a (click)="setDropDownContent('Date')">Date</a>
+                    <a (click)="setDropDownContent('Price')">Price</a>
+                    <a (click)="setDropDownContent('Distance')">Distance</a>
+                    </div>
+        </div>
+    </div>
     <div class="line"></div>
 
     <div id="historyCard" *ngFor="let ride of currentRidesToShow; let indexOfelement=index;">
