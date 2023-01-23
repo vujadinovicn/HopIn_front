@@ -27,7 +27,7 @@
     <h2>Ride history</h2>
     <div class="line"></div>
 
-    <div id="historyCard" *ngFor="let ride of rides; let indexOfelement=index;">
+    <div id="historyCard" *ngFor="let ride of currentRidesToShow; let indexOfelement=index;">
         <div id="left">
             <div class="row">
                 <div id="carImg">
@@ -81,4 +81,11 @@
         </div>
 
     </div>
+
+    <mat-paginator 
+        (page)="onPageChange($event)"
+        [length]="100"
+        [pageSize]="3"
+        [pageSizeOptions]="[3, 5]">
+</mat-paginator>
 </div>

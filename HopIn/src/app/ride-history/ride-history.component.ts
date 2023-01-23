@@ -17,6 +17,7 @@ export class RideHistoryComponent implements OnInit {
 
   _role: String = ''
   _id: number = 0
+  currentRidesToShow: RideReturnedDTO[] = [];
   rides: RideReturnedDTO[] = []
   ratings: number[] = []
   isfavoriteRoutes: boolean[] = [];
@@ -52,6 +53,10 @@ export class RideHistoryComponent implements OnInit {
     }
   }
 
+  onPageChange($event: any) {
+    this.currentRidesToShow =  this.rides.slice($event.pageIndex*$event.pageSize, $event.pageIndex*$event.pageSize + $event.pageSize);
+  }
+
   getRides() {
     if (this._role === 'ROLE_PASSENGER') {
       this.getPassengerRides(this._id);
@@ -74,7 +79,11 @@ export class RideHistoryComponent implements OnInit {
   getPassengerRides(id: number) {
     this.rideService.getAllPassengerRides(id).subscribe({
       next: (res) => {
-        this.rides = res.results
+        this.rides = res.results;
+        this.currentRidesToShow = res.results;
+        if (res.results.length > 3) {
+          this.currentRidesToShow = res.results.slice(0,3);
+        }
         if (res.results.length === 0) {
           this.snackBar.open("System didn't find any past rides.", "", {
             duration: 2000,
