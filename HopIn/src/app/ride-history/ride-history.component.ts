@@ -34,7 +34,7 @@ export class RideHistoryComponent implements OnInit {
   currentFavoriteRoutesToShow: FavouriteRoute[] = [];
   id_input: number = 0;
   isPassenger: boolean = false;
-  selectedType: String = 'Date';
+  selectedType: String = 'Sort';
 
   emptyFavorite: FavouriteRoute = {
     id: 0,
