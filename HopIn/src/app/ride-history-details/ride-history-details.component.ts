@@ -1,3 +1,4 @@
+import { RideReturnedDTO, RideService } from './../services/ride.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RideHistoryDetailsComponent implements OnInit {
 
-  constructor() { }
+  ride!: RideReturnedDTO
+
+  constructor(private rideService: RideService) { }
 
   ngOnInit(): void {
+    this.rideService.getRide().subscribe((res) => {
+      this.ride = res;
+    });
   }
 
 }

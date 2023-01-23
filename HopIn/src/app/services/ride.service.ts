@@ -1,7 +1,7 @@
 import { RidePassenger } from './routing.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Location } from '../favourite-routes/favourite-routes.component';
 
@@ -10,6 +10,17 @@ import { Location } from '../favourite-routes/favourite-routes.component';
 })
 export class RideService {
   constructor(private http: HttpClient) {}
+
+  ride$ = new BehaviorSubject(null);
+  rideState$ = this.ride$.asObservable();
+
+  getRide(): Observable<any> {
+    return this.ride$;
+  }
+
+  setRide(ride: any): void {
+    this.ride$.next(ride);
+  }
 
   getAllPassengerRides(id: number): Observable<AllRidesDTO> {
     return this.http.get<AllRidesDTO>(environment.apiHost + '/passenger/' + id + '/all/rides');

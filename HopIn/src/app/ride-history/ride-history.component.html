@@ -37,7 +37,7 @@
     </div>
     <div class="line"></div>
 
-    <div id="historyCard" *ngFor="let ride of currentRidesToShow; let indexOfelement=index;">
+    <div id="historyCard" *ngFor="let ride of currentRidesToShow; let indexOfelement=index;" (click)="openDetails(indexOfelement)">
         <div id="left">
             <div class="row">
                 <div id="carImg">

@@ -11,6 +11,7 @@ import { PassengerAccountOptionsService } from '../services/passengerAccountOpti
 import { FormControl } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
 import { MatSortable, Sort } from '@angular/material/sort/sort';
+import { Router } from '@angular/router';
 @Component({
   selector: 'ride-history',
   templateUrl: './ride-history.component.html',
@@ -48,6 +49,7 @@ export class RideHistoryComponent implements OnInit {
     private favoriteRouteService: FavouriteRoutesService,
     public snackBar: MatSnackBar,
     private authService: AuthService,
+    private router: Router,
     private passengerAccountOptionsService: PassengerAccountOptionsService) {
 
    }
@@ -205,7 +207,7 @@ export class RideHistoryComponent implements OnInit {
 
 
   removeRoute(index: number): void {
-    this.favoriteRouteService.removeFavoriteRoute(this.favoriteRoutes[index].id, this._id).subscribe({
+    this.favoriteRouteService.removeFavoriteRoute(this.currentFavoriteRoutesToShow[index].id, this._id).subscribe({
       next: (res) => {
         this.getRides();
       },
@@ -220,9 +222,9 @@ export class RideHistoryComponent implements OnInit {
   returnRoute(index: number): void {
     let route: FavouriteRoute = {
       id: 0,
-      distance: this.rides[index].distance,
-      departure: this.rides[index].locations[0].departure,
-      destination: this.rides[index].locations[0].destination
+      distance: this.currentRidesToShow[index].distance,
+      departure: this.currentRidesToShow[index].locations[0].departure,
+      destination: this.currentRidesToShow[index].locations[0].destination
     }
     this.favoriteRouteService.addNewFavoriteRoute(this._id, route).subscribe({
       next: (res) => {
@@ -256,8 +258,9 @@ export class RideHistoryComponent implements OnInit {
     }
   }
 
-  openDetails(): void {
-
+  openDetails(index: number): void {
+    this.rideService.setRide(this.currentRidesToShow[index]);
+    this.router.navigate(['ride-history-details']);
   }
 
 
