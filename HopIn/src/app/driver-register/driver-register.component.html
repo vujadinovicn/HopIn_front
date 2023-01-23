@@ -7,7 +7,7 @@
         <div id="left-driver-register-component">
             <div id="info-container"  class="border">
                 <app-driver-register-personal-info 
-                (isFormValid)="changeFormSValidity($event)"></app-driver-register-personal-info> 
+                (isFormValid)="changePersonalInfoFormValidity($event)"></app-driver-register-personal-info> 
             </div>     
             <button id="register-driver-btn" (click)="save()" class="conf-button" mat-raised-button type="submit">Register new driver</button>
         </div>
@@ -15,7 +15,7 @@
             <div id="vehicle-container" class="border">
                 <app-change-vehicle-info 
                 [parentComponent]="parentComponent"
-                (isFormValid)="changeFormValidity($event)"></app-change-vehicle-info>
+                (isFormValid)="changeVehicleInfoFormValidity($event)"></app-change-vehicle-info>
             </div>
             <div id="document-container" class="border">
                 <app-driver-documents 

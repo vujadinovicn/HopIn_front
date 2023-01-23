@@ -32,12 +32,10 @@ export class DriverRegisterPersonalInfoComponent implements OnInit {
 
   ngOnInit(): void {
     markFormControlsTouched(this.registerForm);
-    this.driverRegisterService.recieveFormsSubmitted().subscribe((res: any) => {
-      console.log("ssss");
+    this.driverRegisterService.recieveFormsSubmitted().subscribe(() => {
       this.registerForm.markAllAsTouched();
       this.saveDriverRegister();
-    }
-    )
+    })
   }
 
   private saveDriverRegister(){

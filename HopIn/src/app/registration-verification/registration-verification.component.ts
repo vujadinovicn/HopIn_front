@@ -42,7 +42,7 @@ export class RegistrationVerificationComponent implements OnInit {
       },
       error: (err) => {
         this.sharedService.openSnack({
-          value: "Resend failed. Invalid code?.",
+          value: "Resend failed. Invalid code or already acitvated?",
           color: "back-red"
         });
       }

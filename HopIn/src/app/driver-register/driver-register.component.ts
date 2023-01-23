@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { DocumentService } from '../services/document.service';
+import { DocumentReturned, DocumentService } from '../services/document.service';
 import { DriverRegisterService } from '../services/driver-register.service';
 import { DriverService } from '../services/driver.service';
 import { User } from '../services/user.service';
@@ -40,10 +40,9 @@ export class DriverRegisterComponent implements OnInit {
     vehicleType: ""
   }
 
-  documents : Document[] = [];
+  documents : DocumentReturned[] = [];
 
-  constructor(private cdr: ChangeDetectorRef,
-    private driverService: DriverService,
+  constructor(private driverService: DriverService,
     private vehicleService: VehicleService,
     private documentService: DocumentService,
     private driverRegisterService: DriverRegisterService,
@@ -52,14 +51,6 @@ export class DriverRegisterComponent implements OnInit {
   ngOnInit(): void {
     this.recievePersonalInfo();
     this.recieveVehicleInfo();
-  }
-
-  changeFormValidity(childIsFormValid: any) : void {
-    this.formsSubmitted = this.formsSubmitted && childIsFormValid;
-  }
-
-  changeFormSValidity(childIsFormValid: any) : void {
-    this.formsSubmitted = this.formsSubmitted && childIsFormValid;
   }
 
   recievePersonalInfo(){
@@ -78,33 +69,30 @@ export class DriverRegisterComponent implements OnInit {
     this.documents.push(document);
   }
 
+  changeVehicleInfoFormValidity(childIsFormValid: any) : void {
+    this.formsSubmitted = this.formsSubmitted && childIsFormValid;
+  }
+
+  changePersonalInfoFormValidity(childIsFormValid: any) : void {
+    this.formsSubmitted = this.formsSubmitted && childIsFormValid;
+  }
+
   save() {
     this.formsSubmitted = true;
     this.driverRegisterService.sendFormsSubmitted(this.formsSubmitted);
-
     if (this.formsSubmitted == true){
       this.registerDriver();
     }
   }
 
-  registerDriver(){
-    this.addDriver();
-    //this.addVehicle();
-  }
-
-  private addDriver() {
+  private registerDriver() {
     this.driverService.add(this.driver).subscribe({
-      next: (res: any) => {
+      next: (res: User) => {
         this.driverId = res.id;
-        this.sharedService.openSnack({
-          value: "Response is in console!",
-          color: "back-green"
-        }
-        );
         this.addVehicle();
         this.addDocuments();
       },
-      error: (error: any) => {
+      error: () => {
         this.sharedService.openNoResponseSnack();
       }
     });
@@ -113,11 +101,6 @@ export class DriverRegisterComponent implements OnInit {
   private addVehicle() {
     this.vehicleService.add(this.vehicle, this.driverId).subscribe({
       next: (res: any) => {
-        this.sharedService.openSnack({
-          value: "Response is in console!",
-          color: "back-green"
-        }
-        );
         console.log(res);
       },
       error: (error: any) => {
@@ -128,7 +111,6 @@ export class DriverRegisterComponent implements OnInit {
 
   private addDocuments(){
     for (let document of this.documents){
-      console.log(document);
       this.documentService.add(document, this.driverId).subscribe({
         next: (res: any) => {
           console.log(res);
@@ -138,5 +120,9 @@ export class DriverRegisterComponent implements OnInit {
         }
       });
     }
+    this.sharedService.openSnack({
+          value: "Response is in console!",
+          color: "back-green"
+    });
   }
 }

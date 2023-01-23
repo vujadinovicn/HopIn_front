@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User, UserService } from '../services/user.service';
+import { MethodsForRoleImpl, User, UserService } from '../services/user.service';
 import { PassengerAccountOptionsService } from '../services/passengerAccountOptions.service';
 import { SharedService } from '../shared/shared.service';
 import { markFormControlsTouched } from '../validators/formGroupValidators';
@@ -17,8 +17,14 @@ import { AuthService } from '../services/auth.service';
 })
 export class AccountSettingsComponent implements OnInit {
 
-  role: string = "driver";
-  id : number = 0;
+  userRole: string = "ROLE_DRIVER";
+  userId : number = 0;
+
+  methodsForRole: MethodsForRoleImpl = {
+    serviceSendToBackMethod: "",
+    serviceGetMethod: "",
+    routerNavigation: ""
+  };
 
   user : User = {
     id: 0,
@@ -50,79 +56,39 @@ export class AccountSettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.getUser().subscribe((res) => {
-      this.role = res;
-      this.id = this.authService.getId();
-    })
+    this.setUserRoleAndId();
+    this.generateMethodsForRole();
     this.setUserData();
     markFormControlsTouched(this.accountSettingsForm);
 }
-  
+
   save(): void {
     if (this.accountSettingsForm.valid) {
-      if (this.role == "ROLE_PASSENGER")
-        this.savePassenger();
-      else if (this.role == "ROLE_DRIVER")
-        this.saveDriver();
-      else {}
-    } else
+      this.sendToBack();
+    } else {
         this.sharedService.openInvalidInputSnack();
-
+    }
   }
 
-  savePassenger(){
-    this.userService.updatePassengerPersonalInfo(this.setResponseValue()).subscribe({
+  private sendToBack() {
+    this.methodsForRole.serviceSendToBackMethod().subscribe({
       next: (res: any) => {
-        this.router.navigate(['/account-passenger']);
+        this.methodsForRole.routerNavigation();
         this.sharedService.openSnack({
           value: "Response is in console!",
-          color: "back-green"}
-          );
+          color: "back-green"
+        }
+        );
         console.log(res);
       },
       error: (error: any) => {
-          this.sharedService.openNoResponseSnack();
+        this.sharedService.openNoResponseSnack();
       }
     });
   }
 
-  saveDriver(){
-    console.log(this.setResponseValue());
-    this.requestDetailsService.addInfoRequest(this.id, this.setResponseValue()).subscribe({
-      next: (res: any) => {
-        this.router.navigate(['/account-driver']);
-        this.sharedService.openSnack({
-          value: "Response is in console!",
-          color: "back-green"}
-          );
-      },
-      error: (error: any) => {
-          this.sharedService.openNoResponseSnack();
-      }
-    });
-  }
-
-  setUserData(){
-    if (this.role == "ROLE_PASSENGER") {
-      this.setPassengerData();
-    }
-    else if (this.role == "ROLE_DRIVER"){
-      this.setDriverData();
-    }
-    else {}
-  }
-
-  setPassengerData() {
-    this.userService.getByPassengerId(this.id).subscribe((res: any) => {
-      this.user = res;
-      this.setFormValue(res);
-      if (res.profilePicture != null)
-        this.profileImgPath = res.profilePicture;
-    });;
-  }
-
-  setDriverData(){
-    this.userService.getByDriverId(this.id).subscribe((res: any) => {
+  setUserData() {
+    this.methodsForRole.serviceGetMethod(this.userId).subscribe((res: any) => {
       this.user = res;
       this.setFormValue(res);
       if (res.profilePicture != null)
@@ -140,6 +106,29 @@ export class AccountSettingsComponent implements OnInit {
     }
   }
 
+  private setUserRoleAndId() {
+    this.authService.getUser().subscribe((res) => {
+      this.userRole = res;
+      this.userId = this.authService.getId();
+    });
+  }
+
+  private generateMethodsForRole() {
+    if (this.userRole == "ROLE_PASSENGER") {
+      this.methodsForRole.serviceSendToBackMethod = () => {
+        return this.userService.updatePassengerPersonalInfo(this.setResponseValue());
+      }
+      this.methodsForRole.serviceGetMethod = (id: number) => this.userService.getByPassengerId(id);
+      this.methodsForRole.routerNavigation = () => this.router.navigate(['/account-passenger']);
+    }else if (this.userRole == "ROLE_DRIVER") {
+      this.methodsForRole.serviceSendToBackMethod = () => {
+        return this.requestDetailsService.addInfoRequest(this.userId, this.setResponseValue());
+      }
+      this.methodsForRole.serviceGetMethod = (id: number) => this.userService.getByDriverId(id);
+      this.methodsForRole.routerNavigation = () => this.router.navigate(['/account-driver']);
+    }
+  }
+
   private setFormValue(res: any){
     this.accountSettingsForm.setValue({
       name: res.name,
@@ -152,7 +141,7 @@ export class AccountSettingsComponent implements OnInit {
 
   private setResponseValue(): any{
     return {
-      id: this.id,
+      id: this.userId,
       name: this.accountSettingsForm.value.name,
       surname: this.accountSettingsForm.value.surname,
       profilePicture: this.profileImgPath,

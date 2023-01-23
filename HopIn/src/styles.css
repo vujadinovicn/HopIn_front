@@ -9,6 +9,23 @@ body {
 
 html, body { height: 100%; width: 100%; margin: 0; font-family: "Poppins", sans-serif; }
 
+.default-container {
+    display: flex;
+    height: fit-content;
+    width: 400px;
+    margin: 20px auto;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+    border-top: 20px solid #337D98 !important;
+    text-align: center;
+    flex-direction: column;
+    padding: 15px;
+    position: relative;
+    font-size: 1em;
+    border-radius: 10px;
+}
+
 .title {
     margin-top: 0px;
     color: #383838;

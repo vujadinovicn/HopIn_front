@@ -64,42 +64,42 @@ export class RequestDetailsService {
 
   addPasswordRequest(driverId: number, passwordRequest: any): Observable<any> {
     const options: any = {
-      responseType: 'text',
+      responseType: 'json',
     };
     return this.http.post<any>(environment.apiHost + '/request/' + driverId + '/password/request', passwordRequest, options);
   }
 
   sendDocumentRequest(driverId: number, operationNumber: number, documentRequest: any, documentId: number): Observable<any> {
     const options: any = {
-      responseType: 'text',
+      responseType: 'json',
     };
     return this.http.post<any>(environment.apiHost + '/request/' + driverId + '/' + operationNumber + "/" + documentId +'/document/request', documentRequest, options);
   }
 
   addInfoRequest(driverId: number, infoRequest: any): Observable<any> {
     const options: any = {
-      responseType: 'text',
+      responseType: 'json',
     };
     return this.http.post<any>(environment.apiHost + '/request/' + driverId + '/info/request', infoRequest, options);
   }
 
   addVehicleRequest(driverId: number, vehicleRequest: any): Observable<any> {
     const options: any = {
-      responseType: 'text',
+      responseType: 'json',
     };
     return this.http.post<any>(environment.apiHost + '/request/' + driverId + '/vehicle/request', vehicleRequest, options);
   }
 
   acceptRequest(requestId: number, adminId: number): Observable<any> {
     const options: any = {
-      responseType: 'text',
+      responseType: 'json',
     };
     return this.http.post<String>(environment.apiHost + '/request/' + requestId + "/" + adminId + "/accept", options);
   }
 
   declineRequest(requestId: number, adminId: number, reason: any): Observable<any> {
     const options: any = {
-      responseType: 'text',
+      responseType: 'json',
     };
     return this.http.post<String>(environment.apiHost + '/request/' + requestId + "/" + adminId + "/deny", reason, options);
   }
