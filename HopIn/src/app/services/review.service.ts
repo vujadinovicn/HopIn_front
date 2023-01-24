@@ -12,7 +12,15 @@ export class ReviewService {
 
   getAll(id: number): Observable<CompleteRideReviewDTO[]> {
     return this.http.get<CompleteRideReviewDTO[]>(environment.apiHost + '/review/' + id );
-  } 
+  }
+  
+  saveVehicleReview(review: ReviewDTO, rideId: number): Observable<any> {
+    return this.http.post<any>(environment.apiHost + '/review/' + rideId + "/vehicle", review);
+  }
+
+  saveDriverReview(review: ReviewDTO, rideId: number): Observable<any> {
+    return this.http.post<any>(environment.apiHost + '/review/' + rideId + "/driver", review);
+  }
 }
 
 export interface Review {
@@ -20,6 +28,11 @@ export interface Review {
     rating: number,
     comment: String,
     passenger: RidePassenger
+}
+
+export interface ReviewDTO {
+  rating: number,
+  comment: String,
 }
 
 export interface CompleteRideReviewDTO {
