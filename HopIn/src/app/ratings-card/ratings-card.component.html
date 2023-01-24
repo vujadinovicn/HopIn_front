@@ -1,10 +1,10 @@
 <div id="card">
     <h2>Ratings: </h2>
-    <div id="reviewCard" class="row">
-        <p class="key">Collins:</p>
-        <p class="value">Good looking driver!</p>
+    <div id="reviewCard" class="row" *ngFor="let review of reviews; let indexOfelement=index;">
+        <p class="key">{{ passengers[indexOfelement].name }}</p>
+        <p class="value">{{ review.comment }}</p>
         <div id="stars">
-            <ngx-star-rating [ngModel]="rating" [disabled]="true"></ngx-star-rating>
+            <ngx-star-rating [ngModel]="review.rating" [disabled]="true"></ngx-star-rating>
         </div>
     </div>
 </div>

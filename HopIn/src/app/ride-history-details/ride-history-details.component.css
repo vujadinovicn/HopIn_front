@@ -34,7 +34,8 @@
 
 .right {
     width: 37vw;
-    margin: 10px;
+    margin: 0 10px 10px 10px;
+
 }
 
 app-passengers-info-card {

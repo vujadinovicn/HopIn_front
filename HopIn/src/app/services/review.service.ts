@@ -1,3 +1,4 @@
+import { RidePassenger } from './routing.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -18,6 +19,7 @@ export interface Review {
     id: number,
     rating: number,
     comment: String,
+    passenger: RidePassenger
 }
 
 export interface CompleteRideReviewDTO {
