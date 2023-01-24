@@ -37,9 +37,9 @@
     </div>
     <div class="line"></div>
 
-    <div id="historyCard" *ngFor="let ride of currentRidesToShow; let indexOfelement=index;" (click)="openDetails(indexOfelement)">
+    <div id="historyCard" *ngFor="let ride of currentRidesToShow; let indexOfelement=index;">
         <div id="left">
-            <div class="row">
+            <div class="row clickable" (click)="openDetails(indexOfelement)">
                 <div id="carImg">
                     <img src="../../assets/vectors/car.svg">
                 </div>
