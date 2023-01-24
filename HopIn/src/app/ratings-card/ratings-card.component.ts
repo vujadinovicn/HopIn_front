@@ -1,10 +1,12 @@
 import { UserService } from './../services/user.service';
 import { Review, ReviewService } from './../services/review.service';
 import { RideService } from './../services/ride.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { CompleteRideReviewDTO } from '../services/review.service';
 import { RideReturnedDTO } from '../services/ride.service';
 import { User } from '../services/user.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-ratings-card',
@@ -13,14 +15,19 @@ import { User } from '../services/user.service';
 })
 export class RatingsCardComponent implements OnInit {
 
-  rating: number = 3;
   ride!: RideReturnedDTO;
   reviews: Review[] = [];
   passengers: User[] = [];
+  reviewInfo: ReviewInfo = {
+    isDriver: false,
+    comment: '',
+    rating: 0
+  }
 
   constructor(private rideService: RideService,
     private reviewService: ReviewService,
-    private userService: UserService) { }
+    private userService: UserService,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.rideService.getRide().subscribe((res) => {
@@ -49,4 +56,41 @@ export class RatingsCardComponent implements OnInit {
     })
   }
 
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ReviewDialog, {
+      width: '250px',
+      data: this.reviewInfo
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(this.reviewInfo);
+    });
+  }
+
+}
+
+
+@Component({
+  selector: 'review-dialog',
+  templateUrl: 'review-dialog.html',
+  styleUrls: ['./review-dialog.css']
+})
+export class ReviewDialog {
+
+  c: string = ''
+
+  constructor(
+    public dialogRef: MatDialogRef<ReviewDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: ReviewInfo) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+}
+
+export interface ReviewInfo {
+  isDriver: boolean,
+  comment: string,
+  rating: number
 }

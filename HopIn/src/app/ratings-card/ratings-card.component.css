@@ -52,3 +52,20 @@ p {
     padding: 0 5px !important;
     font-size: 20px !important;
 }
+
+#dialogOpenBtn {
+    margin: auto 3% auto auto;
+    background-color: #EC9A29;
+    color: white;
+    font-size: 0.8em;
+    padding: 0.3em 1em ;
+    border-radius: 5px;
+    border: 0;
+    height: fit-content;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+button:hover {
+    cursor: pointer;
+}

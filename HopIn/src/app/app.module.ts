@@ -65,7 +65,7 @@ import { RideInfoCardComponent } from './ride-info-card/ride-info-card.component
 import { RideHistoryDetailsComponent } from './ride-history-details/ride-history-details.component';
 import { DriverInfoCardComponent } from './driver-info-card/driver-info-card.component';
 import { PassengersInfoCardComponent } from './passengers-info-card/passengers-info-card.component';
-import { RatingsCardComponent } from './ratings-card/ratings-card.component';
+import { RatingsCardComponent, ReviewDialog } from './ratings-card/ratings-card.component';
 
 @NgModule({
   declarations: [
@@ -119,7 +119,8 @@ import { RatingsCardComponent } from './ratings-card/ratings-card.component';
     RideHistoryDetailsComponent,
     DriverInfoCardComponent,
     PassengersInfoCardComponent,
-    RatingsCardComponent
+    RatingsCardComponent,
+    ReviewDialog
   ],
   imports: [
     BrowserModule,
@@ -134,7 +135,8 @@ import { RatingsCardComponent } from './ratings-card/ratings-card.component';
     NgxMaterialTimepickerModule,
     GooglePlaceModule,
     CommonModule,
-    NgxStarRatingModule
+    NgxStarRatingModule,
+    
     
   ],
   providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline', hideRequiredMarker: 'true' }}, SocketService,
