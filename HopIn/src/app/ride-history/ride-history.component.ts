@@ -142,10 +142,10 @@ export class RideHistoryComponent implements OnInit {
   }
 
   getRatings() {
-    this.ratings = [];
+    this.ratings = new Array(this.rides.length).fill(0);
     this.currentRatingsToShow = [];
-    for (let ride of this.rides.reverse()) {
-      this.reviewService.getAll(ride.id).subscribe({
+    for (let i = 0; i < this.rides.length; i++) {
+      this.reviewService.getAll(this.rides[i].id).subscribe({
         next: (res) => {
           let sum = 0;
           let counter = 0;
@@ -159,12 +159,11 @@ export class RideHistoryComponent implements OnInit {
               counter++;
             }
           }
-          this.ratings.push(0);
           if (sum != 0) {
-            this.ratings.pop();
-            this.ratings.push(sum/counter);
+            this.ratings[i] = (sum/counter);
           }
           this.currentRatingsToShow = this.ratings;
+          console.log('RATINGS: ' + this.currentRatingsToShow);
         },
         error: (error: any) => {
           console.log(error)
@@ -178,12 +177,12 @@ export class RideHistoryComponent implements OnInit {
       next: (res) => {
         this.isfavoriteRoutes = [];
         this.favoriteRoutes = [];
-        for(let ride of this.rides.reverse()) {
+        for(let i = 0; i < this.rides.length; i++) {
           this.isfavoriteRoutes.push(false);
           this.favoriteRoutes.push(this.emptyFavorite);
           for (let route of res) {
-            if (route.departure.latitude == ride.locations[0].departure.latitude && route.departure.longitude == ride.locations[0].departure.longitude) {
-              if (route.destination.latitude == ride.locations[0].destination.latitude && route.destination.longitude == ride.locations[0].destination.longitude) {
+            if (route.departure.latitude == this.rides[i].locations[0].departure.latitude && route.departure.longitude == this.rides[i].locations[0].departure.longitude) {
+              if (route.destination.latitude == this.rides[i].locations[0].destination.latitude && route.destination.longitude == this.rides[i].locations[0].destination.longitude) {
                 this.isfavoriteRoutes.pop();
                 this.favoriteRoutes.pop();
                 this.isfavoriteRoutes.push(true);
@@ -242,11 +241,11 @@ export class RideHistoryComponent implements OnInit {
     this.selectedType = option;
 
     if(option === 'Date') {
-      this.rides = this.rides.sort((a, b) => (a.startTime < b.startTime) ? -1 : 1)
+      this.rides = this.rides.sort((a, b) => (a.startTime <= b.startTime) ? -1 : 1)
     } else if (option === 'Price') {
-      this.rides = this.rides.sort((a, b) => (a.totalCost < b.totalCost) ? -1 : 1)
+      this.rides = this.rides.sort((a, b) => (a.totalCost <= b.totalCost) ? -1 : 1)
     } else {
-      this.rides = this.rides.sort((a, b) => (a.distance < b.distance) ? -1 : 1)
+      this.rides = this.rides.sort((a, b) => (a.distance <= b.distance) ? -1 : 1)
     }
     this.getRatings();
     this.setFavorites();
