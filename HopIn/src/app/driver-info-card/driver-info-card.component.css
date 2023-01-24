@@ -56,10 +56,10 @@ p {
     padding-right: 12px;
     background-color: #DCDCDC;
     height: 100%;
+    width: 12%;
     display: flex;
 }
 
 .center {
-    margin-top: auto;
-    margin-bottom: auto;
+    margin: auto;
 }
