@@ -30,7 +30,7 @@ export class DriverRegisterComponent implements OnInit {
   }
 
   vehicle : Vehicle = {
-    _id : 0,
+    id : 0,
     model: "",
     licenseNumber: "",
     currentLocation: null,

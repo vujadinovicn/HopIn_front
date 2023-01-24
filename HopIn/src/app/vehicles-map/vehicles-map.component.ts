@@ -45,14 +45,24 @@ export class VehiclesMapComponent implements OnInit {
 
     this.vehiclesMapService.recievedVehicleActivation().subscribe((driverId: any) => {
       this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
+        console.log(vehicle.id);
         let map = this.map;
-        this.vehicles[vehicle._id] = vehicle;
-        this.vehicleMarkers[vehicle._id] = new google.maps.Marker({
+        this.vehicles[vehicle.id] = vehicle;
+        this.vehicleMarkers[vehicle.id] = new google.maps.Marker({
           map,
           position: this.getVehiclePosition(vehicle),
-          title: "Vehicle no." + vehicle._id,
+          title: "Vehicle no." + vehicle.id,
           icon: this.getIcon()
         });
+      })
+    })
+
+    this.vehiclesMapService.recievedVehicleDeactivation().subscribe((driverId: any) => {
+      console.log(driverId);
+      this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
+        delete this.vehicles[vehicle.id];
+        this.vehicleMarkers[vehicle.id].setMap(null);
+        delete this.vehicleMarkers[vehicle.id];
       })
     })
 

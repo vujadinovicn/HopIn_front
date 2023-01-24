@@ -30,7 +30,7 @@ export class VehicleService {
 }
 
 export interface Vehicle{
-    _id: number,
+    id: number,
     model: string,
     licenseNumber: string,
     passengerSeats: number,
