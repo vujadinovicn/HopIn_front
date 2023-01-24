@@ -65,6 +65,7 @@ import { RideInfoCardComponent } from './ride-info-card/ride-info-card.component
 import { RideHistoryDetailsComponent } from './ride-history-details/ride-history-details.component';
 import { DriverInfoCardComponent } from './driver-info-card/driver-info-card.component';
 import { PassengersInfoCardComponent } from './passengers-info-card/passengers-info-card.component';
+import { RatingsCardComponent } from './ratings-card/ratings-card.component';
 
 @NgModule({
   declarations: [
@@ -117,7 +118,8 @@ import { PassengersInfoCardComponent } from './passengers-info-card/passengers-i
     RideInfoCardComponent,
     RideHistoryDetailsComponent,
     DriverInfoCardComponent,
-    PassengersInfoCardComponent
+    PassengersInfoCardComponent,
+    RatingsCardComponent
   ],
   imports: [
     BrowserModule,
