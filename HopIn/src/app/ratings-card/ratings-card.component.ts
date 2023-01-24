@@ -8,6 +8,7 @@ import { User } from '../services/user.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-ratings-card',
@@ -17,6 +18,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class RatingsCardComponent implements OnInit {
 
   ride!: RideReturnedDTO;
+  _role: String = '';
   reviews: Review[] = [];
   passengers: User[] = [];
   reviewInfo: ReviewInfo = {
@@ -29,9 +31,14 @@ export class RatingsCardComponent implements OnInit {
   constructor(private rideService: RideService,
     private reviewService: ReviewService,
     private userService: UserService,
+    private authService: AuthService,
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.authService.getUser().subscribe((res) => {
+      this._role = res;
+    })
+
     this.rideService.getRide().subscribe((res) => {
       this.ride = res;
       this.reviewService.getAll(this.ride.id).subscribe((r) => {

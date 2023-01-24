@@ -1,7 +1,7 @@
 <div id="card">
     <div class="row">
         <h2>Ratings: </h2>
-        <button id="dialogOpenBtn" (click)="openDialog()">Add</button>    
+        <button *ngIf="this._role === 'ROLE_PASSENGER'" id="dialogOpenBtn" (click)="openDialog()">Add</button>    
     </div>
     <div id="reviewCard" class="row" *ngFor="let review of reviews; let indexOfelement=index;">
         <p class="key">{{ passengers[indexOfelement].name + ':' }}</p>
