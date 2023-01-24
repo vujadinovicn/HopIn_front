@@ -17,6 +17,10 @@ export class DriverService {
     return this.http.post<string>(environment.apiHost + '/driver', driver, options);
   }
 
+  getVehicleById(driverId: number){
+    return this.http.get<any>(environment.apiHost + '/driver/' + driverId + "/vehicle");
+  }
+
   getActiveVehicles(): Observable<any[]> {
     return this.http.get<any[]>(environment.apiHost + "/driver/active-vehicles");
   }

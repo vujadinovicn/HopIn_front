@@ -24,7 +24,29 @@ export class VehiclesMapService {
     private vehicleChange = new Subject<any>();
     vehicleChangeSubs: any;
 
+    private vehicleActivation = new Subject<any>();
+    vehicleActivationSubs: any;
+
     constructor(private http: HttpClient, private authService: AuthService, private dialog: MatDialog) { }
+
+    subscribeToVehicleActivation() {
+        this.vehicleActivationSubs = this.stompClient.subscribe("/topic/vehicle/activation", (message: Message) => {
+            this.updateVehicleActivation((JSON.parse(message.body)));
+        })
+    }
+
+    unsubscribeFromVehicleActivation() {
+        if (this.vehicleActivationSubs != undefined)
+            this.vehicleActivationSubs.unsubscribe();
+    }
+
+    updateVehicleActivation(res: any){
+        this.vehicleActivation.next(res);
+    }
+
+    recievedVehicleActivation(){
+        return this.vehicleActivation.asObservable();
+    }
 
     subscribeToLocationChange() {
         this.vehicleChangeSubs = this.stompClient.subscribe("/topic/map-updates/update-vehicle-position", (message: Message) => {
@@ -51,6 +73,7 @@ export class VehiclesMapService {
         this.stompClient.connect({}, () => {
             this.isConnected = true;
             this.subscribeToLocationChange();
+            this.subscribeToVehicleActivation();
         });
     }
 

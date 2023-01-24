@@ -37,11 +37,23 @@ export class VehiclesMapComponent implements OnInit {
     this.mapService.getLoader().load().then(() => {
       this.initMap();
       this.configureMap(); 
-    });
-  
+    });  
 
     this.vehiclesMapService.receivedLocationChange().subscribe((res: any) => {
       this.changeVehicleMarker(res);
+    })
+
+    this.vehiclesMapService.recievedVehicleActivation().subscribe((driverId: any) => {
+      this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
+        let map = this.map;
+        this.vehicles[vehicle._id] = vehicle;
+        this.vehicleMarkers[vehicle._id] = new google.maps.Marker({
+          map,
+          position: this.getVehiclePosition(vehicle),
+          title: "Vehicle no." + vehicle._id,
+          icon: this.getIcon()
+        });
+      })
     })
 
     this.driverService.getActiveVehicles().subscribe((activeVehicles: any) => {
