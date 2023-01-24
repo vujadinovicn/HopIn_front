@@ -147,6 +147,7 @@ export class RideHistoryComponent implements OnInit {
     for (let i = 0; i < this.rides.length; i++) {
       this.reviewService.getAll(this.rides[i].id).subscribe({
         next: (res) => {
+          console.log(res);
           let sum = 0;
           let counter = 0;
           for(let pair of res) {
@@ -163,7 +164,6 @@ export class RideHistoryComponent implements OnInit {
             this.ratings[i] = (sum/counter);
           }
           this.currentRatingsToShow = this.ratings;
-          console.log('RATINGS: ' + this.currentRatingsToShow);
         },
         error: (error: any) => {
           console.log(error)

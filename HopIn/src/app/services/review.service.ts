@@ -14,12 +14,12 @@ export class ReviewService {
     return this.http.get<CompleteRideReviewDTO[]>(environment.apiHost + '/review/' + id );
   }
   
-  saveVehicleReview(review: ReviewDTO, rideId: number): Observable<any> {
-    return this.http.post<any>(environment.apiHost + '/review/' + rideId + "/vehicle", review);
+  saveVehicleReview(review: ReviewDTO, rideId: number): Observable<Review> {
+    return this.http.post<Review>(environment.apiHost + '/review/' + rideId + "/vehicle", review);
   }
 
-  saveDriverReview(review: ReviewDTO, rideId: number): Observable<any> {
-    return this.http.post<any>(environment.apiHost + '/review/' + rideId + "/driver", review);
+  saveDriverReview(review: ReviewDTO, rideId: number): Observable<Review> {
+    return this.http.post<Review>(environment.apiHost + '/review/' + rideId + "/driver", review);
   }
 }
 

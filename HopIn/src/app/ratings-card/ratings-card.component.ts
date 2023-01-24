@@ -1,5 +1,5 @@
 import { UserService } from './../services/user.service';
-import { Review, ReviewService } from './../services/review.service';
+import { Review, ReviewDTO, ReviewService } from './../services/review.service';
 import { RideService } from './../services/ride.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { CompleteRideReviewDTO } from '../services/review.service';
@@ -7,6 +7,7 @@ import { RideReturnedDTO } from '../services/ride.service';
 import { User } from '../services/user.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-ratings-card',
@@ -21,7 +22,8 @@ export class RatingsCardComponent implements OnInit {
   reviewInfo: ReviewInfo = {
     isDriver: false,
     comment: '',
-    rating: 0
+    rating: 0,
+    isActionSave: false
   }
 
   constructor(private rideService: RideService,
@@ -63,7 +65,28 @@ export class RatingsCardComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(this.reviewInfo);
+      if(this.reviewInfo.isActionSave) {
+        let rev: ReviewDTO = {comment: this.reviewInfo.comment, rating: this.reviewInfo.rating}
+        if (this.reviewInfo.isDriver) {
+          this.reviewService.saveDriverReview(rev, this.ride.id).subscribe((res: Review) => {
+            this.getPassenger(res);
+            this.reviews.push(res);
+          });
+        } else {
+          this.reviewService.saveVehicleReview(rev, this.ride.id).subscribe((res: Review) => {
+            this.getPassenger(res);
+            this.reviews.push(res);
+          });
+        }
+      }
+
+      this.reviewInfo = {
+        isDriver: false,
+        comment: '',
+        rating: 0,
+        isActionSave: false
+      }
+      dialogRef.close();
     });
   }
 
@@ -81,9 +104,22 @@ export class ReviewDialog {
 
   constructor(
     public dialogRef: MatDialogRef<ReviewDialog>,
+    public snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: ReviewInfo) {}
 
   onNoClick(): void {
+    this.data.isActionSave = false;
+    this.dialogRef.close();
+  }
+
+  onSaveClick(): void {
+    if (this.data.comment == '' || this.data.rating == 0) {
+      this.snackBar.open("Leave a comment or a rating.", "", {
+        duration: 2000,
+     });
+     return;
+    }
+    this.data.isActionSave = true;
     this.dialogRef.close();
   }
 
@@ -92,5 +128,6 @@ export class ReviewDialog {
 export interface ReviewInfo {
   isDriver: boolean,
   comment: string,
-  rating: number
+  rating: number,
+  isActionSave: boolean 
 }
