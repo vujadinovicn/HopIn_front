@@ -99,7 +99,9 @@ export class ToolbarComponent implements OnInit {
         this.snackBar.open(error.error.message, "", {
           duration: 2000,
        });
-       this.checked = false;
+        if (error.error.message != 'Shift already ongoing!') {
+          this.checked = false;
+        }
       }
     });
     

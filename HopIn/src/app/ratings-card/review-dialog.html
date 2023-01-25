@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Review</h1>
+<div mat-dialog-content>
+  <div>
+    <input [(ngModel)]="data.isDriver" type="radio" name="DriverVehicle" value="Driver" [value]="true">
+    <label for="Driver">Driver</label>
+  </div>
+  <div>
+    <input [(ngModel)]="data.isDriver" type="radio" name="DriverVehicle" value = "Vehicle" [value]="false">
+    <label for="Passenger">Vehicle</label>
+  </div>
+  <div id="stars-dialog">
+    <ngx-star-rating id="dstars" [(ngModel)]="data.rating" [disabled]="false"></ngx-star-rating>
+  </div>  
+  <p>Leave a comment:</p>
+  <input [(ngModel)]="data.comment" type="text" id="comment">
+</div>
+<div id="btns" mat-dialog-actions>
+  <button class="red" (click)="onNoClick()">Cancel</button>
+  <button class="green" (click)="onSaveClick()" >Save</button>
+</div>

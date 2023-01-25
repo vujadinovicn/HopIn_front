@@ -15,8 +15,8 @@ export class UserService {
     return this.http.get<User>(environment.apiHost + '/passenger/' + passengerId);
   }
 
-  getByDriverId(driverId: number): Observable<User> {
-    return this.http.get<User>(environment.apiHost + '/driver/' + driverId);
+  getByDriverId(driverId: number): Observable<any> {
+    return this.http.get<any>(environment.apiHost + '/driver/' + driverId);
   }
 
   registerPassenger(passenger: UserDTO): Observable<any> {
@@ -87,4 +87,18 @@ export class MethodsForRoleImpl implements MethodsForRole {
 export interface ResetPasswordDTO {
   code: string,
   newPassword: string
+}
+
+export interface Driver {
+  id: number;
+  name: string;
+  surname: string;
+  profilePicture: string;
+  telephoneNumber: string;
+  email: string;
+  address: string;
+  password: string;
+  model: string,
+  licenseNumber: string,
+  vehicleType: string
 }

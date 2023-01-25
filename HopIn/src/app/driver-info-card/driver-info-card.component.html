@@ -1,0 +1,27 @@
+<div id="card">
+    <div id="wheel">
+        <img class="center" src="../../assets/vectors/wheel.svg">
+    </div>
+    <div id="info" class="center">
+        <p id="name">{{ driver.name + ' ' + driver.surname }}</p>
+        <div class="row">
+            <p class="key">email:</p>
+            <p class="value">{{ driver.email }}</p>
+        </div>
+        <div class="row">
+            <p class="key">phone num:</p>
+            <p class="value">{{ driver.telephoneNumber }}</p>
+        </div>
+        <div class="row">
+            <p class="key">plates:</p>
+            <p class="value">{{ driver.licenseNumber }}</p>
+        </div>
+        <div class="row">
+            <p class="key">vehicle model:</p>
+            <p class="value">{{ driver.model }}</p>
+        </div>
+    </div>
+    <div id="profilePic">
+        <img class="center" [src]="url" alt="">
+    </div>
+</div>
