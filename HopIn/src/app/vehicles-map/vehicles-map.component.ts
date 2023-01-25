@@ -70,11 +70,11 @@ export class VehiclesMapComponent implements OnInit {
       for (let vehicle of activeVehicles){
         let map = this.map;
 
-        this.vehicles[vehicle.id] = vehicle;
-        this.vehicleMarkers[vehicle.id] = new google.maps.Marker({
+        this.vehicles[vehicle.vehicleId] = vehicle;
+        this.vehicleMarkers[vehicle.vehicleId] = new google.maps.Marker({
           map,
           position: this.getVehiclePosition(vehicle),
-          title: "Vehicle no." + vehicle.id,
+          title: "Vehicle no." + vehicle.vehicleId,
           icon: this.getIcon()
         });
       }
