@@ -69,3 +69,10 @@ p {
 button:hover {
     cursor: pointer;
 }
+
+
+@media only screen and (max-width: 1050px) {
+    #card {
+        width: 89vw;
+    }
+}

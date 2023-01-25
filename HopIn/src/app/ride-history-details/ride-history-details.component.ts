@@ -17,21 +17,6 @@ export class RideHistoryDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.rideService.getRide().subscribe((res) => {
       this.ride = res;
-      // let pickUp: ShortAddress = {
-      //   address: this.ride.locations[0].departure.address.toString(),
-      //   longitude: this.ride.locations[0].departure.longitude,
-      //   latitude: this.ride.locations[0].departure.latitude
-      // }
-
-      // let dest: ShortAddress = {
-      //   address: this.ride.locations[0].destination.address.toString(),
-      //   longitude: this.ride.locations[0].destination.longitude,
-      //   latitude: this.ride.locations[0].destination.latitude
-      // }
-      // this.routingService.route.pickup = pickUp;
-      // this.routingService.route.destination = dest;
-      // this.routingService.route.scheduledTime = this.ride.scheduledTime.toString();
-      // this.routingService.findRoute();
     });
   }
 

@@ -95,3 +95,9 @@ h4 {
 #info {
     width: 80%;
 }
+
+@media only screen and (max-width: 1050px) {
+    #card {
+        width: 90vw;
+    }
+}

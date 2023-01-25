@@ -33,7 +33,6 @@ export class MapComponent implements OnInit, OnDestroy {
       this.directionsRenderer = new google.maps.DirectionsRenderer();
 
       this.sub.add(this.routingService.receivedResponse().subscribe((response: any) => {
-        console.log(response);
         this.initMap();
         this.drawRoute(response);
       }));
