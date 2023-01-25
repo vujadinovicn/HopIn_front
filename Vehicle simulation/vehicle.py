@@ -31,3 +31,6 @@ class Vehicle():
 
     def __str__(self):
         return "vehicle id: " + str(self.vehicle_id) + "driver id: " + str(self.driver_id) + ", current location: " + str(self.current_location)
+
+    def get_coordinates(self):
+        return [self.current_location.latitude, self.current_location.longitude]

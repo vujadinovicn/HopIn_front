@@ -3,7 +3,7 @@ class CurrentLocation():
     def __init__(self, address, latitude, longitude):
         self.__address = address
         self.__latitude = latitude
-        self.__longitude = longitude
+        self.longitude = longitude
 
     @property
     def address(self):
@@ -29,7 +29,7 @@ class CurrentLocation():
 
     @longitude.setter
     def longitude(self, longitude):
-        self.__longitude = id
+        self.__longitude = longitude
 
     def __str__(self):
         return "address: " + self.address + ", latitude: " + str(self.latitude) + ", longitude: " + str(self.longitude)
