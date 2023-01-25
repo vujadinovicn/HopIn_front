@@ -42,3 +42,13 @@ app-passengers-info-card {
     margin-top: 2vh;
 }
 
+@media only screen and (max-width: 900px) {
+    #upper {
+        flex-direction: column;
+    }
+
+    #lower {
+        flex-direction: column;
+    }
+}
+

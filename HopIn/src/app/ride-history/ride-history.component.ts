@@ -12,6 +12,7 @@ import { FormControl } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
 import { MatSortable, Sort } from '@angular/material/sort/sort';
 import { Router } from '@angular/router';
+import { Route, RoutingService, ShortAddress } from '../services/routing.service';
 @Component({
   selector: 'ride-history',
   templateUrl: './ride-history.component.html',
@@ -19,6 +20,7 @@ import { Router } from '@angular/router';
 })
 export class RideHistoryComponent implements OnInit {
 
+  route: Route = {} as Route;
   _role: String = ''
   _id: number = 0
   currentRidesToShow: RideReturnedDTO[] = [];
@@ -50,7 +52,7 @@ export class RideHistoryComponent implements OnInit {
     public snackBar: MatSnackBar,
     private authService: AuthService,
     private router: Router,
-    private passengerAccountOptionsService: PassengerAccountOptionsService) {
+    private routingService: RoutingService) {
 
    }
 
@@ -259,7 +261,25 @@ export class RideHistoryComponent implements OnInit {
 
   openDetails(index: number): void {
     this.rideService.setRide(this.currentRidesToShow[index]);
-    this.router.navigate(['ride-history-details']);
+    let ride: RideReturnedDTO = this.currentRidesToShow[index];
+    let pickUp: ShortAddress = {
+      address: ride.locations[0].departure.address.toString(),
+      longitude: ride.locations[0].departure.longitude,
+      latitude: ride.locations[0].departure.latitude
+    }
+
+    let dest: ShortAddress = {
+      address: ride.locations[0].destination.address.toString(),
+      longitude: ride.locations[0].destination.longitude,
+      latitude: ride.locations[0].destination.latitude
+    }
+    this.route.pickup = pickUp;
+    this.route.destination = dest;
+    this.route.vehicleTypeName = "STANDARD";
+    this.routingService.updateRoute(this.route);
+    this.routingService.findRoute();
+    this.router.navigate(['/ride-history-details']);
+
   }
 
 

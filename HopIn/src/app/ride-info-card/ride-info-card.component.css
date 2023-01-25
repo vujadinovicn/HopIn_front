@@ -100,3 +100,9 @@ img {
     margin-bottom: auto;
     margin-left: auto;
 }
+
+@media only screen and (max-width: 900px) {
+    #mainContainer {
+        width: 80vw;
+    }
+}
