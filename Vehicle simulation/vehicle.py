@@ -1,16 +1,25 @@
 class Vehicle():
 
-    def __init__(self, id, current_location):
-        self.__id = id
+    def __init__(self, vehicle_id,  driver_id, current_location):
+        self.__vehicle_id = vehicle_id
+        self.__driver_id = driver_id
         self.__current_location = current_location
 
     @property
-    def id(self):
-        return self.__id
+    def vehicle_id(self):
+        return self.__vehicle_id
 
-    @id.setter
-    def id(self, id):
-        self.__id = id
+    @vehicle_id.setter
+    def vehicle_id(self, vehicle_id):
+        self.__vehicle_id = vehicle_id
+
+    @property
+    def driver_id(self):
+        return self.__driver_id
+
+    @driver_id.setter
+    def driver_id(self, driver_id):
+        self.__driver_id = driver_id
 
     @property
     def current_location(self):
@@ -21,4 +30,4 @@ class Vehicle():
         self.__current_location = current_location
 
     def __str__(self):
-        return "id: " + str(self.id) + ", current location: " + str(self.current_location)
+        return "vehicle id: " + str(self.vehicle_id) + "driver id: " + str(self.driver_id) + ", current location: " + str(self.current_location)

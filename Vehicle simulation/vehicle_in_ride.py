@@ -41,7 +41,7 @@ class VehicleInRide():
     def update_vehicle_coordinates(self):
         if len(self.coordinates) > 0:
             new_coordinate = self.coordinates.pop(0)
-            requests.put("http://localhost:4321/api/vehicle/" + str(self.vehicle.id) + "/location", json={
+            requests.put("http://localhost:4321/api/vehicle/" + str(self.vehicle.vehicle_id) + "/location", json={
                 'address': "random", 
                 'latitude': new_coordinate[0],
                 'longitude': new_coordinate[1]
@@ -74,19 +74,12 @@ class VehicleInRide():
         departure = gmaps.reverse_geocode((self.departure))
         destination = gmaps.reverse_geocode((self.destination))
 
-        print(departure[0]['formatted_address'])
-        print(destination[0]["formatted_address"])
-
-
         directions_result = gmaps.directions(departure[0]['formatted_address'],
                                             destination[0]["formatted_address"],
                                             mode="transit")
 
         decoded_polyline = polyline.decode(directions_result[0]["legs"][0]["steps"][0]['polyline']["points"], 5)
-        print(decoded_polyline)
         self.coordinates = []
 
         for coordinate in decoded_polyline:
             self.coordinates.append(coordinate)
-        
-        print(len(self.coordinates))
