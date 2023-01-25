@@ -27,6 +27,9 @@ taxi_stops = [
     (45.246540, 19.849282)    # Stajaliste kod menze
 ]
 
+taxi_stop_waiting_in_seconds = 15
+
+
 class VehicleInRide():
 
     def __init__(self, vehicle):
@@ -34,6 +37,7 @@ class VehicleInRide():
         self.previous_taxi_stop_index = random_taxi_stop_index
         random_taxi_stop = taxi_stops[random_taxi_stop_index]
         self.vehicle = vehicle
+        self.wait_on_taxi_stop_counter = 0
         self.driving_to_start_point = False
         self.driving_the_route = False
         self.driving_to_taxi_stop = True
@@ -75,13 +79,14 @@ class VehicleInRide():
             random_taxi_stop = taxi_stops[random_taxi_stop_index]
             #start_and_end_points.append(self.departure)
             # self.departure = random_taxi_stop
-            self.departure = self.vehicle.get_coordinates()
-            self.destination = random_taxi_stop
-            self.get_new_coordinates()
+            if self.is_wait_on_taxi_stop_finished():
+                self.departure = self.vehicle.get_coordinates()
+                self.destination = random_taxi_stop
+                self.get_new_coordinates()
 
-            #obrni posle
-            self.driving_to_taxi_stop = True
-            self.driving_to_start_point = False
+                #obrni posle
+                self.driving_to_taxi_stop = True
+                self.driving_to_start_point = False
 
     def get_new_coordinates(self):
         departure_to_string = ', '.join(str(coordinate) for coordinate in self.departure)
@@ -97,3 +102,10 @@ class VehicleInRide():
         self.coordinates = []
         for coordinate in decoded_polyline:
             self.coordinates.append(coordinate)
+
+    def is_wait_on_taxi_stop_finished(self):
+        self.wait_on_taxi_stop_counter += 1
+        if self.wait_on_taxi_stop_counter == taxi_stop_waiting_in_seconds:
+            self.wait_on_taxi_stop_counter = 0
+            return True
+        return False
