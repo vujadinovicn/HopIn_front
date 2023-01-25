@@ -59,7 +59,7 @@ def simulate():
         vehicle.update_vehicle_coordinates()
 
 schedule.every(2).seconds.do(get_active_vehicles_json)
-schedule.every(2).seconds.do(simulate)
+schedule.every(8).seconds.do(simulate)
 
 while True:
     schedule.run_pending()
