@@ -2,10 +2,11 @@ import googlemaps
 import datetime
 import polyline
 import requests
+import api.ride_api_calls as ride_api_calls
 
 from random import randrange
-from ride import Ride
-from response_parsers import parse_response_to_ride
+from dtos.ride import Ride
+from api.response_parsers import parse_response_to_ride
 
 gmaps = googlemaps.Client(key="AIzaSyADf7wmEupGmb08OGVJR1eNhvtvF6KYuiM")
 
@@ -29,7 +30,7 @@ class VehicleInRide():
         self.ride_not_started_message_shown = False
         self.ride_not_finished_message_shown = False
 
-        is_vehicle_in_ride, current_ride_json = self.is_vehicle_in_ride()
+        is_vehicle_in_ride, current_ride_json = ride_api_calls.is_vehicle_in_ride(self.current_ride.id)
         if is_vehicle_in_ride:
             self.set_attributes_for_current_ride(current_ride_json)
             print("Vehicle no." + str(self.vehicle.vehicle_id) + "\nDriving the ride...: " + self.get_address_from_coordinates(self.current_ride.departure.get_coordinates()) + " -> " + self.get_address_from_coordinates(self.current_ride.destination.get_coordinates()))
@@ -73,14 +74,8 @@ class VehicleInRide():
         print("Vehicle no." + str(self.vehicle.vehicle_id) + "\nGoing to taxi stop: " + self.get_address_from_coordinates(random_taxi_stop))
         return random_taxi_stop
 
-    def is_vehicle_in_ride(self):
-        response = requests.get("http://localhost:4321/api/ride/driver/" + str(self.vehicle.driver_id) + "/accepted-started")
-        if response.status_code == 200:
-            return True, response.json()
-        return False, None
-
     def simulate_ride(self):
-        is_vehicle_in_ride, current_ride_json = self.is_vehicle_in_ride()
+        is_vehicle_in_ride, current_ride_json = ride_api_calls.is_vehicle_in_ride(self.current_ride.id)
 
         if is_vehicle_in_ride and self.current_ride == None:
             self.set_attributes_for_current_ride(current_ride_json)
@@ -103,7 +98,7 @@ class VehicleInRide():
             return
 
         elif len(self.coordinates) == 0 and self.driving_to_start_point:
-            if not self.has_ride_started():
+            if not ride_api_calls.has_ride_started(self.vehicle.driver_id):
                 if not self.ride_not_started_message_shown:
                     print("Vehicle no." + str(self.vehicle.vehicle_id) + "\nCame to departure!")
                     print("Ride not started... Have to wait...")
@@ -116,7 +111,7 @@ class VehicleInRide():
             self.ride_not_started_message_shown = False
 
         elif len(self.coordinates) == 0 and self.driving_the_route:
-            if not self.is_ride_finished():
+            if not ride_api_calls.is_ride_finished(self.vehicle.driver_id):
                 if not self.ride_not_finished_message_shown:
                     print("Vehicle no." + str(self.vehicle.vehicle_id) + "\nCame to destination!")
                     print("Ride not finished... Have to wait...")
@@ -165,15 +160,3 @@ class VehicleInRide():
     def get_address_from_coordinates(self, new_coordinates):
         reverse_geocode_result = gmaps.reverse_geocode(new_coordinates)
         return reverse_geocode_result[0]["formatted_address"]
-
-    def has_ride_started(self):
-        response = requests.get("http://localhost:4321/api/ride/" + str(self.current_ride.id))
-        if response.status_code == 200 and response.json()["status"] == "STARTED":
-            return True
-        return False
-
-    def is_ride_finished(self):
-        response = requests.get("http://localhost:4321/api/ride/" + str(self.current_ride.id))
-        if response.status_code == 200 and response.json()["status"] == "FINISHED":
-            return True
-        return False

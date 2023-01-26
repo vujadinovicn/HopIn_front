@@ -1,6 +1,6 @@
-from vehicle import Vehicle
-from location import Location
-from ride import Ride
+from dtos.vehicle import Vehicle
+from dtos.location import Location
+from dtos.ride import Ride
 
 def parse_response_to_vehicle(response):
     vehicle_id = response["vehicleId"]

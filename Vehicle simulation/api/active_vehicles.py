@@ -1,8 +1,6 @@
 import requests
-import schedule
-import time
-from vehicle_in_ride import VehicleInRide
-from response_parsers import parse_response_to_vehicle
+from simulation.vehicle_in_ride import VehicleInRide
+from api.response_parsers import parse_response_to_vehicle
 
 active_vehicles = []
 vehicles_in_ride = []
@@ -48,14 +46,3 @@ def get_index_by_id_from_active_vehicles(id, active_vehicles):
             index += 1
         else:
             return index
-
-def simulate():
-    for vehicle in vehicles_in_ride:
-        vehicle.simulate_ride()
-
-schedule.every(2).seconds.do(get_active_vehicles_json)
-schedule.every(2).seconds.do(simulate)
-
-while True:
-    schedule.run_pending()
-    time.sleep(1)

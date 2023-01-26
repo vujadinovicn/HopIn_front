@@ -1,4 +1,4 @@
-from location import Location
+from dtos.location import Location
 
 class Ride():
 
