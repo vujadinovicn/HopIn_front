@@ -1,0 +1,12 @@
+<div id="decline-request-container">
+    <h1 mat-dialog-title class="red" align="center">{{'Add a note for ' + data.name}}</h1>
+    <div id="text-area-container" mat-dialog-content align="center">
+    <mat-form-field class="example-full-width">
+        <mat-label>Leave a message</mat-label>
+        <textarea [(ngModel)]="data.reason" matInput rows="8" cols="40" placeholder="Inappropiate input"></textarea>
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions align="center">
+        <button mat-button class="conf-button" (click)="addNote()">Submit</button>
+    </div>
+</div>
