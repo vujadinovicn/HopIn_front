@@ -22,4 +22,13 @@ export class PassengerService {
     resendVerificationMail(code: string) : Observable<any> {
         return this.http.get<any>(environment.apiHost + "/passenger/activate/resend?code=" + code);
     }
+
+    getAll() : Observable<AllUsersDTO> {
+        return this.http.get<AllUsersDTO>(environment.apiHost + "/passenger");
+    }
+}
+
+export interface AllUsersDTO {
+    totalCount: number,
+    results: User[]
 }
