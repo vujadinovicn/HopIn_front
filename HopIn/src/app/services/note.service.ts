@@ -33,7 +33,7 @@ export interface NoteDTO {
 
 export interface Note {
     id: number;
-    date: String;
+    date: string;
     message: String;
     admin: User;
 }

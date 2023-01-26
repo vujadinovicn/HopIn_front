@@ -1,29 +1,29 @@
 <div class="allFeedBackOptionsContianer">
     <div id="title" class="row">
         <h2>Notes</h2>
-        <img src="../../assets/vectors/plus-circle.svg" alt="">
+        <img src="../../assets/vectors/plus-circle.svg" alt="" (click)="openDialog()">
     </div>
-    <div class="notesCard">
-        <div class="left">
-            <div class="row firstRow">
-                <img [src]="url" alt="">
-                <div>
-                    <p id="name">Marko Maric</p>
-                    <div class="keyValue">
-                        <p class="key">Email:</p>
-                        <p id="email" class="value">email@gmail.com</p>
-                    </div>
-                </div>           
+    <div id="allCards">
+        <div class="notesCard" *ngFor="let note of notes">
+            <div class="left">
+                <div class="row firstRow">
+                    <img [src]="url" alt="">
+                    <div>
+                        <p id="name">{{ note.admin.name + ' ' + note.admin.surname }}</p>
+                        <div class="keyValue">
+                            <p class="key">email:</p>
+                            <p id="email" class="value">{{ note.admin.email }}</p>
+                        </div>
+                    </div>           
+                </div>
+                <p id="reasonTitle">Reason:</p>
+                <div id="reasonContent">
+                    <p>{{note.message}}</p>
+                </div>
             </div>
-            <p id="reasonTitle">Reason:</p>
-            <div id="reasonContent">
-                <p>Lorem ipsum dolor sit amet consectetur.  Sed metus risus amet at at tellus quis aenean. 
-                    Euismod dui platea urna velit vel pellentesque egestas sed at. 
-                    Interdum euismod auctor hendrerit maecenas elit. </p>
+            <div class="right">
+                <p id="date">{{ note.date }}</p>
             </div>
-        </div>
-        <div class="right">
-            <p id="date">at 13:00, 20.11.2022.</p>
         </div>
     </div>
 </div>
