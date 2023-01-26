@@ -51,7 +51,7 @@ def get_index_by_id_from_active_vehicles(id, active_vehicles):
 
 def simulate():
     for vehicle in vehicles_in_ride:
-        vehicle.update_vehicle_coordinates()
+        vehicle.simulate_ride()
 
 schedule.every(2).seconds.do(get_active_vehicles_json)
 schedule.every(2).seconds.do(simulate)

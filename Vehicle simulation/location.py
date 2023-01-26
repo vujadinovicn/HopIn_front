@@ -34,5 +34,9 @@ class Location():
     def get_coordinates(self):
         return [self.latitude, self.longitude]
 
+    def set_coordinates(self, new_coordinates):
+        self.latitude = new_coordinates[0]
+        self.longitude = new_coordinates[1]
+
     def __str__(self):
         return "address: " + self.address + ", latitude: " + str(self.latitude) + ", longitude: " + str(self.longitude)
