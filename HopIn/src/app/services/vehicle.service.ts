@@ -30,11 +30,11 @@ export class VehicleService {
 }
 
 export interface Vehicle{
-    _id: number,
+    id: number,
     model: string,
     licenseNumber: string,
     passengerSeats: number,
-    currentLocation: any,
+    currentLocation: LocationNoId | null,
     babyTransport: boolean,
     petTransport: boolean,
     vehicleType: string
@@ -44,4 +44,10 @@ export interface VehicleType{
     _id: number,
     name: string,
     pricePerKm: number
+}
+
+export interface LocationNoId {
+    address: string,
+    longitude: number,
+    latitude: number
 }

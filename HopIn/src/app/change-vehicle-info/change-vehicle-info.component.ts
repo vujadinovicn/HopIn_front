@@ -19,7 +19,7 @@ export class ChangeVehicleInfoComponent implements OnInit {
   driverId: number = 0;
 
   vehicle : Vehicle = {
-    _id : 0,
+    id : 0,
     model: "",
     licenseNumber: "",
     currentLocation: null,
