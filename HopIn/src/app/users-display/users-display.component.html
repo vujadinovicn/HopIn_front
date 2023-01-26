@@ -11,7 +11,7 @@
         </div>
     </div>
     <div id="request-cards">
-        <div class="request-card" *ngFor="let user of currentDisplay">
+        <div class="request-card" *ngFor="let user of currentDisplay" (click)="selectUser(user)">
             <div class="driver-data">
                 <img [src]="url" class="driver-photo">
                 <div class="driver-info">

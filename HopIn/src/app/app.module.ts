@@ -68,6 +68,7 @@ import { PassengersInfoCardComponent } from './passengers-info-card/passengers-i
 import { RatingsCardComponent, ReviewDialog } from './ratings-card/ratings-card.component';
 import { UsersDisplayComponent } from './users-display/users-display.component';
 import { BlockUserDetailsComponent } from './block-user-details/block-user-details.component';
+import { UsersDashboardComponent } from './users-dashboard/users-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -124,7 +125,8 @@ import { BlockUserDetailsComponent } from './block-user-details/block-user-detai
     RatingsCardComponent,
     ReviewDialog,
     UsersDisplayComponent,
-    BlockUserDetailsComponent
+    BlockUserDetailsComponent,
+    UsersDashboardComponent
   ],
   imports: [
     BrowserModule,

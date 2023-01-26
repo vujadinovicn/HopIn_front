@@ -1,0 +1,19 @@
+#mainContainer {
+    width: 100%;
+}
+
+#mainContainer > div {
+    margin-top: 3vh;
+    width: fit-content;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.left {
+    margin-right: 1vw;
+}
+
+.right {
+    margin-left: 1vw;
+}

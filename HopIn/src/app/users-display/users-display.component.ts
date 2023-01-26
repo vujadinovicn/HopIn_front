@@ -1,3 +1,4 @@
+import { BlockService } from './../services/block.service';
 import { Driver, User } from './../services/user.service';
 import { DriverService } from './../services/driver.service';
 import { PassengerService } from './../services/passenger.service';
@@ -30,7 +31,8 @@ export class UsersDisplayComponent implements OnInit {
   }
 
   constructor(private passengerService: PassengerService,
-    private driverService: DriverService) { }
+    private driverService: DriverService,
+    private blockService: BlockService) { }
 
   ngOnInit(): void {
     this.getResults();
@@ -50,6 +52,12 @@ export class UsersDisplayComponent implements OnInit {
     } else {
       this.currentDisplay = this.drivers;
     }
+  }
+
+  public selectUser(user: User): void {
+    this.selectedUserId = user.id;
+    this.blockService.setUser(user);
+    this.blockService.setIsSelected(true);
   }
 
   private getPassengers(): void {
