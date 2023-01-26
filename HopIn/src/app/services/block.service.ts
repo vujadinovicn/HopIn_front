@@ -31,5 +31,19 @@ export class BlockService {
     setIsSelected(isSel: any): void {
         this.isSelected.next(isSel);
     }
+
+    block(id: number): Observable<string> {
+        const options: any = {
+            responseType: 'json',
+          };
+        return this.http.put<string>(environment.apiHost + '/user/' + id +'/block', options);
+    }
+
+    unblock(id: number): Observable<string> {
+        const options: any = {
+            responseType: 'json',
+          };
+        return this.http.put<string>(environment.apiHost + '/user/' + id +'/unblock', options);
+    }
    
 }
