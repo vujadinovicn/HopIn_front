@@ -35,7 +35,8 @@ export class ChangePasswordComponent implements OnInit {
     telephoneNumber: '',
     profilePicture: '',
     password: '',
-    newPassword: ''
+    newPassword: '',
+    isBlocked: false
   }
   
   confirmValidParentMatcher = new ConfirmValidParentMatcher();
