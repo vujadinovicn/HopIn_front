@@ -69,6 +69,7 @@ import { RatingsCardComponent, ReviewDialog } from './ratings-card/ratings-card.
 import { UsersDisplayComponent } from './users-display/users-display.component';
 import { BlockUserDetailsComponent } from './block-user-details/block-user-details.component';
 import { UsersDashboardComponent } from './users-dashboard/users-dashboard.component';
+import { NotesDisplayComponent } from './notes-display/notes-display.component';
 
 @NgModule({
   declarations: [
@@ -126,7 +127,8 @@ import { UsersDashboardComponent } from './users-dashboard/users-dashboard.compo
     ReviewDialog,
     UsersDisplayComponent,
     BlockUserDetailsComponent,
-    UsersDashboardComponent
+    UsersDashboardComponent,
+    NotesDisplayComponent
   ],
   imports: [
     BrowserModule,
