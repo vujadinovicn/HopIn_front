@@ -2,10 +2,10 @@ import googlemaps
 import datetime
 import polyline
 import requests
-import api.ride_api_calls as ride_api_calls
-
-from random import randrange
-from dtos.ride import Ride
+import datetime
+import api.ride_api_calls
+from api.driver_login import get_headers
+import random
 from api.response_parsers import parse_response_to_ride
 
 gmaps = googlemaps.Client(key="AIzaSyADf7wmEupGmb08OGVJR1eNhvtvF6KYuiM")
@@ -29,13 +29,14 @@ class VehicleInRide():
         self.previous_taxi_stop_index = 0
         self.ride_not_started_message_shown = False
         self.ride_not_finished_message_shown = False
+        random.seed(datetime.datetime.now())
 
-        is_vehicle_in_ride, current_ride_json = ride_api_calls.is_vehicle_in_ride(self.current_ride.id)
+        is_vehicle_in_ride, current_ride_json = api.ride_api_calls.is_vehicle_in_ride(self.vehicle.driver_id)
         if is_vehicle_in_ride:
             self.set_attributes_for_current_ride(current_ride_json)
-            print("Vehicle no." + str(self.vehicle.vehicle_id) + "\nDriving the ride...: " + self.get_address_from_coordinates(self.current_ride.departure.get_coordinates()) + " -> " + self.get_address_from_coordinates(self.current_ride.destination.get_coordinates()))
+            print("\nVehicle no." + str(self.vehicle.vehicle_id) + "\nDriving the ride...: " + self.get_address_from_coordinates(self.current_ride.departure.get_coordinates()) + " -> " + self.get_address_from_coordinates(self.current_ride.destination.get_coordinates()))
         else:
-            print("Vehicle no." + str(self.vehicle.vehicle_id) + "\nDriving between taxi stops...")
+            print("\nVehicle no." + str(self.vehicle.vehicle_id) + "\nDriving between taxi stops...")
             self.set_attributes_for_ride_between_taxi_stops()
 
         self.departure = self.vehicle.current_location.get_coordinates()
@@ -66,22 +67,22 @@ class VehicleInRide():
         self.destination = self.select_random_taxi_stop()
 
     def select_random_taxi_stop(self):
-        random_taxi_stop_index = randrange(0, len(taxi_stops))
+        random_taxi_stop_index = random.randrange(0, len(taxi_stops))
         if random_taxi_stop_index == self.previous_taxi_stop_index:
                 random_taxi_stop_index = (random_taxi_stop_index + 1) % len(taxi_stops)
         self.previous_taxi_stop_index = random_taxi_stop_index
         random_taxi_stop = taxi_stops[random_taxi_stop_index]
-        print("Vehicle no." + str(self.vehicle.vehicle_id) + "\nGoing to taxi stop: " + self.get_address_from_coordinates(random_taxi_stop))
+        print("\nVehicle no." + str(self.vehicle.vehicle_id) + "\nGoing to taxi stop: " + self.get_address_from_coordinates(random_taxi_stop))
         return random_taxi_stop
 
     def simulate_ride(self):
-        is_vehicle_in_ride, current_ride_json = ride_api_calls.is_vehicle_in_ride(self.current_ride.id)
+        is_vehicle_in_ride, current_ride_json = api.ride_api_calls.is_vehicle_in_ride(self.vehicle.driver_id)
 
         if is_vehicle_in_ride and self.current_ride == None:
             self.set_attributes_for_current_ride(current_ride_json)
             self.departure = self.vehicle.current_location.get_coordinates()
             self.get_new_coordinates_from_points_of_polyline()
-            print("Vehicle no." + str(self.vehicle.vehicle_id) + "\nNew ride came! Have to turn around...: " + self.get_address_from_coordinates(self.current_ride.departure.get_coordinates()) + " -> " + self.get_address_from_coordinates(self.current_ride.destination.get_coordinates()))
+            print("\nVehicle no." + str(self.vehicle.vehicle_id) + "\nNew ride came! Have to turn around...: " + self.get_address_from_coordinates(self.current_ride.departure.get_coordinates()) + " -> " + self.get_address_from_coordinates(self.current_ride.destination.get_coordinates()))
         
         self.update_vehicle_coordinates()
 
@@ -90,34 +91,35 @@ class VehicleInRide():
             new_coordinates = self.coordinates.pop(0)
             address = self.get_address_from_coordinates(new_coordinates)
             requests.put("http://localhost:4321/api/vehicle/" + str(self.vehicle.vehicle_id) + "/location", json={
-                'address': "random", 
+                'address': address.split(',')[0], 
                 'latitude': new_coordinates[0],
                 'longitude': new_coordinates[1]
-            })
+            }, headers = get_headers()
+            )
             self.vehicle.current_location.set_coordinates(new_coordinates)
             return
 
         elif len(self.coordinates) == 0 and self.driving_to_start_point:
-            if not ride_api_calls.has_ride_started(self.vehicle.driver_id):
+            if not api.ride_api_calls.has_ride_started(self.current_ride.id):
                 if not self.ride_not_started_message_shown:
-                    print("Vehicle no." + str(self.vehicle.vehicle_id) + "\nCame to departure!")
+                    print("\nVehicle no." + str(self.vehicle.vehicle_id) + "\nCame to departure!")
                     print("Ride not started... Have to wait...")
                     self.ride_not_started_message_shown = True
                 return
-            print("Vehicle no." + str(self.vehicle.vehicle_id) + "\nRide started! Going to destination...")
+            print("\nVehicle no." + str(self.vehicle.vehicle_id) + "\nRide started! Going to destination...")
             self.set_new_departure_and_destination(departure=self.destination, destination=self.current_ride.destination.get_coordinates())
             self.set_driving_flags(driving_to_start_point=False, driving_the_route=True, driving_to_taxi_stop=False)
             self.get_new_coordinates_from_points_of_polyline()
             self.ride_not_started_message_shown = False
 
         elif len(self.coordinates) == 0 and self.driving_the_route:
-            if not ride_api_calls.is_ride_finished(self.vehicle.driver_id):
+            if not api.ride_api_calls.is_ride_finished(self.current_ride.id):
                 if not self.ride_not_finished_message_shown:
-                    print("Vehicle no." + str(self.vehicle.vehicle_id) + "\nCame to destination!")
+                    print("\nVehicle no." + str(self.vehicle.vehicle_id) + "\nCame to destination!")
                     print("Ride not finished... Have to wait...")
                     self.ride_not_finished_message_shown = True
                 return
-            print("Vehicle no." + str(self.vehicle.vehicle_id) + "\nRide finished!")
+            print("\nVehicle no." + str(self.vehicle.vehicle_id) + "\nRide finished!")
             self.current_ride = None
             self.set_new_departure_and_destination(departure=self.destination, destination=self.select_random_taxi_stop())
             self.set_driving_flags(driving_to_start_point=False, driving_the_route=False, driving_to_taxi_stop=True)
@@ -126,7 +128,7 @@ class VehicleInRide():
 
         elif len(self.coordinates) == 0 and self.driving_to_taxi_stop:   
             if not self.is_wait_on_taxi_stop_finished():
-                print("Vehicle no." + str(self.vehicle.vehicle_id) + "\nCurrently on wait on taxi stop... Wait for " + str(taxi_stop_waiting_in_seconds - self.wait_on_taxi_stop_counter) + "s...")
+                print("\nVehicle no." + str(self.vehicle.vehicle_id) + "\nCurrently on wait on taxi stop... Wait for " + str(taxi_stop_waiting_in_seconds - self.wait_on_taxi_stop_counter) + "s...")
                 return
             self.set_new_departure_and_destination(departure=self.vehicle.current_location.get_coordinates(), destination=self.select_random_taxi_stop())
             self.set_driving_flags(driving_to_start_point=False, driving_the_route=False, driving_to_taxi_stop=True)
