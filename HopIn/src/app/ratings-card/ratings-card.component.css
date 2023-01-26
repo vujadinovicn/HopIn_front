@@ -1,0 +1,78 @@
+#card {
+    width: 37vw;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #E6E6E6;
+    border-radius: 10px;
+    background-color: white;
+    padding: 5px;
+}
+
+h2 {
+    margin-left: 3%;
+}
+
+#reviewCard {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid #E6E6E6;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 2vh;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    margin-top: 3px;
+}
+
+p {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+}
+
+.key {
+    color: #878787
+}
+
+.value {
+    margin-left: 5px;
+    color: black;
+}
+
+#stars {
+    margin-left: auto;
+}
+
+::ng-deep label.star {
+    padding: 0 5px !important;
+    font-size: 20px !important;
+}
+
+#dialogOpenBtn {
+    margin: auto 3% auto auto;
+    background-color: #EC9A29;
+    color: white;
+    font-size: 0.8em;
+    padding: 0.3em 1em ;
+    border-radius: 5px;
+    border: 0;
+    height: fit-content;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+button:hover {
+    cursor: pointer;
+}
+
+
+@media only screen and (max-width: 1050px) {
+    #card {
+        width: 89vw;
+    }
+}

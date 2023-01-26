@@ -1,0 +1,55 @@
+<div id="mainContainer">
+    <div id="left">
+        <div class="row">
+            <div id="carImg">
+                <img src="../../assets/vectors/car.svg">
+            </div>
+            <h4>{{ ride.locations[0].departure.address + " -> " + ride.locations[0].destination.address }}</h4>
+        </div>
+
+        <div class="row">
+            <div class="imgContainer">
+                <img src="../../assets/vectors/calendar-alt.svg">
+            </div>
+            <p class="key">Start time: </p>
+            <p class="value">{{ ride.startTime }}</p>
+        </div>
+
+        <div class="row">
+            <div class="imgContainer">
+                <img src="../../assets/vectors/calendar-alt.svg">
+            </div>
+            <p class="key">End time: </p>
+            <p class="value">{{ ride.endTime }}</p>
+        </div>
+
+        <div class="row">
+            <div class="imgContainer">
+                <img src="../../assets/vectors/distance.svg">
+            </div>
+            <p class="key">Distance: </p>
+            <p class="value">{{ ride.distance + ' km' }}</p>
+        </div>
+
+        <div class="row">
+            <div class="imgContainer">
+                <img src="../../assets/vectors/passenger.svg">
+            </div>
+            <p class="key">Passengers: </p>
+            <p class="value">{{ ride.passengers.length }}</p>
+        </div>
+
+        <div class="row">
+            <div class="imgContainer">
+                <img src="../../assets/vectors/moneyBag.svg">
+            </div>
+            <p class="key">Price(RSD): </p>
+            <p class="value">{{ ride.totalCost }}</p>
+        </div>
+    </div>
+
+    <div id="right">
+        <div class="row">
+            <div class="rightImgContainer"><img src="../../assets/vectors/chatIcon.svg"></div>
+        </div>
+    </div>

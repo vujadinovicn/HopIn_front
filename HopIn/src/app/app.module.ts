@@ -37,8 +37,7 @@ import { AccountUpdateComponent } from './account-update/account-update.componen
 import { ChangeVehicleInfoComponent } from './change-vehicle-info/change-vehicle-info.component';
 import { DriverDocumentsComponent } from './driver-documents/driver-documents.component';
 import { DocumentDetailsDialogComponent } from './document-details-dialog/document-details-dialog.component';
-import { DocumentUpdateDialogComponent } from './document-update-dialog/document-update-dialog.component';
-import { DocumentAddDialogComponent } from './document-add-dialog/document-add-dialog.component';
+import { DocumentAddUpdateDialogComponent } from './document-add-update-dialog/document-add-update-dialog.component';
 import { AdminAccountComponent } from './admin-account/admin-account.component';
 import { RequestFeedbackComponent } from './request-feedback/request-feedback.component';
 import { DriverRequestDashboardComponent } from './driver-request-dashboard/driver-request-dashboard.component';
@@ -57,8 +56,16 @@ import { InviteDialogComponent } from './invite-dialog/invite-dialog.component';
 import { RouteSuggestionDetailsComponent } from './route-suggestion-details/route-suggestion-details.component';
 import { OrderRideNotregisteredComponent } from './order-ride-notregistered/order-ride-notregistered.component';
 import { AdminReportsComponent } from './admin-reports/admin-reports.component';
+import { RideHistoryComponent } from './ride-history/ride-history.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgxStarRatingModule } from 'ngx-star-rating';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { RideInfoCardComponent } from './ride-info-card/ride-info-card.component';
+import { RideHistoryDetailsComponent } from './ride-history-details/ride-history-details.component';
+import { DriverInfoCardComponent } from './driver-info-card/driver-info-card.component';
+import { PassengersInfoCardComponent } from './passengers-info-card/passengers-info-card.component';
+import { RatingsCardComponent, ReviewDialog } from './ratings-card/ratings-card.component';
 
 @NgModule({
   declarations: [
@@ -90,8 +97,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     RequestFeedbackComponent,
     DriverRequestDashboardComponent,
     UpdateRequestDetailsComponent,
-    DocumentUpdateDialogComponent,
-    DocumentAddDialogComponent,
+    DocumentAddUpdateDialogComponent,
     DriverAccountComponent,
     AdminAccountComponent,
     AdminRequestDetailsContainerComponent,
@@ -106,8 +112,15 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     RouteSuggestionDetailsComponent,
     OrderRideNotregisteredComponent,
     AdminReportsComponent,
+    RideHistoryComponent,
     ForgotPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    RideInfoCardComponent,
+    RideHistoryDetailsComponent,
+    DriverInfoCardComponent,
+    PassengersInfoCardComponent,
+    RatingsCardComponent,
+    ReviewDialog
   ],
   imports: [
     BrowserModule,
@@ -121,7 +134,10 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     HttpClientModule, MatSnackBarModule,
     NgxMaterialTimepickerModule,
     GooglePlaceModule,
-    CommonModule
+    CommonModule,
+    NgxStarRatingModule,
+    
+    
   ],
   providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline', hideRequiredMarker: 'true' }}, SocketService,
   {
@@ -129,6 +145,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     useClass: TokenInterceptor,
     multi: true
   },],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { 

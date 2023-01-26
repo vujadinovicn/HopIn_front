@@ -12,7 +12,7 @@ export class DriverService {
 
   add(driver: any): Observable<any> {
     const options: any = {
-      responseType: 'text',
+      responseType: 'json',
     };
     return this.http.post<string>(environment.apiHost + '/driver', driver, options);
   }

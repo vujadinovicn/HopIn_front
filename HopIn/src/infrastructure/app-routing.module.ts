@@ -1,3 +1,5 @@
+import { RideHistoryDetailsComponent } from './../app/ride-history-details/ride-history-details.component';
+import { RideHistoryComponent } from './../app/ride-history/ride-history.component';
 import { ResetPasswordComponent } from './../app/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './../app/forgot-password/forgot-password.component';
 import { FormControl } from '@angular/forms';
@@ -38,6 +40,8 @@ const routes: Routes = [
   {path: 'account-passenger', component: AccountComponent},
   {path: 'account-admin', component: AdminAccountComponent},
   {path: 'admin-reports', component: AdminReportsComponent},
+  {path: 'ride-history', component: RideHistoryComponent},
+  {path: 'ride-history-details', component: RideHistoryDetailsComponent},
   {path: 'account-settings', component: AccountUpdateComponent},
   {path: 'change-password', component: ChangePasswordComponent},
   {path:'change-payment-info', component: ChangePaymentInfoComponent},

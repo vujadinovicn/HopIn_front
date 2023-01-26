@@ -11,24 +11,16 @@ import { UserService } from '../services/user.service';
 })
 export class AccountOptionsComponent implements OnInit {
 
-  constructor(private router: Router, 
-    private authService: AuthService,
+  option : string = "settings";
+  userRole: string = "ROLE_PASSENGER";
+
+  constructor(private authService: AuthService,
     private passengerAccountOptionsService : PassengerAccountOptionsService) { }
 
-  option : string = "settings";
-  role: string = "passenger";
-
   ngOnInit(): void {
+    this.setRole();
+    this.selectOptionIfAdminRole();
     this.selectOption(this.option);
-    this.authService.getUser().subscribe((res) => {
-      this.role = res;
-      if (this.role === 'ROLE_ADMIN') {
-        this.option = 'allReports'
-      } else {
-        this.option = 'settings'
-      }
-      this.selectOption(this.option);
-    })
   }
 
   selectOption(option: string){
@@ -36,7 +28,21 @@ export class AccountOptionsComponent implements OnInit {
     this.sendSelectedOption(option);
   }
 
-  sendSelectedOption(option: string): void {
+  selectOptionIfAdminRole(): void {
+    if (this.userRole === 'ROLE_ADMIN') {
+      this.option = 'allReports'
+    } else {
+      this.option = 'settings'
+    }
+  }
+
+  private sendSelectedOption(option: string): void {
     this.passengerAccountOptionsService.sendSelectedOption(option);
+  }
+
+  private setRole() {
+    this.authService.getUser().subscribe((res) => {
+      this.userRole = res;
+    })
   }
 }

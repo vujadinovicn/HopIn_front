@@ -1,0 +1,79 @@
+#card {
+    width: 37vw;
+    height: 20vh;
+    display: flex;
+    flex-direction: row;
+    border: 2px solid #E6E6E6;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    margin-top: 3px;
+}
+
+p {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.7rem;
+}
+
+#name {
+    font-size: 1rem;
+    color: #1E4A5A;
+}
+
+.key {
+    color: #3C474C
+}
+
+.value {
+    margin-left: 3px;
+    color: #92989B;
+}
+
+#profilePic {
+    margin-left: auto;
+    height: 100%;
+    display: flex;
+}
+
+#profilePic > img {
+    height: 70%;
+    margin-right: 12px;
+    margin-left: 12px;
+    border-radius: 50px;
+}
+
+#info {
+    margin-left: 30px;
+}
+
+#wheel {
+    padding-left: 12px;
+    padding-right: 12px;
+    background-color: #DCDCDC;
+    height: 100%;
+    width: 12%;
+    display: flex;
+}
+
+.center {
+    margin: auto;
+}
+
+@media only screen and (max-width: 1050px) {
+    #card {
+        width: 90vw;
+    }
+
+    #info {
+        margin-left: 10px;
+    }
+
+    #profilePic > img {
+        height: 50%;
+    }
+}

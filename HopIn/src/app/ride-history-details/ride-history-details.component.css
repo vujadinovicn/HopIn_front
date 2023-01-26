@@ -1,0 +1,61 @@
+#mainContianer {
+    display: flex;
+    flex-direction: column;
+}
+
+#upper {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    border: 2px solid;
+    border: 1px solid #E6E6E6;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3vh;
+    background-color: white;
+}
+
+#map {
+    width: 35vw;
+    margin-left: auto;
+    margin: 1vw;
+    border-radius: 10px;
+}
+
+#lower {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    margin-top: 3vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.right {
+    width: 37vw;
+    margin: 0 10px 10px 10px;
+
+}
+
+app-passengers-info-card {
+    margin-top: 2vh;
+}
+
+@media only screen and (max-width: 1050px) {
+    #upper {
+        flex-direction: column;
+        height: fit-content;
+        width: fit-content;
+    }
+
+    #lower {
+        flex-direction: column;
+    }
+
+    .right {
+        margin: 0;
+        margin-top: 3vh;
+    }
+}
+

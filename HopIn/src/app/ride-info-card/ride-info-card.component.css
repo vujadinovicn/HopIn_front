@@ -1,0 +1,108 @@
+p {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+h2 {
+    margin: 0;
+    margin-top: 2vh;
+}
+
+h3 {
+    color: #EC9A29;
+}
+
+h4 {
+    margin: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+    color: #1E4A5A;
+}
+
+#mainContainer {
+    width: 35vw;
+    height: fit-content;
+    padding: 10px 0 10px 10px;
+    border: 2px solid #E6E6E6;
+    border-radius: 10px;
+    margin: 1vw;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+}
+
+/* GLOBAL */
+.row {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0.9rem;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.row > p {
+    font-size: 0.8em;
+}
+
+.key {
+    color: #1E4A5A;
+    margin-right: 0.5em;
+}
+
+
+/* LEFT SIDE */
+#left {
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+
+#carImg {
+    width: 1.8em;
+    height: 1.8em;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+img {
+    width: 100%;
+    height: 100%
+}
+
+
+.imgContainer {
+    width: 1em;
+    height: 1em;
+    margin-left: 0.6em;
+    margin-right: 0.5em;
+}
+
+
+
+/* RIGHT SIDE */
+#right {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+}
+
+.rightImgContainer {
+    width: 1.8em;
+    height: 1.8em;
+    margin-right: 8px;
+}
+
+#right > .row {
+    margin-bottom: auto;
+    margin-left: auto;
+}
+
+@media only screen and (max-width: 900px) {
+    #mainContainer {
+        width: 80vw;
+    }
+}
