@@ -67,6 +67,7 @@ import { DriverInfoCardComponent } from './driver-info-card/driver-info-card.com
 import { PassengersInfoCardComponent } from './passengers-info-card/passengers-info-card.component';
 import { RatingsCardComponent, ReviewDialog } from './ratings-card/ratings-card.component';
 import { UsersDisplayComponent } from './users-display/users-display.component';
+import { BlockUserDetailsComponent } from './block-user-details/block-user-details.component';
 
 @NgModule({
   declarations: [
@@ -122,7 +123,8 @@ import { UsersDisplayComponent } from './users-display/users-display.component';
     PassengersInfoCardComponent,
     RatingsCardComponent,
     ReviewDialog,
-    UsersDisplayComponent
+    UsersDisplayComponent,
+    BlockUserDetailsComponent
   ],
   imports: [
     BrowserModule,
