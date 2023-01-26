@@ -2,12 +2,21 @@ from location import Location
 
 class Ride():
 
-    def __init__(self, departure: Location, destination: Location, scheduled_time, status):
+    def __init__(self, id, departure: Location, destination: Location, scheduled_time, status):
+        self.__id = id
         self.__departure = departure
         self.__destination = destination
         self.__scheduled_time = scheduled_time
         self.__status = status
     
+    @property
+    def id(self):
+        return self.__id
+
+    @id.setter
+    def id(self, id):
+        self.__id = id
+
     @property
     def departure(self):
         return self.__departure

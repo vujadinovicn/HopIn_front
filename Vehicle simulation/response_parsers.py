@@ -22,10 +22,11 @@ def parse_response_to_location(response, active_ride = False):
     return location
 
 def parse_response_to_ride(response):
+    id = response["id"]
     locations = response["locations"]
     departure = parse_response_to_location(locations[0]["departure"], True)
     destination = parse_response_to_location(locations[0]["destination"], True)
     scheduled_time = response["scheduledTime"]
     status = response["status"]
-    ride = Ride(departure, destination, scheduled_time, status)
+    ride = Ride(id, departure, destination, scheduled_time, status)
     return ride
