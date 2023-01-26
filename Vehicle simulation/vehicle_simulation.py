@@ -1,10 +1,8 @@
 import requests
 import schedule
 import time
-from vehicle import Vehicle
 from vehicle_in_ride import VehicleInRide
 from response_parsers import parse_response_to_vehicle
-from location import CurrentLocation
 
 active_vehicles = []
 vehicles_in_ride = []
@@ -15,9 +13,6 @@ def get_active_vehicles_json():
 
     add_vehicles_to_lists(active_vehicles_json)
     remove_vehicles_from_lists(active_vehicles_json)
-
-    for vehicle in active_vehicles:
-        print(vehicle)
 
 def add_vehicles_to_lists(active_vehicles_json):
     for i in range(len(active_vehicles_json)):
@@ -59,7 +54,7 @@ def simulate():
         vehicle.update_vehicle_coordinates()
 
 schedule.every(2).seconds.do(get_active_vehicles_json)
-schedule.every(8).seconds.do(simulate)
+schedule.every(2).seconds.do(simulate)
 
 while True:
     schedule.run_pending()

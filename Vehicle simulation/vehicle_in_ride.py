@@ -3,6 +3,8 @@ import datetime
 import polyline
 import requests
 from random import randrange
+from ride import Ride
+from response_parsers import parse_response_to_ride
 
 gmaps = googlemaps.Client(key="AIzaSyADf7wmEupGmb08OGVJR1eNhvtvF6KYuiM")
 
@@ -21,10 +23,25 @@ class VehicleInRide():
 
     def __init__(self, vehicle):
         self.vehicle = vehicle
+        self.current_ride = None
         self.wait_on_taxi_stop_counter = 0
 
-        if self.is_vehicle_in_ride():
-            return 
+        is_vehicle_in_ride, current_ride_json = self.is_vehicle_in_ride()
+        if is_vehicle_in_ride:
+            self.current_ride = parse_response_to_ride(current_ride_json)
+            # print(self.current_ride)
+            if (self.current_ride.status == "ACCEPTED"):
+                self.driving_to_start_point = True
+                self.driving_the_route = False
+                self.driving_to_taxi_stop = False
+
+                self.destination = self.current_ride.departure.get_coordinates()
+            else: 
+                self.driving_to_start_point = False
+                self.driving_the_route = True
+                self.driving_to_taxi_stop = False
+
+                self.destination = self.current_ride.destination.get_coordinates()
         else:
             random_taxi_stop_index = randrange(0, len(taxi_stops))
             self.previous_taxi_stop_index = random_taxi_stop_index
@@ -34,17 +51,18 @@ class VehicleInRide():
             self.driving_the_route = False
             self.driving_to_taxi_stop = True
 
-            self.departure = self.vehicle.get_coordinates()
             self.destination = random_taxi_stop
-            self.get_new_coordinates()
+
+        self.departure = self.vehicle.current_location.get_coordinates()
+        self.get_new_coordinates()
 
 
     def is_vehicle_in_ride(self):
         response = requests.get("http://localhost:4321/api/ride/driver/" + str(self.vehicle.driver_id) + "/accepted-started")
-        print(response.status_code)
+        # print(response.status_code)
         if response.status_code == 200:
-            return True
-        return False
+            return True, response.json()
+        return False, None
 
     def decide(self):
         self.update_vehicle_coordinates()
@@ -61,14 +79,12 @@ class VehicleInRide():
             self.vehicle.current_location.longitude = new_coordinates[1]
         elif len(self.coordinates) == 0 and self.driving_to_start_point:
             self.departure = self.destination
-           # while (self.departure[0] == self.destination[0]):
-            #    self.destination = start_and_end_points.pop(randrange(0, len(start_and_end_points)))
+            self.destination = self.current_ride.destination.get_coordinates()
             self.get_new_coordinates()
             self.driving_to_start_point = False
             self.driving_the_route = True
         elif len(self.coordinates) == 0 and self.driving_the_route:
             random_taxi_stop = taxi_stops[randrange(0, len(taxi_stops))]
-            #start_and_end_points.append(self.departure)
             self.departure = self.destination
             self.destination = random_taxi_stop
             self.get_new_coordinates()
@@ -94,7 +110,10 @@ class VehicleInRide():
     def get_new_coordinates(self):
         departure_to_string = ', '.join(str(coordinate) for coordinate in self.departure)
         destination_to_string = ', '.join(str(coordinate) for coordinate in self.destination)
-    
+
+        print(departure_to_string)
+        print(destination_to_string)
+
 
         directions_result = gmaps.directions(departure_to_string,
                                             destination_to_string,

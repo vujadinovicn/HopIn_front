@@ -1,6 +1,8 @@
+from location import Location
+
 class Vehicle():
 
-    def __init__(self, vehicle_id,  driver_id, current_location):
+    def __init__(self, vehicle_id,  driver_id, current_location: Location):
         self.__vehicle_id = vehicle_id
         self.__driver_id = driver_id
         self.__current_location = current_location
@@ -31,6 +33,3 @@ class Vehicle():
 
     def __str__(self):
         return "vehicle id: " + str(self.vehicle_id) + "driver id: " + str(self.driver_id) + ", current location: " + str(self.current_location)
-
-    def get_coordinates(self):
-        return [self.current_location.latitude, self.current_location.longitude]

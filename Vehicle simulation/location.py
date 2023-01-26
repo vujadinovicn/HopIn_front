@@ -1,9 +1,9 @@
-class CurrentLocation():
+class Location():
 
     def __init__(self, address, latitude, longitude):
         self.__address = address
         self.__latitude = latitude
-        self.longitude = longitude
+        self.__longitude = longitude
 
     @property
     def address(self):
@@ -30,6 +30,9 @@ class CurrentLocation():
     @longitude.setter
     def longitude(self, longitude):
         self.__longitude = longitude
+
+    def get_coordinates(self):
+        return [self.latitude, self.longitude]
 
     def __str__(self):
         return "address: " + self.address + ", latitude: " + str(self.latitude) + ", longitude: " + str(self.longitude)
