@@ -1,6 +1,6 @@
 import { MapService } from './../services/map.service';
 import { PickupDestinationService } from './../services/pickup-destination.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LatLng } from 'ngx-google-places-autocomplete/objects/latLng';
 import { ShortAddress } from '../services/routing.service';
 import { SocketService } from '../services/socket.service';
@@ -16,7 +16,7 @@ import { RideService } from '../services/ride.service';
   templateUrl: './vehicles-map.component.html',
   styleUrls: ['./vehicles-map.component.css']
 })
-export class VehiclesMapComponent implements OnInit {
+export class VehiclesMapComponent implements OnInit, OnDestroy {
   
   map : google.maps.Map = {} as google.maps.Map;
   geocoder: google.maps.Geocoder = new google.maps.Geocoder();
@@ -34,7 +34,7 @@ export class VehiclesMapComponent implements OnInit {
               private vehiclesMapService: VehiclesMapService,
               private rideService: RideService,
               private rideSocketService: RideSocketService) { }
-
+  
   ngOnInit(): void {
     this.vehiclesMapService.openWebSocketConnection();
     this.rideSocketService.openWebSocketConnection();
@@ -86,6 +86,17 @@ export class VehiclesMapComponent implements OnInit {
       }
     })     
   }
+
+  ngOnDestroy(): void {
+    this.vehiclesMapService.unsubscribeFromLocationChange();
+    this.vehiclesMapService.unsubscribeFromVehicleActivation();
+    this.vehiclesMapService.unsubscribeFromVehicleDeactivation();
+    this.rideSocketService.unsubscribeFromRideAccepted();
+    this.rideSocketService.unsubscribeFromRideCanceled();
+    this.rideSocketService.unsubscribeFromRideFinished();
+    this.rideSocketService.unsubscribeFromRidePending();
+  }
+
 
   getColorOfVehicleAccordingToStatus(status: string): string{
     if (status == "normal")
