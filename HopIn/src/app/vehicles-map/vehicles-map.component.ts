@@ -10,6 +10,7 @@ import { DriverService } from '../services/driver.service';
 import { L } from 'chart.js/dist/chunks/helpers.core';
 import { RideSocketService } from '../services/ride-socket.service';
 import { RideService } from '../services/ride.service';
+import { ColorService } from '../shared/color.service';
 
 @Component({
   selector: 'vehicles-map',
@@ -30,26 +31,71 @@ export class VehiclesMapComponent implements OnInit, OnDestroy {
 
   constructor(private pickupDestinationService: PickupDestinationService,
               private mapService: MapService,
+              private colorService: ColorService,
               private driverService: DriverService, 
               private vehiclesMapService: VehiclesMapService,
               private rideService: RideService,
               private rideSocketService: RideSocketService) { }
   
   ngOnInit(): void {
-    this.vehiclesMapService.openWebSocketConnection();
-    this.rideSocketService.openWebSocketConnection();
-    
     this.mapService.getLoader().load().then(() => {
       this.initMap();
       this.configureMap(); 
     });  
+    this.configureSockets();
+    this.setMarkersForActiveVehiclesOnInit();     
+  }
 
-    this.vehiclesMapService.receivedLocationChange().subscribe((res: any) => {
-      this.changeVehicleMarker(res);
+  private configureSockets() {
+    this.openWebSocketConnections();
+    this.recieveRideSocketServiceSockets();
+    this.recieveVehiclesMapServiceSockets();
+  }
+
+  private openWebSocketConnections() {
+    this.vehiclesMapService.openWebSocketConnection();
+    this.rideSocketService.openWebSocketConnection();
+  }
+
+  recieveRideSocketServiceSockets(){
+    this.rideSocketService.receivedRidePending().subscribe((driverId: any) => {
+      this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
+        this.changeMarkerColor(vehicle, this.colorService.orange);
+      })
     })
 
-    this.recieveRideSocketServices();
+    this.rideSocketService.receivedRideAccepted().subscribe((driverId: any) => {
+      this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
+        this.changeMarkerColor(vehicle, this.colorService.red);
+      })
+    })
 
+    this.rideSocketService.receivedRideCanceled().subscribe((driverId: any) => {
+      this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
+        this.changeMarkerColor(vehicle, this.colorService.green);
+      })
+    })
+
+    this.rideSocketService.receivedRideFinished().subscribe((driverId: any) => {
+      this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
+        this.changeMarkerColor(vehicle, this.colorService.green);
+      })
+    })
+  }
+
+  private recieveVehiclesMapServiceSockets() {
+    this.updateVehicleLocation();
+    this.setMarkerForActivatedVehicle();
+    this.deleteMarkerForDeactivatedVehicle();
+  }
+
+  private updateVehicleLocation() {
+    this.vehiclesMapService.receivedLocationChange().subscribe((res: any) => {
+      this.changeVehicleMarkerLocation(res);
+    });
+  }
+
+  private setMarkerForActivatedVehicle() {
     this.vehiclesMapService.recievedVehicleActivation().subscribe((driverId: any) => {
       this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
         console.log(vehicle.id);
@@ -59,22 +105,26 @@ export class VehiclesMapComponent implements OnInit, OnDestroy {
           map,
           position: this.getVehiclePosition(vehicle),
           title: "Vehicle no." + vehicle.id,
-          icon: this.getIcon("#33A02C")
+          icon: this.getIcon(this.colorService.green)
         });
-      })
-    })
+      });
+    });
+  }
 
+  private deleteMarkerForDeactivatedVehicle() {
     this.vehiclesMapService.recievedVehicleDeactivation().subscribe((driverId: any) => {
       console.log(driverId);
       this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
         delete this.vehicles[vehicle.id];
         this.vehicleMarkers[vehicle.id].setMap(null);
         delete this.vehicleMarkers[vehicle.id];
-      })
-    })
+      });
+    });
+  }
 
+  private setMarkersForActiveVehiclesOnInit() {
     this.driverService.getActiveVehicles().subscribe((activeVehicles: any) => {
-      for (let vehicle of activeVehicles){
+      for (let vehicle of activeVehicles) {
         let map = this.map;
         this.vehicles[vehicle.vehicleId] = vehicle;
         this.vehicleMarkers[vehicle.vehicleId] = new google.maps.Marker({
@@ -84,58 +134,40 @@ export class VehiclesMapComponent implements OnInit, OnDestroy {
           icon: this.getIcon(this.getColorOfVehicleAccordingToStatus(vehicle.status))
         });
       }
-    })     
+    });
   }
 
   ngOnDestroy(): void {
+    this.unsubscribeFromVehiclesMapSockets();
+    this.unsubscribeFromRideSockets();
+  }
+
+
+  private unsubscribeFromVehiclesMapSockets() {
     this.vehiclesMapService.unsubscribeFromLocationChange();
     this.vehiclesMapService.unsubscribeFromVehicleActivation();
     this.vehiclesMapService.unsubscribeFromVehicleDeactivation();
+  }
+
+  private unsubscribeFromRideSockets() {
     this.rideSocketService.unsubscribeFromRideAccepted();
     this.rideSocketService.unsubscribeFromRideCanceled();
     this.rideSocketService.unsubscribeFromRideFinished();
     this.rideSocketService.unsubscribeFromRidePending();
   }
 
-
-  getColorOfVehicleAccordingToStatus(status: string): string{
+  private getColorOfVehicleAccordingToStatus(status: string): string{
     if (status == "normal")
-      return "#33A02C";
+      return this.colorService.green;
     else if (status == "active")
-      return "#A8201A";
-    return "#EC9A29";
+      return this.colorService.red;
+    return this.colorService.orange;
   }
 
-  recieveRideSocketServices(){
-    this.rideSocketService.receivedRidePending().subscribe((driverId: any) => {
-      this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
-        this.vehicleMarkers[vehicle.id].icon.fillColor = "#EC9A29";
-        this.vehicleMarkers[vehicle.id].setIcon(this.vehicleMarkers[vehicle.id].icon);
-      })
-    })
-
-    this.rideSocketService.receivedRideAccepted().subscribe((driverId: any) => {
-      this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
-        this.vehicleMarkers[vehicle.id].icon.fillColor = "#A8201A";
-        this.vehicleMarkers[vehicle.id].setIcon(this.vehicleMarkers[vehicle.id].icon);
-      })
-    })
-
-    this.rideSocketService.receivedRideCanceled().subscribe((driverId: any) => {
-      this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
-        this.vehicleMarkers[vehicle.id].icon.fillColor = "#33A02C";
-        this.vehicleMarkers[vehicle.id].setIcon(this.vehicleMarkers[vehicle.id].icon);
-      })
-    })
-
-    this.rideSocketService.receivedRideFinished().subscribe((driverId: any) => {
-      this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
-        this.vehicleMarkers[vehicle.id].icon.fillColor = "#33A02C";
-        this.vehicleMarkers[vehicle.id].setIcon(this.vehicleMarkers[vehicle.id].icon);
-      })
-    })
+  private changeMarkerColor(vehicle: Vehicle, color: string) {
+    this.vehicleMarkers[vehicle.id].icon.fillColor = color;
+    this.vehicleMarkers[vehicle.id].setIcon(this.vehicleMarkers[vehicle.id].icon);
   }
-
 
   private getVehiclePosition(vehicle: any) {
     let latitude = vehicle.currentLocation?.latitude;
@@ -158,7 +190,7 @@ export class VehiclesMapComponent implements OnInit, OnDestroy {
     return icon;
   }
 
-  changeVehicleMarker(newLocation: LocationWithVehicleId): void {
+  changeVehicleMarkerLocation(newLocation: LocationWithVehicleId): void {
     var lastPosn = this.vehicleMarkers[newLocation.vehicleId].getPosition();
     this.vehicleMarkers[newLocation.vehicleId].setPosition({ lat: newLocation.latitude, lng: newLocation.longitude});
     var heading = google.maps.geometry.spherical.computeHeading(lastPosn, { lat: newLocation.latitude, lng: newLocation.longitude} );
