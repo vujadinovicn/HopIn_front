@@ -8,6 +8,7 @@ import { LocationNoId, Vehicle, VehicleService } from '../services/vehicle.servi
 import { LocationWithVehicleId, VehiclesMapService } from '../services/vehicles-map.service';
 import { DriverService } from '../services/driver.service';
 import { L } from 'chart.js/dist/chunks/helpers.core';
+import { RideSocketService } from '../services/ride-socket.service';
 
 @Component({
   selector: 'vehicles-map',
@@ -29,10 +30,12 @@ export class VehiclesMapComponent implements OnInit {
   constructor(private pickupDestinationService: PickupDestinationService,
               private mapService: MapService,
               private driverService: DriverService, 
-              private vehiclesMapService: VehiclesMapService) { }
+              private vehiclesMapService: VehiclesMapService,
+              private rideSocketService: RideSocketService) { }
 
   ngOnInit(): void {
     this.vehiclesMapService.openWebSocketConnection();
+    this.rideSocketService.openWebSocketConnection();
     
     this.mapService.getLoader().load().then(() => {
       this.initMap();
@@ -42,6 +45,8 @@ export class VehiclesMapComponent implements OnInit {
     this.vehiclesMapService.receivedLocationChange().subscribe((res: any) => {
       this.changeVehicleMarker(res);
     })
+
+    this.recieveRideSocketServices();
 
     this.vehiclesMapService.recievedVehicleActivation().subscribe((driverId: any) => {
       this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
@@ -81,6 +86,37 @@ export class VehiclesMapComponent implements OnInit {
     })     
   }
 
+  recieveRideSocketServices(){
+    this.rideSocketService.receivedRidePending().subscribe((driverId: any) => {
+      this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
+        this.vehicleMarkers[vehicle.id].icon.fillColor = "#EC9A29";
+        this.vehicleMarkers[vehicle.id].setIcon(this.vehicleMarkers[vehicle.id].icon);
+      })
+    })
+
+    this.rideSocketService.receivedRideAccepted().subscribe((driverId: any) => {
+      this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
+        this.vehicleMarkers[vehicle.id].icon.fillColor = "#A8201A";
+        this.vehicleMarkers[vehicle.id].setIcon(this.vehicleMarkers[vehicle.id].icon);
+      })
+    })
+
+    this.rideSocketService.receivedRideCanceled().subscribe((driverId: any) => {
+      this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
+        this.vehicleMarkers[vehicle.id].icon.fillColor = "#33A02C";
+        this.vehicleMarkers[vehicle.id].setIcon(this.vehicleMarkers[vehicle.id].icon);
+      })
+    })
+
+    this.rideSocketService.receivedRideFinished().subscribe((driverId: any) => {
+      this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
+        this.vehicleMarkers[vehicle.id].icon.fillColor = "#33A02C";
+        this.vehicleMarkers[vehicle.id].setIcon(this.vehicleMarkers[vehicle.id].icon);
+      })
+    })
+  }
+
+
   private getVehiclePosition(vehicle: any) {
     let latitude = vehicle.currentLocation?.latitude;
     let longitude = vehicle.currentLocation?.longitude;
@@ -95,7 +131,7 @@ export class VehiclesMapComponent implements OnInit {
       strokeColor: 'red',
       strokeWeight: .10,
       fillOpacity: 1,
-      fillColor: 'red',
+      fillColor: 'green',
       offset: '5%',
       anchor: new google.maps.Point(10, 25) // orig 10,50 back of car, 10,0 front of car, 10,25 center of car
     };
