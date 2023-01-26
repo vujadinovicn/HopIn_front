@@ -29,5 +29,6 @@ export class DriverService {
 export interface ActiveVehicle {
   vehicleId: number,
   driverId: number,
-  currentLocation: LocationNoId
+  currentLocation: LocationNoId,
+  status: string
 }
