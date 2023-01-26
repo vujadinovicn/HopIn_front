@@ -1,0 +1,37 @@
+<div id="requests-container" class="border">
+    <div id="requests-header">
+        <h3 class="title dark-blue">Manage users</h3>
+        <div id="header-buttons">
+            <div class="header-button" [ngClass]="currentOption == 'passengers'? 'selected-header-button': ''" (click)="chooseOption('passengers')">
+                passengers
+            </div>
+            <div class="header-button" [ngClass]="currentOption == 'drivers'? 'selected-header-button': ''" (click)="chooseOption('drivers')">
+                drivers
+            </div>
+        </div>
+    </div>
+    <div id="request-cards">
+        <div class="request-card" *ngFor="let user of currentDisplay">
+            <div class="driver-data">
+                <img [src]="url" class="driver-photo">
+                <div class="driver-info">
+                    <p class="driver-name dark-blue">{{ user.name + ' ' + user.surname }}</p>
+                    <div class="driver-contact-info">
+                    <p class="driver-email dark-gray"><span class="dark-blue">email:</span>{{ user.email }}</p>
+                    <p class="driver-phone dark-gray"><span class="dark-blue">phone num:</span>{{ user.telephoneNumber }}</p>
+                </div>    
+            </div> 
+            </div>
+            
+        
+            <p *ngIf="!user.isBlocked" class="request-type-tag back-green">
+                active
+            </p>
+            
+            <p *ngIf="user.isBlocked" class="request-type-tag back-red">
+                blocked
+            </p>
+        </div>
+    </div>
+</div>
+
