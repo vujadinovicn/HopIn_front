@@ -59,7 +59,7 @@ export interface User {
     address: string;
     password: string;
     newPassword: string;
-    isBlocked: boolean;
+    blocked: boolean;
   }
   
 export interface UserDTO {

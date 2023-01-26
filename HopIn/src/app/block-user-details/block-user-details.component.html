@@ -35,5 +35,6 @@
             </div>
         </div>
     </div>
-    <button class="request-type-tag back-red">Block</button>
+    <button *ngIf="!currentUser.blocked" class="request-type-tag back-red" (click)="blockUser()">Block</button>
+    <button *ngIf="currentUser.blocked" class="request-type-tag back-green" (click)="unblockUser()">Unblock</button>
 </div>

@@ -27,7 +27,7 @@ export class DriverRegisterComponent implements OnInit {
     profilePicture: '',
     password: 'oldPassword',
     newPassword: '',
-    isBlocked: false
+    blocked: false
   }
 
   vehicle : Vehicle = {

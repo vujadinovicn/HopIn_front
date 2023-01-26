@@ -24,11 +24,11 @@
             </div>
             
         
-            <p *ngIf="!user.isBlocked" class="request-type-tag back-green">
+            <p *ngIf="!user.blocked" class="request-type-tag back-green">
                 active
             </p>
             
-            <p *ngIf="user.isBlocked" class="request-type-tag back-red">
+            <p *ngIf="user.blocked" class="request-type-tag back-red">
                 blocked
             </p>
         </div>

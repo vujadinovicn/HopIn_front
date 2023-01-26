@@ -36,7 +36,7 @@ export class ChangePasswordComponent implements OnInit {
     profilePicture: '',
     password: '',
     newPassword: '',
-    isBlocked: false
+    blocked: false
   }
   
   confirmValidParentMatcher = new ConfirmValidParentMatcher();

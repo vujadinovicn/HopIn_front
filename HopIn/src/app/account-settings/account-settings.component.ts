@@ -36,7 +36,7 @@ export class AccountSettingsComponent implements OnInit {
     profilePicture: '',
     password: 'oldPassword',
     newPassword: '',
-    isBlocked: false
+    blocked: false
   }
 
   accountSettingsForm = new FormGroup({
