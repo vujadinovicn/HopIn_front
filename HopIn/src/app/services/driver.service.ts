@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { AllUsersDTO } from './passenger.service';
 import { LocationNoId } from './vehicle.service';
 
 @Injectable({
@@ -17,6 +18,10 @@ export class DriverService {
     return this.http.post<string>(environment.apiHost + '/driver', driver, options);
   }
 
+  getAll() : Observable<AllUsersDTO> {
+    return this.http.get<AllUsersDTO>(environment.apiHost + "/driver/all");
+  } 
+
   getVehicleById(driverId: number){
     return this.http.get<any>(environment.apiHost + '/driver/' + driverId + "/vehicle");
   }
@@ -31,4 +36,5 @@ export interface ActiveVehicle {
   driverId: number,
   currentLocation: LocationNoId,
   status: string
+
 }

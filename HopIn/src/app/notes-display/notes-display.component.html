@@ -1,0 +1,29 @@
+<div class="allFeedBackOptionsContianer">
+    <div id="title" class="row">
+        <h2>Notes</h2>
+        <img src="../../assets/vectors/plus-circle.svg" alt="" (click)="openDialog()">
+    </div>
+    <div id="allCards">
+        <div class="notesCard" *ngFor="let note of notes">
+            <div class="left">
+                <div class="row firstRow">
+                    <img [src]="url" alt="">
+                    <div>
+                        <p id="name">{{ note.admin.name + ' ' + note.admin.surname }}</p>
+                        <div class="keyValue">
+                            <p class="key">email:</p>
+                            <p id="email" class="value">{{ note.admin.email }}</p>
+                        </div>
+                    </div>           
+                </div>
+                <p id="reasonTitle">Reason:</p>
+                <div id="reasonContent">
+                    <p>{{note.message}}</p>
+                </div>
+            </div>
+            <div class="right">
+                <p id="date">{{ note.date }}</p>
+            </div>
+        </div>
+    </div>
+</div>

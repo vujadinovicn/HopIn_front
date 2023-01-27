@@ -1,3 +1,6 @@
+import { UsersDashboardComponent } from './../app/users-dashboard/users-dashboard.component';
+import { BlockUserDetailsComponent } from './../app/block-user-details/block-user-details.component';
+import { UsersDisplayComponent } from './../app/users-display/users-display.component';
 import { RideHistoryDetailsComponent } from './../app/ride-history-details/ride-history-details.component';
 import { RideHistoryComponent } from './../app/ride-history/ride-history.component';
 import { ResetPasswordComponent } from './../app/reset-password/reset-password.component';
@@ -39,6 +42,7 @@ const routes: Routes = [
   {path: 'account-driver', component: DriverAccountComponent},
   {path: 'account-passenger', component: AccountComponent},
   {path: 'account-admin', component: AdminAccountComponent},
+  {path: 'users-dashboard', component: UsersDashboardComponent},
   {path: 'admin-reports', component: AdminReportsComponent},
   {path: 'ride-history', component: RideHistoryComponent},
   {path: 'ride-history-details', component: RideHistoryDetailsComponent},

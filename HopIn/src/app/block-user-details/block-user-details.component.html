@@ -1,0 +1,40 @@
+<div id="mainContainerAlt" *ngIf="isSelected != true">
+    <p>Select user to see details..</p>
+</div>
+
+<div *ngIf="isSelected === true"  id="mainContainer">
+    <div class="left column">
+        <img src="../../assets/images/profile-placeholder.png">
+        <p id="name">{{ currentUser.name + ' ' + currentUser.surname}}</p>
+        <p id="role">Passenger</p>
+    </div>
+    <div class="middle column">
+        <div class="sectionTitle">
+            <p>Contact Info</p>
+            <div class="line"></div>
+        </div>
+        <div class="data">
+            <div class="keyValue">
+                <p class="key">Email:</p>
+                <p id="email" class="value">{{ currentUser.email }}</p>
+            </div>
+            <div class="keyValue">
+                <p class="key">Phone number:</p>
+                <p id="phoneNumber" class="value">{{ currentUser.telephoneNumber }}</p>
+            </div>
+        </div>
+
+        <div id="locTitle" class="sectionTitle">
+            <p>Location Info</p>
+            <div class="line"></div>
+        </div>
+        <div class="data">
+            <div class="keyValue">
+                <p class="key">Address:</p>
+                <p id="address" class="value">{{ currentUser.address }}</p>
+            </div>
+        </div>
+    </div>
+    <button *ngIf="!currentUser.blocked" class="request-type-tag back-red" (click)="blockUser()">Block</button>
+    <button *ngIf="currentUser.blocked" class="request-type-tag back-green" (click)="unblockUser()">Unblock</button>
+</div>
