@@ -29,6 +29,14 @@ export class RideService {
   getAllDriverRides(id: number): Observable<AllRidesDTO> {
     return this.http.get<AllRidesDTO>(environment.apiHost + '/driver/' + id + '/all/rides');
   }
+
+  getAcceptedOrStartedRideForDriver(id: number) : Observable<any> {
+    return this.http.get<any>(environment.apiHost + "/driver/" + id + "/accepted-started/");
+  }
+
+  getPendingRideForDriver(id: number) : Observable<any> {
+      return this.http.get<any>(environment.apiHost + "/driver/" + id + "/active");
+}
 }
 
 export interface AllRidesDTO {
@@ -63,5 +71,3 @@ export interface LocationDTO {
     departure: Location,
     destination: Location
 }
-
-
