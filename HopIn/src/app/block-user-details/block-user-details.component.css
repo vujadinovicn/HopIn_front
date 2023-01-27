@@ -40,14 +40,14 @@ p {
 
  /* LEFT */
  .left {
-    margin-top: 25px;
+    margin-top: 15px;
     width: 25%;
     height: 100%;
  }
 
  .left img {
     width: 50%;
-    margin: 0 auto 0 auto;
+    margin: auto auto 0 auto;
     border-radius: 35px;
  }
 
@@ -70,9 +70,10 @@ p {
 
  /* MIDDLE */
  .middle {
-    margin-top: 25px;
+    margin-top: auto;
     margin-left: 15px;
     margin-right: 15px;
+    margin-bottom: 15px;
     width: 50%;
  }
 
@@ -145,4 +146,15 @@ p {
 
 .back-red {
     background-color: #A8201A;
+}
+
+
+@media only screen and (max-width: 700px) {
+    #mainContainer {
+        width: 90vw;
+    }
+
+    #mainContainerAlt {
+        width: 90vw;
+    }
 }

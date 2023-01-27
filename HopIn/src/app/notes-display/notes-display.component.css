@@ -188,21 +188,23 @@ img {
         font-size: 0.8em;
     }
 
-    .pendingContainar {
-        width: 80%;
+    .allFeedBackOptionsContianer {
+        width: 90vw;
+        margin: 0 auto;
+        margin-top: 15px;
     }
 
-    .declinedContianer {
+    .notesCard {
         flex-direction: column;
         height: fit-content;
-        width: 80%;
+        width: 90%;
     }
 
     .right {
         flex-direction: row;
         margin: 0;
         width: 100%;
-        margin-top: 3%;
+        margin-top: 5px;
         align-items: center;
     }
 

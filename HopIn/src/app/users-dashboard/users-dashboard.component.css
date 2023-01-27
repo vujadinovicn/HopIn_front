@@ -17,3 +17,29 @@
 .right {
     margin-left: 15px;
 }
+
+@media only screen and (max-width: 1000px) {
+    #mainContainer > div {
+        flex-direction: column;
+    }
+
+    .left {
+        margin-right: 0;
+        width: 100%;
+    }
+
+    .right {
+        margin-left: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    app-block-user-details {
+        width: 100% !important;
+    }
+
+    app-notes-display {
+        width: 100% !important;
+    }
+}
