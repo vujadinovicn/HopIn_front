@@ -11,7 +11,7 @@ import { Location } from '../favourite-routes/favourite-routes.component';
 export class RideService {
   constructor(private http: HttpClient) {}
 
-  ride$ = new BehaviorSubject(null);
+  public ride$ = new BehaviorSubject(null);
   rideState$ = this.ride$.asObservable();
 
   getRide(): Observable<any> {
