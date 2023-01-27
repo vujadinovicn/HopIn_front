@@ -1,7 +1,8 @@
+import { RideReturnedDTO} from './ride.service';
 import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject, Observable } from 'rxjs';
-import { UnregisteredRideSuggestionDTO, RouteService } from './route.service';
+import { UnregisteredRideSuggestionDTO, RouteService} from './route.service';
 
 @Injectable({
   providedIn: 'root'
@@ -102,6 +103,24 @@ export class RoutingService {
       email: this.authService.getEmail()
     }];
   }
+
+  toRoute(ride: RideReturnedDTO): Route {
+    return {
+      pickup: ride.locations.at(0)?.departure!,
+      destination: ride.locations.at(0)?.destination!,
+      scheduledTime: ride.scheduledTime!,
+      distance: ride.distance,
+      distanceFormatted: ride.distanceFormatted,
+      duration: ride.estimatedTimeInMinutes,
+      durationFormatted: ride.durationFormatted,
+      price: ride.totalCost,
+      vehicleTypeName: ride.vehicleType,
+      babyTransport: ride.babyTransport,
+      petTransport: ride.petTransport,
+      passengers: ride.passengers
+    }
+  }
+
 }
 
 export interface Route {

@@ -53,7 +53,9 @@ export class RouteService {
             scheduledTime: this.convertScheduledTime(route.scheduledTime),
             distance: route.distance,
             duration: route.duration,
-            price: route.price
+            price: route.price,
+            durationFormatted: route.durationFormatted,
+            distanceFormatted: route.distanceFormatted
         }
     }
 }
@@ -79,6 +81,8 @@ export interface RideDTO {
     distance: number,
     duration: number,
     price: number,
+    distanceFormatted: string,
+    durationFormatted: string,
 }
 
 

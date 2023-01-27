@@ -38,7 +38,6 @@ export class VehiclePreferencesFormComponent implements OnInit {
   orderRide() {
     this.updateValues();
     this.routingService.setDefaultUser();
-
     this.routingService.findRoute();
   }
 

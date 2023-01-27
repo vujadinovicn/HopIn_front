@@ -89,6 +89,15 @@ export class InviteFriendsFormComponent implements OnInit {
   orderRide() {
     this.socketService.unsubscribeFromInviteResponse();
     this.cancelInvitations();
+    this.socketService.subscribeToRideOfferResponse();
+
+    this.socketService.receivedOfferResponse().subscribe((res: Boolean) => {
+      if (res) 
+        console.log("ACCEPTED RIDE OFFER");
+      else
+        console.log("DECLINED RIDE OFFER");
+    })
+
     this.routeService.createRide(this.routingService.route).subscribe((res) => {
       console.log(res);
     });

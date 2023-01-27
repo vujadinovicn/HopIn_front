@@ -1,4 +1,4 @@
-import { RidePassenger } from './routing.service';
+import { RidePassenger, ShortAddress } from './routing.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -36,7 +36,15 @@ export class RideService {
 
   getPendingRideForDriver(id: number) : Observable<any> {
       return this.http.get<any>(environment.apiHost + "/driver/" + id + "/active");
-}
+  }
+
+  acceptRide(rideId: number): Observable<RideReturnedDTO> {
+      return this.http.put<any>(environment.apiHost + "/ride/" + rideId + "/accept", null);
+  }
+
+  declineRide(rideId: number, reason: ReasonDTO): Observable<RideReturnedDTO> {
+    return this.http.put<any>(environment.apiHost + "/ride/" + rideId + "/cancel", reason);
+  }
 }
 
 export interface AllRidesDTO {
@@ -52,13 +60,15 @@ export interface RideReturnedDTO {
     driver: RidePassenger,
     passengers: RidePassenger[],
     estimatedTimeInMinutes: number,
-    vehicleType: String,
+    vehicleType: string,
     babyTransport: boolean,
     petTransport: boolean,
     rejection: RejectionNotice,
     locations: LocationDTO[],
     distance: number,
-    scheduledTime: String
+    scheduledTime: string,
+    distanceFormatted: string,
+    durationFormatted: string,
 }
 
 export interface RejectionNotice {
@@ -68,6 +78,10 @@ export interface RejectionNotice {
 }
 
 export interface LocationDTO {
-    departure: Location,
-    destination: Location
+    departure: ShortAddress,
+    destination: ShortAddress
+}
+
+export interface ReasonDTO {
+  reason: string
 }
