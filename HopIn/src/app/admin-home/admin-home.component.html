@@ -2,38 +2,66 @@
     <div id="map">
         <vehicles-map></vehicles-map>
     </div>
-    <div id="panicDashboard">
-        <div class="title">
-            <div class="row">
-                <h3 id="panic">PANIC</h3>
-                <h3>notifications</h3>
-            </div>
-            <div class="line"></div>
-        </div>
-        <div class="panics column">
-            <div id="card" class="row">
-                <div id="roleIcon">
-                    <img class="center" src="../../assets/vectors/passenger.svg">
+    <div id="right">
+        <div id="panicDashboard">
+            <div class="title">
+                <div class="row">
+                    <h3 id="panic">PANIC</h3>
+                    <h3>notifications</h3>
                 </div>
-                <div class="left column">
-                    <div class="top row">
-                        <div id="profilePic">
-                            <img src="../../assets/images/profile-placeholder.png">
-                        </div>
-                        <div class="info">
-                            <div class="row">
-                                <p>Marko Maric pressed the</p>
-                                <p id="smallPanic">PANIC</p>
-                                <p>button</p>
+                <div class="line"></div>
+            </div>
+            <div class="panics column">
+                <div id="card" class="row">
+                    <!-- <div id="roleIcon">
+                        <img class="center" src="../../assets/vectors/passenger.svg">
+                    </div> -->
+                    <div id="roleIcon">
+                        <img class="center" src="../../assets/vectors/wheel.svg">
+                    </div>
+                    <div class="left column">
+                        <div class="top row">
+                            <div id="profilePic">
+                                <img src="../../assets/images/profile-placeholder.png">
                             </div>
-                            <p class="date">at 11:09, 23.01.2023.</p>
+                            <div class="info">
+                                <div class="row">
+                                    <p>Marko Maric pressed the</p>
+                                    <p id="smallPanic">PANIC</p>
+                                    <p>button</p>
+                                </div>
+                                <p class="date">at 11:09, 23.01.2023.</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="bottom">
-
+                        <div class="bottom row">
+                            <!-- <div id="profilePic">
+                                <img src="../../assets/images/profile-placeholder.png">
+                            </div> -->
+                            <div id="profilePic">
+                                <img src="../../assets/vectors/car.svg">
+                            </div>
+                            <div class="info">
+                                <!-- <div class="keyValue">
+                                    <p class="key">Driver:</p>
+                                    <p id="driver" class="key">Misko Krstic</p>
+                                </div> -->
+                                <div class="keyValue">
+                                    <p class="key">Plates:</p>
+                                    <p class="value">K61-A-435</p>
+                                </div>
+                                <div class="keyValue">
+                                    <p class="key">Vehicle model:</p>
+                                    <p class="value">Ford Mustang</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <div id="requests">
+            <h4>Driver account update requests</h4>
+            <p class="circle">new</p>
         </div>
     </div>
 </div>
