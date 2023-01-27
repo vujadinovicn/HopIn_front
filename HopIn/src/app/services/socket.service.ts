@@ -28,7 +28,7 @@ export class SocketService {
     private inviteResponse = new Subject<InviteResponse>();
     invitesResSubs: any;
 
-    private offerResponse = new Subject<Boolean>();
+    private offerResponse = new Subject<RideOfferResponseDTO>();
     offerResSubs: any;
 
     constructor(private http: HttpClient, private authService: AuthService, private dialog: MatDialog) { }
@@ -66,7 +66,7 @@ export class SocketService {
     receivedOfferResponse() {
         return this.offerResponse.asObservable();
     }
-    updateOfferResponse(res: Boolean) {
+    updateOfferResponse(res: RideOfferResponseDTO) {
         this.offerResponse.next(res);
     }
 
@@ -131,4 +131,9 @@ export interface RideInvite {
 export interface InviteResponse {
     passengerId: number,
     response: boolean
+}
+
+export interface RideOfferResponseDTO {
+    response: boolean,
+    ride: RideReturnedDTO
 }

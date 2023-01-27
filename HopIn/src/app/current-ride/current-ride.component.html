@@ -1,0 +1,18 @@
+<div id="current-ride-content">
+    <div id="left-part">
+        <div class="container">
+            <h1 *ngIf="role=='ROLE_PASSENGER'">Ride <span class="green">accepted</span>!</h1>
+            <h1 *ngIf="role=='ROLE_DRIVER'" class="dark-blue">Driving to pickup location</h1>
+        </div>
+        <div class="container">
+            <div>
+                <p *ngIf="role=='ROLE_PASSENGER'" class="subtitle dark-gray">driver at pickup in:</p>
+                <p *ngIf="role=='ROLE_DRIVER'" class="subtitle dark-gray">arriving at pickup in:</p>
+                <p id="estimated-time" class="title blue">5 min</p>
+            </div>
+        </div>
+        <app-driver-info-card *ngIf="role == 'ROLE_PASSENGER'"></app-driver-info-card>
+        <app-passengers-info-card *ngIf="ride.passengers.length > 1 || role=='ROLE_DRIVER'"></app-passengers-info-card>
+    </div>
+    <map></map>
+</div>

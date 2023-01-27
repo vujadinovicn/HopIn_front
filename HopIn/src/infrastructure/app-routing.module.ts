@@ -1,3 +1,4 @@
+import { CurrentRideComponent } from './../app/current-ride/current-ride.component';
 import { UsersDashboardComponent } from './../app/users-dashboard/users-dashboard.component';
 import { BlockUserDetailsComponent } from './../app/block-user-details/block-user-details.component';
 import { UsersDisplayComponent } from './../app/users-display/users-display.component';
@@ -50,7 +51,8 @@ const routes: Routes = [
   {path: 'change-password', component: ChangePasswordComponent},
   {path:'change-payment-info', component: ChangePaymentInfoComponent},
   {path:'forgot-password', component: ForgotPasswordComponent},
-  {path: '**', component: LandingComponent}
+  {path:'current-ride', component: CurrentRideComponent},
+  {path: '**', component: CurrentRideComponent}
 ];
 
 @NgModule({

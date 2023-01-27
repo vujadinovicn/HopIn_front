@@ -1,3 +1,5 @@
+import { SharedService } from './../shared/shared.service';
+import { Router } from '@angular/router';
 import { ReejctionReasonDialogComponent } from './../rejection-reason-dialog/rejection-reason-dialog.component';
 import { RideService } from './../services/ride.service';
 import { Route, RoutingService } from './../services/routing.service';
@@ -24,6 +26,8 @@ export class InviteDialogComponent implements OnInit {
     private routingService: RoutingService,
     private rideService: RideService,
     public dialogRef: MatDialogRef<InviteDialogComponent>,
+    private router: Router,
+    private sharedService: SharedService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     dialogRef.disableClose = true;
@@ -67,7 +71,19 @@ export class InviteDialogComponent implements OnInit {
     }
     else {
       console.log("POKUSAVAM DA POSALJEM ACCEPT SA IDEM " + this.data.ride.id);
-      this.rideService.acceptRide(this.data.ride.id).subscribe();
+      this.rideService.acceptRide(this.data.ride.id).subscribe({
+        next: (res) => {
+          this.dialogRef.close();
+          this.rideService.setRide(res);
+          this.router.navigate(['current-ride']);
+        },
+        error: (err) => {
+          this.sharedService.openSnack({
+            value: "Error happend while trying to accept ride offer.",
+            color: "back-red"
+          });
+        }
+      });
     }
       
     this.close();

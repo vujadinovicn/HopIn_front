@@ -73,6 +73,7 @@ import { NotesDisplayComponent } from './notes-display/notes-display.component';
 import { AddNoteDialogComponent } from './add-note-dialog/add-note-dialog.component';
 import { ReejctionReasonDialogComponent } from './rejection-reason-dialog/rejection-reason-dialog.component';
 import { LoadingDialogComponent } from './loading-dialog/loading-dialog.component';
+import { CurrentRideComponent } from './current-ride/current-ride.component';
 
 @NgModule({
   declarations: [
@@ -134,7 +135,8 @@ import { LoadingDialogComponent } from './loading-dialog/loading-dialog.componen
     NotesDisplayComponent,
     AddNoteDialogComponent,
     ReejctionReasonDialogComponent,
-    LoadingDialogComponent
+    LoadingDialogComponent,
+    CurrentRideComponent
   ],
   imports: [
     BrowserModule,
