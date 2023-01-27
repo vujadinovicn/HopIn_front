@@ -1,3 +1,4 @@
+import { SharedService } from './../shared/shared.service';
 import { RideService, ReasonDTO } from './../services/ride.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
@@ -16,7 +17,8 @@ export class ReejctionReasonDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<ReejctionReasonDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private rideService: RideService)
+    private rideService: RideService,
+    private sharedService: SharedService)
     { }
 
   ngOnInit(): void {
@@ -31,6 +33,10 @@ export class ReejctionReasonDialogComponent implements OnInit {
       this.rideService.declineRide(this.data.rideId, reason).subscribe();
       this.dialogRef.close();
       this.data.parent.close();
+      this.sharedService.openSnack({
+        value: "Ride rejected successfully!",
+        color: "back-green"
+      });
       console.log("POSLATO");
     }
   }

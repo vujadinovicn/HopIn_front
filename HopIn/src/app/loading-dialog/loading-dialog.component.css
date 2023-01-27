@@ -2,13 +2,20 @@ h1 {
     font-size: 1.5em;
     font-weight: 700;
     margin-top: 10px;
-    margin-bottom: 40px;
+    margin-bottom: 5px;
+}
+
+h3 {
+    font-size: 1em;
 }
 
 img {
     margin-bottom: -20px; 
 }
 
+.spinner {
+    margin-top: 35px !important;
+}
 
 ::ng-deep .mat-dialog-content {
     overflow: hidden;

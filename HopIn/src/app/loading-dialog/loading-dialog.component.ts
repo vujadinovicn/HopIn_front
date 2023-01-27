@@ -12,6 +12,8 @@ import { RouteService } from '../services/route.service';
 })
 export class LoadingDialogComponent implements OnInit {
 
+  status: string = "pending";
+
   constructor(public dialogRef: MatDialogRef<LoadingDialogComponent>,
               private socketService: SocketService,
               private routingService: RoutingService,
@@ -25,10 +27,21 @@ export class LoadingDialogComponent implements OnInit {
     this.socketService.subscribeToRideOfferResponse(this.data.userId);
 
     this.socketService.receivedOfferResponse().subscribe((res: Boolean) => {
-      if (res) 
+      if (res) {
         console.log("ACCEPTED RIDE OFFER");
-      else
+        this.status = "accepted";
+        setTimeout(() => 
+        {},
+        3000);
+      }
+      else {
+        this.dialogRef.disableClose = false;
         console.log("DECLINED RIDE OFFER");
+        this.status = "declined";   
+        // setTimeout(() => 
+        // {this.dialogRef.close()},
+        // 3000);
+      }
     })
 
     if (this.data.userId == this.authService.getId()) {
