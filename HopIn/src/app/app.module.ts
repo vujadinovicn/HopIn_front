@@ -71,6 +71,7 @@ import { BlockUserDetailsComponent } from './block-user-details/block-user-detai
 import { UsersDashboardComponent } from './users-dashboard/users-dashboard.component';
 import { NotesDisplayComponent } from './notes-display/notes-display.component';
 import { AddNoteDialogComponent } from './add-note-dialog/add-note-dialog.component';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
 
 @NgModule({
   declarations: [
@@ -130,7 +131,8 @@ import { AddNoteDialogComponent } from './add-note-dialog/add-note-dialog.compon
     BlockUserDetailsComponent,
     UsersDashboardComponent,
     NotesDisplayComponent,
-    AddNoteDialogComponent
+    AddNoteDialogComponent,
+    AdminHomeComponent
   ],
   imports: [
     BrowserModule,
