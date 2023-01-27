@@ -58,7 +58,7 @@ import { OrderRideNotregisteredComponent } from './order-ride-notregistered/orde
 import { AdminReportsComponent } from './admin-reports/admin-reports.component';
 import { RideHistoryComponent } from './ride-history/ride-history.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { NgxStarRatingModule } from 'ngx-star-rating';
+// import { NgxStarRatingModule } from 'ngx-star-rating';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { RideInfoCardComponent } from './ride-info-card/ride-info-card.component';
@@ -71,6 +71,8 @@ import { BlockUserDetailsComponent } from './block-user-details/block-user-detai
 import { UsersDashboardComponent } from './users-dashboard/users-dashboard.component';
 import { NotesDisplayComponent } from './notes-display/notes-display.component';
 import { AddNoteDialogComponent } from './add-note-dialog/add-note-dialog.component';
+import { ReejctionReasonDialogComponent } from './rejection-reason-dialog/rejection-reason-dialog.component';
+import { LoadingDialogComponent } from './loading-dialog/loading-dialog.component';
 
 @NgModule({
   declarations: [
@@ -130,7 +132,9 @@ import { AddNoteDialogComponent } from './add-note-dialog/add-note-dialog.compon
     BlockUserDetailsComponent,
     UsersDashboardComponent,
     NotesDisplayComponent,
-    AddNoteDialogComponent
+    AddNoteDialogComponent,
+    ReejctionReasonDialogComponent,
+    LoadingDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -145,7 +149,7 @@ import { AddNoteDialogComponent } from './add-note-dialog/add-note-dialog.compon
     NgxMaterialTimepickerModule,
     GooglePlaceModule,
     CommonModule,
-    NgxStarRatingModule,
+    // NgxStarRatingModule,
     
     
   ],

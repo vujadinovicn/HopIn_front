@@ -12,11 +12,13 @@ import { SanityChecks } from '@angular/material/core';
 import { User } from './user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { JsonPipe } from '@angular/common';
+import { RideReturnedDTO } from './ride.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SocketService {
+    
     url: string = environment.apiHost + "/socket";
     ws: any;
     stompClient: any;
@@ -25,6 +27,9 @@ export class SocketService {
 
     private inviteResponse = new Subject<InviteResponse>();
     invitesResSubs: any;
+
+    private offerResponse = new Subject<Boolean>();
+    offerResSubs: any;
 
     constructor(private http: HttpClient, private authService: AuthService, private dialog: MatDialog) { }
 
@@ -58,24 +63,55 @@ export class SocketService {
         this.inviteResponse.next(res);
     }
 
+    receivedOfferResponse() {
+        return this.offerResponse.asObservable();
+    }
+    updateOfferResponse(res: Boolean) {
+        this.offerResponse.next(res);
+    }
+
+    subscribeToRideOfferResponse(userWhoCreatedId: number) {
+        this.offerResSubs = this.stompClient.subscribe("/topic/ride-offer-response/" + userWhoCreatedId, (message: Message) => {
+            this.updateOfferResponse(JSON.parse(message.body));
+        });
+    }
+
+    unsubscribeFromOfferResponse() {
+        if (this.offerResSubs != undefined)
+            this.offerResSubs.unsubscribe();
+    }
+
     openWebSocketConnection() {
         this.ws = new SockJS(this.url);
         this.stompClient = Stomp.over(this.ws);
         this.stompClient.connect({}, () => {
             this.isConnected = true;
-            this.stompClient.subscribe("/topic/invites/" + this.authService.getId(), (message: Message) => {
+            if (this.authService.getRole() == "ROLE_PASSENGER")
+                this.stompClient.subscribe("/topic/invites/" + this.authService.getId(), (message: Message) => {
 
-                let invite: RideInvite = JSON.parse(message.body);
-                if (invite.route == null) {
-                    this.dialog.closeAll();
-                } else {
-                    this.dialog.open(InviteDialogComponent, {
-                        data: {invite: invite},
-                        width: 'fit-content',
-                        height : 'fit-content'
+                    let invite: RideInvite = JSON.parse(message.body);
+                    if (invite.route == null) {
+                        this.dialog.closeAll();
+                    } else {
+                        this.dialog.open(InviteDialogComponent, {
+                            data: {invite: invite},
+                            width: 'fit-content',
+                            height : 'fit-content'
+                        });
+                    }
+                });
+            else {
+                if (this.authService.getRole() == "ROLE_DRIVER")
+                    this.stompClient.subscribe("/topic/driver/ride-offers/" + this.authService.getId(), (message: Message) => {
+                        let ride: RideReturnedDTO = JSON.parse(message.body);
+                        console.log(ride);
+                        this.dialog.open(InviteDialogComponent, {
+                            data: {ride: ride},
+                            width: 'fit-content',
+                            height : 'fit-content'
+                        })
                     });
-                }
-            });
+            }
         });
     }
 

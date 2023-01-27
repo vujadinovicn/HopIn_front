@@ -1,3 +1,5 @@
+import { LoadingDialogComponent } from './../loading-dialog/loading-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { UserService } from './../services/user.service';
 import { AuthService } from './../services/auth.service';
@@ -37,7 +39,8 @@ export class InviteFriendsFormComponent implements OnInit {
 
   constructor(private passengerService: PassengerService, private sharedService: SharedService,
     private socketService: SocketService, private routingService: RoutingService, private routeService: RouteService,
-    private authService: AuthService, private userService: UserService) { }
+    private authService: AuthService, private userService: UserService,
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
     markFormControlsTouched(this.inviteForm);
@@ -89,8 +92,8 @@ export class InviteFriendsFormComponent implements OnInit {
   orderRide() {
     this.socketService.unsubscribeFromInviteResponse();
     this.cancelInvitations();
-    this.routeService.createRide(this.routingService.route).subscribe((res) => {
-      console.log(res);
+    this.dialog.open(LoadingDialogComponent, {
+      data: {userId: this.authService.getId()}
     });
   }
 

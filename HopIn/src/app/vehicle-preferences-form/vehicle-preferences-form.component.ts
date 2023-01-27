@@ -1,3 +1,5 @@
+import { LoadingDialogComponent } from './../loading-dialog/loading-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from './../services/auth.service';
 import { RoutingService } from './../services/routing.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
@@ -17,7 +19,9 @@ export class VehiclePreferencesFormComponent implements OnInit {
   isBabyTransport : boolean = false;
   isPetTransport: boolean = false;
 
-  constructor(private routingService: RoutingService, private authService: AuthService) { }
+  constructor(private routingService: RoutingService, 
+              private authService: AuthService,
+              private dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
@@ -38,8 +42,13 @@ export class VehiclePreferencesFormComponent implements OnInit {
   orderRide() {
     this.updateValues();
     this.routingService.setDefaultUser();
-
     this.routingService.findRoute();
+    this.routingService.receivedRoute().subscribe((res) => {
+      this.dialog.open(LoadingDialogComponent, {
+        data: {userId: this.authService.getId()}
+      });
+    });
+    
   }
 
   private updateValues() {
