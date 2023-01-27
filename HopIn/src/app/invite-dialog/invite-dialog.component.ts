@@ -5,6 +5,7 @@ import { AuthService } from './../services/auth.service';
 import { SocketService } from './../services/socket.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { LoadingDialogComponent } from '../loading-dialog/loading-dialog.component';
 
 @Component({
   selector: 'app-invite-dialog',
@@ -57,8 +58,13 @@ export class InviteDialogComponent implements OnInit {
 
   acceptInvitation() {
     console.log(this.data);
-    if (this.authService.getRole() == "ROLE_PASSENGER")
+    if (this.authService.getRole() == "ROLE_PASSENGER") {
+      console.log("EVO ME OVAJ ID " + this.data.invite.route.passengers[0].id);
       this.socketService.sendInviteResponse({passengerId: this.authService.getId(), response: true}, this.data.invite.from.id);
+      this.dialog.open(LoadingDialogComponent, {
+        data: {userId: this.data.invite.route.passengers[0].id}
+      });
+    }
     else {
       console.log("POKUSAVAM DA POSALJEM ACCEPT SA IDEM " + this.data.ride.id);
       this.rideService.acceptRide(this.data.ride.id).subscribe();

@@ -28,7 +28,7 @@ export class RouteService {
     }
 
     convertScheduledTime(scheduledTime: string): Date | null {
-        if (scheduledTime != "") {
+        if (scheduledTime != "" && scheduledTime != null) {
             let time = new Date();
             let timeSplit = scheduledTime.split(":");
             time.setHours(+timeSplit[0]);

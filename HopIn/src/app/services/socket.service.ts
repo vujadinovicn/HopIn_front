@@ -70,8 +70,8 @@ export class SocketService {
         this.offerResponse.next(res);
     }
 
-    subscribeToRideOfferResponse() {
-        this.offerResSubs = this.stompClient.subscribe("/topic/ride-offer-response/" + this.authService.getId(), (message: Message) => {
+    subscribeToRideOfferResponse(userWhoCreatedId: number) {
+        this.offerResSubs = this.stompClient.subscribe("/topic/ride-offer-response/" + userWhoCreatedId, (message: Message) => {
             this.updateOfferResponse(JSON.parse(message.body));
         });
     }

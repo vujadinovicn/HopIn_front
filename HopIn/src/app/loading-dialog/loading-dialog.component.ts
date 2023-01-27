@@ -1,0 +1,41 @@
+import { AuthService } from './../services/auth.service';
+import { RoutingService } from './../services/routing.service';
+import { SocketService } from './../services/socket.service';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { RouteService } from '../services/route.service';
+
+@Component({
+  selector: 'app-loading-dialog',
+  templateUrl: './loading-dialog.component.html',
+  styleUrls: ['./loading-dialog.component.css']
+})
+export class LoadingDialogComponent implements OnInit {
+
+  constructor(public dialogRef: MatDialogRef<LoadingDialogComponent>,
+              private socketService: SocketService,
+              private routingService: RoutingService,
+              private routeService: RouteService,
+              private authService: AuthService,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
+    dialogRef.disableClose = true;
+  }
+
+  ngOnInit(): void {
+    this.socketService.subscribeToRideOfferResponse(this.data.userId);
+
+    this.socketService.receivedOfferResponse().subscribe((res: Boolean) => {
+      if (res) 
+        console.log("ACCEPTED RIDE OFFER");
+      else
+        console.log("DECLINED RIDE OFFER");
+    })
+
+    if (this.data.userId == this.authService.getId()) {
+      this.routeService.createRide(this.routingService.route).subscribe((res) => {
+        console.log(res);
+      });
+    }
+  }
+
+}

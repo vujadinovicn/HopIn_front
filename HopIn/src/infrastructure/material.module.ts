@@ -21,6 +21,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   imports: [
@@ -45,7 +46,8 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatRadioModule,
     MatSelectModule,
     MatRippleModule,
-    MatStepperModule
+    MatStepperModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     MatButtonModule,
@@ -70,7 +72,8 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatSelectModule,
     MatSortModule,
     MatRippleModule,
-    MatStepperModule
+    MatStepperModule,
+    MatProgressSpinnerModule
   ],
 })
 export class MaterialModule {}
