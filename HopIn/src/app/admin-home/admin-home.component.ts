@@ -14,6 +14,7 @@ import { UserService } from '../services/user.service';
 export class AdminHomeComponent implements OnInit {
 
   panics: DisplayedPanic[] = [];
+  hasNew: boolean = false;
 
   constructor(private socketService: SocketService,
     private userService: UserService,
@@ -44,6 +45,7 @@ export class AdminHomeComponent implements OnInit {
         } else {
           this.addPassengerPanic(res);
         }
+        this.hasNew = true;
         this.snackBar.open("Someone pressed panic button!", "", {
           duration: 2000,
        });
@@ -99,6 +101,10 @@ export class AdminHomeComponent implements OnInit {
 
   openRequests(): void {
     this.router.navigate(['/request-dashboard']);
+  }
+
+  markAsSeen(): void {
+    this.hasNew = false;
   }
 
 }

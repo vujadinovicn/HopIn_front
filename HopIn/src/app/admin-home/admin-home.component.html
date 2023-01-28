@@ -1,13 +1,16 @@
+
 <div id="mainContainer">
     <div id="map">
         <vehicles-map></vehicles-map>
     </div>
     <div id="right">
-        <div id="panicDashboard">
+        <div id="panicDashboard" (click)="markAsSeen()">
             <div class="title">
                 <div class="row">
+                    <p *ngIf="hasNew" class="circleOpposite"></p>
                     <h3 id="panic">PANIC</h3>
                     <h3>notifications</h3>
+                    <p *ngIf="hasNew" class="circle">new</p>
                 </div>
                 <div class="line"></div>
             </div>
@@ -63,7 +66,7 @@
         </div>
         <div id="requests" (click)="openRequests()">
             <h4>Driver account update requests</h4>
-            <p class="circle">new</p>
         </div>
     </div>
 </div>
+
