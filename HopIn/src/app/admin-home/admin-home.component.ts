@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SocketService } from './../services/socket.service';
 import { Component, OnInit } from '@angular/core';
@@ -16,7 +17,8 @@ export class AdminHomeComponent implements OnInit {
 
   constructor(private socketService: SocketService,
     private userService: UserService,
-    private snackBar: MatSnackBar) { }
+    private snackBar: MatSnackBar,
+    private router: Router) { }
 
   ngOnInit(): void {
     let newPanic: DisplayedPanic = {
@@ -93,6 +95,10 @@ export class AdminHomeComponent implements OnInit {
   public formatDate(dateStr: string): string {
     let date = new Date(dateStr);
     return "at " + date.getHours() + ":" + date.getMinutes() + ", " + date.getDate() + "." + date.getMonth() + "." + date.getFullYear();
+  }
+
+  openRequests(): void {
+    this.router.navigate(['/request-dashboard']);
   }
 
 }
