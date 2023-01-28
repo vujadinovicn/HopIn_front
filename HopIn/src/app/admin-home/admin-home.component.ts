@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { SocketService } from './../services/socket.service';
 import { Component, OnInit } from '@angular/core';
 import { Socket } from 'net';
@@ -14,7 +15,8 @@ export class AdminHomeComponent implements OnInit {
   panics: DisplayedPanic[] = [];
 
   constructor(private socketService: SocketService,
-    private userService: UserService) { }
+    private userService: UserService,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     let newPanic: DisplayedPanic = {
@@ -35,7 +37,14 @@ export class AdminHomeComponent implements OnInit {
 
   subscribeToPanic(): void {
     this.socketService.receivedPanic().subscribe((res) => {
-
+        if (res.user.role === 'ROLE_DRIVER') {
+          this.addDriverPanic(res);
+        } else {
+          this.addPassengerPanic(res);
+        }
+        this.snackBar.open("Someone pressed panic button!", "", {
+          duration: 2000,
+       });
     })
   }
 
