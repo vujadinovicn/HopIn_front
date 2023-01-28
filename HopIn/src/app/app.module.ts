@@ -71,9 +71,11 @@ import { BlockUserDetailsComponent } from './block-user-details/block-user-detai
 import { UsersDashboardComponent } from './users-dashboard/users-dashboard.component';
 import { NotesDisplayComponent } from './notes-display/notes-display.component';
 import { AddNoteDialogComponent } from './add-note-dialog/add-note-dialog.component';
-import { ReejctionReasonDialogComponent } from './rejection-reason-dialog/rejection-reason-dialog.component';
 import { LoadingDialogComponent } from './loading-dialog/loading-dialog.component';
 import { CurrentRideComponent } from './current-ride/current-ride.component';
+import { CdTimerModule } from 'angular-cd-timer';
+import { ReejctionReasonDialogComponent } from './rejection-reason-dialog/rejection-reason-dialog.component';
+
 
 @NgModule({
   declarations: [
@@ -136,7 +138,7 @@ import { CurrentRideComponent } from './current-ride/current-ride.component';
     AddNoteDialogComponent,
     ReejctionReasonDialogComponent,
     LoadingDialogComponent,
-    CurrentRideComponent
+    CurrentRideComponent,
   ],
   imports: [
     BrowserModule,
@@ -151,6 +153,7 @@ import { CurrentRideComponent } from './current-ride/current-ride.component';
     NgxMaterialTimepickerModule,
     GooglePlaceModule,
     CommonModule,
+    CdTimerModule
     // NgxStarRatingModule,
     
     

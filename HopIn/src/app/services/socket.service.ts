@@ -19,6 +19,7 @@ import { RideReturnedDTO } from './ride.service';
 })
 export class SocketService {
     
+    
     url: string = environment.apiHost + "/socket";
     ws: any;
     stompClient: any;
@@ -30,6 +31,9 @@ export class SocketService {
 
     private offerResponse = new Subject<RideOfferResponseDTO>();
     offerResSubs: any;
+
+    private startFinishResponse = new Subject<string>();
+    startFinishSub: any;
 
     constructor(private http: HttpClient, private authService: AuthService, private dialog: MatDialog) { }
 
@@ -52,10 +56,31 @@ export class SocketService {
             this.invitesResSubs.unsubscribe();
     }
 
+    subscribeRideStartFinish(driverId: number) {
+        this.startFinishSub = this.stompClient.subscribe("/topic/ride-start-finish/" + driverId, (message: Message) =>  {
+            this.updateStartFinishResponse(message.body);
+        });   
+    }
+
+    unsubscribeFromStartFinishResponse() {
+        if (this.startFinishResponse != undefined)
+            this.startFinishResponse.unsubscribe();
+    }
+
+    receivedStartFinishResponse() {
+        return this.startFinishResponse.asObservable();
+    }
+
+    updateStartFinishResponse(res: string) {
+        this.startFinishResponse.next(res);
+    }
+
+
     sendInviteResponse(res: InviteResponse, to: number) {
         this.stompClient.send("/ws/send/invite-response/" + to, {}, JSON.stringify(res));
     }
 
+    
     receivedInviteResponse() {
         return this.inviteResponse.asObservable();
     }

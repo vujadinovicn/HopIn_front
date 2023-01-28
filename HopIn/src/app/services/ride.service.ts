@@ -45,6 +45,14 @@ export class RideService {
   declineRide(rideId: number, reason: ReasonDTO): Observable<RideReturnedDTO> {
     return this.http.put<any>(environment.apiHost + "/ride/" + rideId + "/cancel", reason);
   }
+
+  startRide(rideId: number): Observable<RideReturnedDTO> {
+    return this.http.put<any>(environment.apiHost + "/ride/" + rideId + "/start", null);
+  }
+
+  endRide(rideId: number): Observable<RideReturnedDTO> {
+    return this.http.put<any>(environment.apiHost + "/ride/" + rideId + "/end", null);
+  }
 }
 
 export interface AllRidesDTO {
@@ -69,6 +77,7 @@ export interface RideReturnedDTO {
     scheduledTime: string,
     distanceFormatted: string,
     durationFormatted: string,
+    status: string
 }
 
 export interface RejectionNotice {
