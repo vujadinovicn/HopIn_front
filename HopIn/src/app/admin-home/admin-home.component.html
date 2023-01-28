@@ -12,48 +12,48 @@
                 <div class="line"></div>
             </div>
             <div class="panics column">
-                <div id="card" class="row">
-                    <!-- <div id="roleIcon">
+                <div id="card" class="row" *ngFor="let panic of panics; let indexOfelement=index;">
+                    <div *ngIf="!panic.isDriver" id="roleIcon">
                         <img class="center" src="../../assets/vectors/passenger.svg">
-                    </div> -->
-                    <div id="roleIcon">
+                    </div>
+                    <div *ngIf="panic.isDriver" id="roleIcon">
                         <img class="center" src="../../assets/vectors/wheel.svg">
                     </div>
                     <div class="left column">
                         <div class="top row">
                             <div id="profilePic">
-                                <img src="../../assets/images/profile-placeholder.png">
+                                <img [src]="panic.callerProfilePicture">
                             </div>
                             <div class="info">
                                 <div class="row">
-                                    <p>Marko Maric pressed the</p>
+                                    <p>{{panic.callerName + ' ' + panic.callerSurName + ' pressed the'}}</p>
                                     <div class="row">
                                         <p id="smallPanic">PANIC</p>
                                         <p>button</p>
                                     </div>
                                 </div>
-                                <p class="date">at 11:09, 23.01.2023.</p>
+                                <p class="date">{{panic.time}}</p>
                             </div>
                         </div>
                         <div class="bottom row">
-                            <!-- <div id="profilePic">
-                                <img src="../../assets/images/profile-placeholder.png">
-                            </div> -->
-                            <div id="profilePic">
+                            <div *ngIf="!panic.isDriver" id="profilePic">
+                                <img [src]="panic.driverProfilePicture">
+                            </div>
+                            <div *ngIf="panic.isDriver" id="profilePic">
                                 <img src="../../assets/vectors/car.svg">
                             </div>
                             <div class="info">
-                                <!-- <div class="keyValue">
+                                <div *ngIf="!panic.isDriver" class="keyValue">
                                     <p class="key">Driver:</p>
-                                    <p id="driver" class="key">Misko Krstic</p>
-                                </div> -->
+                                    <p id="driver" class="key">{{panic.driverName + ' ' + panic.driverSurname}}</p>
+                                </div>
                                 <div class="keyValue">
                                     <p class="key">Plates:</p>
-                                    <p class="value">K61-A-435</p>
+                                    <p class="value">{{panic.plates}}</p>
                                 </div>
                                 <div class="keyValue">
                                     <p class="key">Model:</p>
-                                    <p class="value">Ford Mustang</p>
+                                    <p class="value">{{panic.model}}</p>
                                 </div>
                             </div>
                         </div>
