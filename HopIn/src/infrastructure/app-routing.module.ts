@@ -52,6 +52,7 @@ const routes: Routes = [
   {path: 'change-password', component: ChangePasswordComponent},
   {path:'change-payment-info', component: ChangePaymentInfoComponent},
   {path:'forgot-password', component: ForgotPasswordComponent},
+  {path:'current-ride', component: CurrentRideComponent},
   {path: '**', component: LandingComponent}
 ];
 

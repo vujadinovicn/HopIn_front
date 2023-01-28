@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ReviewDTO, RideReviewService } from '../services/ride-review.service';
 import { SharedService } from '../shared/shared.service';
 
@@ -16,7 +17,9 @@ export class RideReviewComponent implements OnInit {
 
   constructor(private rideReview: RideReviewService,
     private sharedService: SharedService,
-    public dialogRef: MatDialogRef<RideReviewComponent>) { }
+    public dialogRef: MatDialogRef<RideReviewComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private router: Router) { }
 
   reviewForm = new FormGroup({
     driverReviewComment: new FormControl('', [Validators.required]),
@@ -37,7 +40,7 @@ export class RideReviewComponent implements OnInit {
   }
 
   private submitCompleteReview() {
-    this.rideReview.addCompleteReview(this.reviews, 1).subscribe({
+    this.rideReview.addCompleteReview(this.reviews, this.data.rideId).subscribe({
       next: (res) => {
         this.sharedService.openSnack({
           value: "You've successfully submitted reviews!",
@@ -45,6 +48,7 @@ export class RideReviewComponent implements OnInit {
         }
         );
         this.dialogRef.close();
+        this.router.navigate(["order-ride"]);
       },
       error: (error) => {
         this.sharedService.openSnack({

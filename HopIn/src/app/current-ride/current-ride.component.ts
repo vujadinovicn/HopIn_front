@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { RideReviewComponent } from './../ride-review/ride-review.component';
 import { PanicReasonDialogComponent } from './../panic-reason-dialog/panic-reason-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { SocketService } from './../services/socket.service';
@@ -25,7 +27,8 @@ export class CurrentRideComponent implements OnInit {
               public authService: AuthService,
               public sharedService: SharedService,
               public socketService: SocketService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private router: Router) {
     this.role = authService.getRole();  
     
   }
@@ -46,6 +49,9 @@ export class CurrentRideComponent implements OnInit {
               this.timer.stop();
               console.log("FINISHED");
               this.socketService.unsubscribeFromStartFinishResponse();
+              this.dialog.open(RideReviewComponent, {
+                data: {rideId: this.ride.id}
+              });
             }
           }
       });
@@ -86,6 +92,8 @@ export class CurrentRideComponent implements OnInit {
           value: "Ride finished!",
           color: "back-green"
         });
+        alert("Ride finished successfully!");
+        this.router.navigate([""]);
       },
       error: (err) => {
         this.sharedService.openSnack({
