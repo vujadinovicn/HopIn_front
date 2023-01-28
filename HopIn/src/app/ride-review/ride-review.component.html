@@ -1,5 +1,4 @@
 <div id="ride-review-container">
-    <form [formGroup]="reviewForm" (ngSubmit)="save()" fxLayout="column">
     <div>
         <span id="thank-you-span" class="dark-blue">Thank you for Hoping in!</span>
         <span id="ride-finished-span" class="dark-gray">ride is finished</span>
@@ -7,6 +6,7 @@
             <img src="../../assets/vectors/review.svg">
         </div>
     </div>
+    <form [formGroup]="reviewForm" fxLayout="column">
     <div class="separate-rating-container">
         <div>
             <div class="rating-title">
@@ -14,14 +14,14 @@
                 <span class="orange">rating</span>
             </div>
             <div id="stars">
-                <ngx-star-rating [ngModel]="current" [disabled]="false"></ngx-star-rating>
+                <ngx-star-rating [disabled]="false"></ngx-star-rating>
             </div>
         </div>
         <div class="leave-comment-container">
             <mat-form-field>
                 <mat-label>Leave a comment</mat-label>
-                <mat-error *ngIf="reviewForm.get('driverReview')?.errors?.['required']">entering driver review is required</mat-error>
-                <textarea formControlName="driverReview" [(ngModel)]="reason" matInput rows="2" cols="50" placeholder="Driver is looking good"></textarea>
+                <mat-error *ngIf="reviewForm.get('driverReviewComment')?.errors?.['required']">entering driver review is required</mat-error>
+                <textarea formControlName="driverReviewComment" matInput rows="2" cols="50" placeholder="Driver is looking good"></textarea>
             </mat-form-field>
         </div>
     </div>
@@ -32,17 +32,19 @@
                 <span class="orange">rating</span>
             </div>
             <div id="stars">
-                <ngx-star-rating [ngModel]="current" [disabled]="false"></ngx-star-rating>
+                <ngx-star-rating [disabled]="false"></ngx-star-rating>
             </div>
         </div>
         <div class="leave-comment-container">
             <mat-form-field>
-                <mat-label>Leave a reason</mat-label>
-                <mat-error *ngIf="reviewForm.get('vehicleReview')?.errors?.['required']">entering vehicle review is required</mat-error>
-                <textarea formControlName="vehicleReview" [(ngModel)]="reason" matInput rows="2" cols="50" placeholder="What a car"></textarea>
+                <mat-label>Leave a comment</mat-label>
+                <mat-error *ngIf="reviewForm.get('vehicleReviewComment')?.errors?.['required']">entering vehicle review is required</mat-error>
+                <textarea formControlName="vehicleReviewComment" matInput rows="2" cols="50" placeholder="What a car"></textarea>
             </mat-form-field>
         </div>
     </div>
-    <button mat-button class="conf-button">Submit</button>
+    
+    <button mat-button class="conf-button" (click)="submit()">Submit</button>
     </form>
 </div>
+<app-snack-bar></app-snack-bar>

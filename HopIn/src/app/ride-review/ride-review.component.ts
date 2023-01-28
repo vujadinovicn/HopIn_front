@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
+import { ReviewDTO, RideReviewService } from '../services/ride-review.service';
+import { SharedService } from '../shared/shared.service';
 
 @Component({
   selector: 'app-ride-review',
@@ -8,19 +11,61 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class RideReviewComponent implements OnInit {
 
-  reason: string = "";
   current: number = 5;
-  constructor() { }
+  reviews: ReviewDTO[] = [];
+
+  constructor(private rideReview: RideReviewService,
+    private sharedService: SharedService,
+    public dialogRef: MatDialogRef<RideReviewComponent>) { }
 
   reviewForm = new FormGroup({
-    driverReview: new FormControl('', [Validators.required]),
-    vehicleReview: new FormControl('', [Validators.required]),
+    driverReviewComment: new FormControl('', [Validators.required]),
+    vehicleReviewComment: new FormControl('', [Validators.required]),
   }, [])
 
   ngOnInit(): void {
   }
 
-  save(){
-    
+  submit(){
+    if (this.reviewForm.valid) {
+      this.reviews.push(this.setDriverReviewResponseFromForm());
+      this.reviews.push(this.setVehicleReviewResponseFromForm());
+      this.submitCompleteReview();
+    } else {
+        this.sharedService.openInvalidInputSnack();
+    }
+  }
+
+  private submitCompleteReview() {
+    this.rideReview.addCompleteReview(this.reviews, 1).subscribe({
+      next: (res) => {
+        this.sharedService.openSnack({
+          value: "You've successfully submitted reviews!",
+          color: "back-green"
+        }
+        );
+        this.dialogRef.close();
+      },
+      error: (error) => {
+        this.sharedService.openSnack({
+          value: error,
+          color: "back-red"
+        })
+      }
+    });
+  }
+
+  setVehicleReviewResponseFromForm(): ReviewDTO{
+    return {
+      rating: 4,
+      comment: this.reviewForm.value.vehicleReviewComment!
+    }
+  }
+
+  setDriverReviewResponseFromForm(): ReviewDTO{
+    return {
+      rating: 3,
+      comment: this.reviewForm.value.driverReviewComment!
+    }
   }
 }
