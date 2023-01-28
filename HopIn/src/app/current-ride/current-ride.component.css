@@ -1,9 +1,11 @@
 #current-ride-content {
     display: grid;
     grid-template-columns: 42% 58%;
+    column-gap: 20px;
     width: 85%;
     height: 70%;
-    margin: 40px auto 0px auto;
+    margin: 0 auto !important;
+    margin-top: 70px !important;
 }
 
 p {
@@ -72,7 +74,6 @@ p {
 #left-part {
     display: inline-block;
     text-align: center;
-    margin-right: 20px;
 }
 
 #map-container {
@@ -199,6 +200,8 @@ h1 {
     border-radius: 10px;
 }
 
+
+
 /* ::ng-deep #content{
     height: fit-content !important;
 } */
@@ -208,14 +211,17 @@ h1 {
         grid-template-columns: 1fr;
         margin-right: 0px;
         margin-bottom: 20px;
-    }
-
-    .panic-button {
-        margin-bottom: 20px;
+        width: 90%;
+        margin-top: 40px !important;
     }
 
     .left-part {
         margin-right: 0px;
+    }
+
+    ::ng-deep #map {
+        margin-top: 20px;
+        margin-bottom: 20px;
     }
 }
 

@@ -1,3 +1,5 @@
+import { PanicReasonDialogComponent } from './../panic-reason-dialog/panic-reason-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 import { SocketService } from './../services/socket.service';
 import { Subscription } from 'rxjs';
 import { SharedService } from './../shared/shared.service';
@@ -22,7 +24,8 @@ export class CurrentRideComponent implements OnInit {
   constructor(private rideService: RideService,
               public authService: AuthService,
               public sharedService: SharedService,
-              public socketService: SocketService) {
+              public socketService: SocketService,
+              private dialog: MatDialog) {
     this.role = authService.getRole();  
     
   }
@@ -50,7 +53,9 @@ export class CurrentRideComponent implements OnInit {
   }
 
   panicRide() {
-
+    this.dialog.open(PanicReasonDialogComponent, {
+      data: {rideId: this.ride.id}
+    });
   }
 
   startRide() {

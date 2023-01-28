@@ -75,6 +75,7 @@ import { LoadingDialogComponent } from './loading-dialog/loading-dialog.componen
 import { CurrentRideComponent } from './current-ride/current-ride.component';
 import { CdTimerModule } from 'angular-cd-timer';
 import { ReejctionReasonDialogComponent } from './rejection-reason-dialog/rejection-reason-dialog.component';
+import { PanicReasonDialogComponent } from './panic-reason-dialog/panic-reason-dialog.component';
 
 
 @NgModule({
@@ -139,6 +140,7 @@ import { ReejctionReasonDialogComponent } from './rejection-reason-dialog/reject
     ReejctionReasonDialogComponent,
     LoadingDialogComponent,
     CurrentRideComponent,
+    PanicReasonDialogComponent,
   ],
   imports: [
     BrowserModule,

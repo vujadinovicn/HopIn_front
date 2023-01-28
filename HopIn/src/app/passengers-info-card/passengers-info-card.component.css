@@ -9,7 +9,6 @@
     margin-top: 3vh;
     text-align: left;
     max-height: 37vh;
-    padding: 10px 0px;
 }
 
 .row {
@@ -97,6 +96,7 @@ h4 {
 
 #info {
     width: 80%;
+    margin: 10px 0;
 }
 
 @media only screen and (max-width: 1050px) {
