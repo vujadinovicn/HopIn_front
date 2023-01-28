@@ -58,7 +58,7 @@ import { OrderRideNotregisteredComponent } from './order-ride-notregistered/orde
 import { AdminReportsComponent } from './admin-reports/admin-reports.component';
 import { RideHistoryComponent } from './ride-history/ride-history.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-// import { NgxStarRatingModule } from 'ngx-star-rating';
+import { NgxStarRatingModule } from 'ngx-star-rating';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { RideInfoCardComponent } from './ride-info-card/ride-info-card.component';
@@ -77,6 +77,7 @@ import { CdTimerModule } from 'angular-cd-timer';
 import { ReejctionReasonDialogComponent } from './rejection-reason-dialog/rejection-reason-dialog.component';
 import { PanicReasonDialogComponent } from './panic-reason-dialog/panic-reason-dialog.component';
 
+import { RideReviewComponent } from './ride-review/ride-review.component';
 
 @NgModule({
   declarations: [
@@ -141,6 +142,7 @@ import { PanicReasonDialogComponent } from './panic-reason-dialog/panic-reason-d
     LoadingDialogComponent,
     CurrentRideComponent,
     PanicReasonDialogComponent,
+    RideReviewComponent
   ],
   imports: [
     BrowserModule,
@@ -155,8 +157,8 @@ import { PanicReasonDialogComponent } from './panic-reason-dialog/panic-reason-d
     NgxMaterialTimepickerModule,
     GooglePlaceModule,
     CommonModule,
-    CdTimerModule
-    // NgxStarRatingModule,
+    CdTimerModule,
+    NgxStarRatingModule,
     
     
   ],
