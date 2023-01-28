@@ -58,7 +58,7 @@ import { OrderRideNotregisteredComponent } from './order-ride-notregistered/orde
 import { AdminReportsComponent } from './admin-reports/admin-reports.component';
 import { RideHistoryComponent } from './ride-history/ride-history.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-// import { NgxStarRatingModule } from 'ngx-star-rating';
+import { NgxStarRatingModule } from 'ngx-star-rating';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { RideInfoCardComponent } from './ride-info-card/ride-info-card.component';
@@ -149,7 +149,7 @@ import { LoadingDialogComponent } from './loading-dialog/loading-dialog.componen
     NgxMaterialTimepickerModule,
     GooglePlaceModule,
     CommonModule,
-    // NgxStarRatingModule,
+    NgxStarRatingModule,
     
     
   ],
