@@ -144,6 +144,12 @@ export class MapComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+    this.unsubscribeFromVehiclesMapServiceSockets();
+  }
+
+  private unsubscribeFromVehiclesMapServiceSockets() {
+    this.vehiclesMapService.unsubscribeFromLocationChange();
+    this.vehiclesMapService.unsubscribeFromVehicleArrivedAtDeparture();
   }
 
   initMap(): void {
