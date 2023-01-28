@@ -275,7 +275,7 @@ export class RideHistoryComponent implements OnInit {
     }
     this.route.pickup = pickUp;
     this.route.destination = dest;
-    this.route.vehicleTypeName = "STANDARD";
+    this.route.vehicleTypeName = "CAR";
     this.routingService.updateRoute(this.route);
     this.routingService.findRoute();
     this.router.navigate(['/ride-history-details']);
