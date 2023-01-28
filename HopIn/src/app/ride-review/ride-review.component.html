@@ -1,4 +1,5 @@
 <div id="ride-review-container">
+    <form [formGroup]="reviewForm" (ngSubmit)="save()" fxLayout="column">
     <div>
         <span id="thank-you-span" class="dark-blue">Thank you for Hoping in!</span>
         <span id="ride-finished-span" class="dark-gray">ride is finished</span>
@@ -19,7 +20,8 @@
         <div class="leave-comment-container">
             <mat-form-field>
                 <mat-label>Leave a comment</mat-label>
-                <textarea [(ngModel)]="reason" matInput rows="2" cols="50" placeholder="Driver is looking good"></textarea>
+                <mat-error *ngIf="reviewForm.get('driverReview')?.errors?.['required']">entering driver review is required</mat-error>
+                <textarea formControlName="driverReview" [(ngModel)]="reason" matInput rows="2" cols="50" placeholder="Driver is looking good"></textarea>
             </mat-form-field>
         </div>
     </div>
@@ -36,9 +38,11 @@
         <div class="leave-comment-container">
             <mat-form-field>
                 <mat-label>Leave a reason</mat-label>
-                <textarea [(ngModel)]="reason" matInput rows="2" cols="50" placeholder="What a car"></textarea>
+                <mat-error *ngIf="reviewForm.get('vehicleReview')?.errors?.['required']">entering vehicle review is required</mat-error>
+                <textarea formControlName="vehicleReview" [(ngModel)]="reason" matInput rows="2" cols="50" placeholder="What a car"></textarea>
             </mat-form-field>
         </div>
     </div>
     <button mat-button class="conf-button">Submit</button>
+    </form>
 </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-ride-review',
@@ -11,7 +12,15 @@ export class RideReviewComponent implements OnInit {
   current: number = 5;
   constructor() { }
 
+  reviewForm = new FormGroup({
+    driverReview: new FormControl('', [Validators.required]),
+    vehicleReview: new FormControl('', [Validators.required]),
+  }, [])
+
   ngOnInit(): void {
   }
 
+  save(){
+    
+  }
 }
