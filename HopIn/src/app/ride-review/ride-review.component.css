@@ -36,6 +36,16 @@
     padding: 10px;
 }
 
+.rating-title{
+    margin-left: 20px;
+    font-size: 20px;
+}
+
+.above-textarea-container{
+    display: flex;
+    justify-content: space-between;
+}
+
 #text-area-container {
     height: 180px;
 }

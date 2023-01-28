@@ -11,12 +11,12 @@ import { SharedService } from '../shared/shared.service';
 })
 export class RideReviewComponent implements OnInit {
 
-  current: number = 5;
+  driverRating: any = 0;
+  vehicleRating: any = 0;
   reviews: ReviewDTO[] = [];
 
   constructor(private rideReview: RideReviewService,
-    private sharedService: SharedService,
-    public dialogRef: MatDialogRef<RideReviewComponent>) { }
+    private sharedService: SharedService) { }
 
   reviewForm = new FormGroup({
     driverReviewComment: new FormControl('', [Validators.required]),
@@ -44,7 +44,7 @@ export class RideReviewComponent implements OnInit {
           color: "back-green"
         }
         );
-        this.dialogRef.close();
+        //this.dialogRef.close();
       },
       error: (error) => {
         this.sharedService.openSnack({
