@@ -63,6 +63,7 @@ export class MapComponent implements OnInit, OnDestroy {
   private configureSockets() {
     this.openWebSocketConnections();
     this.updateVehicleLocation();
+    this.notifyVehicleArrivalAtDeparture();
   }
 
   private openWebSocketConnections() {
@@ -74,6 +75,14 @@ export class MapComponent implements OnInit, OnDestroy {
     this.vehiclesMapService.receivedLocationChange().subscribe((res: any) => {
       this.changeVehicleMarkerLocation(res);
     });
+  }
+
+  private notifyVehicleArrivalAtDeparture(){
+    this.vehiclesMapService.recievedVehicleArrivedAtDeparture().subscribe((res: any) => {
+      if (this.currentRide.id == res){
+        console.log("eeealo");
+      }
+    })
   }
 
   private setCurrentRideVehicleAndMarker() {
