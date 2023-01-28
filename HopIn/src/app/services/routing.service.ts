@@ -1,3 +1,5 @@
+import { LocationNoId } from './vehicle.service';
+import { LatLng } from 'ngx-google-places-autocomplete/objects/latLng';
 import { RideReturnedDTO} from './ride.service';
 import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
@@ -67,6 +69,71 @@ export class RoutingService {
         this.getRoutePrice(response);
     }})  
   }
+
+  drawRoute(pointA: ShortAddress, pointB:ShortAddress, map: google.maps.Map, color: string, noMarkers: boolean) {
+    this.directionsService = new google.maps.DirectionsService();
+
+    let request: google.maps.DirectionsRequest = {
+      origin: {
+        lat: pointA.latitude,
+        lng: pointA.longitude
+      },
+      destination: {
+        lat: pointB.latitude,
+        lng: pointB.longitude
+      },
+      travelMode: google.maps.TravelMode.DRIVING,
+    };
+
+    this.directionsService.route(request, (response, status) => {
+      if (status == google.maps.DirectionsStatus.OK) {
+        let directionsRenderer = new google.maps.DirectionsRenderer();
+        directionsRenderer.setOptions({
+              suppressPolylines: false,
+              map: map,
+              polylineOptions: {
+                strokeColor: color,
+                strokeOpacity: 1.0,
+                strokeWeight: 5
+              },
+              suppressMarkers: noMarkers
+        });
+        directionsRenderer.setDirections(response);
+      }
+    });
+  }
+
+  // drawRoute(carPosition: LocationNoId, ride: RideReturnedDTO, map: google.maps.Map) {
+  //   this.directionsService = new google.maps.DirectionsService();
+
+  //   let stop: google.maps.DirectionsWaypoint = {
+  //     location: {lat: ride.locations[0].departure.latitude, lng:ride.locations[0].departure.longitude}
+  //   }
+
+  //   let request: google.maps.DirectionsRequest = {
+  //     origin: {
+  //       lat: carPosition.latitude,
+  //       lng: carPosition.longitude
+  //     },
+  //     destination: {
+  //       lat: ride.locations[0].destination.latitude,
+  //       lng: ride.locations[0].destination.longitude
+  //     },
+  //     travelMode: google.maps.TravelMode.DRIVING,
+  //     waypoints: [stop]
+  //   };
+
+  //   this.directionsService.route(request, (response, status) => {
+  //     if (status == google.maps.DirectionsStatus.OK) {
+  //       let directionsRenderer = new google.maps.DirectionsRenderer();
+  //       directionsRenderer.setOptions({
+  //             suppressPolylines: false,
+  //             map: map
+  //       });
+  //       directionsRenderer.setDirections(response);
+  //     }
+  //   });
+  // }
 
   // showSteps(directionResult: any) {
   //   // For each step, place a marker, and add the text to the marker's

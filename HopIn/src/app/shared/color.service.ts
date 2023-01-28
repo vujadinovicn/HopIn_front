@@ -13,6 +13,7 @@ export class ColorService {
     orange : string = "#EC9A29";
     black : string = "#383838";
     green: string = "#33A02C";
+    blue: string = "#337D98";
     
     constructor() {}
 }

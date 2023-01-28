@@ -1,4 +1,4 @@
-import { Route } from './../services/routing.service';
+import { Route, ShortAddress } from './../services/routing.service';
 /// <reference types="@types/google.maps" />
 
 import { RoutingService } from './../services/routing.service';
@@ -87,6 +87,15 @@ export class MapComponent implements OnInit, OnDestroy {
         title: "Vehicle no." + vehicle.id,
         icon: this.getIcon(this.colorService.green)
       });
+
+      let vehiclePos: ShortAddress = {
+        address: vehicle.currentLocation?.address!,
+        latitude: vehicle.currentLocation?.latitude!,
+        longitude: vehicle.currentLocation?.longitude!
+      }
+
+      this.routingService.drawRoute(vehiclePos, this.currentRide.locations[0].departure, this.map, this.colorService.orange, true);
+      this.routingService.drawRoute(this.currentRide.locations[0].departure, this.currentRide.locations[0].destination, this.map, this.colorService.blue, false);
     });
   }
 
