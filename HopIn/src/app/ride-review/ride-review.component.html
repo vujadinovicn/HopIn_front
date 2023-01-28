@@ -1,0 +1,44 @@
+<div id="ride-review-container">
+    <div>
+        <span id="thank-you-span" class="dark-blue">Thank you for Hoping in!</span>
+        <span id="ride-finished-span" class="dark-gray">ride is finished</span>
+        <div id="review-img">  
+            <img src="../../assets/vectors/review.svg">
+        </div>
+    </div>
+    <div class="separate-rating-container">
+        <div>
+            <div class="rating-title">
+                <span class="dark-blue">Driver </span>
+                <span class="orange">rating</span>
+            </div>
+            <div id="stars">
+                <ngx-star-rating [ngModel]="current" [disabled]="false"></ngx-star-rating>
+            </div>
+        </div>
+        <div class="leave-comment-container">
+            <mat-form-field>
+                <mat-label>Leave a comment</mat-label>
+                <textarea [(ngModel)]="reason" matInput rows="2" cols="50" placeholder="Driver is looking good"></textarea>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="separate-rating-container">
+        <div>
+            <div class="rating-title">
+                <span class="dark-blue">Vehicle </span>
+                <span class="orange">rating</span>
+            </div>
+            <div id="stars">
+                <ngx-star-rating [ngModel]="current" [disabled]="false"></ngx-star-rating>
+            </div>
+        </div>
+        <div class="leave-comment-container">
+            <mat-form-field>
+                <mat-label>Leave a reason</mat-label>
+                <textarea [(ngModel)]="reason" matInput rows="2" cols="50" placeholder="What a car"></textarea>
+            </mat-form-field>
+        </div>
+    </div>
+    <button mat-button class="conf-button">Submit</button>
+</div>

@@ -28,9 +28,10 @@ import { AdminAccountComponent } from 'src/app/admin-account/admin-account.compo
 import { AdminRequestDetailsContainerComponent } from 'src/app/admin-request-details-container/admin-request-details-container.component';
 import { DriverRegisterPersonalInfoComponent } from 'src/app/driver-register-personal-info/driver-register-personal-info.component';
 import { DriverRegisterComponent } from 'src/app/driver-register/driver-register.component';
+import { RideReviewComponent } from 'src/app/ride-review/ride-review.component';
 
 const routes: Routes = [
-  {path: '', component: LandingComponent},
+  {path: '', component: RideReviewComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'verify', component: RegistrationVerificationComponent},
@@ -50,7 +51,7 @@ const routes: Routes = [
   {path: 'change-password', component: ChangePasswordComponent},
   {path:'change-payment-info', component: ChangePaymentInfoComponent},
   {path:'forgot-password', component: ForgotPasswordComponent},
-  {path: '**', component: LandingComponent}
+  {path: '**', component: RideReviewComponent}
 ];
 
 @NgModule({
