@@ -129,6 +129,23 @@ a {
     background-color: #29C325 ;
 }
 
+#adminHome {
+    height: fit-content;
+    width: fit-content;
+    position: relative;
+}
+
+#adminHome > p {
+    position: absolute;
+    padding: 3px 8px;
+    background-color: red;
+    align-self: center;
+    border-radius: 30px;
+    bottom: 4px;
+    left: 2rem;
+    color: white;
+}
+
 
 
 /* SCREEN DIFFERENCE */
@@ -184,6 +201,22 @@ a {
     .navbar-menu a {
         background-color:white;
         color: #1E4A5A;
+    }
+
+    .navbar-menu #adminHome {
+        background-color:white;
+        width: 100%;
+        color: #1E4A5A;
+    }
+
+    #adminHome {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #adminHome > p {
+        display: none;
     }
 }
 

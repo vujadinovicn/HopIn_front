@@ -160,7 +160,7 @@ import { AdminHomeComponent } from './admin-home/admin-home.component';
     GooglePlaceModule,
     CommonModule,
     CdTimerModule,
-    NgxStarRatingModule,
+    NgxStarRatingModule
     
     
   ],
