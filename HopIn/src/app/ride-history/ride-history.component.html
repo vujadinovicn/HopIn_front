@@ -85,9 +85,10 @@
                 <div *ngIf="this.currentIsFavoriteRoutesToShow[indexOfelement] === true && this._role === 'ROLE_PASSENGER'" class="rightImgContainer" (click)="removeRoute(indexOfelement)"><img src="../../assets/vectors/heart_red.svg"></div>
                 <div *ngIf="this.currentIsFavoriteRoutesToShow[indexOfelement] === false && this._role === 'ROLE_PASSENGER'" class="rightImgContainer" (click)="returnRoute(indexOfelement)"><img src="../../assets/vectors/heart_empty.svg"></div>
             </div>
-            <div id="stars">
+            <div id="stars" *ngIf="(!notRated[indexOfelement] && this._role === 'ROLE_PASSENGER') || this._role==='ROLE_DRIVER'">
                 <ngx-star-rating [ngModel]="currentRatingsToShow[indexOfelement]" [id]="'rating'+indexOfelement" [disabled]="true"></ngx-star-rating>
             </div>
+            <button id="leave-comment-btn" class="conf-button back-orange" *ngIf="(notRated[indexOfelement] && this._role === 'ROLE_PASSENGER')" mat-raised-button type="submit">leave a rating</button>
         </div>
 
     </div>

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ReviewDTO, RideReviewService } from '../services/ride-review.service';
 import { SharedService } from '../shared/shared.service';
 
@@ -16,7 +16,9 @@ export class RideReviewComponent implements OnInit {
   reviews: ReviewDTO[] = [];
 
   constructor(private rideReview: RideReviewService,
-    private sharedService: SharedService) { }
+    private sharedService: SharedService,
+    private dialogRef: MatDialogRef<RideReviewComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   reviewForm = new FormGroup({
     driverReviewComment: new FormControl('', [Validators.required]),
@@ -44,7 +46,7 @@ export class RideReviewComponent implements OnInit {
           color: "back-green"
         }
         );
-        //this.dialogRef.close();
+        this.dialogRef.close();
       },
       error: (error) => {
         this.sharedService.openSnack({
@@ -55,17 +57,17 @@ export class RideReviewComponent implements OnInit {
     });
   }
 
-  setVehicleReviewResponseFromForm(): ReviewDTO{
+  setDriverReviewResponseFromForm(): ReviewDTO{
     return {
-      rating: 4,
-      comment: this.reviewForm.value.vehicleReviewComment!
+      rating: this.driverRating,
+      comment: this.reviewForm.value.driverReviewComment!
     }
   }
 
-  setDriverReviewResponseFromForm(): ReviewDTO{
+  setVehicleReviewResponseFromForm(): ReviewDTO{
     return {
-      rating: 3,
-      comment: this.reviewForm.value.driverReviewComment!
+      rating: this.vehicleRating,
+      comment: this.reviewForm.value.vehicleReviewComment!
     }
   }
 }
