@@ -61,6 +61,7 @@ export class RoutingService {
     this.directionsService.route(request, (response, status) => {
 
       if (status == google.maps.DirectionsStatus.OK) {
+        console.log(response);
         console.log(response?.routes[0].legs[0].steps);
         this.route.distanceFormatted = response?.routes[0].legs[0].distance?.text!;
         this.route.distance= response?.routes[0].legs[0].distance?.value!;
@@ -98,6 +99,9 @@ export class RoutingService {
               },
               suppressMarkers: noMarkers
         });
+        console.log("###############################");
+        console.log(response);
+        console.log("###############################");
         directionsRenderer.setDirections(response);
       }
     });

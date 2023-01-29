@@ -92,7 +92,7 @@ export class CurrentRideComponent implements OnInit {
           value: "Ride finished!",
           color: "back-green"
         });
-        alert("Ride finished successfully!");
+        // alert("Ride finished successfully!");
         this.router.navigate([""]);
       },
       error: (err) => {
