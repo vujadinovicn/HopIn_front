@@ -36,7 +36,10 @@ export class SocketService {
     startFinishSub: any;
     
     private panic = new Subject<Panic>();
+    panicSubs: any;
 
+    private arrivalTime = new Subject<TimerDTO>();
+    arrivalTimeSubs: any;
 
     constructor(private http: HttpClient, private authService: AuthService, private dialog: MatDialog) { }
 
@@ -54,10 +57,37 @@ export class SocketService {
         });
     }
 
+    subscribeToArrivalTime(rideId: number) {
+        this.arrivalTimeSubs = this.stompClient.subscribe("/topic/arrival-time/" + rideId, (message: Message) => {
+            this.updateArrivalTime(JSON.parse(message.body));
+        });
+    }
+
+    unsubscribeFromArrivalTime() {
+        if (this.arrivalTimeSubs != undefined)
+            this.arrivalTimeSubs.unsubscribe();
+    }
+
+    receivedArrivalTime() {
+        return this.arrivalTime.asObservable();
+    }
+
+    updateArrivalTime(res: TimerDTO) {
+        console.log("#############################")
+        console.log(res);
+        console.log("#############################")
+        this.arrivalTime.next(res);
+    }
+
     subscribeToPanic() {
-        this.invitesResSubs = this.stompClient.subscribe("/topic/panic", (message: Message) => {
+        this.panicSubs = this.stompClient.subscribe("/topic/panic", (message: Message) => {
             this.updatePanic(JSON.parse(message.body));
         });
+    }
+
+    unsubscribeFromPanic() {
+        if (this.panicSubs != undefined)
+            this.panicSubs.unsubscribe();
     }
 
     unsubscribeFromInviteResponse() {
@@ -199,4 +229,8 @@ export interface Panic {
     ride: RideReturnedDTO,
     time: string,
     reason: string
+}
+
+export interface TimerDTO {
+    timer: number
 }

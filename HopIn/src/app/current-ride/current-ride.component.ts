@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { RideReviewComponent } from './../ride-review/ride-review.component';
 import { PanicReasonDialogComponent } from './../panic-reason-dialog/panic-reason-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { SocketService } from './../services/socket.service';
+import { SocketService, TimerDTO } from './../services/socket.service';
 import { Subscription } from 'rxjs';
 import { SharedService } from './../shared/shared.service';
 import { AuthService } from './../services/auth.service';
@@ -23,6 +23,8 @@ export class CurrentRideComponent implements OnInit {
   started: boolean = false;
   @ViewChild('timer') private timer: any;
 
+  arrivalTime: string = "";
+
   constructor(private rideService: RideService,
               public authService: AuthService,
               public sharedService: SharedService,
@@ -36,8 +38,30 @@ export class CurrentRideComponent implements OnInit {
   ngOnInit(): void {
     this.rideService.getRide().subscribe((ride) => {
       this.ride = ride;
-    });
+      this.subscribeToStartFinish();
+      this.subscribeToArrivalTime();
+    }); 
+  }
 
+  subscribeToArrivalTime() {
+    this.socketService.subscribeToArrivalTime(this.ride.id);
+    this.socketService.receivedArrivalTime().subscribe((res: TimerDTO) => {
+      this.arrivalTime = this.formatTime(res.timer);
+    });
+  }
+
+  formatTime(timer: number): string {
+    let timerr = Math.floor(timer);
+    let minutes = Math.floor(timerr/60);
+    let seconds = timerr - minutes*60;
+    if (minutes > 0) {
+      return minutes + "min" + " " + seconds + "s";
+    } else {
+      return seconds + "s";
+    }
+  }
+
+  subscribeToStartFinish() {
     if (this.authService.getRole() == "ROLE_PASSENGER") {
       this.socketService.subscribeRideStartFinish(this.ride.driver.id);
       this.socketService.receivedStartFinishResponse().subscribe((res: string) => {
@@ -92,6 +116,10 @@ export class CurrentRideComponent implements OnInit {
           value: "Ride finished!",
           color: "back-green"
         });
+
+        this.socketService.unsubscribeFromArrivalTime();
+        this.socketService.unsubscribeFromStartFinishResponse();
+
         // alert("Ride finished successfully!");
         this.router.navigate([""]);
       },
@@ -105,3 +133,4 @@ export class CurrentRideComponent implements OnInit {
   }
 
 }
+

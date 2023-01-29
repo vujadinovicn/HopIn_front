@@ -16,7 +16,7 @@
             <div>
                 <p *ngIf="role=='ROLE_PASSENGER'" class="subtitle dark-gray">driver at pickup in:</p>
                 <p *ngIf="role=='ROLE_DRIVER'" class="subtitle dark-gray">arriving at pickup in:</p>
-                <p id="estimated-time" class="title blue">5 min</p>
+                <p id="estimated-time" class="title blue">{{ arrivalTime }}</p>
             </div>
         </div>
         <app-driver-info-card *ngIf="role == 'ROLE_PASSENGER'"></app-driver-info-card>
