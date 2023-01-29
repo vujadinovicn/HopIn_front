@@ -88,7 +88,7 @@
             <div id="stars" *ngIf="(!notRated[indexOfelement] && this._role === 'ROLE_PASSENGER') || this._role==='ROLE_DRIVER'">
                 <ngx-star-rating [ngModel]="currentRatingsToShow[indexOfelement]" [id]="'rating'+indexOfelement" [disabled]="true"></ngx-star-rating>
             </div>
-            <button id="leave-comment-btn" class="conf-button back-orange" *ngIf="(notRated[indexOfelement] && this._role === 'ROLE_PASSENGER')" mat-raised-button type="submit">leave a rating</button>
+            <button [id]="'btn'+indexOfelement" class="back-orange leave-comment-btn" (click)="leaveRating(indexOfelement)" *ngIf="(notRated[indexOfelement] && this._role === 'ROLE_PASSENGER')" mat-raised-button type="submit">leave a rating</button>
         </div>
 
     </div>

@@ -37,9 +37,9 @@ export class RideReviewComponent implements OnInit {
         this.sharedService.openInvalidInputSnack();
     }
   }
-
+  
   private submitCompleteReview() {
-    this.rideReview.addCompleteReview(this.reviews, 1).subscribe({
+    this.rideReview.addCompleteReview(this.reviews, this.data.rideId).subscribe({
       next: (res) => {
         this.sharedService.openSnack({
           value: "You've successfully submitted reviews!",

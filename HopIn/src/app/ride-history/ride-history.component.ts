@@ -14,6 +14,7 @@ import { MatSortable, Sort } from '@angular/material/sort/sort';
 import { Router } from '@angular/router';
 import { Route, RoutingService, ShortAddress } from '../services/routing.service';
 import { MatDialog } from '@angular/material/dialog';
+import { RideReviewComponent } from '../ride-review/ride-review.component';
 @Component({
   selector: 'ride-history',
   templateUrl: './ride-history.component.html',
@@ -148,26 +149,33 @@ export class RideHistoryComponent implements OnInit {
   checkIfPassengerReviewedRide(reviews: any, index: number){
     if (this._role === 'ROLE_DRIVER')
       return;
-    
-    console.log(this._id)
     for (let review of reviews){
-      console.log(review.vehicleReview.passenger.id);
-      if (review.vehicleReview.passenger.id == this._id)
+      if (review.vehicleReview.passenger.id == this._id){
         this.notRated[index] = false;
         return;
+      }
     }
     this.notRated[index] = true;
   }
+
+  haveThreeDaysPassedSinceEndOfRide(endTime: any){
+    let result = new Date(endTime);
+    result.setDate(result.getDate() + 3);
+    console.log(result)
+    console.log(new Date())
+    return result < new Date()
+  }
+
   getRatings() {
     this.ratings = new Array(this.rides.length).fill(0);
     this.currentRatingsToShow = [];
     for (let i = 0; i < this.rides.length; i++) {
       this.reviewService.getAll(this.rides[i].id).subscribe({
         next: (res) => {
-          console.log(this.rides[i].id)
-          this.checkIfPassengerReviewedRide(res, i);
-          console.log(this.notRated[i])
-          console.log("ssssssssssss")
+          if (this.haveThreeDaysPassedSinceEndOfRide(this.rides[i].endTime))
+            this.notRated[i] = false;
+          else 
+            this.checkIfPassengerReviewedRide(res, i);
           let sum = 0;
           let counter = 0;
           for(let pair of res) {
@@ -190,6 +198,18 @@ export class RideHistoryComponent implements OnInit {
         } 
       });
     }
+  }
+
+  leaveRating(index: number){
+    let dialog = this.dialog.open(RideReviewComponent, {
+      data: {rideId: this.rides[index].id},
+      width: 'fit-content',
+      height : 'fit-content'
+  })
+  dialog.afterClosed().subscribe((result) => {
+    (<HTMLInputElement> document.getElementById("btn"+index)).classList.add("disabled");
+  });
+
   }
 
   setFavorites() {
