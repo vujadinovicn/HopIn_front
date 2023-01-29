@@ -78,6 +78,7 @@ import { ReejctionReasonDialogComponent } from './rejection-reason-dialog/reject
 import { PanicReasonDialogComponent } from './panic-reason-dialog/panic-reason-dialog.component';
 
 import { RideReviewComponent } from './ride-review/ride-review.component';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
 
 @NgModule({
   declarations: [
@@ -142,7 +143,8 @@ import { RideReviewComponent } from './ride-review/ride-review.component';
     LoadingDialogComponent,
     CurrentRideComponent,
     PanicReasonDialogComponent,
-    RideReviewComponent
+    RideReviewComponent,
+    AdminHomeComponent
   ],
   imports: [
     BrowserModule,

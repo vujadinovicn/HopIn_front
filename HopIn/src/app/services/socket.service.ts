@@ -1,3 +1,4 @@
+import { RideReturnedDTO } from './ride.service';
 import { Route } from './routing.service';
 import { InviteDialogComponent } from './../invite-dialog/invite-dialog.component';
 import { RideDTO } from './route.service';
@@ -12,7 +13,6 @@ import { SanityChecks } from '@angular/material/core';
 import { User } from './user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { JsonPipe } from '@angular/common';
-import { RideReturnedDTO } from './ride.service';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +34,9 @@ export class SocketService {
 
     private startFinishResponse = new Subject<string>();
     startFinishSub: any;
+    
+    private panic = new Subject<Panic>();
+
 
     constructor(private http: HttpClient, private authService: AuthService, private dialog: MatDialog) { }
 
@@ -48,6 +51,12 @@ export class SocketService {
     subscribeToInviteResponse() {
         this.invitesResSubs = this.stompClient.subscribe("/topic/invite-response/" + this.authService.getId(), (message: Message) => {
             this.updateInviteResponse(JSON.parse(message.body));
+        });
+    }
+
+    subscribeToPanic() {
+        this.invitesResSubs = this.stompClient.subscribe("/topic/panic", (message: Message) => {
+            this.updatePanic(JSON.parse(message.body));
         });
     }
 
@@ -105,6 +114,13 @@ export class SocketService {
         if (this.offerResSubs != undefined)
             this.offerResSubs.unsubscribe();
     }
+    
+    receivedPanic() {
+        return this.panic.asObservable();
+    }
+    updatePanic(res: Panic) {
+        this.panic.next(res);
+    }
 
     openWebSocketConnection() {
         this.ws = new SockJS(this.url);
@@ -136,6 +152,10 @@ export class SocketService {
                             height : 'fit-content'
                         })
                     });
+                else {
+                    if (this.authService.getRole() == "ROLE_ADMIN")
+                        this.subscribeToPanic();
+                }
             }
         });
     }
@@ -161,4 +181,22 @@ export interface InviteResponse {
 export interface RideOfferResponseDTO {
     response: boolean,
     ride: RideReturnedDTO
+}
+
+export interface UserInPanic {
+    name: string,
+    surname: string,
+    profilePictue: string,
+    telephoneNumber: string,
+    email: string,
+    address: string,
+    role: string
+}
+
+export interface Panic {
+    id: number,
+    user: UserInPanic,
+    ride: RideReturnedDTO,
+    time: string,
+    reason: string
 }

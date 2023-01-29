@@ -30,6 +30,7 @@ import { AdminRequestDetailsContainerComponent } from 'src/app/admin-request-det
 import { DriverRegisterPersonalInfoComponent } from 'src/app/driver-register-personal-info/driver-register-personal-info.component';
 import { DriverRegisterComponent } from 'src/app/driver-register/driver-register.component';
 import { RideReviewComponent } from 'src/app/ride-review/ride-review.component';
+import { AdminHomeComponent } from 'src/app/admin-home/admin-home.component';
 
 const routes: Routes = [
   {path: '', component: LandingComponent},
@@ -46,6 +47,7 @@ const routes: Routes = [
   {path: 'account-admin', component: AdminAccountComponent},
   {path: 'users-dashboard', component: UsersDashboardComponent},
   {path: 'admin-reports', component: AdminReportsComponent},
+  {path: 'admin-home', component: AdminHomeComponent},
   {path: 'ride-history', component: RideHistoryComponent},
   {path: 'ride-history-details', component: RideHistoryDetailsComponent},
   {path: 'account-settings', component: AccountUpdateComponent},
