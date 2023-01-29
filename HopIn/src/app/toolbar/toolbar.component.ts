@@ -1,4 +1,6 @@
-import { SocketService } from './../services/socket.service';
+import { PanicService } from './../services/panic.service';
+import { UserService } from './../services/user.service';
+import { Panic, SocketService } from './../services/socket.service';
 import { Message } from 'stompjs';
 import { WorkingHours, WorkingHoursService } from './../services/working-hours.service';
 import { AuthService } from './../services/auth.service';
@@ -7,6 +9,7 @@ import { NavigationStart, Router } from '@angular/router';
 import { ThisReceiver } from '@angular/compiler';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {map, Subscription, timer} from 'rxjs';  
+import { DisplayedPanic } from '../admin-home/admin-home.component';
 
 
 @Component({
@@ -26,12 +29,16 @@ export class ToolbarComponent implements OnInit {
   }
   currentDate: Date = new Date();
   workedMiliSecs: number = 0;
+  panics: DisplayedPanic[] = [];
+  hasNew: boolean = false;
 
   constructor(private authService: AuthService,
     private router: Router,
     public snackBar: MatSnackBar,
     private workingHoursService: WorkingHoursService,
-    private socketService: SocketService) { 
+    private socketService: SocketService,
+    private userService: UserService,
+    private panicService: PanicService) { 
   }
 
   ngOnInit(): void {
@@ -42,7 +49,12 @@ export class ToolbarComponent implements OnInit {
         this.checked = true;
       }
     })
+    this.panicService.receivedHasNew().subscribe((res) => {
+      this.hasNew = res;
+    })
+    this.panics = [];
     this.handleSmallScreens();
+    this.subscribeToPanic();
   }
 
   testInterval() {
@@ -95,6 +107,12 @@ export class ToolbarComponent implements OnInit {
     }
   }
 
+  openAdminHome(): void {
+    this.hasNew = false;
+    this.panicService.updateHasNew(this.hasNew);
+    this.router.navigate(['/admin-home']);
+  }
+
   setActive(): void {
     this.workingHoursService.startCounting(this.authService.getId()).subscribe({
       next: (res: any) => {
@@ -131,6 +149,78 @@ export class ToolbarComponent implements OnInit {
        this.checked = true;
       }
     });
+  }
+
+
+  // PANIC METHODS
+  subscribeToPanic(): void {
+    this.socketService.receivedPanic().subscribe((res) => {
+        if (res.user.role === 'DRIVER') {
+          this.addDriverPanic(res);
+        } else {
+          this.addPassengerPanic(res);
+        }
+        this.hasNew = true;
+        this.panicService.updateHasNew(this.hasNew);
+        if (this.role === 'ROLE_ADMIN') {
+          this.snackBar.open("Someone pressed panic button!", "", {
+            duration: 2000,
+        });
+      }
+    })
+  }
+
+  addPassengerPanic(panic: Panic): void {
+    this.userService.getByDriverId(panic.ride.driver.id).subscribe((res) => {
+      let picDriver = res.profilePicture;
+      if (picDriver == null) {picDriver="../../assets/images/profile-placeholder.png";}
+      let picUser = panic.user.profilePictue;
+      if (picUser == null) {picUser="../../assets/images/profile-placeholder.png";}
+      let newPanic: DisplayedPanic = {
+        rideId: panic.ride.id,
+        isDriver: false,
+        callerName: panic.user.name,
+        callerSurName: panic.user.surname,
+        callerProfilePicture: picUser,
+        driverName: res.name,
+        driverSurname: res.surname,
+        driverProfilePicture: picDriver,
+        model: res.model,
+        plates: res.licenseNumber,
+        time: this.formatDate(panic.time),
+        reason: panic.reason
+      }
+      this.panics.push(newPanic);
+      this.panicService.updatePanic(this.panics);
+    })
+  }
+
+  addDriverPanic(panic: Panic): void {
+    this.userService.getByDriverId(panic.ride.driver.id).subscribe((res) => {
+      let pic = res.profilePicture;
+      if (pic == null) {pic="../../assets/images/profile-placeholder.png";}
+      let newPanic: DisplayedPanic = {
+        rideId: panic.ride.id,
+        isDriver: true,
+        callerName: panic.user.name,
+        callerSurName: panic.user.surname,
+        callerProfilePicture: pic,
+        driverName: '',
+        driverSurname: '',
+        driverProfilePicture: '',
+        model: res.model,
+        plates: res.licenseNumber,
+        time: this.formatDate(panic.time),
+        reason: panic.reason
+      }
+      this.panics.push(newPanic);
+      this.panicService.updatePanic(this.panics);
+    })
+  }
+
+  public formatDate(dateStr: string): string {
+    let date = new Date(dateStr);
+    return "at " + date.getHours() + ":" + date.getMinutes() + ", " + date.getDate() + "." + date.getMonth() + "." + date.getFullYear();
   }
 
 }
