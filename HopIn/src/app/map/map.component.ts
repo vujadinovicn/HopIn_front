@@ -2,7 +2,7 @@ import { Route, ShortAddress } from './../services/routing.service';
 /// <reference types="@types/google.maps" />
 
 import { RoutingService } from './../services/routing.service';
-import { Component, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, AfterViewInit, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MapService } from '../services/map.service';
 import { LocationWithVehicleId, VehiclesMapService } from '../services/vehicles-map.service';
@@ -18,6 +18,8 @@ import { DriverService } from '../services/driver.service';
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit, OnDestroy {
+
+  @Input() currentRideStarted: boolean = false;
 
   route: Route = {} as Route;
 
@@ -80,7 +82,6 @@ export class MapComponent implements OnInit, OnDestroy {
   private notifyVehicleArrivalAtDeparture(){
     this.vehiclesMapService.recievedVehicleArrivedAtDeparture().subscribe((res: any) => {
       if (this.currentRide.id == res){
-        console.log("eeealo");
       }
     })
   }
@@ -103,7 +104,8 @@ export class MapComponent implements OnInit, OnDestroy {
         longitude: vehicle.currentLocation?.longitude!
       }
 
-      this.routingService.drawRoute(vehiclePos, this.currentRide.locations[0].departure, this.map, this.colorService.orange, true);
+      if (!this.currentRideStarted)
+        this.routingService.drawRoute(vehiclePos, this.currentRide.locations[0].departure, this.map, this.colorService.orange, true);
       this.routingService.drawRoute(this.currentRide.locations[0].departure, this.currentRide.locations[0].destination, this.map, this.colorService.blue, false);
     });
   }

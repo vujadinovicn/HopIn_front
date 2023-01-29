@@ -41,6 +41,9 @@ export class SocketService {
     private arrivalTime = new Subject<TimerDTO>();
     arrivalTimeSubs: any;
 
+    private vehicleArrival = new Subject<string>();
+    vehicleArrivalSub: any;
+
     constructor(private http: HttpClient, private authService: AuthService, private dialog: MatDialog) { }
 
     sendInvite(invite: RideInvite, to: number) {
@@ -112,6 +115,25 @@ export class SocketService {
 
     updateStartFinishResponse(res: string) {
         this.startFinishResponse.next(res);
+    }
+
+    subscribeToVehicleArrival(rideId: number) {
+        this.vehicleArrivalSub = this.stompClient.subscribe("/topic/vehicle-arrival/" + rideId, (message: Message) =>  {
+            this.updateVehicleArrival(message.body);
+        });   
+    }
+
+    unsubscribeFromVehicleArrival() {
+        if (this.vehicleArrivalSub != undefined)
+            this.vehicleArrivalSub.unsubscribe();
+    }
+
+    receivedVehicleArrival() {
+        return this.vehicleArrival.asObservable();
+    }
+
+    updateVehicleArrival(res: string) {
+        this.vehicleArrival.next(res);
     }
 
 
@@ -187,6 +209,14 @@ export class SocketService {
                         this.subscribeToPanic();
                 }
             }
+            if (localStorage.getItem('current_ride') != null) {
+                let id: number = JSON.parse(localStorage.getItem('current_ride')!).id;
+                this.subscribeRideStartFinish(JSON.parse(localStorage.getItem('current_ride')!).driver.id);
+                this.subscribeToArrivalTime(id);
+                if (this.authService.getRole() == "ROLE_PASSENGER")
+                    this.subscribeToVehicleArrival(id);
+            }
+            
         });
     }
 

@@ -79,6 +79,7 @@ import { PanicReasonDialogComponent } from './panic-reason-dialog/panic-reason-d
 
 import { RideReviewComponent } from './ride-review/ride-review.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
+import { VehicleArrivedDialogComponent } from './vehicle-arrived-dialog/vehicle-arrived-dialog.component';
 
 @NgModule({
   declarations: [
@@ -144,7 +145,8 @@ import { AdminHomeComponent } from './admin-home/admin-home.component';
     CurrentRideComponent,
     PanicReasonDialogComponent,
     RideReviewComponent,
-    AdminHomeComponent
+    AdminHomeComponent,
+    VehicleArrivedDialogComponent
   ],
   imports: [
     BrowserModule,

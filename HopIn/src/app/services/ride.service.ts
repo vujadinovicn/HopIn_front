@@ -66,8 +66,8 @@ export interface AllRidesDTO {
 
 export interface RideReturnedDTO {
     id: number,
-    startTime: String,
-    endTime: String,
+    startTime: string,
+    endTime: string,
     totalCost: number,
     driver: RidePassenger,
     passengers: RidePassenger[],

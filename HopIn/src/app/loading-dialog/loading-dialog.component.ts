@@ -53,8 +53,13 @@ export class LoadingDialogComponent implements OnInit {
     })
 
     if (this.data.userId == this.authService.getId()) {
-      this.routeService.createRide(this.routingService.route).subscribe((res) => {
-        console.log(res);
+      this.routeService.createRide(this.routingService.route).subscribe({
+        next: (res) => {
+          
+        },
+        error: (err) => {
+          console.log("Error creating ride... " + err);
+        }
       });
     }
   }

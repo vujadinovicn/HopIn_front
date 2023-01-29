@@ -8,7 +8,7 @@
             <h1>Current ride</h1>
             <div class="timer-container left-border">
                 <mat-icon class="timer-icon">timer</mat-icon>
-                <cd-timer class="timer" format="hms" #timer></cd-timer>
+                <cd-timer class="timer" format="hms" #timer [startTime]="timerStartTime"></cd-timer>
             </div>
            
         </div>
@@ -27,5 +27,5 @@
         </div>
         <button *ngIf="started" mat-button class="panic-button full-button back-red" (click)="panicRide()">PANIC</button>
     </div>
-    <map></map>
+    <map [currentRideStarted] = "started"></map>
 </div>
