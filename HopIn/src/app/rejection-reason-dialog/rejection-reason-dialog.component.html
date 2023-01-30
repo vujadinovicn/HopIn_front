@@ -1,5 +1,6 @@
 <div>
-    <h1 mat-dialog-title align="center" class="dark-blue">Ride rejection reason</h1>
+    <h1 *ngIf="!isCurrentRide" mat-dialog-title align="center" class="dark-blue">Ride rejection reason</h1>
+    <h1 *ngIf="isCurrentRide" mat-dialog-title align="center" class="dark-blue">Ride cancelation reason</h1>
       <div mat-dialog-content align="center">
         <form [formGroup]="rejectionReasonForm">
             <mat-form-field >

@@ -1,3 +1,4 @@
+import { SocketService } from './../services/socket.service';
 import { Message } from 'stompjs';
 import { WorkingHours, WorkingHoursService } from './../services/working-hours.service';
 import { AuthService } from './../services/auth.service';
@@ -29,7 +30,8 @@ export class ToolbarComponent implements OnInit {
   constructor(private authService: AuthService,
     private router: Router,
     public snackBar: MatSnackBar,
-    private workingHoursService: WorkingHoursService) { 
+    private workingHoursService: WorkingHoursService,
+    private socketService: SocketService) { 
   }
 
   ngOnInit(): void {
@@ -68,7 +70,7 @@ export class ToolbarComponent implements OnInit {
     } else {
       this.setInactive();
     }
- 
+    
   }
 
   logout(): void {
@@ -77,6 +79,10 @@ export class ToolbarComponent implements OnInit {
       this.checked = false;
     }
     localStorage.removeItem('user');
+
+    //DODATI OSTALE
+    this.socketService.unsubscribeFromPanic();
+
     this.authService.setUser();
     this.router.navigate(['login']);
   }

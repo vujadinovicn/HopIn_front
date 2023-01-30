@@ -1,7 +1,11 @@
 <div>
-    <h1 mat-dialog-title align="center" class="dark-blue">Sit tight, we're looking<br>for the best ride option for you!</h1>
+    <h1 *ngIf="status=='pending'" mat-dialog-title align="center" class="dark-blue">Sit tight, we're looking<br>for the best ride option for you!</h1>
+    <h1 *ngIf="status=='declined'" mat-dialog-title align="center" class="red">No rides found</h1>
+    <h1 *ngIf="status=='accepted'" mat-dialog-title align="center" class="dark-blue">Hooraay! <span class="green">Ride found</span></h1>
     <div mat-dialog-content align="center">
-        <mat-spinner [diameter]="35"></mat-spinner>
-        <img src="../../assets/vectors/loading.svg" height="300px"/>
+        <h3 *ngIf="status=='declined'" class="subtitle">We're sorry! We are not able to find<br>a ride that fits your preferences at the moment.<br>Try again later :)</h3>
+        <h3 *ngIf="status=='accepted'" class="subtitle">You'll be redirected to current ride shortly.</h3>
+        <mat-spinner class="spinner" *ngIf="status=='pending'" [diameter]="35"></mat-spinner>
+        <img *ngIf="status=='pending'" src="../../assets/vectors/loading.svg" height="300px"/>
     </div>
 </div>

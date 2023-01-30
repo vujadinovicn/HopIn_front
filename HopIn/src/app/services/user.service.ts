@@ -15,8 +15,8 @@ export class UserService {
     return this.http.get<User>(environment.apiHost + '/passenger/' + passengerId);
   }
 
-  getByDriverId(driverId: number): Observable<any> {
-    return this.http.get<any>(environment.apiHost + '/driver/' + driverId);
+  getByDriverId(driverId: number): Observable<Driver> {
+    return this.http.get<Driver>(environment.apiHost + '/driver/' + driverId);
   }
 
   registerPassenger(passenger: UserDTO): Observable<any> {

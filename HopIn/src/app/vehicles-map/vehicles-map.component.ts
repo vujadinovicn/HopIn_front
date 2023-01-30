@@ -98,7 +98,6 @@ export class VehiclesMapComponent implements OnInit, OnDestroy {
   private setMarkerForActivatedVehicle() {
     this.vehiclesMapService.recievedVehicleActivation().subscribe((driverId: any) => {
       this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
-        console.log(vehicle.id);
         let map = this.map;
         this.vehicles[vehicle.id] = vehicle;
         this.vehicleMarkers[vehicle.id] = new google.maps.Marker({

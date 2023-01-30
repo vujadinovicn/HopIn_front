@@ -23,6 +23,7 @@
     "@auth0/angular-jwt": "^5.1.2",
     "@googlemaps/js-api-loader": "^1.15.1",
     "@material/snackbar": "^14.0.0",
+    "angular-cd-timer": "^3.0.0",
     "chart.js": "^4.0.1",
     "dayjs": "^1.11.7",
     "igniteui-webcomponents": "^4.1.1",
