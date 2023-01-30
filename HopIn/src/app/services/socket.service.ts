@@ -179,6 +179,7 @@ export class SocketService {
         this.stompClient = Stomp.over(this.ws);
         this.stompClient.connect({}, () => {
             this.isConnected = true;
+            this.subscribeToPanic();
             if (this.authService.getRole() == "ROLE_PASSENGER")
                 this.stompClient.subscribe("/topic/invites/" + this.authService.getId(), (message: Message) => {
 
@@ -204,10 +205,10 @@ export class SocketService {
                             height : 'fit-content'
                         })
                     });
-                else {
-                    if (this.authService.getRole() == "ROLE_ADMIN")
-                        this.subscribeToPanic();
-                }
+                // else {
+                //     if (this.authService.getRole() == "ROLE_ADMIN")
+                //         this.subscribeToPanic();
+                // }
             }
             // if (localStorage.getItem('current_ride') != null) {
             //     let id: number = JSON.parse(localStorage.getItem('current_ride')!).id;
