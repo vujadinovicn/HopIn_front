@@ -87,7 +87,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   logout(): void {
-    if (this.checked === true) {
+    if (this.role === 'ROLE_DRIVER' && this.checked === true) {
       this.setInactive();
       this.checked = false;
     }

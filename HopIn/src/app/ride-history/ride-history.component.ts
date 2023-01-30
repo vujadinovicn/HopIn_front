@@ -328,6 +328,7 @@ export class RideHistoryComponent implements OnInit {
   }
 
   openDialog(index: number): void {
+    if (this._role != 'ROLE_PASSENGER') {return;}
     const dialogRef = this.dialog.open(ScheduleDialogComponent, {
       data: {pickUp: this.currentRidesToShow[index].locations[0].departure,
              dest: this.currentRidesToShow[index].locations[0].destination}
