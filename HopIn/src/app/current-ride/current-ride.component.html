@@ -23,6 +23,7 @@
         <app-passengers-info-card *ngIf="ride.passengers.length > 1 || role=='ROLE_DRIVER'"></app-passengers-info-card>
         <div class="action-buttons" *ngIf="role=='ROLE_DRIVER'">
             <button *ngIf="atPickup && !started" mat-button class="full-button back-green" (click)="startRide()">Start</button>
+            <button *ngIf="!started" mat-button class="full-button back-orange" (click)="cancelRide()">Cancel</button>
             <button *ngIf="ride.status == 'STARTED'" mat-button class="start-btn full-button back-dark-blue" (click)="endRide()">Finish</button>
         </div>
         <button *ngIf="started" mat-button class="panic-button full-button back-red" (click)="panicRide()">PANIC</button>

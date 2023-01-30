@@ -80,6 +80,7 @@ import { PanicReasonDialogComponent } from './panic-reason-dialog/panic-reason-d
 import { RideReviewComponent } from './ride-review/ride-review.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { VehicleArrivedDialogComponent } from './vehicle-arrived-dialog/vehicle-arrived-dialog.component';
+import { RideCanceledDialogComponent } from './ride-canceled-dialog/ride-canceled-dialog.component';
 
 @NgModule({
   declarations: [
@@ -146,7 +147,8 @@ import { VehicleArrivedDialogComponent } from './vehicle-arrived-dialog/vehicle-
     PanicReasonDialogComponent,
     RideReviewComponent,
     AdminHomeComponent,
-    VehicleArrivedDialogComponent
+    VehicleArrivedDialogComponent,
+    RideCanceledDialogComponent
   ],
   imports: [
     BrowserModule,

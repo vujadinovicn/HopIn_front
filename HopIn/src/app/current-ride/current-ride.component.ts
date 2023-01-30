@@ -1,3 +1,5 @@
+import { RideCanceledDialogComponent } from './../ride-canceled-dialog/ride-canceled-dialog.component';
+import { ReejctionReasonDialogComponent } from './../rejection-reason-dialog/rejection-reason-dialog.component';
 import { CurrentRideSocketService } from './../services/current-ride-socket-service';
 import { VehicleArrivedDialogComponent } from './../vehicle-arrived-dialog/vehicle-arrived-dialog.component';
 import { Router } from '@angular/router';
@@ -44,9 +46,13 @@ export class CurrentRideComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscribeToStartFinish();
     this.subscribeToArrivalTime();
     this.subscribeToVehicleArrival();
+    if (this.authService.getRole() == "ROLE_PASSENGER") {
+      this.subscribeToStartFinish();
+      this.subscribeToRideCanceled();
+    }
+    
 
     this.crSocketService.openWebSocketConnection();
 
@@ -71,16 +77,32 @@ export class CurrentRideComponent implements OnInit, OnDestroy {
     }
   }
 
+  subscribeToRideCanceled() {
+    this.crSocketService.receivedRideCancel().subscribe((res: boolean) => {
+      if (res) {
+        this.dialog.open(RideCanceledDialogComponent);
+        this.crSocketService.unsubscribeFromStartFinishResponse();
+        this.crSocketService.unsubscribeFromVehicleArrival();
+        this.crSocketService.unsubscribeFromArrivalTime();
+        this.crSocketService.unsubscribeFromRideCancel();
+        this.resetLocalStorage();
+        this.router.navigate(['order-ride']);
+      }
+    })
+  }
+
   resetLocalStorage() {
     localStorage.removeItem('current_ride_started');
     localStorage.removeItem('current_ride');
   }
 
   subscribeToVehicleArrival() {
-    this.crSocketService.receivedVehicleArrival().subscribe((res: string) => {
-      this.arrivalTime = "arrived!";
-      this.crSocketService.unsubscribeFromVehicleArrival();
+    let sub = this.crSocketService.receivedVehicleArrival().subscribe((res: string) => {
       this.crSocketService.unsubscribeFromArrivalTime();
+      this.arrivalTime = "arrived!";
+      sub.unsubscribe();
+      this.crSocketService.unsubscribeFromVehicleArrival();
+      this.crSocketService.unsubscribeFromRideCancel();
       if (this.authService.getRole() == "ROLE_PASSENGER" && !this.started)
         this.dialog.open(VehicleArrivedDialogComponent);
     });
@@ -117,6 +139,7 @@ export class CurrentRideComponent implements OnInit, OnDestroy {
               this.timer.stop();
               console.log("FINISHED");
               this.crSocketService.unsubscribeFromStartFinishResponse();
+              this.crSocketService.unsubscribeFromRideCancel();
               this.crSocketService.closeWebSocketConnection();
               this.resetLocalStorage();
               this.dialog.open(RideReviewComponent, {
@@ -179,6 +202,14 @@ export class CurrentRideComponent implements OnInit, OnDestroy {
     });
   }
 
+  cancelRide() {
+    this.dialog.open(ReejctionReasonDialogComponent, {
+      data: {
+        rideId: this.ride.id,
+        currentRide: true
+      }
+    });
+  }
 
 }
 
