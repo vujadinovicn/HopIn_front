@@ -18,6 +18,10 @@
   
       <div class="navbar-menu" id="open-navbar1">
         <div class="navbar-nav">
+            <div *ngIf="(role == 'ROLE_PASSENGER' || role == 'ROLE_DRIVER') && isCurrentRide" class="current-ride-btn" (click)="openCurrentRide()">
+              <mat-icon> directions_car</mat-icon>
+              <p>current</p>
+            </div>
             <a *ngIf="role != 'ROLE_ADMIN' && role != null" (click)="openHome(role)">Home</a>
             <div id="adminHome"><p *ngIf="hasNew">P</p><a *ngIf="role === 'ROLE_ADMIN'" (click)="openAdminHome()">Home</a></div>
             <a (click)="openAccount()" *ngIf="role === 'ROLE_PASSENGER' || role === 'ROLE_DRIVER'">Account</a>

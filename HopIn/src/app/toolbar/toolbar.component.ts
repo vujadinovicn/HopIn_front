@@ -1,3 +1,4 @@
+import { RideService, RideReturnedDTO } from './../services/ride.service';
 import { PanicService } from './../services/panic.service';
 import { UserService } from './../services/user.service';
 import { Panic, SocketService } from './../services/socket.service';
@@ -33,6 +34,7 @@ export class ToolbarComponent implements OnInit {
   workedMiliSecs: number = 0;
   panics: DisplayedPanic[] = [];
   hasNew: boolean = false;
+  isCurrentRide: boolean = false;
 
   constructor(private authService: AuthService,
     private router: Router,
@@ -41,7 +43,8 @@ export class ToolbarComponent implements OnInit {
     private socketService: SocketService,
     private userService: UserService,
     private panicService: PanicService,
-     private redirectionService: RedirectionService) { 
+     private redirectionService: RedirectionService,
+     private rideService: RideService) { 
     this.authService.getUser().subscribe((res) => {
       this.role = res;
     })
@@ -61,6 +64,18 @@ export class ToolbarComponent implements OnInit {
     this.panics = [];
     this.handleSmallScreens();
     this.subscribeToPanic();
+
+    this.rideService.getRide().subscribe((res: RideReturnedDTO) =>{
+      if (res != null) {
+        if (res.status == "ACCEPTED" || res.status == "STARTED") {
+          this.isCurrentRide = true;
+        } else {
+          this.isCurrentRide = false;
+        }
+
+      }
+    }
+    );
   }
 
   testInterval() {
@@ -97,13 +112,18 @@ export class ToolbarComponent implements OnInit {
       this.checked = false;
     }
     localStorage.removeItem('user');
-
+    this.resetLocalStorage();
     //DODATI OSTALE
     this.socketService.unsubscribeFromPanic();
     this.socketService.closeWebSocketConnection();
 
     this.authService.setUser();
     this.router.navigate(['login']);
+  }
+
+  resetLocalStorage() {
+    localStorage.removeItem('current_ride_started');
+    localStorage.removeItem('current_ride');
   }
 
   openAccount(): void {
@@ -232,6 +252,10 @@ export class ToolbarComponent implements OnInit {
   
   openHome(role: string) {
     this.redirectionService.openHome(role);
+  }
+
+  openCurrentRide() {
+    this.router.navigate(['current-ride']);
   }
 
 }

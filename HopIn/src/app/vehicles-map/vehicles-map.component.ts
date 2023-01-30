@@ -1,3 +1,4 @@
+import { AuthService } from './../services/auth.service';
 import { MapService } from './../services/map.service';
 import { PickupDestinationService } from './../services/pickup-destination.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
@@ -35,7 +36,8 @@ export class VehiclesMapComponent implements OnInit, OnDestroy {
               private driverService: DriverService, 
               private vehiclesMapService: VehiclesMapService,
               private rideService: RideService,
-              private rideSocketService: RideSocketService) { }
+              private rideSocketService: RideSocketService,
+              private authService: AuthService) { }
   
   ngOnInit(): void {
     this.mapService.getLoader().load().then(() => {
@@ -259,6 +261,10 @@ export class VehiclesMapComponent implements OnInit, OnDestroy {
   }
 
   public addMarker(lat: number, lng: number, title: string) {
+
+    if (this.authService.getRole() != 'ROLE_PASSENGER')
+      return;
+
     let map = this.map;
 
     if (title == 'Pickup') {
@@ -316,5 +322,10 @@ export class VehiclesMapComponent implements OnInit, OnDestroy {
 
   private updateCurrentMarker() {
     this.currentMarker == "Pickup"? this.currentMarker = "Destination": this.currentMarker = "Pickup";
+  }
+
+  public removeMarkers() {
+    this.pickup.setMap(null);
+    this.destination.setMap(null);
   }
 }
