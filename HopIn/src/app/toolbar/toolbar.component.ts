@@ -10,6 +10,7 @@ import { ThisReceiver } from '@angular/compiler';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {map, Subscription, timer} from 'rxjs';  
 import { DisplayedPanic } from '../admin-home/admin-home.component';
+import {Howl, Howler} from 'howler';
 
 
 @Component({
@@ -86,7 +87,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   logout(): void {
-    if (this.checked === true) {
+    if (this.role === 'ROLE_DRIVER' && this.checked === true) {
       this.setInactive();
       this.checked = false;
     }
@@ -163,6 +164,10 @@ export class ToolbarComponent implements OnInit {
         this.hasNew = true;
         this.panicService.updateHasNew(this.hasNew);
         if (this.role === 'ROLE_ADMIN') {
+          let sound = new Howl({
+            src: ['../../assets/audio/mixkit-wrong-answer-fail-notification-946.wav']
+          });
+          sound.play();
           this.snackBar.open("Someone pressed panic button!", "", {
             duration: 2000,
         });

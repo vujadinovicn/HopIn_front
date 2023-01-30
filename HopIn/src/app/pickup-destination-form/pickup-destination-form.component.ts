@@ -51,6 +51,14 @@ export class PickupDestinationFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.routingService.isFromHistory) {
+      this.rideForm.get("pickup")?.setValue(this.routingService.route.pickup.address);
+      this.rideForm.get("destination")?.setValue(this.routingService.route.destination.address);
+
+      // this.stepper.selected!.completed = true;
+      // this.stepper.next();
+      this.stepper.selectedIndex = 1;
+    }
     markFormControlsTouched(this.rideForm);
     this.listenToMarkers();
   }

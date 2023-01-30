@@ -1,6 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
-
+.timepicker-overlay {
+    z-index: 1100 !important;
+  }
+  
+  .timepicker-backdrop-overlay {
+    z-index: 1100 !important;
+  }
+  
 body {
     margin: 0;
     background-color: #F9F9F9;

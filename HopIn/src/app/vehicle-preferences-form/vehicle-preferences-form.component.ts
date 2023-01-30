@@ -24,6 +24,10 @@ export class VehiclePreferencesFormComponent implements OnInit {
               private dialog: MatDialog) { }
 
   ngOnInit(): void {
+    if(this.routingService.isFromHistory) {
+      this.routingService.isFromHistory = false;
+      this.disableOtherStepsEvent.emit();
+    }
   }
 
   changeVehicleType(vehicleType: string) : void {

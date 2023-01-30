@@ -1,3 +1,4 @@
+import { ScheduleDialogComponent } from './../schedule-dialog/schedule-dialog.component';
 import { FavouriteRoutesService } from './../favouriteRoutesService/favourite-routes.service';
 import { AuthService } from './../services/auth.service';
 import { ReviewService, CompleteRideReviewDTO } from './../services/review.service';
@@ -324,6 +325,18 @@ export class RideHistoryComponent implements OnInit {
     this.routingService.findRoute();
     this.router.navigate(['/ride-history-details']);
 
+  }
+
+  openDialog(index: number): void {
+    if (this._role != 'ROLE_PASSENGER') {return;}
+    const dialogRef = this.dialog.open(ScheduleDialogComponent, {
+      data: {pickUp: this.currentRidesToShow[index].locations[0].departure,
+             dest: this.currentRidesToShow[index].locations[0].destination}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      dialogRef.close();
+    });
   }
 
 
