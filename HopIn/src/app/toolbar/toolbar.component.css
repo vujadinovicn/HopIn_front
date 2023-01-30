@@ -17,6 +17,7 @@ nav {
     border-radius: 10px;
     margin-right: 10px;
     cursor: pointer;
+    margin-left: 10px;
 }
 
 .current-ride-btn p {

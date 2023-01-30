@@ -5,6 +5,8 @@
                 HopIn
             </a>
 
+            
+
             <mat-slide-toggle *ngIf="role === 'ROLE_DRIVER'" [(ngModel)]="checked" (change)="toggleChange()">
             </mat-slide-toggle>
 
@@ -16,9 +18,13 @@
             
         </div>  
   
+        <div *ngIf="(role == 'ROLE_PASSENGER') && isCurrentRide" class="current-ride-btn" (click)="openCurrentRide()">
+          <mat-icon> directions_car</mat-icon>
+          <p>current</p>
+        </div>
       <div class="navbar-menu" id="open-navbar1">
         <div class="navbar-nav">
-            <div *ngIf="(role == 'ROLE_PASSENGER' || role == 'ROLE_DRIVER') && isCurrentRide" class="current-ride-btn" (click)="openCurrentRide()">
+            <div *ngIf="(role == 'ROLE_DRIVER') && isCurrentRide" class="current-ride-btn" (click)="openCurrentRide()">
               <mat-icon> directions_car</mat-icon>
               <p>current</p>
             </div>
