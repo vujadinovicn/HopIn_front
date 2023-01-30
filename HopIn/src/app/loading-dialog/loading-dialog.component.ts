@@ -40,7 +40,7 @@ export class LoadingDialogComponent implements OnInit {
           this.rideService.setRide(res.ride);
           this.router.navigate(['current-ride']);
         },
-        5000);
+        3000);
       }
       else {
         this.dialogRef.disableClose = false;
