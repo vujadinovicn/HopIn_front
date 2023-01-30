@@ -81,6 +81,8 @@ import { RideReviewComponent } from './ride-review/ride-review.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { VehicleArrivedDialogComponent } from './vehicle-arrived-dialog/vehicle-arrived-dialog.component';
 import { RideCanceledDialogComponent } from './ride-canceled-dialog/ride-canceled-dialog.component';
+import { HomeAdminComponent } from './home-admin/home-admin.component';
+import { HomeDriverComponent } from './home-driver/home-driver.component';
 
 @NgModule({
   declarations: [
@@ -148,7 +150,9 @@ import { RideCanceledDialogComponent } from './ride-canceled-dialog/ride-cancele
     RideReviewComponent,
     AdminHomeComponent,
     VehicleArrivedDialogComponent,
-    RideCanceledDialogComponent
+    RideCanceledDialogComponent,
+    HomeAdminComponent,
+    HomeDriverComponent
   ],
   imports: [
     BrowserModule,

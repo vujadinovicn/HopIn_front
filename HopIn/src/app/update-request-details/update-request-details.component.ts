@@ -28,8 +28,7 @@ export class UpdateRequestDetailsComponent implements OnInit {
     phonenum: new FormControl(''),
   }, [])
 
-  driverTepPhotoUrl = '../../assets/driver.jpg';    
-  profileImgPath : string = "";
+  profileImgPath : string = '../assets/images/profile-placeholder.png';
 
   vehicleInfoForm = new FormGroup({
     model: new FormControl(''),

@@ -3,6 +3,8 @@ import { UserService } from './../services/user.service';
 import { Panic, SocketService } from './../services/socket.service';
 import { Message } from 'stompjs';
 import { WorkingHours, WorkingHoursService } from './../services/working-hours.service';
+import { RedirectionService } from './../services/redirection.service';
+import { SharedService } from './../shared/shared.service';
 import { AuthService } from './../services/auth.service';
 import { Component, ComponentFactoryResolver, EventEmitter, NgModuleRef,  OnInit, Output } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
@@ -38,7 +40,11 @@ export class ToolbarComponent implements OnInit {
     private workingHoursService: WorkingHoursService,
     private socketService: SocketService,
     private userService: UserService,
-    private panicService: PanicService) { 
+    private panicService: PanicService,
+     private redirectionService: RedirectionService) { 
+    this.authService.getUser().subscribe((res) => {
+      this.role = res;
+    })
   }
 
   ngOnInit(): void {
@@ -94,6 +100,7 @@ export class ToolbarComponent implements OnInit {
 
     //DODATI OSTALE
     this.socketService.unsubscribeFromPanic();
+    this.socketService.closeWebSocketConnection();
 
     this.authService.setUser();
     this.router.navigate(['login']);
@@ -221,6 +228,10 @@ export class ToolbarComponent implements OnInit {
   public formatDate(dateStr: string): string {
     let date = new Date(dateStr);
     return "at " + date.getHours() + ":" + date.getMinutes() + ", " + date.getDate() + "." + date.getMonth() + "." + date.getFullYear();
+  }
+  
+  openHome(role: string) {
+    this.redirectionService.openHome(role);
   }
 
 }

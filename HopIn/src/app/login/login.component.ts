@@ -1,9 +1,10 @@
 import { SocketService } from './../services/socket.service';
+import { RedirectionService } from './../services/redirection.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'login',
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService, 
     private router: Router,
     public snackBar: MatSnackBar,
-    private socketService: SocketService) { }
+    private socketService: SocketService,
+    private redirectionService: RedirectionService) { }
 
   ngOnInit(): void {
   }
@@ -39,11 +41,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('user', JSON.stringify(result.accessToken));
           localStorage.setItem('refreshToken', JSON.stringify(result.refreshToken));
           this.authService.setUser();
-          if (this.authService.getRole() === 'ROLE_ADMIN') {
-            this.router.navigate(['/admin-home']);
-          } else {
-            this.router.navigate(['/order-ride']);
-          }
+          this.redirectionService.openHome(this.authService.getRole());
         },
         error: (error) => {
           console.log(error)
@@ -54,5 +52,4 @@ export class LoginComponent implements OnInit {
       });
     }
   }
-
 }

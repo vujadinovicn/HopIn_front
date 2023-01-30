@@ -1,3 +1,4 @@
+import { AuthService } from './../services/auth.service';
 import { PasswordRequest, RequestDetailsService } from './../services/requestDetails.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -27,8 +28,8 @@ export class RequestFeedbackComponent implements OnInit {
     }
   }
 
-  constructor(private requestDetialsService: RequestDetailsService) {
-    this.role = requestDetialsService.role;
+  constructor(private requestDetialsService: RequestDetailsService, private authService: AuthService) {
+    this.role = authService.getRole();
   }
 
   ngOnInit(): void {
