@@ -2,6 +2,8 @@ import { AuthService } from './../services/auth.service';
 import { FavouriteRoutesService } from './../favouriteRoutesService/favourite-routes.service';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ScheduleDialogComponent } from '../schedule-dialog/schedule-dialog.component';
 
 @Component({
   selector: 'favourite-routes',
@@ -16,7 +18,8 @@ export class FavouriteRoutesComponent implements OnInit {
 
   constructor( private service: FavouriteRoutesService,
     public snackBar: MatSnackBar,
-    private authService: AuthService) {}
+    private authService: AuthService,
+    private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this._id = this.authService.getId();
@@ -55,6 +58,17 @@ export class FavouriteRoutesComponent implements OnInit {
           duration: 2000,
        });
       } 
+    });
+  }
+
+  openDialog(index: number): void {
+    const dialogRef = this.dialog.open(ScheduleDialogComponent, {
+      data: {pickUp: this.routes[index].departure,
+             dest: this.routes[index].destination}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      dialogRef.close();
     });
   }
 

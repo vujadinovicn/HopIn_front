@@ -83,6 +83,7 @@ import { VehicleArrivedDialogComponent } from './vehicle-arrived-dialog/vehicle-
 import { RideCanceledDialogComponent } from './ride-canceled-dialog/ride-canceled-dialog.component';
 import { HomeAdminComponent } from './home-admin/home-admin.component';
 import { HomeDriverComponent } from './home-driver/home-driver.component';
+import { ScheduleDialogComponent } from './schedule-dialog/schedule-dialog.component';
 
 @NgModule({
   declarations: [
@@ -152,7 +153,8 @@ import { HomeDriverComponent } from './home-driver/home-driver.component';
     VehicleArrivedDialogComponent,
     RideCanceledDialogComponent,
     HomeAdminComponent,
-    HomeDriverComponent
+    HomeDriverComponent,
+    ScheduleDialogComponent
   ],
   imports: [
     BrowserModule,

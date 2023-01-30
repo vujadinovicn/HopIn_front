@@ -21,7 +21,7 @@
         </div>
         
         <div id="btnAndHeart">
-            <button></button>
+            <button (click)="openDialog(indexOfelement)"></button>
 
             <div *ngIf="this.isFavourite[indexOfelement] === true" (click)="removeRoute(indexOfelement)">                
                 <img class="favourite" src="../../assets/vectors/heart_red.svg">

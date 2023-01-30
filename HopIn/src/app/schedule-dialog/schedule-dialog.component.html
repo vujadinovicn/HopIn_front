@@ -1,0 +1,18 @@
+<div id="dialog">
+    <h2>HopIn this ride again?</h2>
+    <p>You are about to create a new ride using these locations from your favorites.</p>
+    <div id="pickup-time">
+        <mat-form-field>
+            <mat-label>Schedule for later</mat-label>
+            <input matInput [ngxTimepicker]="picker" [format]="24" formControlName="time" >
+            <mat-icon class="location-icon" matPrefix>watch_later</mat-icon>
+            <ngx-material-timepicker #picker></ngx-material-timepicker>
+            <mat-error *ngIf="rideForm.get('time')?.errors?.['timeFormatError']">expected format: hh:mm, 24h clock</mat-error>
+            <mat-error *ngIf="rideForm.get('time')?.errors?.['timeNotAlowed']">schedule max 5h in advance</mat-error>
+        </mat-form-field>
+    </div>
+    <div id="btns" mat-dialog-actions align="center">
+        <button mat-button class="conf-button" (click)="cancel()">Cancel</button>
+        <button mat-button class="conf-button" (click)="next()">Next</button>
+    </div>
+</div>

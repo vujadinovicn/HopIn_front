@@ -13,6 +13,7 @@ export class RoutingService {
 
   private subject = new Subject<Route>();
 
+  public isFromHistory: boolean = false;
   public route: Route = {} as Route;
   public response = new BehaviorSubject<any>({});
 

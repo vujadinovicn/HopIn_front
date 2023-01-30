@@ -205,10 +205,10 @@ export class SocketService {
                             height : 'fit-content'
                         })
                     });
-                // else {
-                //     if (this.authService.getRole() == "ROLE_ADMIN")
-                //         this.subscribeToPanic();
-                // }
+                else {
+                    // if (this.authService.getRole() == "ROLE_ADMIN")
+                    //     this.subscribeToPanic();
+                }
             }
             // if (localStorage.getItem('current_ride') != null) {
             //     let id: number = JSON.parse(localStorage.getItem('current_ride')!).id;
