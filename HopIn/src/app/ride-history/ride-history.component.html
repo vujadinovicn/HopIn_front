@@ -81,7 +81,7 @@
 
         <div id="right">
             <div class="row">
-                <div class="rightImgContainer"><img src="../../assets/vectors/chatIcon.svg"></div>
+                <div class="rightImgContainer" (click)="openDialog(indexOfelement)"><img src="../../assets/vectors/wheel.svg"></div>
                 <div *ngIf="this.currentIsFavoriteRoutesToShow[indexOfelement] === true && this._role === 'ROLE_PASSENGER'" class="rightImgContainer" (click)="removeRoute(indexOfelement)"><img src="../../assets/vectors/heart_red.svg"></div>
                 <div *ngIf="this.currentIsFavoriteRoutesToShow[indexOfelement] === false && this._role === 'ROLE_PASSENGER'" class="rightImgContainer" (click)="returnRoute(indexOfelement)"><img src="../../assets/vectors/heart_empty.svg"></div>
             </div>
