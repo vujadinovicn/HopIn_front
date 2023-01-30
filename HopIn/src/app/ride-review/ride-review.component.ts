@@ -46,13 +46,14 @@ export class RideReviewComponent implements OnInit {
           color: "back-green"
         }
         );
-        this.dialogRef.close();
+        this.dialogRef.close({success: true});
       },
       error: (error) => {
         this.sharedService.openSnack({
           value: error,
           color: "back-red"
         })
+        this.dialogRef.close({success: false})
       }
     });
   }

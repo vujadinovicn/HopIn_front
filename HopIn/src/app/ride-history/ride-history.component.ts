@@ -200,14 +200,17 @@ export class RideHistoryComponent implements OnInit {
     }
   }
 
-  leaveRating(index: number){
+  leaveRating(index: number){ 
     let dialog = this.dialog.open(RideReviewComponent, {
       data: {rideId: this.rides[index].id},
       width: 'fit-content',
       height : 'fit-content'
   })
   dialog.afterClosed().subscribe((result) => {
-    (<HTMLInputElement> document.getElementById("btn"+index)).classList.add("disabled");
+    if (result.success == true){
+      (<HTMLInputElement> document.getElementById("btn"+index)).classList.add("disabled");
+    }
+  
   });
 
   }

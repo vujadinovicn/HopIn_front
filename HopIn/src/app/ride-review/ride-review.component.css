@@ -45,16 +45,20 @@
     display: flex;
     justify-content: space-between;
 }
-
 #text-area-container {
     height: 180px;
 }
 
 .leave-comment-container{
     margin-top: -10px;
-    width: 400px;
     padding-bottom: 20px;
 }
+
+@media (min-width: 570px) {
+    .leave-comment-container{
+        width: 400px;
+    }
+  }
 
 #stars {
     margin-right: 8px;
@@ -79,3 +83,35 @@ button {
 .mat-error{
     margin-top: 10px;
 }
+
+@media (max-width: 600px) {
+    #ride-review-container {
+         width: auto;
+    }
+}
+
+
+@media (max-width: 580px) {
+    .rating-title{
+        margin-left: 0;
+    }
+
+    .above-textarea-container{
+        display: block;
+    }
+    #stars {
+        margin-right: 25px;
+    }
+
+    .separate-rating-container {
+        padding: 20px;
+    }
+
+    ::ng-deep mat-form-field {
+        width: 100% !important;
+    }
+
+    ::ng-deep .mat-error{
+        font-size: 12px;
+    }
+  }
