@@ -55,6 +55,11 @@ p {
     font-size: 0.6em;
 }
 
+.firstRow img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
 
 button {
     background-color: #A8201A;

@@ -7,6 +7,24 @@ nav {
     font-weight: bold;
 }
 
+.current-ride-btn {
+    display: flex;
+    background-color: #29C325;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.current-ride-btn p {
+    margin: 0;
+    margin-left: 5px;
+}
+
 a {
     text-decoration: none;
 }
@@ -151,6 +169,7 @@ a {
 /* SCREEN DIFFERENCE */
 
 /* signUp button */
+
 @media screen and (min-width: 900px) {
     #signUp {
         background-color: white;
@@ -167,6 +186,10 @@ a {
 
 
 @media screen and (max-width: 900px) {
+    .current-ride-btn {
+        border-radius: 0;
+        margin-right: 0;
+    }
     .navbar-toggler {
         display: block;
         background-color: #1E4A5A;

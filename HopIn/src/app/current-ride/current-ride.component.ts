@@ -66,15 +66,17 @@ export class CurrentRideComponent implements OnInit, OnDestroy {
     }); 
     if (localStorage.getItem('current_ride') != null) {
       this.rideService.setRide(JSON.parse(localStorage.getItem('current_ride')!) as RideReturnedDTO);
+      this.ride = JSON.parse(localStorage.getItem('current_ride')!) as RideReturnedDTO;
+      if (localStorage.getItem('current_ride_started') != null) {
+        this.started = localStorage.getItem('current_ride_started')! == "true";
+      }
+  
+      if (this.ride != null && this.started) {
+        this.timerStartTime = Math.floor((Date.now() - Date.parse(this.ride.startTime))/1000);
+      }
     }
 
-    if (localStorage.getItem('current_ride_started') != null) {
-      this.started = localStorage.getItem('current_ride_started')! == "true";
-    }
-
-    if (this.ride != null && this.started) {
-      this.timerStartTime = Math.floor((Date.now() - Date.parse(this.ride.startTime))/1000);
-    }
+    
   }
 
   subscribeToRideCanceled() {
@@ -131,6 +133,7 @@ export class CurrentRideComponent implements OnInit, OnDestroy {
       this.crSocketService.receivedStartFinishResponse().subscribe((res: RideReturnedDTO) => {
           if (res.status == "STARTED") {
             this.started = true;
+            this.rideService.setRide(res);
             localStorage.setItem('current_ride_started', "true");
             localStorage.setItem('current_ride', JSON.stringify(res));
             console.log("STARTED");
@@ -138,6 +141,7 @@ export class CurrentRideComponent implements OnInit, OnDestroy {
             if (res.status == "FINISHED") {
               this.timer.stop();
               console.log("FINISHED");
+              this.rideService.setRide(res);
               this.crSocketService.unsubscribeFromStartFinishResponse();
               this.crSocketService.unsubscribeFromRideCancel();
               this.crSocketService.closeWebSocketConnection();
@@ -161,7 +165,9 @@ export class CurrentRideComponent implements OnInit, OnDestroy {
     this.rideService.startRide(this.ride.id).subscribe({
       next: (res) => {
         this.started = true;
+        
         localStorage.setItem('current_ride_started', "true");
+        this.rideService.setRide(res);
         this.ride = res;
         localStorage.setItem('current_ride', JSON.stringify(this.ride));
         this.sharedService.openSnack({
@@ -182,6 +188,7 @@ export class CurrentRideComponent implements OnInit, OnDestroy {
     this.rideService.endRide(this.ride.id).subscribe({
       next: (res) => {
         this.timer.stop();
+        this.rideService.setRide(res);
         this.ride = res;
         this.sharedService.openSnack({
           value: "Ride finished!",

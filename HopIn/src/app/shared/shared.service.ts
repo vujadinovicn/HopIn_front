@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 
@@ -8,7 +9,7 @@ export class SharedService {
   private snackMessage$ = new Subject<any>();
   newSnackMessage$ = this.snackMessage$.asObservable();
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   openSnack(message: any) {
     this.snackMessage$.next(message);

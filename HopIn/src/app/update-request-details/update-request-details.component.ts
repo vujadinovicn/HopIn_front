@@ -28,8 +28,7 @@ export class UpdateRequestDetailsComponent implements OnInit {
     phonenum: new FormControl(''),
   }, [])
 
-  driverTepPhotoUrl = '../../assets/driver.jpg';    
-  profileImgPath : string = "";
+  profileImgPath : string = '../../assets/images/profile-placeholder.png';
 
   vehicleInfoForm = new FormGroup({
     model: new FormControl(''),
@@ -103,7 +102,11 @@ export class UpdateRequestDetailsComponent implements OnInit {
   private getPersonalInfoRequest() {
     this.requestDetailsService.getInfoRequestById(this.requestId).subscribe((res) => {
       this.setPersonalInfoFormValue(res);
-      this.profileImgPath = res.profilePicture;
+      if (res.profilePicture != null) {
+        this.profileImgPath = res.profilePicture;
+        
+        console.log(this.profileImgPath);
+      }
     });
   }
 

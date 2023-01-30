@@ -1,3 +1,4 @@
+import { AuthService } from './../services/auth.service';
 import { RequestDetailsService } from './../services/requestDetails.service';
 import { UpdateRequestService, DriverAccountUpdateRequest } from './../services/driver-update-request.service';
 import { Component, OnInit } from '@angular/core';
@@ -9,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UpdateRequestsDisplayComponent implements OnInit {
 
-  driverTepPhotoUrl = '../../assets/driver.jpg';
+  driverProfilePic = '../../assets/images/profile-placeholder.png';
 
   _role: String;
   currentOption: string = "pending";
@@ -20,13 +21,12 @@ export class UpdateRequestsDisplayComponent implements OnInit {
   requests: DriverAccountUpdateRequest[] = [];
 
   constructor(private service: UpdateRequestService,
-    private requestDetailsService: RequestDetailsService) {
-      this._role = requestDetailsService.role;
+    private requestDetailsService: RequestDetailsService, private authService: AuthService) {
+      this._role = this.authService.getRole();
+      console.log(this.authService.getId());
   }
 
   ngOnInit(): void {
-    // this.getPending();
-    // this.getProcessed();
     this.load();
     this.chooseOption('pending')
   }
@@ -49,7 +49,6 @@ export class UpdateRequestsDisplayComponent implements OnInit {
 
   public selectRequest(request: DriverAccountUpdateRequest) {
     this.selectedRequestId = request.id;
-    // ovde dodati kod za prikaz requesta preko id-a
     this.requestDetailsService.sendRequest(request);
     this.requestDetailsService.sendDetailsDisplayed(true);
     this.requestDetailsService.sendIsRequestSelected(true);
@@ -57,6 +56,9 @@ export class UpdateRequestsDisplayComponent implements OnInit {
 
   public formatDate(dateStr: string): string {
     let date = new Date(dateStr);
+    date.setMonth(date.getMonth() + 1);
+    if (date.getMonth() == 0)
+      date.setMonth(1);
     return "at " + date.getHours() + ":" + date.getMinutes() + ", " + date.getDate() + "." + date.getMonth() + "." + date.getFullYear();
   }
 
@@ -71,7 +73,7 @@ export class UpdateRequestsDisplayComponent implements OnInit {
         alert("Error fetching pending requests :(");
       }
     };
-    let getFunc = this._role == "admin"? this.service.getAllPending().subscribe(reaction): this.service.getAllPendingDriver(2).subscribe(reaction);
+    let getFunc = this._role == "ROLE_ADMIN"? this.service.getAllPending().subscribe(reaction): this.service.getAllPendingDriver(this.authService.getId()).subscribe(reaction);
   }
 
   private getProcessed() {
@@ -83,6 +85,6 @@ export class UpdateRequestsDisplayComponent implements OnInit {
         alert("Error fetching processed requests :(");
       }
     };
-    let getFunc = this._role == "admin"? this.service.getAllProcessedAdmin().subscribe(reaction): this.service.getAllProcessedDriver(2).subscribe(reaction);
+    let getFunc = this._role == "ROLE_ADMIN"? this.service.getAllProcessedAdmin().subscribe(reaction): this.service.getAllProcessedDriver(this.authService.getId()).subscribe(reaction);
   }
 }

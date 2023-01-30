@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from './user.service';
 
@@ -11,7 +11,7 @@ export class RequestDetailsService {
 
   public role: string = "admin";
 
-  private requestId = new BehaviorSubject<any>({});
+  private requestId = new Subject<any>();
   private detailsDisplayed = new BehaviorSubject<any>({});
   private isRequestSelected = new BehaviorSubject<any>({});
   

@@ -10,6 +10,8 @@ import { FormControl } from '@angular/forms';
 import { AdminReportsComponent } from './../app/admin-reports/admin-reports.component';
 import { OrderRideNotregisteredComponent } from './../app/order-ride-notregistered/order-ride-notregistered.component';
 import { InviteFriendsFormComponent } from './../app/invite-friends-form/invite-friends-form.component';
+import { HomeDriverComponent } from './../app/home-driver/home-driver.component';
+import { HomeAdminComponent } from './../app/home-admin/home-admin.component';
 import { RegistrationVerificationComponent } from './../app/registration-verification/registration-verification.component';
 import { DriverRequestDashboardComponent } from './../app/driver-request-dashboard/driver-request-dashboard.component';
 import { RouteSuggestionComponent } from './../app/route-suggestion/route-suggestion.component';
@@ -40,6 +42,8 @@ const routes: Routes = [
   {path: 'reset-password', component: ResetPasswordComponent},
   {path: 'order-ride', component: OrderRideComponent},
   {path: 'order-ride-unreg', component: OrderRideNotregisteredComponent},
+  {path: 'home-admin', component: HomeAdminComponent},
+  {path: 'home-driver', component: HomeDriverComponent},
   {path: 'route-suggestion', component: RouteSuggestionComponent},
   {path: 'request-dashboard', component: DriverRequestDashboardComponent},
   {path: 'account-driver', component: DriverAccountComponent},
