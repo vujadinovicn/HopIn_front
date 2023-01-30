@@ -16,7 +16,7 @@ export class RequestFeedbackComponent implements OnInit {
   reason: String = '';
   admin: String = 'Grace Johns';
   date: String = '';
-  url: String = '../../assets/vectors/profileAvatar.svg';
+  url: String = '../../assets/images/profile-placeholder.png';
 
   onFileSelect(event: any){
     if (event.target.files){
@@ -59,7 +59,8 @@ export class RequestFeedbackComponent implements OnInit {
         this.reason = res.reason
         if(res.admin != null) {
           this.admin = res.admin.name + ' ' + res.admin.surname;
-          // this.url = res.admin.profilePicture;
+          if (res.admin.profilePicture != null)
+            this.url = res.admin.profilePicture;
         } 
         this.date = this.formatDate(res.time.toString());
       });
@@ -68,6 +69,9 @@ export class RequestFeedbackComponent implements OnInit {
 
   public formatDate(dateStr: string): string {
     let date = new Date(dateStr);
+    date.setMonth(date.getMonth() + 1);
+    if (date.getMonth() == 0)
+      date.setMonth(1);
     return "at " + date.getHours() + ":" + date.getMinutes() + ", " + date.getDate() + "." + date.getMonth() + "." + date.getFullYear();
   }
 

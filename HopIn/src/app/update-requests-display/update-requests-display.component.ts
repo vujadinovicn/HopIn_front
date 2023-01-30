@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UpdateRequestsDisplayComponent implements OnInit {
 
-  driverTepPhotoUrl = '../../assets/driver.jpg';
+  driverProfilePic = '../../assets/images/profile-placeholder.png';
 
   _role: String;
   currentOption: string = "pending";
@@ -56,6 +56,9 @@ export class UpdateRequestsDisplayComponent implements OnInit {
 
   public formatDate(dateStr: string): string {
     let date = new Date(dateStr);
+    date.setMonth(date.getMonth() + 1);
+    if (date.getMonth() == 0)
+      date.setMonth(1);
     return "at " + date.getHours() + ":" + date.getMinutes() + ", " + date.getDate() + "." + date.getMonth() + "." + date.getFullYear();
   }
 
