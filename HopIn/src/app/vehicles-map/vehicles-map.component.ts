@@ -3,7 +3,7 @@ import { PickupDestinationService } from './../services/pickup-destination.servi
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LatLng } from 'ngx-google-places-autocomplete/objects/latLng';
 import { ShortAddress } from '../services/routing.service';
-import { SocketService } from '../services/socket.service';
+import { Panic, SocketService } from '../services/socket.service';
 import { LocationNoId, Vehicle, VehicleService } from '../services/vehicle.service';
 import { LocationWithVehicleId, VehiclesMapService } from '../services/vehicles-map.service';
 import { DriverService } from '../services/driver.service';
@@ -11,6 +11,7 @@ import { L } from 'chart.js/dist/chunks/helpers.core';
 import { RideSocketService } from '../services/ride-socket.service';
 import { RideService } from '../services/ride.service';
 import { ColorService } from '../shared/color.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'vehicles-map',
@@ -35,7 +36,9 @@ export class VehiclesMapComponent implements OnInit, OnDestroy {
               private driverService: DriverService, 
               private vehiclesMapService: VehiclesMapService,
               private rideService: RideService,
-              private rideSocketService: RideSocketService) { }
+              private rideSocketService: RideSocketService,
+              private socketService: SocketService,
+              private authService: AuthService) { }
   
   ngOnInit(): void {
     this.mapService.getLoader().load().then(() => {
@@ -43,7 +46,10 @@ export class VehiclesMapComponent implements OnInit, OnDestroy {
       this.configureMap(); 
     });  
     this.configureSockets();
-    this.setMarkersForActiveVehiclesOnInit();     
+    this.setMarkersForActiveVehiclesOnInit();   
+    if (this.authService.getRole() == "ROLE_ADMIN") {
+      this.recievePanics();
+    }
   }
 
   private configureSockets() {
@@ -78,7 +84,12 @@ export class VehiclesMapComponent implements OnInit, OnDestroy {
 
     this.rideSocketService.receivedRideFinished().subscribe((driverId: any) => {
       this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
-        this.changeMarkerColor(vehicle, this.colorService.green);
+        if (this.vehicleMarkers[vehicle.id].icon == "../../assets/vectors/alert-circle.svg"){
+          this.vehicleMarkers[vehicle.id].icon = this.getIcon(this.colorService.green);
+          this.vehicleMarkers[vehicle.id].setIcon(this.vehicleMarkers[vehicle.id].icon);
+        } else {
+          this.changeMarkerColor(vehicle, this.colorService.green);
+        }
       })
     })
   }
@@ -135,6 +146,20 @@ export class VehiclesMapComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  recievePanics(){
+    this.socketService.receivedPanic().subscribe((res: Panic) => {
+      let rideId  = res.ride.id;
+      this.rideService.getRideById(rideId).subscribe((res: any) => {
+        let driverId = res.driver.id;
+        this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
+          // let map = this.map;
+          this.vehicleMarkers[vehicle.id].icon = "../../assets/vectors/alert-circle.svg";
+          this.vehicleMarkers[vehicle.id].setIcon(this.vehicleMarkers[vehicle.id].icon);
+      })
+  })
+  })
+}
 
   ngOnDestroy(): void {
     this.unsubscribeFromVehiclesMapSockets();

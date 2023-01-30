@@ -57,6 +57,10 @@ export class RideService {
   panicRide(rideId: number, reason: ReasonDTO): Observable<RideReturnedDTO> {
     return this.http.put<any>(environment.apiHost + "/ride/" + rideId + "/panic", reason);
   }
+
+  getRideById(rideId: number): Observable<RideReturnedDTO>{
+    return this.http.get<any>(environment.apiHost + "/ride/" + rideId);
+  }
 }
 
 export interface AllRidesDTO {
