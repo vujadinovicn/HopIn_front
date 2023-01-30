@@ -26,6 +26,7 @@ export class PickupDestinationFormComponent implements OnInit {
   odl_addr: String[] = [];
   notValid: Boolean[] = [false, false];
   markerGenerated: Boolean[] = [false, false];
+  isFavorite = false;
 
   rideForm = new FormGroup({
     pickup: new FormControl('', [Validators.required, autocompleteValidator(this, 0)]),

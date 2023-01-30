@@ -1,4 +1,10 @@
 <div id="unreg-ride-container" class="border">
+    <div id="heart" *ngIf="this.isFavorite === true">                
+        <img class="favourite" src="../../assets/vectors/heart_red.svg">
+    </div>
+    <div id="heart" *ngIf="this.isFavorite === false" >
+        <img class="favourite" src="../../assets/vectors/heart_empty.svg">
+    </div>
     <h3 id="tell-us" class="dark-blue">Tell us about the ride:</h3>
     <form [formGroup]="rideForm" (ngSubmit)="findRoute()">
         <mat-form-field id="pickup-loc-mat">
