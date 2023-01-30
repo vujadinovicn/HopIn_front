@@ -24,3 +24,8 @@ def is_ride_finished(rideId):
     if response.status_code == 200 and response.json()["status"] == "FINISHED":
         return True
     return False
+
+def update_timer(rideId, timer):
+    requests.put(url="http://localhost:4321/api/vehicle/" + str(rideId) + "/timer", json={
+        'timer': timer
+    })
