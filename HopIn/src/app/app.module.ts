@@ -71,9 +71,16 @@ import { BlockUserDetailsComponent } from './block-user-details/block-user-detai
 import { UsersDashboardComponent } from './users-dashboard/users-dashboard.component';
 import { NotesDisplayComponent } from './notes-display/notes-display.component';
 import { AddNoteDialogComponent } from './add-note-dialog/add-note-dialog.component';
-import { ReejctionReasonDialogComponent } from './rejection-reason-dialog/rejection-reason-dialog.component';
 import { LoadingDialogComponent } from './loading-dialog/loading-dialog.component';
+import { CurrentRideComponent } from './current-ride/current-ride.component';
+import { CdTimerModule } from 'angular-cd-timer';
+import { ReejctionReasonDialogComponent } from './rejection-reason-dialog/rejection-reason-dialog.component';
+import { PanicReasonDialogComponent } from './panic-reason-dialog/panic-reason-dialog.component';
+
 import { RideReviewComponent } from './ride-review/ride-review.component';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
+import { VehicleArrivedDialogComponent } from './vehicle-arrived-dialog/vehicle-arrived-dialog.component';
+import { RideCanceledDialogComponent } from './ride-canceled-dialog/ride-canceled-dialog.component';
 
 @NgModule({
   declarations: [
@@ -136,7 +143,12 @@ import { RideReviewComponent } from './ride-review/ride-review.component';
     AddNoteDialogComponent,
     ReejctionReasonDialogComponent,
     LoadingDialogComponent,
-    RideReviewComponent
+    CurrentRideComponent,
+    PanicReasonDialogComponent,
+    RideReviewComponent,
+    AdminHomeComponent,
+    VehicleArrivedDialogComponent,
+    RideCanceledDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -151,6 +163,7 @@ import { RideReviewComponent } from './ride-review/ride-review.component';
     NgxMaterialTimepickerModule,
     GooglePlaceModule,
     CommonModule,
+    CdTimerModule,
     NgxStarRatingModule,
     
     

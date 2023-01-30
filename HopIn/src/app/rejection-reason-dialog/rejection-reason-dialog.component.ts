@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { SharedService } from './../shared/shared.service';
 import { RideService, ReasonDTO } from './../services/ride.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
@@ -10,16 +12,23 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class ReejctionReasonDialogComponent implements OnInit {
 
+  isCurrentRide = false;
+
   rejectionReasonForm = new FormGroup({
     reason: new FormControl('', [Validators.required])
   });
 
   constructor(public dialogRef: MatDialogRef<ReejctionReasonDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private rideService: RideService)
+    private rideService: RideService,
+    private sharedService: SharedService,
+    private router: Router)
     { }
 
   ngOnInit(): void {
+    if (this.data.currentRide) {
+      this.isCurrentRide = true;
+    }
   }
 
   submitRejectionReason() {
@@ -30,9 +39,24 @@ export class ReejctionReasonDialogComponent implements OnInit {
       }
       this.rideService.declineRide(this.data.rideId, reason).subscribe();
       this.dialogRef.close();
-      this.data.parent.close();
+      if (this.data.currentRide != null && this.data.currentRide) {
+        this.resetLocalStorage();
+        this.router.navigate(['']);
+      } else {
+        this.data.parent.close();
+      }
+      
+      this.sharedService.openSnack({
+        value: "Ride canceled successfully!",
+        color: "back-green"
+      });
       console.log("POSLATO");
     }
+  }
+
+  resetLocalStorage() {
+    localStorage.removeItem('current_ride_started');
+    localStorage.removeItem('current_ride');
   }
 
 }

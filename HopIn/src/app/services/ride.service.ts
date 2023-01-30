@@ -11,7 +11,7 @@ import { Location } from '../favourite-routes/favourite-routes.component';
 export class RideService {
   constructor(private http: HttpClient) {}
 
-  ride$ = new BehaviorSubject(null);
+  public ride$ = new BehaviorSubject(null);
   rideState$ = this.ride$.asObservable();
 
   getRide(): Observable<any> {
@@ -45,6 +45,18 @@ export class RideService {
   declineRide(rideId: number, reason: ReasonDTO): Observable<RideReturnedDTO> {
     return this.http.put<any>(environment.apiHost + "/ride/" + rideId + "/cancel", reason);
   }
+
+  startRide(rideId: number): Observable<RideReturnedDTO> {
+    return this.http.put<any>(environment.apiHost + "/ride/" + rideId + "/start", null);
+  }
+
+  endRide(rideId: number): Observable<RideReturnedDTO> {
+    return this.http.put<any>(environment.apiHost + "/ride/" + rideId + "/end", null);
+  }
+
+  panicRide(rideId: number, reason: ReasonDTO): Observable<RideReturnedDTO> {
+    return this.http.put<any>(environment.apiHost + "/ride/" + rideId + "/panic", reason);
+  }
 }
 
 export interface AllRidesDTO {
@@ -54,8 +66,8 @@ export interface AllRidesDTO {
 
 export interface RideReturnedDTO {
     id: number,
-    startTime: String,
-    endTime: String,
+    startTime: string,
+    endTime: string,
     totalCost: number,
     driver: RidePassenger,
     passengers: RidePassenger[],
@@ -69,6 +81,7 @@ export interface RideReturnedDTO {
     scheduledTime: string,
     distanceFormatted: string,
     durationFormatted: string,
+    status: string
 }
 
 export interface RejectionNotice {

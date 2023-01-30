@@ -39,7 +39,11 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('user', JSON.stringify(result.accessToken));
           localStorage.setItem('refreshToken', JSON.stringify(result.refreshToken));
           this.authService.setUser();
-          this.router.navigate(['/order-ride']);
+          if (this.authService.getRole() === 'ROLE_ADMIN') {
+            this.router.navigate(['/admin-home']);
+          } else {
+            this.router.navigate(['/order-ride']);
+          }
         },
         error: (error) => {
           console.log(error)

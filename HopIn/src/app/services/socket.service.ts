@@ -1,3 +1,4 @@
+import { RideReturnedDTO } from './ride.service';
 import { Route } from './routing.service';
 import { InviteDialogComponent } from './../invite-dialog/invite-dialog.component';
 import { RideDTO } from './route.service';
@@ -12,12 +13,12 @@ import { SanityChecks } from '@angular/material/core';
 import { User } from './user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { JsonPipe } from '@angular/common';
-import { RideReturnedDTO } from './ride.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SocketService {
+    
     
     url: string = environment.apiHost + "/socket";
     ws: any;
@@ -28,8 +29,20 @@ export class SocketService {
     private inviteResponse = new Subject<InviteResponse>();
     invitesResSubs: any;
 
-    private offerResponse = new Subject<Boolean>();
+    private offerResponse = new Subject<RideOfferResponseDTO>();
     offerResSubs: any;
+
+    private startFinishResponse = new Subject<string>();
+    startFinishSub: any;
+    
+    private panic = new Subject<Panic>();
+    panicSubs: any;
+
+    private arrivalTime = new Subject<TimerDTO>();
+    arrivalTimeSubs: any;
+
+    private vehicleArrival = new Subject<string>();
+    vehicleArrivalSub: any;
 
     constructor(private http: HttpClient, private authService: AuthService, private dialog: MatDialog) { }
 
@@ -47,15 +60,88 @@ export class SocketService {
         });
     }
 
+    subscribeToArrivalTime(rideId: number) {
+        this.arrivalTimeSubs = this.stompClient.subscribe("/topic/arrival-time/" + rideId, (message: Message) => {
+            this.updateArrivalTime(JSON.parse(message.body));
+        });
+    }
+
+    unsubscribeFromArrivalTime() {
+        if (this.arrivalTimeSubs != undefined)
+            this.arrivalTimeSubs.unsubscribe();
+    }
+
+    receivedArrivalTime() {
+        return this.arrivalTime.asObservable();
+    }
+
+    updateArrivalTime(res: TimerDTO) {
+        console.log("#############################")
+        console.log(res);
+        console.log("#############################")
+        this.arrivalTime.next(res);
+    }
+
+    subscribeToPanic() {
+        this.panicSubs = this.stompClient.subscribe("/topic/panic", (message: Message) => {
+            this.updatePanic(JSON.parse(message.body));
+        });
+    }
+
+    unsubscribeFromPanic() {
+        if (this.panicSubs != undefined)
+            this.panicSubs.unsubscribe();
+    }
+
     unsubscribeFromInviteResponse() {
         if (this.invitesResSubs != undefined)
             this.invitesResSubs.unsubscribe();
     }
 
+    subscribeRideStartFinish(driverId: number) {
+        this.startFinishSub = this.stompClient.subscribe("/topic/ride-start-finish/" + driverId, (message: Message) =>  {
+            this.updateStartFinishResponse(message.body);
+        });   
+    }
+
+    unsubscribeFromStartFinishResponse() {
+        if (this.startFinishResponse != undefined)
+            this.startFinishResponse.unsubscribe();
+    }
+
+    receivedStartFinishResponse() {
+        return this.startFinishResponse.asObservable();
+    }
+
+    updateStartFinishResponse(res: string) {
+        this.startFinishResponse.next(res);
+    }
+
+    subscribeToVehicleArrival(rideId: number) {
+        this.vehicleArrivalSub = this.stompClient.subscribe("/topic/vehicle-arrival/" + rideId, (message: Message) =>  {
+            this.updateVehicleArrival(message.body);
+        });   
+    }
+
+    unsubscribeFromVehicleArrival() {
+        if (this.vehicleArrivalSub != undefined)
+            this.vehicleArrivalSub.unsubscribe();
+    }
+
+    receivedVehicleArrival() {
+        return this.vehicleArrival.asObservable();
+    }
+
+    updateVehicleArrival(res: string) {
+        this.vehicleArrival.next(res);
+    }
+
+
     sendInviteResponse(res: InviteResponse, to: number) {
         this.stompClient.send("/ws/send/invite-response/" + to, {}, JSON.stringify(res));
     }
 
+    
     receivedInviteResponse() {
         return this.inviteResponse.asObservable();
     }
@@ -66,7 +152,7 @@ export class SocketService {
     receivedOfferResponse() {
         return this.offerResponse.asObservable();
     }
-    updateOfferResponse(res: Boolean) {
+    updateOfferResponse(res: RideOfferResponseDTO) {
         this.offerResponse.next(res);
     }
 
@@ -79,6 +165,13 @@ export class SocketService {
     unsubscribeFromOfferResponse() {
         if (this.offerResSubs != undefined)
             this.offerResSubs.unsubscribe();
+    }
+    
+    receivedPanic() {
+        return this.panic.asObservable();
+    }
+    updatePanic(res: Panic) {
+        this.panic.next(res);
     }
 
     openWebSocketConnection() {
@@ -111,7 +204,19 @@ export class SocketService {
                             height : 'fit-content'
                         })
                     });
+                else {
+                    if (this.authService.getRole() == "ROLE_ADMIN")
+                        this.subscribeToPanic();
+                }
             }
+            // if (localStorage.getItem('current_ride') != null) {
+            //     let id: number = JSON.parse(localStorage.getItem('current_ride')!).id;
+            //     this.subscribeRideStartFinish(JSON.parse(localStorage.getItem('current_ride')!).driver.id);
+            //     this.subscribeToArrivalTime(id);
+            //     if (this.authService.getRole() == "ROLE_PASSENGER")
+            //         this.subscribeToVehicleArrival(id);
+            // }
+            
         });
     }
 
@@ -131,4 +236,31 @@ export interface RideInvite {
 export interface InviteResponse {
     passengerId: number,
     response: boolean
+}
+
+export interface RideOfferResponseDTO {
+    response: boolean,
+    ride: RideReturnedDTO
+}
+
+export interface UserInPanic {
+    name: string,
+    surname: string,
+    profilePictue: string,
+    telephoneNumber: string,
+    email: string,
+    address: string,
+    role: string
+}
+
+export interface Panic {
+    id: number,
+    user: UserInPanic,
+    ride: RideReturnedDTO,
+    time: string,
+    reason: string
+}
+
+export interface TimerDTO {
+    timer: number
 }

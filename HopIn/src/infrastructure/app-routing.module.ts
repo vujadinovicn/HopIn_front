@@ -1,3 +1,4 @@
+import { CurrentRideComponent } from './../app/current-ride/current-ride.component';
 import { UsersDashboardComponent } from './../app/users-dashboard/users-dashboard.component';
 import { BlockUserDetailsComponent } from './../app/block-user-details/block-user-details.component';
 import { UsersDisplayComponent } from './../app/users-display/users-display.component';
@@ -29,9 +30,10 @@ import { AdminRequestDetailsContainerComponent } from 'src/app/admin-request-det
 import { DriverRegisterPersonalInfoComponent } from 'src/app/driver-register-personal-info/driver-register-personal-info.component';
 import { DriverRegisterComponent } from 'src/app/driver-register/driver-register.component';
 import { RideReviewComponent } from 'src/app/ride-review/ride-review.component';
+import { AdminHomeComponent } from 'src/app/admin-home/admin-home.component';
 
 const routes: Routes = [
-  {path: '', component: RideReviewComponent},
+  {path: '', component: LandingComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'verify', component: RegistrationVerificationComponent},
@@ -45,13 +47,15 @@ const routes: Routes = [
   {path: 'account-admin', component: AdminAccountComponent},
   {path: 'users-dashboard', component: UsersDashboardComponent},
   {path: 'admin-reports', component: AdminReportsComponent},
+  {path: 'admin-home', component: AdminHomeComponent},
   {path: 'ride-history', component: RideHistoryComponent},
   {path: 'ride-history-details', component: RideHistoryDetailsComponent},
   {path: 'account-settings', component: AccountUpdateComponent},
   {path: 'change-password', component: ChangePasswordComponent},
   {path:'change-payment-info', component: ChangePaymentInfoComponent},
   {path:'forgot-password', component: ForgotPasswordComponent},
-  {path: '**', component: RideReviewComponent}
+  {path:'current-ride', component: CurrentRideComponent},
+  {path: '**', component: LandingComponent}
 ];
 
 @NgModule({

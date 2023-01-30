@@ -1,0 +1,14 @@
+<div>
+    <h1 mat-dialog-title align="center" class="dark-blue">Ride PANIC reason</h1>
+      <div mat-dialog-content align="center">
+        <form [formGroup]="panicReasonForm">
+            <mat-form-field >
+                <mat-label>Reason</mat-label>
+                <input matInput type="text" name="reason" formControlName="reason" placeholder="Reason..." />
+                <mat-error *ngIf="panicReasonForm.get('reason')?.errors?.['required']">entering reason is required</mat-error>
+            </mat-form-field>
+        </form>
+      <div mat-dialog-actions align="center">
+        <button mat-button class="conf-button back-green" (click)="submitPanicReason()">Submit</button>
+      </div>
+</div>

@@ -167,6 +167,7 @@ export class RideHistoryComponent implements OnInit {
   }
 
   getRatings() {
+    console.log(this.rides);
     this.ratings = new Array(this.rides.length).fill(0);
     this.currentRatingsToShow = [];
     for (let i = 0; i < this.rides.length; i++) {
@@ -192,6 +193,8 @@ export class RideHistoryComponent implements OnInit {
             this.ratings[i] = Math.round(sum/counter);
           }
           this.currentRatingsToShow = this.ratings;
+          console.log(this.currentRatingsToShow);
+          
         },
         error: (error: any) => {
           console.log(error)
