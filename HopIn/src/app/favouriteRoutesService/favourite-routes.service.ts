@@ -39,8 +39,12 @@ export class FavouriteRoutesService {
     return this.http.post<void>(environment.apiHost + '/passenger/' + passengerId + '/return/route?routeId=' + routeId, null)
   }
 
-  addNewFavoriteRoute(passengerId: number, route: FavouriteRoute): Observable<void> {
-    return this.http.post<void>(environment.apiHost + '/passenger/' + passengerId + '/add/route', route);
+  addNewFavoriteRoute(passengerId: number, route: FavouriteRoute): Observable<any> {
+    return this.http.post<FavRouteId>(environment.apiHost + '/passenger/' + passengerId + '/add/route', route);
   }
 
+}
+
+export interface FavRouteId {
+  id: number
 }

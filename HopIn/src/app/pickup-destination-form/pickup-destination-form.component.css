@@ -4,6 +4,8 @@
     background-color: white;
     text-align: center;
     padding-bottom: 25px;
+    display: flex;
+    flex-direction: column;
 }
 
 h3 {
@@ -11,7 +13,7 @@ h3 {
 }
 
 #tell-us {
-    margin-top: 20px;
+    margin-top: 0px;
 }
 
 #find-route-btn {
@@ -80,4 +82,17 @@ form {
     width: 280px !important;
     margin-left: -33px !important;
     margin-top: 3px !important;
+}
+
+.favourite {
+    margin-top: 15px;
+    margin-right: 15px;
+}
+
+.favourite:hover {
+    cursor: pointer;
+}
+
+#heart {
+    margin-left: auto;
 }
