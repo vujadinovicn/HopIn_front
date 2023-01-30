@@ -1,3 +1,4 @@
+import { CurrentRideSocketService } from './../services/current-ride-socket-service';
 import { VehicleArrivedDialogComponent } from './../vehicle-arrived-dialog/vehicle-arrived-dialog.component';
 import { Router } from '@angular/router';
 import { RideReviewComponent } from './../ride-review/ride-review.component';
@@ -33,25 +34,28 @@ export class CurrentRideComponent implements OnInit, OnDestroy {
               public sharedService: SharedService,
               public socketService: SocketService,
               private dialog: MatDialog,
-              private router: Router) {
+              private router: Router,
+              private crSocketService: CurrentRideSocketService) {
     this.role = authService.getRole();  
   }
 
   ngOnDestroy(): void {
-    this.resetLocalStorage();
+    // this.resetLocalStorage();  
   }
 
   ngOnInit(): void {
+    this.subscribeToStartFinish();
+    this.subscribeToArrivalTime();
+    this.subscribeToVehicleArrival();
+
+    this.crSocketService.openWebSocketConnection();
 
     this.rideService.getRide().subscribe((ride) => {
       if (ride != null) {
         this.ride = ride;
         localStorage.setItem('current_ride', JSON.stringify(this.ride));
+        this.crSocketService.openWebSocketConnection();
       }
-
-      this.subscribeToStartFinish();
-      this.subscribeToArrivalTime();
-      this.subscribeToVehicleArrival();
       
     }); 
     if (localStorage.getItem('current_ride') != null) {
@@ -73,19 +77,18 @@ export class CurrentRideComponent implements OnInit, OnDestroy {
   }
 
   subscribeToVehicleArrival() {
-    this.socketService.subscribeToVehicleArrival(this.ride.id);
-    this.socketService.receivedVehicleArrival().subscribe((res: string) => {
+    this.crSocketService.receivedVehicleArrival().subscribe((res: string) => {
       this.arrivalTime = "arrived!";
-      this.socketService.unsubscribeFromVehicleArrival();
-      this.socketService.unsubscribeFromArrivalTime();
-      if (this.authService.getRole() == "ROLE_PASSENGER")
+      this.crSocketService.unsubscribeFromVehicleArrival();
+      this.crSocketService.unsubscribeFromArrivalTime();
+      if (this.authService.getRole() == "ROLE_PASSENGER" && !this.started)
         this.dialog.open(VehicleArrivedDialogComponent);
     });
   }
 
   subscribeToArrivalTime() {
-    this.socketService.subscribeToArrivalTime(this.ride.id);
-    this.socketService.receivedArrivalTime().subscribe((res: TimerDTO) => {
+    this.crSocketService.receivedArrivalTime().subscribe((res: TimerDTO) => {
+      console.log("TIMEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
       this.arrivalTime = this.formatTime(res.timer);
     });
   }
@@ -103,16 +106,19 @@ export class CurrentRideComponent implements OnInit, OnDestroy {
 
   subscribeToStartFinish() {
     if (this.authService.getRole() == "ROLE_PASSENGER") {
-      this.socketService.subscribeRideStartFinish(this.ride.driver.id);
-      this.socketService.receivedStartFinishResponse().subscribe((res: string) => {
-          if (res == "start") {
+      this.crSocketService.receivedStartFinishResponse().subscribe((res: RideReturnedDTO) => {
+          if (res.status == "STARTED") {
             this.started = true;
+            localStorage.setItem('current_ride_started', "true");
+            localStorage.setItem('current_ride', JSON.stringify(res));
             console.log("STARTED");
           } else {
-            if (res == "finish") {
+            if (res.status == "FINISHED") {
               this.timer.stop();
               console.log("FINISHED");
-              this.socketService.unsubscribeFromStartFinishResponse();
+              this.crSocketService.unsubscribeFromStartFinishResponse();
+              this.crSocketService.closeWebSocketConnection();
+              this.resetLocalStorage();
               this.dialog.open(RideReviewComponent, {
                 data: {rideId: this.ride.id}
               });
@@ -159,8 +165,8 @@ export class CurrentRideComponent implements OnInit, OnDestroy {
           color: "back-green"
         });
 
-        this.socketService.unsubscribeFromStartFinishResponse();
-
+        this.crSocketService.unsubscribeFromStartFinishResponse();
+        this.resetLocalStorage();
         // alert("Ride finished successfully!");
         this.router.navigate([""]);
       },

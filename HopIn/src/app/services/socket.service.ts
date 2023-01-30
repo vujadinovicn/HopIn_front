@@ -209,13 +209,13 @@ export class SocketService {
                         this.subscribeToPanic();
                 }
             }
-            if (localStorage.getItem('current_ride') != null) {
-                let id: number = JSON.parse(localStorage.getItem('current_ride')!).id;
-                this.subscribeRideStartFinish(JSON.parse(localStorage.getItem('current_ride')!).driver.id);
-                this.subscribeToArrivalTime(id);
-                if (this.authService.getRole() == "ROLE_PASSENGER")
-                    this.subscribeToVehicleArrival(id);
-            }
+            // if (localStorage.getItem('current_ride') != null) {
+            //     let id: number = JSON.parse(localStorage.getItem('current_ride')!).id;
+            //     this.subscribeRideStartFinish(JSON.parse(localStorage.getItem('current_ride')!).driver.id);
+            //     this.subscribeToArrivalTime(id);
+            //     if (this.authService.getRole() == "ROLE_PASSENGER")
+            //         this.subscribeToVehicleArrival(id);
+            // }
             
         });
     }
