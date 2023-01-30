@@ -164,7 +164,7 @@ import { RideCanceledDialogComponent } from './ride-canceled-dialog/ride-cancele
     GooglePlaceModule,
     CommonModule,
     CdTimerModule,
-    NgxStarRatingModule,
+    NgxStarRatingModule
     
     
   ],

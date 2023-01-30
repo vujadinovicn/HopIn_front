@@ -33,7 +33,7 @@ export class FavouriteRoutesComponent implements OnInit {
   }
 
   removeRoute(index: number): void {
-    this.service.removeFavoriteRoute(index+1, this._id).subscribe({
+    this.service.removeFavoriteRoute(this.routes[index].id, this._id).subscribe({
       next: (res) => {
         this.isFavourite[index] = false;
       },

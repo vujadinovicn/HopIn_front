@@ -1,3 +1,4 @@
+import { FavouriteRoutesService } from './../favouriteRoutesService/favourite-routes.service';
 import { AuthService } from './../services/auth.service';
 import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
@@ -10,6 +11,8 @@ import { schedulingValidator } from '../validators/schedulingValidator';
 import { timeFormatValidator } from '../validators/timeFormatValidator';
 import { PickupDestinationService } from '../services/pickup-destination.service';
 import { markFormControlsTouched } from '../validators/formGroupValidators';
+import { FavouriteRoute } from '../favourite-routes/favourite-routes.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'pickup-destination-form',
@@ -26,6 +29,8 @@ export class PickupDestinationFormComponent implements OnInit {
   odl_addr: String[] = [];
   notValid: Boolean[] = [false, false];
   markerGenerated: Boolean[] = [false, false];
+  isFavorite: boolean = false;
+  favoriteId: number = 0;
 
   rideForm = new FormGroup({
     pickup: new FormControl('', [Validators.required, autocompleteValidator(this, 0)]),
@@ -34,11 +39,15 @@ export class PickupDestinationFormComponent implements OnInit {
   });
 
   role: any;
+  id: any;
   route: Route = {} as Route;
 
   constructor(private routingService: RoutingService, private router: Router,
-              private pickupDestinationService: PickupDestinationService, private authService: AuthService) { 
+              private pickupDestinationService: PickupDestinationService, private authService: AuthService,
+              private favoriteRouteService: FavouriteRoutesService,
+              public snackBar: MatSnackBar,) { 
     this.role = this.authService.getRole();
+    this.id = this.authService.getId();
   }
 
   ngOnInit(): void {
@@ -136,6 +145,43 @@ export class PickupDestinationFormComponent implements OnInit {
     let calcHours = Math.floor(totalMins/60);
     console.log(calcHours + ":" + (totalMins - calcHours*60))
     return calcHours + ":" + (totalMins - calcHours*60);
+  }
+
+
+  removeRoute(): void {
+    this.favoriteRouteService.removeFavoriteRoute(this.favoriteId, this.id).subscribe({
+      next: (res) => {
+        this.favoriteId = 0;
+        this.isFavorite = false;
+      },
+      error: (error: any) => {
+        this.snackBar.open("Sorry, server is currenty unavailable!", "", {
+          duration: 2000,
+       });
+      } 
+    });
+  }
+
+  returnRoute(): void {
+    let pickUp = this.route.pickup.address.split(',')[0];
+    let dest = this.route.destination.address.split(',')[0];
+    let favRoute: FavouriteRoute = {
+      id: 0,
+      distance: this.route.distance,
+      departure: {address: pickUp, latitude: this.route.pickup.latitude, longitude: this.route.pickup.longitude},
+      destination: {address: dest, latitude: this.route.destination.latitude, longitude: this.route.destination.longitude}
+    }
+    this.favoriteRouteService.addNewFavoriteRoute(this.id, favRoute).subscribe({
+      next: (res) => {
+        this.favoriteId = res.id;
+        this.isFavorite = true;
+      },
+      error: (error: any) => {
+        this.snackBar.open("Sorry, server is currenty unavailable!", "", {
+          duration: 2000,
+       });
+      } 
+    });
   }
 
 }

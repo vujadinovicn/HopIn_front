@@ -179,7 +179,6 @@ export class SocketService {
         this.stompClient = Stomp.over(this.ws);
         this.stompClient.connect({}, () => {
             this.isConnected = true;
-            // if (this.authService.getRole() == "ROLE_ADMIN")
             this.subscribeToPanic();
             if (this.authService.getRole() == "ROLE_PASSENGER")
                 this.stompClient.subscribe("/topic/invites/" + this.authService.getId(), (message: Message) => {
