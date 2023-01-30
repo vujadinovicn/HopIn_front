@@ -44,24 +44,28 @@ export class RatingsCardComponent implements OnInit {
       this.reviewService.getAll(this.ride.id).subscribe((r) => {
         this.reviews = [];
         this.passengers = [];
+        let index = 0;
         for(let doubleReview of r) {
           if (doubleReview.vehicleReview!=null) {
             this.reviews.push(doubleReview.vehicleReview);
-            this.getPassenger(doubleReview.vehicleReview)
+            index += 1;
+            this.getPassenger(doubleReview.vehicleReview, index-1)
           }
           if (doubleReview.driverReview!=null) {
             this.reviews.push(doubleReview.driverReview);
-            this.getPassenger(doubleReview.driverReview)
-
+            index += 1;
+            this.getPassenger(doubleReview.driverReview, index-1)
           }
         }
+        console.log(this.reviews);
+        console.log(this.passengers);
       })
     })
   }
 
-  getPassenger(review: Review): void {
+  getPassenger(review: Review, index: number): void {
     this.userService.getByPassengerId(review.passenger.id).subscribe((res) => {
-      this.passengers.push(res);
+      this.passengers.splice(index, 0, res);
     })
   }
 
@@ -76,12 +80,12 @@ export class RatingsCardComponent implements OnInit {
         let rev: ReviewDTO = {comment: this.reviewInfo.comment, rating: this.reviewInfo.rating}
         if (this.reviewInfo.isDriver) {
           this.reviewService.saveDriverReview(rev, this.ride.id).subscribe((res: Review) => {
-            this.getPassenger(res);
+            //this.getPassenger(res);
             this.reviews.push(res);
           });
         } else {
           this.reviewService.saveVehicleReview(rev, this.ride.id).subscribe((res: Review) => {
-            this.getPassenger(res);
+            //this.getPassenger(res);
             this.reviews.push(res);
           });
         }

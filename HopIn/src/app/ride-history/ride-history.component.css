@@ -140,7 +140,20 @@ img {
 
 }
 
+.leave-comment-btn{
+    color: white;
+    font-weight: 400 !important;
+    font-size: 14px;
+    padding: 0px 25px !important;
+    margin-top: 20px !important;
+    margin-right: 10px;
+    border-radius: 5px;
+}
 
+.disabled {
+    background-color: #D9D9D9 !important;
+    cursor: not-allowed;
+}
 /* ADMIN ROLE */
 /* #adminRideInfo {
     display: flex;

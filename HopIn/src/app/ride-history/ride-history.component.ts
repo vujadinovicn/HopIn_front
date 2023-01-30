@@ -13,6 +13,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatSortable, Sort } from '@angular/material/sort/sort';
 import { Router } from '@angular/router';
 import { Route, RoutingService, ShortAddress } from '../services/routing.service';
+import { MatDialog } from '@angular/material/dialog';
+import { RideReviewComponent } from '../ride-review/ride-review.component';
 @Component({
   selector: 'ride-history',
   templateUrl: './ride-history.component.html',
@@ -37,6 +39,7 @@ export class RideHistoryComponent implements OnInit {
   id_input: number = 0;
   isPassenger: boolean = false;
   selectedType: String = 'Sort';
+  notRated: boolean[] = [];
 
   emptyFavorite: FavouriteRoute = {
     id: 0,
@@ -52,8 +55,8 @@ export class RideHistoryComponent implements OnInit {
     public snackBar: MatSnackBar,
     private authService: AuthService,
     private router: Router,
-    private routingService: RoutingService) {
-
+    private routingService: RoutingService,
+    private dialog: MatDialog) {
    }
 
   ngOnInit(): void {
@@ -143,6 +146,26 @@ export class RideHistoryComponent implements OnInit {
     });
   }
 
+  checkIfPassengerReviewedRide(reviews: any, index: number){
+    if (this._role === 'ROLE_DRIVER')
+      return;
+    for (let review of reviews){
+      if (review.vehicleReview.passenger.id == this._id){
+        this.notRated[index] = false;
+        return;
+      }
+    }
+    this.notRated[index] = true;
+  }
+
+  haveThreeDaysPassedSinceEndOfRide(endTime: any){
+    let result = new Date(endTime);
+    result.setDate(result.getDate() + 3);
+    console.log(result)
+    console.log(new Date())
+    return result < new Date()
+  }
+
   getRatings() {
     console.log(this.rides);
     this.ratings = new Array(this.rides.length).fill(0);
@@ -150,7 +173,10 @@ export class RideHistoryComponent implements OnInit {
     for (let i = 0; i < this.rides.length; i++) {
       this.reviewService.getAll(this.rides[i].id).subscribe({
         next: (res) => {
-          console.log(res);
+          if (this.haveThreeDaysPassedSinceEndOfRide(this.rides[i].endTime))
+            this.notRated[i] = false;
+          else 
+            this.checkIfPassengerReviewedRide(res, i);
           let sum = 0;
           let counter = 0;
           for(let pair of res) {
@@ -175,6 +201,21 @@ export class RideHistoryComponent implements OnInit {
         } 
       });
     }
+  }
+
+  leaveRating(index: number){ 
+    let dialog = this.dialog.open(RideReviewComponent, {
+      data: {rideId: this.rides[index].id},
+      width: 'fit-content',
+      height : 'fit-content'
+  })
+  dialog.afterClosed().subscribe((result) => {
+    if (result.success == true){
+      (<HTMLInputElement> document.getElementById("btn"+index)).classList.add("disabled");
+    }
+  
+  });
+
   }
 
   setFavorites() {

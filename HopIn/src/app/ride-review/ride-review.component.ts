@@ -12,7 +12,8 @@ import { SharedService } from '../shared/shared.service';
 })
 export class RideReviewComponent implements OnInit {
 
-  current: number = 5;
+  driverRating: any = 0;
+  vehicleRating: any = 0;
   reviews: ReviewDTO[] = [];
 
   constructor(private rideReview: RideReviewService,
@@ -38,7 +39,7 @@ export class RideReviewComponent implements OnInit {
         this.sharedService.openInvalidInputSnack();
     }
   }
-
+  
   private submitCompleteReview() {
     this.rideReview.addCompleteReview(this.reviews, this.data.rideId).subscribe({
       next: (res) => {
@@ -47,7 +48,7 @@ export class RideReviewComponent implements OnInit {
           color: "back-green"
         }
         );
-        this.dialogRef.close();
+        this.dialogRef.close({success: true});
         this.router.navigate(["order-ride"]);
       },
       error: (error) => {
@@ -55,21 +56,22 @@ export class RideReviewComponent implements OnInit {
           value: error,
           color: "back-red"
         })
+        this.dialogRef.close({success: false})
       }
     });
   }
 
-  setVehicleReviewResponseFromForm(): ReviewDTO{
+  setDriverReviewResponseFromForm(): ReviewDTO{
     return {
-      rating: 4,
-      comment: this.reviewForm.value.vehicleReviewComment!
+      rating: this.driverRating,
+      comment: this.reviewForm.value.driverReviewComment!
     }
   }
 
-  setDriverReviewResponseFromForm(): ReviewDTO{
+  setVehicleReviewResponseFromForm(): ReviewDTO{
     return {
-      rating: 3,
-      comment: this.reviewForm.value.driverReviewComment!
+      rating: this.vehicleRating,
+      comment: this.reviewForm.value.vehicleReviewComment!
     }
   }
 }
