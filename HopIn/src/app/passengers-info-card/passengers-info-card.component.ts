@@ -21,6 +21,7 @@ export class PassengersInfoCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.rideService.getRide().subscribe((res) => {
+      this.passengers = [];
       this.ride = res;
       this.urls = [];
 
@@ -32,18 +33,21 @@ export class PassengersInfoCardComponent implements OnInit {
         ridePass = this.ride.passengers;
       }
       
+      console.log(ridePass);
 
       for (let pass of ridePass) {
         this.userService.getByPassengerId(pass.id).subscribe((p) => {
+          if (this.passengers.includes(p))
+            return;
           this.passengers.push(p);
-          if (p.profilePicture == null) {
+          if (p.profilePicture == null) { 
             this.urls.push("../../assets/images/profile-placeholder.png");
           } else {
             this.urls.push(p.profilePicture);
           }
         })
       }
-    })
+    }) 
   }
 
 }

@@ -36,7 +36,7 @@ export class RideService {
   }
 
   getPendingRideForDriver(id: number) : Observable<any> {
-      return this.http.get<any>(environment.apiHost + "/driver/" + id + "/active");
+      return this.http.get<any>(environment.apiHost + "/driver/" + id + "/pending");
   }
 
   acceptRide(rideId: number): Observable<RideReturnedDTO> {

@@ -68,8 +68,8 @@ export class VehiclesMapComponent implements OnInit, OnDestroy {
     this.rideSocketService.receivedRidePending().subscribe((driverId: any) => {
       this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
         this.changeMarkerColor(vehicle, this.colorService.orange);
-      })
-    })
+      }) 
+    }) 
 
     this.rideSocketService.receivedRideAccepted().subscribe((driverId: any) => {
       this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {

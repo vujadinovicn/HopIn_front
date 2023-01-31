@@ -15,9 +15,9 @@ export class RideHistoryDetailsComponent implements OnInit {
     private routingService: RoutingService) { }
 
   ngOnInit(): void {
-    this.rideService.getRide().subscribe((res) => {
-      this.ride = res;
-    });
+    // this.rideService.getRide().subscribe((res) => {
+    //   this.ride = res;
+    // });
   }
 
 }

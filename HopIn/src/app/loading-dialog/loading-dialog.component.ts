@@ -58,6 +58,7 @@ export class LoadingDialogComponent implements OnInit {
         error: (err) => {
           this.status = "declined";
           console.log("Error creating ride... " + err);
+          this.dialogRef.disableClose = false;
         }
       });
     }
