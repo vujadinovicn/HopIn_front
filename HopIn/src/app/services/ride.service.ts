@@ -1,3 +1,4 @@
+
 import { RidePassenger, ShortAddress } from './routing.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -61,6 +62,10 @@ export class RideService {
   getRideById(rideId: number): Observable<RideReturnedDTO>{
     return this.http.get<any>(environment.apiHost + "/ride/" + rideId);
   }
+
+  getAllScheduledRides(userId: number): Observable<RideReturnedDTO[]> {
+    return this.http.get<any>(environment.apiHost + "/ride/scheduled-rides/" + userId);
+  }
 }
 
 export interface AllRidesDTO {
@@ -85,7 +90,8 @@ export interface RideReturnedDTO {
     scheduledTime: string,
     distanceFormatted: string,
     durationFormatted: string,
-    status: string
+    status: string,
+    scheduledTimeFormatted: string
 }
 
 export interface RejectionNotice {

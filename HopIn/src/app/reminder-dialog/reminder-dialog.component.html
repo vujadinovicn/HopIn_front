@@ -1,9 +1,9 @@
 <div id="reminder-container">
     <span class="title-span dark-blue">Reminder</span>
-    <span id="ride-reminder-span" class="dark-gray">Your scheduled ride to {{ destination }} starts soon!</span>
+    <span id="ride-reminder-span" class="dark-gray">Your scheduled ride: {{ ride.locations[0].departure.address }} -> {{ ride.locations[0].destination.address }}, starts soon!</span>
     
     <div id="time-container">
-        <span class="time-span dark-blue">{{ estimatedTime }}</span>
+        <span class="time-span dark-blue">{{ formatDate(ride.scheduledTime) }}</span>
         <span id="estimated-time-span" class="dark-gray">Estimated time</span>
     </div>
 

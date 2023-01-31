@@ -1,3 +1,4 @@
+import { RideReturnedDTO } from './../services/ride.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthService } from '../services/auth.service';
@@ -10,14 +11,18 @@ import { AuthService } from '../services/auth.service';
 export class ReminderDialogComponent implements OnInit {
 
   role: string = "passenger";
-  destination: string = "Jiricekova 1, Novi Sad";
-  estimatedTime: string = "17:03:25";
+  ride: RideReturnedDTO;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService,
+              private dialogRef: MatDialogRef<ReminderDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any) 
+  {
+      this.role = this.authService.getRole();
+      this.ride = this.data.ride;
   }
 
   ngOnInit(): void {
-    //this.role = this.authService.getRole();
+    
   }
 
   start(){
@@ -25,7 +30,16 @@ export class ReminderDialogComponent implements OnInit {
   }
 
   close() {
-    // this.dialogRef.close();
+    this.dialogRef.close();
+  }
+
+  formatDate(dateStr: string): string {
+    let date = new Date(dateStr);
+    let minutes = date.getMinutes() + "";
+    if (minutes.length == 1) {
+      minutes = "0" + minutes;
+    }
+    return date.getHours() + ":" + minutes + ", " + date.getDate() + "." + (date.getMonth()+1) + "." + date.getFullYear();
   }
 }
 

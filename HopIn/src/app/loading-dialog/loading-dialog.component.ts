@@ -1,4 +1,4 @@
-import { RideService } from './../services/ride.service';
+import { RideReturnedDTO, RideService } from './../services/ride.service';
 import { Router, RouteReuseStrategy } from '@angular/router';
 import { AuthService } from './../services/auth.service';
 import { RoutingService } from './../services/routing.service';
@@ -8,6 +8,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RouteService } from '../services/route.service';
 import { reduce } from 'rxjs';
 import { MinutesFormatterPipe } from 'ngx-material-timepicker/src/app/material-timepicker/pipes/minutes-formatter.pipe';
+import { ReminderDialogComponent } from '../reminder-dialog/reminder-dialog.component';
 
 @Component({
   selector: 'app-loading-dialog',
@@ -65,6 +66,12 @@ export class LoadingDialogComponent implements OnInit {
   handleAcceptedRide(res: RideOfferResponseDTO) {
     if (res.ride.scheduledTime != null) {
           this.status = "scheduled";
+          this.socketService.subscribeFullyToScheduledRide(res.ride.id);
+          // this.socketService.receivedScheduledRide().subscribe((res: RideReturnedDTO) =>{
+          //   this.dialog.open(ReminderDialogComponent, {
+          //     data: {ride: res}
+          //   });
+          // });
           this.scheduledTime = this.formatDate(res.ride.scheduledTime);
     } else {
           this.status = "accepted";

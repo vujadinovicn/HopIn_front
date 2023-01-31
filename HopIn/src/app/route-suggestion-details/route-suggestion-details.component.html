@@ -20,14 +20,14 @@
         </div>
     </div>
 </div>
-<div class="left-icon-card" *ngIf="route.scheduledTime != undefined && route.scheduledTime != ''">
+<div class="left-icon-card" *ngIf="route.scheduledTime != null">
     <div class="icon-container">
         <i class="fa fa-clock-o" aria-hidden="true"></i>
     </div>
     <div class="content-container">
         <div>
             <p class="dark-blue small-title" >At:</p>
-            <p id="destination-location" class="card-content">{{ route.scheduledTime }}</p>
+            <p id="destination-location" class="card-content">{{ formatDate(route.scheduledTimeFormatted) }}</p>
         </div>
     </div>
 </div>
