@@ -69,10 +69,12 @@ class VehicleInRide():
             self.set_attributes_for_started_ride()
 
     def set_attributes_for_accepted_ride(self):
+        print("AUBRATE")
         self.set_driving_flags(driving_to_start_point=True, driving_the_route=False, driving_to_taxi_stop=False)
         self.destination = self.current_ride.departure.get_coordinates()
 
     def set_attributes_for_started_ride(self):
+        print("MOJ")
         self.set_driving_flags(driving_to_start_point=False, driving_the_route=True, driving_to_taxi_stop=False)
         self.destination = self.current_ride.destination.get_coordinates()
 
@@ -96,6 +98,8 @@ class VehicleInRide():
             self.set_attributes_for_current_ride(current_ride_json)
             self.departure = self.vehicle.current_location.get_coordinates()
             self.get_new_coordinates_from_points_of_polyline()
+            if (self.current_ride.status == "ACCEPTED"):
+                self.calculate_travel_time()
             print("\nVehicle no." + str(self.vehicle.vehicle_id) + "\nNew ride came! Have to turn around...: " + self.get_address_from_coordinates(self.current_ride.departure.get_coordinates()) + " -> " + self.get_address_from_coordinates(self.current_ride.destination.get_coordinates()))
         
         self.update_vehicle_coordinates()
@@ -167,6 +171,8 @@ class VehicleInRide():
 
     def get_new_coordinates_from_points_of_polyline(self):
         departure_to_string = ', '.join(str(coordinate) for coordinate in self.departure)
+        
+        print(departure_to_string)
         destination_to_string = ', '.join(str(coordinate) for coordinate in self.destination)
         directions_result = gmaps.directions(departure_to_string,
                                             destination_to_string,
