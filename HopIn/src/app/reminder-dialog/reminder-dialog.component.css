@@ -1,0 +1,53 @@
+.title-span {
+    font-size: 20px;
+    display: block;
+    font-weight: 900;
+}
+
+#ride-reminder-span {
+    width: 300px;
+    display: block;
+    font-size: 16px;
+}
+
+#time-container {
+    margin: 20px 0;
+}
+
+.time-span {
+    font-size: 24px;
+    display: block;
+    font-weight: 900;
+}
+
+#estimated-time-span {
+    display: block;
+    margin-top: -2px;
+    font-size: 14px;
+}
+
+#reminder-container {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    justify-content: center;
+    padding: 30px;
+    padding-bottom: 20px;
+    align-items: center;
+    text-align: center;
+    background-color: white;
+}
+
+.reminder-btn {
+    background-color: #B5B5B5;
+    color: white;
+    width: 100px;
+    font-weight: 400 !important;
+    font-size: 14px;
+    display: inline-block;
+    padding: 0px 20px !important;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    border-radius: 5px
+}

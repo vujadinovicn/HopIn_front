@@ -12,7 +12,6 @@ import { L } from 'chart.js/dist/chunks/helpers.core';
 import { RideSocketService } from '../services/ride-socket.service';
 import { RideService } from '../services/ride.service';
 import { ColorService } from '../shared/color.service';
-import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'vehicles-map',
