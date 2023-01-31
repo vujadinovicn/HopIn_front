@@ -36,7 +36,7 @@ import { AdminHomeComponent } from 'src/app/admin-home/admin-home.component';
 import { ReminderDialogComponent } from 'src/app/reminder-dialog/reminder-dialog.component';
 
 const routes: Routes = [
-  {path: '', component: ReminderDialogComponent},
+  {path: '', component: LandingComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'verify', component: RegistrationVerificationComponent},
@@ -60,7 +60,7 @@ const routes: Routes = [
   {path:'change-payment-info', component: ChangePaymentInfoComponent},
   {path:'forgot-password', component: ForgotPasswordComponent},
   {path:'current-ride', component: CurrentRideComponent},
-  {path: '**', component: ReminderDialogComponent}
+  {path: '**', component: LandingComponent}
 ];
 
 @NgModule({

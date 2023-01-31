@@ -63,6 +63,10 @@ export class RideService {
     return this.http.get<any>(environment.apiHost + "/ride/" + rideId);
   }
 
+  startRideToDeparture(rideId: number): Observable<RideReturnedDTO> {
+    return this.http.post<any>(environment.apiHost + "/ride/driver-took-off/" + rideId, null);
+  }
+
   getAllScheduledRides(userId: number): Observable<RideReturnedDTO[]> {
     return this.http.get<any>(environment.apiHost + "/ride/scheduled-rides/" + userId);
   }

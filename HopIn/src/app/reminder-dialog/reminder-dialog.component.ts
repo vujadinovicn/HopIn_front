@@ -1,7 +1,9 @@
-import { RideReturnedDTO } from './../services/ride.service';
+import { SharedService } from './../shared/shared.service';
+import { RideReturnedDTO, RideService } from './../services/ride.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reminder-dialog',
@@ -15,7 +17,10 @@ export class ReminderDialogComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private dialogRef: MatDialogRef<ReminderDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any) 
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              private rideService: RideService,
+              private router: Router,
+              private sharedService: SharedService) 
   {
       this.role = this.authService.getRole();
       this.ride = this.data.ride;
@@ -26,7 +31,22 @@ export class ReminderDialogComponent implements OnInit {
   }
 
   start(){
-    //TODO
+    this.rideService.startRideToDeparture(this.ride.id).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.rideService.setRide(res);
+        this.sharedService.openSnack({
+          value: "Moving to scheduled ride departure!",
+          color: "back-green"
+        });
+        
+        this.router.navigate(['current-ride']);
+        this.dialogRef.close();
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
   }
 
   close() {

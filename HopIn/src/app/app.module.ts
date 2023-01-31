@@ -86,6 +86,7 @@ import { HomeDriverComponent } from './home-driver/home-driver.component';
 import { ScheduleDialogComponent } from './schedule-dialog/schedule-dialog.component';
 import { ReminderDialogComponent } from './reminder-dialog/reminder-dialog.component';
 import { ScheduledRideAcceptedComponent } from './scheduled-ride-accepted/scheduled-ride-accepted.component';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -178,12 +179,18 @@ import { ScheduledRideAcceptedComponent } from './scheduled-ride-accepted/schedu
     
     
   ],
-  providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline', hideRequiredMarker: 'true' }}, SocketService,
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptor,
-    multi: true
-  },],
+  providers: [
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+    {
+      provide: MatDialogRef,
+      useValue: {}
+    },
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline', hideRequiredMarker: 'true' }}, SocketService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })

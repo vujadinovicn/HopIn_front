@@ -43,6 +43,7 @@ export class CurrentRideComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     // this.resetLocalStorage();  
+    
   }
 
   ngOnInit(): void {
@@ -52,13 +53,13 @@ export class CurrentRideComponent implements OnInit, OnDestroy {
       this.subscribeToStartFinish();
       this.subscribeToRideCanceled();
     }
-    
 
     this.crSocketService.openWebSocketConnection();
 
     this.rideService.getRide().subscribe((ride) => {
       if (ride != null) {
         this.ride = ride;
+        this.socketService.unsubscribeFromScheduledRide(this.ride.id);
         localStorage.setItem('current_ride', JSON.stringify(this.ride));
         this.crSocketService.openWebSocketConnection();
       }

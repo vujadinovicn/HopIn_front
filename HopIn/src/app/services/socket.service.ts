@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { RideReturnedDTO, RideService } from './ride.service';
 import { Route } from './routing.service';
 import { InviteDialogComponent } from './../invite-dialog/invite-dialog.component';
@@ -47,9 +48,14 @@ export class SocketService {
 
     private scheduledRide = new Subject<RideReturnedDTO>();
     scheduledRideSubs: Record<number, any> = {};
+    driverTookOffSubs: Record<number, any> = {};
     private subscribedToScheduled = false;
 
-    constructor(private http: HttpClient, private authService: AuthService, private dialog: MatDialog, private rideService: RideService) { }
+    constructor(private http: HttpClient, 
+                private authService: AuthService, 
+                private dialog: MatDialog, 
+                private rideService: RideService,
+                private router: Router) { }
 
     sendInvite(invite: RideInvite, to: number) {
         this.stompClient.send("/ws/send/invite/" + to, {}, JSON.stringify(invite));
@@ -74,6 +80,13 @@ export class SocketService {
         if (this.scheduledRideSubs[rideId] != null && this.scheduledRideSubs[rideId] != undefined) {
             this.scheduledRideSubs[rideId].unsubscribe();
             delete this.scheduledRideSubs[rideId];
+        }
+
+        if (this.authService.getRole() == "ROLE_PASSENGER") {
+            if (this.driverTookOffSubs[rideId] != null && this.driverTookOffSubs[rideId] != undefined) {
+                this.driverTookOffSubs[rideId].unsubscribe();
+                delete this.driverTookOffSubs[rideId];
+            }
         }
     }
 
@@ -211,6 +224,13 @@ export class SocketService {
             });
             this.subscribedToScheduled = true;
         }
+        if (this.authService.getRole() == "ROLE_PASSENGER")
+            this.driverTookOffSubs[rideId] = this.stompClient.subscribe("/topic/scheduled-ride/driver-took-off/" + rideId, (message: Message) => {
+                let ride: RideReturnedDTO = JSON.parse(message.body);
+                console.log("SCHEDULED RIDE STARTED\n" + ride);
+                this.rideService.setRide(ride);
+                this.router.navigate(['current-ride']);
+            });
         
     }
 

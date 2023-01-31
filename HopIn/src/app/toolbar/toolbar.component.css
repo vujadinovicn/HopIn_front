@@ -189,6 +189,8 @@ a {
     .current-ride-btn {
         border-radius: 0;
         margin-right: 0;
+        margin-left: 0;
+        width: 100%;
     }
     .navbar-toggler {
         display: block;
