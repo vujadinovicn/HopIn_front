@@ -85,6 +85,7 @@ import { HomeAdminComponent } from './home-admin/home-admin.component';
 import { HomeDriverComponent } from './home-driver/home-driver.component';
 import { ScheduleDialogComponent } from './schedule-dialog/schedule-dialog.component';
 import { ReminderDialogComponent } from './reminder-dialog/reminder-dialog.component';
+import { ScheduledRideAcceptedComponent } from './scheduled-ride-accepted/scheduled-ride-accepted.component';
 
 @NgModule({
   declarations: [
@@ -156,7 +157,8 @@ import { ReminderDialogComponent } from './reminder-dialog/reminder-dialog.compo
     HomeAdminComponent,
     HomeDriverComponent,
     ScheduleDialogComponent,
-    ReminderDialogComponent
+    ReminderDialogComponent,
+    ScheduledRideAcceptedComponent
   ],
   imports: [
     BrowserModule,

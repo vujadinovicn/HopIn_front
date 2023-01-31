@@ -97,6 +97,7 @@ export class PickupDestinationFormComponent implements OnInit {
   nextStep() {
     this.rideForm.markAllAsTouched();
     if (this.rideForm.valid) {
+      console.log('\n' + this.rideForm.get('time')?.value! + '\n');
       this.routingService.route.scheduledTime = this.rideForm.get('time')?.value!;
       this.routingService.route.pickup = this.route.pickup;
       this.routingService.route.destination = this.route.destination;

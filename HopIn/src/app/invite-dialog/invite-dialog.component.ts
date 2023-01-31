@@ -1,3 +1,4 @@
+import { ScheduledRideAcceptedComponent } from './../scheduled-ride-accepted/scheduled-ride-accepted.component';
 import { SharedService } from './../shared/shared.service';
 import { Router } from '@angular/router';
 import { ReejctionReasonDialogComponent } from './../rejection-reason-dialog/rejection-reason-dialog.component';
@@ -74,8 +75,15 @@ export class InviteDialogComponent implements OnInit {
       this.rideService.acceptRide(this.data.ride.id).subscribe({
         next: (res) => {
           this.dialogRef.close();
-          this.rideService.setRide(res);
-          this.router.navigate(['current-ride']);
+          if (res.scheduledTime == null) {
+            this.rideService.setRide(res);
+            this.router.navigate(['current-ride']);
+          } else {
+            this.dialog.open(ScheduledRideAcceptedComponent, {
+              data: {scheduledTime: this.formatDate(res.scheduledTime)}
+            });
+          }
+          
         },
         error: (err) => {
           this.sharedService.openSnack({
@@ -87,6 +95,12 @@ export class InviteDialogComponent implements OnInit {
     }
       
     this.close();
+  }
+
+  formatDate(dateStr: string): string {
+    let date = new Date(dateStr);
+    date.setMonth(date.getMonth() + 1);
+    return date.getHours() + ":" + date.getMinutes() + ", " + date.getDate() + "." + date.getMonth() + "." + date.getFullYear();
   }
 
 }
