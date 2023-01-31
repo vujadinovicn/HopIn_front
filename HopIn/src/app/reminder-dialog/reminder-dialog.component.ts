@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-reminder-dialog',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReminderDialogComponent implements OnInit {
 
-  constructor() { }
+  role: string = "passenger";
+  destination: string = "Jiricekova 1, Novi Sad";
+  estimatedTime: string = "17:03:25";
 
-  ngOnInit(): void {
+  constructor(private authService: AuthService) {
   }
 
+  ngOnInit(): void {
+    //this.role = this.authService.getRole();
+  }
+
+  start(){
+    //TODO
+  }
+
+  close() {
+    // this.dialogRef.close();
+  }
 }
+
