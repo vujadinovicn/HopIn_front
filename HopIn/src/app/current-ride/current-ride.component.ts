@@ -28,6 +28,7 @@ export class CurrentRideComponent implements OnInit, OnDestroy {
   started: boolean = false;
   @ViewChild('timer') private timer: any;
   timerStartTime = 0;
+  parentComponent = "currentRide";
 
   arrivalTime: string = "";
 

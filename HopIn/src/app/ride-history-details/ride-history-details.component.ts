@@ -9,7 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RideHistoryDetailsComponent implements OnInit {
 
-  ride!: RideReturnedDTO
+  ride!: RideReturnedDTO;
+  parentComponent = "history";
 
   constructor(private rideService: RideService,
     private routingService: RoutingService) { }

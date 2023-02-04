@@ -1,7 +1,7 @@
 import { RidePassenger } from './../services/routing.service';
 import { AuthService } from './../services/auth.service';
 import { RideReturnedDTO, RideService } from './../services/ride.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { User, UserService } from '../services/user.service';
 
 @Component({
@@ -14,6 +14,7 @@ export class PassengersInfoCardComponent implements OnInit {
   ride!: RideReturnedDTO;
   passengers: User[] = [];
   urls: String[] = [];
+  @Input() parentComponent = ""; 
 
   constructor(private rideService: RideService,
     private userService: UserService,
@@ -26,8 +27,8 @@ export class PassengersInfoCardComponent implements OnInit {
       this.urls = [];
 
       let ridePass: RidePassenger[] = [];
-
-      if (this.authService.getRole() == "ROLE_PASSENGER") {
+      
+      if (this.authService.getRole() == "ROLE_PASSENGER" && this.parentComponent=="currentRide") {
         ridePass = filterPassengers(this.ride.passengers, this.authService.getId());
       } else {
         ridePass = this.ride.passengers;

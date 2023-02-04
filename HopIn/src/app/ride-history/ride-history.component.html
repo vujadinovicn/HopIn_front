@@ -43,7 +43,7 @@
                 <div id="carImg">
                     <img src="../../assets/vectors/car.svg">
                 </div>
-                <h4>{{ ride.locations[0].departure.address + " -> " + ride.locations[0].destination.address }}</h4>
+                <h4>{{ parseLocation(ride.locations[0].departure.address) + " -> " + parseLocation(ride.locations[0].destination.address)}}</h4>
             </div>
 
             <div class="row">
@@ -51,7 +51,7 @@
                     <img src="../../assets/vectors/calendar-alt.svg">
                 </div>
                 <p class="key">Date: </p>
-                <p class="value">{{ ride.startTime }}</p>
+                <p class="value">{{ parseDate(ride.startTime) }}</p>
             </div>
 
             <div class="row">
@@ -81,8 +81,8 @@
 
         <div id="right">
             <div class="row">
-                <div class="rightImgContainer" (click)="openDialog(indexOfelement)"><img src="../../assets/vectors/wheel.svg"></div>
-                <div *ngIf="this.currentIsFavoriteRoutesToShow[indexOfelement] === true && this._role === 'ROLE_PASSENGER'" class="rightImgContainer" (click)="removeRoute(indexOfelement)"><img src="../../assets/vectors/heart_red.svg"></div>
+                <div class="rightImgContainer dark-blue"(click)="openDialog(indexOfelement)"><img src="../../assets/vectors/repeat.svg"></div>
+                <div *ngIf="this.currentIsFavoriteRoutesToShow[indexOfelement] === true && this._role === 'ROLE_PASSENGER'" class="rightImgContainer" (click)="removeRoute(indexOfelement)"><img src="../../assets/vectors/heart_red.svg" style="fill: red"></div>
                 <div *ngIf="this.currentIsFavoriteRoutesToShow[indexOfelement] === false && this._role === 'ROLE_PASSENGER'" class="rightImgContainer" (click)="returnRoute(indexOfelement)"><img src="../../assets/vectors/heart_empty.svg"></div>
             </div>
             <div id="stars" *ngIf="(!notRated[indexOfelement] && this._role === 'ROLE_PASSENGER') || this._role==='ROLE_DRIVER'">
