@@ -33,10 +33,11 @@ import { DriverRegisterPersonalInfoComponent } from 'src/app/driver-register-per
 import { DriverRegisterComponent } from 'src/app/driver-register/driver-register.component';
 import { RideReviewComponent } from 'src/app/ride-review/ride-review.component';
 import { AdminHomeComponent } from 'src/app/admin-home/admin-home.component';
+import { LoginGuard } from 'src/app/guards/login/login.guard';
 
 const routes: Routes = [
   {path: '', component: LandingComponent},
-  {path: 'login', component: LoginComponent},
+  {path: 'login', component: LoginComponent, canActivate: [LoginGuard]},
   {path: 'register', component: RegisterComponent},
   {path: 'verify', component: RegistrationVerificationComponent},
   {path: 'reset-password', component: ResetPasswordComponent},
