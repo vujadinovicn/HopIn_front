@@ -21,6 +21,7 @@ export class RatingsCardComponent implements OnInit {
   _role: String = '';
   reviews: Review[] = [];
   passengers: User[] = [];
+  type: String[] = [];
   reviewInfo: ReviewInfo = {
     isDriver: false,
     comment: '',
@@ -48,11 +49,13 @@ export class RatingsCardComponent implements OnInit {
         for(let doubleReview of r) {
           if (doubleReview.vehicleReview!=null) {
             this.reviews.push(doubleReview.vehicleReview);
+            this.type.push("vehicleType");
             index += 1;
             this.getPassenger(doubleReview.vehicleReview, index-1)
           }
           if (doubleReview.driverReview!=null) {
             this.reviews.push(doubleReview.driverReview);
+            this.type.push("driverType");
             index += 1;
             this.getPassenger(doubleReview.driverReview, index-1)
           }
@@ -100,7 +103,6 @@ export class RatingsCardComponent implements OnInit {
       dialogRef.close();
     });
   }
-
 }
 
 

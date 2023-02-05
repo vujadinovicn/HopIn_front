@@ -77,8 +77,8 @@ export class VehiclesMapService {
     subscribeToVehicleActivation() {
         this.vehicleActivationSubs = this.stompClient.subscribe("/topic/vehicle/activation", (message: Message) => {
             this.updateVehicleActivation((JSON.parse(message.body)));
-        })
-    }
+        }) 
+    } 
 
     unsubscribeFromVehicleActivation() {
         if (this.vehicleActivationSubs != undefined)

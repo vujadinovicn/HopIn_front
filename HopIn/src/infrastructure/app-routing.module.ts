@@ -41,6 +41,7 @@ import { PassengerDriverGuard } from 'src/app/guards/passenger-driver/passenger-
 import { RegisteredUserGuard } from 'src/app/guards/registered-user/registered-user.guard';
 import { CurrentRideGuard } from 'src/app/guards/current-ride/current-ride.guard';
 import { RideHistoryDetailsGuard } from 'src/app/guards/ride-history-details/ride-history-details.guard';
+import { ReminderDialogComponent } from 'src/app/reminder-dialog/reminder-dialog.component';
 
 const routes: Routes = [
   {path: '', component: LandingComponent, canActivate: [LoginGuard]},

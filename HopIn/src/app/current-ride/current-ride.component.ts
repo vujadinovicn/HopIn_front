@@ -28,6 +28,7 @@ export class CurrentRideComponent implements OnInit, OnDestroy {
   started: boolean = false;
   @ViewChild('timer') private timer: any;
   timerStartTime = 0;
+  parentComponent = "currentRide";
 
   arrivalTime: string = "";
 
@@ -43,6 +44,7 @@ export class CurrentRideComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     // this.resetLocalStorage();  
+    
   }
 
   ngOnInit(): void {
@@ -52,13 +54,13 @@ export class CurrentRideComponent implements OnInit, OnDestroy {
       this.subscribeToStartFinish();
       this.subscribeToRideCanceled();
     }
-    
 
     this.crSocketService.openWebSocketConnection();
 
     this.rideService.getRide().subscribe((ride) => {
       if (ride != null) {
         this.ride = ride;
+        this.socketService.unsubscribeFromScheduledRide(this.ride.id);
         localStorage.setItem('current_ride', JSON.stringify(this.ride));
         this.crSocketService.openWebSocketConnection();
       }
@@ -68,6 +70,7 @@ export class CurrentRideComponent implements OnInit, OnDestroy {
       this.rideService.setRide(JSON.parse(localStorage.getItem('current_ride')!) as RideReturnedDTO);
       this.ride = JSON.parse(localStorage.getItem('current_ride')!) as RideReturnedDTO;
       if (localStorage.getItem('current_ride_started') != null) {
+        console.log("kako ovde")
         this.started = localStorage.getItem('current_ride_started')! == "true";
       }
   
@@ -107,7 +110,7 @@ export class CurrentRideComponent implements OnInit, OnDestroy {
       this.crSocketService.unsubscribeFromRideCancel();
       if (this.authService.getRole() == "ROLE_PASSENGER" && !this.started)
         this.dialog.open(VehicleArrivedDialogComponent);
-    });
+    }); 
   }
 
   subscribeToArrivalTime() {
@@ -198,7 +201,7 @@ export class CurrentRideComponent implements OnInit, OnDestroy {
         this.crSocketService.unsubscribeFromStartFinishResponse();
         this.resetLocalStorage();
         // alert("Ride finished successfully!");
-        this.router.navigate([""]);
+        this.router.navigate(["/home-driver"]);
       },
       error: (err) => {
         this.sharedService.openSnack({

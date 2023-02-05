@@ -20,7 +20,7 @@
             </div>
         </div>
         <app-driver-info-card *ngIf="role == 'ROLE_PASSENGER'"></app-driver-info-card>
-        <app-passengers-info-card *ngIf="ride.passengers.length > 1 || role=='ROLE_DRIVER'"></app-passengers-info-card>
+        <app-passengers-info-card [parentComponent]="parentComponent" *ngIf="ride.passengers.length > 1 || role=='ROLE_DRIVER'"></app-passengers-info-card>
         <div class="action-buttons" *ngIf="role=='ROLE_DRIVER'">
             <button *ngIf="atPickup && !started" mat-button class="full-button back-green" (click)="startRide()">Start</button>
             <button *ngIf="!started" mat-button class="full-button back-orange" (click)="cancelRide()">Cancel</button>

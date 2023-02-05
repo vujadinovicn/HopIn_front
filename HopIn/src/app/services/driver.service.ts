@@ -37,4 +37,4 @@ export interface ActiveVehicle {
   currentLocation: LocationNoId,
   status: string
 
-}
+} 

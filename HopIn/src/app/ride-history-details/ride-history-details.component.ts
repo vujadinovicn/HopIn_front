@@ -9,15 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RideHistoryDetailsComponent implements OnInit {
 
-  ride!: RideReturnedDTO
+  ride!: RideReturnedDTO;
+  parentComponent = "history";
 
   constructor(private rideService: RideService,
     private routingService: RoutingService) { }
 
   ngOnInit(): void {
-    this.rideService.getRide().subscribe((res) => {
-      this.ride = res;
-    });
+    // this.rideService.getRide().subscribe((res) => {
+    //   this.ride = res;
+    // });
   }
 
 }
