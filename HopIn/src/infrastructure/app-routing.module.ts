@@ -36,6 +36,7 @@ import { AdminHomeComponent } from 'src/app/admin-home/admin-home.component';
 import { LoginGuard } from 'src/app/guards/login/login.guard';
 import { PassengerGuard } from 'src/app/guards/passenger/passenger.guard';
 import { DriverGuard } from 'src/app/guards/driver/driver.guard';
+import { AdminGuard } from 'src/app/guards/admin/admin.guard';
 
 const routes: Routes = [
   {path: '', component: LandingComponent, canActivate: [LoginGuard]},
@@ -45,16 +46,16 @@ const routes: Routes = [
   {path: 'reset-password', component: ResetPasswordComponent},
   {path: 'order-ride', component: OrderRideComponent, canActivate: [PassengerGuard]},
   {path: 'order-ride-unreg', component: OrderRideNotregisteredComponent, canActivate: [LoginGuard]},
-  {path: 'home-admin', component: HomeAdminComponent},
+  {path: 'home-admin', component: HomeAdminComponent, canActivate: [AdminGuard]},
   {path: 'home-driver', component: HomeDriverComponent, canActivate: [DriverGuard]},
   {path: 'route-suggestion', component: RouteSuggestionComponent},
-  {path: 'request-dashboard', component: DriverRequestDashboardComponent},
+  {path: 'request-dashboard', component: DriverRequestDashboardComponent, canActivate: [AdminGuard]},
   {path: 'account-driver', component: DriverAccountComponent, canActivate: [DriverGuard]},
   {path: 'account-passenger', component: AccountComponent, canActivate: [PassengerGuard]},
-  {path: 'account-admin', component: AdminAccountComponent},
-  {path: 'users-dashboard', component: UsersDashboardComponent},
-  {path: 'admin-reports', component: AdminReportsComponent},
-  {path: 'admin-home', component: AdminHomeComponent},
+  {path: 'account-admin', component: AdminAccountComponent, canActivate: [AdminGuard]},
+  {path: 'users-dashboard', component: UsersDashboardComponent, canActivate: [AdminGuard]},
+  {path: 'admin-reports', component: AdminReportsComponent, canActivate: [AdminGuard]},
+  {path: 'admin-home', component: AdminHomeComponent, canActivate: [AdminGuard]},
   {path: 'ride-history', component: RideHistoryComponent},
   {path: 'ride-history-details', component: RideHistoryDetailsComponent},
   {path: 'account-settings', component: AccountUpdateComponent},
