@@ -38,6 +38,7 @@ import { PassengerGuard } from 'src/app/guards/passenger/passenger.guard';
 import { DriverGuard } from 'src/app/guards/driver/driver.guard';
 import { AdminGuard } from 'src/app/guards/admin/admin.guard';
 import { PassengerDriverGuard } from 'src/app/guards/passenger-driver/passenger-driver.guard';
+import { RegisteredUserGuard } from 'src/app/guards/registered-user/registered-user.guard';
 
 const routes: Routes = [
   {path: '', component: LandingComponent, canActivate: [LoginGuard]},
@@ -58,8 +59,8 @@ const routes: Routes = [
   {path: 'admin-home', component: AdminHomeComponent, canActivate: [AdminGuard]},
   {path: 'ride-history', component: RideHistoryComponent, canActivate: [PassengerDriverGuard]},
   {path: 'ride-history-details', component: RideHistoryDetailsComponent, canActivate: [PassengerDriverGuard]},
-  {path: 'account-settings', component: AccountUpdateComponent},
-  {path: 'change-password', component: ChangePasswordComponent},
+  {path: 'account-settings', component: AccountUpdateComponent, canActivate: [RegisteredUserGuard]},
+  {path: 'change-password', component: ChangePasswordComponent, canActivate: [RegisteredUserGuard]},
   {path:'change-payment-info', component: ChangePaymentInfoComponent, canActivate: [PassengerGuard]},
   {path:'forgot-password', component: ForgotPasswordComponent, canActivate: [LoginGuard]},
   {path:'current-ride', component: CurrentRideComponent},
