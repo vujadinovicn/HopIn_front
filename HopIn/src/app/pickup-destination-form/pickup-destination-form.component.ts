@@ -43,7 +43,7 @@ export class PickupDestinationFormComponent implements OnInit {
   route: Route = {} as Route;
 
   constructor(private routingService: RoutingService, private router: Router,
-              private pickupDestinationService: PickupDestinationService, private authService: AuthService,
+              private pickupDestinationService: PickupDestinationService, public authService: AuthService,
               private favoriteRouteService: FavouriteRoutesService,
               public snackBar: MatSnackBar,) { 
     this.role = this.authService.getRole();

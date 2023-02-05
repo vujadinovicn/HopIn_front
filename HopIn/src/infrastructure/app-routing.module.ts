@@ -39,17 +39,19 @@ import { DriverGuard } from 'src/app/guards/driver/driver.guard';
 import { AdminGuard } from 'src/app/guards/admin/admin.guard';
 import { PassengerDriverGuard } from 'src/app/guards/passenger-driver/passenger-driver.guard';
 import { RegisteredUserGuard } from 'src/app/guards/registered-user/registered-user.guard';
+import { CurrentRideGuard } from 'src/app/guards/current-ride/current-ride.guard';
+import { RideHistoryDetailsGuard } from 'src/app/guards/ride-history-details/ride-history-details.guard';
 
 const routes: Routes = [
   {path: '', component: LandingComponent, canActivate: [LoginGuard]},
   {path: 'login', component: LoginComponent, canActivate: [LoginGuard]},
   {path: 'register', component: RegisterComponent, canActivate: [LoginGuard]},
-  {path: 'verify', component: RegistrationVerificationComponent},
+  {path: 'verify', component: RegistrationVerificationComponent, canActivate: [LoginGuard]},
   {path: 'order-ride', component: OrderRideComponent, canActivate: [PassengerGuard]},
   {path: 'order-ride-unreg', component: OrderRideNotregisteredComponent, canActivate: [LoginGuard]},
   {path: 'home-admin', component: HomeAdminComponent, canActivate: [AdminGuard]},
   {path: 'home-driver', component: HomeDriverComponent, canActivate: [DriverGuard]},
-  {path: 'route-suggestion', component: RouteSuggestionComponent},
+  {path: 'route-suggestion', component: RouteSuggestionComponent, canActivate: [LoginGuard]},
   {path: 'request-dashboard', component: DriverRequestDashboardComponent, canActivate: [AdminGuard]},
   {path: 'account-driver', component: DriverAccountComponent, canActivate: [DriverGuard]},
   {path: 'account-passenger', component: AccountComponent, canActivate: [PassengerGuard]},
@@ -58,12 +60,12 @@ const routes: Routes = [
   {path: 'admin-reports', component: AdminReportsComponent, canActivate: [AdminGuard]},
   {path: 'admin-home', component: AdminHomeComponent, canActivate: [AdminGuard]},
   {path: 'ride-history', component: RideHistoryComponent, canActivate: [PassengerDriverGuard]},
-  {path: 'ride-history-details', component: RideHistoryDetailsComponent, canActivate: [PassengerDriverGuard]},
+  {path: 'ride-history-details', component: RideHistoryDetailsComponent, canActivate: [RideHistoryDetailsGuard]},
   {path: 'account-settings', component: AccountUpdateComponent, canActivate: [RegisteredUserGuard]},
   {path: 'change-password', component: ChangePasswordComponent, canActivate: [RegisteredUserGuard]},
   {path:'change-payment-info', component: ChangePaymentInfoComponent, canActivate: [PassengerGuard]},
   {path:'forgot-password', component: ForgotPasswordComponent, canActivate: [LoginGuard]},
-  {path:'current-ride', component: CurrentRideComponent},
+  {path:'current-ride', component: CurrentRideComponent, canActivate: [CurrentRideGuard]},
   {path: '**', component: LandingComponent, canActivate: [LoginGuard]},
 ];
 
