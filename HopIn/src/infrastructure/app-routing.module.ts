@@ -35,6 +35,7 @@ import { RideReviewComponent } from 'src/app/ride-review/ride-review.component';
 import { AdminHomeComponent } from 'src/app/admin-home/admin-home.component';
 import { LoginGuard } from 'src/app/guards/login/login.guard';
 import { PassengerGuard } from 'src/app/guards/passenger/passenger.guard';
+import { DriverGuard } from 'src/app/guards/driver/driver.guard';
 
 const routes: Routes = [
   {path: '', component: LandingComponent, canActivate: [LoginGuard]},
@@ -45,10 +46,10 @@ const routes: Routes = [
   {path: 'order-ride', component: OrderRideComponent, canActivate: [PassengerGuard]},
   {path: 'order-ride-unreg', component: OrderRideNotregisteredComponent, canActivate: [LoginGuard]},
   {path: 'home-admin', component: HomeAdminComponent},
-  {path: 'home-driver', component: HomeDriverComponent},
+  {path: 'home-driver', component: HomeDriverComponent, canActivate: [DriverGuard]},
   {path: 'route-suggestion', component: RouteSuggestionComponent},
   {path: 'request-dashboard', component: DriverRequestDashboardComponent},
-  {path: 'account-driver', component: DriverAccountComponent},
+  {path: 'account-driver', component: DriverAccountComponent, canActivate: [DriverGuard]},
   {path: 'account-passenger', component: AccountComponent, canActivate: [PassengerGuard]},
   {path: 'account-admin', component: AdminAccountComponent},
   {path: 'users-dashboard', component: UsersDashboardComponent},
