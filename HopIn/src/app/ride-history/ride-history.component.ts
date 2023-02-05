@@ -339,5 +339,19 @@ export class RideHistoryComponent implements OnInit {
     });
   }
 
+  parseLocation(location: string): string {
+    try {
+    return location.split(",")[0]+", "+location.split(",")[1].replace(/[0-9]/g, '');
+    } catch {
+      return location;
+    }
+  }
+
+  parseDate(date: string): string {
+    let d = date.split("T")[0];
+    let t = date.split("T")[1].split(".")[0]
+    return d.split("-")[2] + "-" + d.split("-")[1] + "-" + d.split("-")[0] + " at " + t;
+  }
+
 
 }

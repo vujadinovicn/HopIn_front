@@ -1,4 +1,5 @@
-import { RideReturnedDTO } from './ride.service';
+import { Router } from '@angular/router';
+import { RideReturnedDTO, RideService } from './ride.service';
 import { Route } from './routing.service';
 import { InviteDialogComponent } from './../invite-dialog/invite-dialog.component';
 import { RideDTO } from './route.service';
@@ -13,6 +14,7 @@ import { SanityChecks } from '@angular/material/core';
 import { User } from './user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { JsonPipe } from '@angular/common';
+import { ReminderDialogComponent } from '../reminder-dialog/reminder-dialog.component';
 
 @Injectable({
   providedIn: 'root',
@@ -44,7 +46,16 @@ export class SocketService {
     private vehicleArrival = new Subject<string>();
     vehicleArrivalSub: any;
 
-    constructor(private http: HttpClient, private authService: AuthService, private dialog: MatDialog) { }
+    private scheduledRide = new Subject<RideReturnedDTO>();
+    scheduledRideSubs: Record<number, any> = {};
+    driverTookOffSubs: Record<number, any> = {};
+    private subscribedToScheduled = false;
+
+    constructor(private http: HttpClient, 
+                private authService: AuthService, 
+                private dialog: MatDialog, 
+                private rideService: RideService,
+                private router: Router) { }
 
     sendInvite(invite: RideInvite, to: number) {
         this.stompClient.send("/ws/send/invite/" + to, {}, JSON.stringify(invite));
@@ -52,6 +63,35 @@ export class SocketService {
             this.subscribeToInviteResponse();
             this.isConnectedRes = true;
         }
+    }
+
+    subscribeToScheduledRide(rideId: number) {
+        this.scheduledRideSubs[rideId] = this.stompClient.subscribe("/topic/scheduled-ride/" + rideId, (message: Message) => {
+            this.updateScheduledRide(JSON.parse(message.body));
+        });
+    }
+
+    updateScheduledRide(res: RideReturnedDTO) {
+        this.scheduledRide.next(res);
+    }
+
+
+    unsubscribeFromScheduledRide(rideId: number) {
+        if (this.scheduledRideSubs[rideId] != null && this.scheduledRideSubs[rideId] != undefined) {
+            this.scheduledRideSubs[rideId].unsubscribe();
+            delete this.scheduledRideSubs[rideId];
+        }
+
+        if (this.authService.getRole() == "ROLE_PASSENGER") {
+            if (this.driverTookOffSubs[rideId] != null && this.driverTookOffSubs[rideId] != undefined) {
+                this.driverTookOffSubs[rideId].unsubscribe();
+                delete this.driverTookOffSubs[rideId];
+            }
+        }
+    }
+
+    receivedScheduledRide() {
+        return this.scheduledRide.asObservable();
     }
 
     subscribeToInviteResponse() {
@@ -174,13 +214,33 @@ export class SocketService {
         this.panic.next(res);
     }
 
+    public subscribeFullyToScheduledRide(rideId: number) {
+        this.subscribeToScheduledRide(rideId);
+        if (!this.subscribedToScheduled) {
+            this.receivedScheduledRide().subscribe(res => {
+                this.dialog.open(ReminderDialogComponent, {
+                    data: {ride: res}
+                });
+            });
+            this.subscribedToScheduled = true;
+        }
+        if (this.authService.getRole() == "ROLE_PASSENGER")
+            this.driverTookOffSubs[rideId] = this.stompClient.subscribe("/topic/scheduled-ride/driver-took-off/" + rideId, (message: Message) => {
+                let ride: RideReturnedDTO = JSON.parse(message.body);
+                console.log("SCHEDULED RIDE STARTED\n" + ride);
+                this.rideService.setRide(ride);
+                this.router.navigate(['current-ride']);
+            });
+        
+    }
+
     openWebSocketConnection() {
         this.ws = new SockJS(this.url);
         this.stompClient = Stomp.over(this.ws);
         this.stompClient.connect({}, () => {
             this.isConnected = true;
             this.subscribeToPanic();
-            if (this.authService.getRole() == "ROLE_PASSENGER")
+            if (this.authService.getRole() == "ROLE_PASSENGER") {
                 this.stompClient.subscribe("/topic/invites/" + this.authService.getId(), (message: Message) => {
 
                     let invite: RideInvite = JSON.parse(message.body);
@@ -194,8 +254,10 @@ export class SocketService {
                         });
                     }
                 });
+                this.subscribeToAllScheduledRides();
+            }    
             else {
-                if (this.authService.getRole() == "ROLE_DRIVER")
+                if (this.authService.getRole() == "ROLE_DRIVER") {
                     this.stompClient.subscribe("/topic/driver/ride-offers/" + this.authService.getId(), (message: Message) => {
                         let ride: RideReturnedDTO = JSON.parse(message.body);
                         console.log(ride);
@@ -205,6 +267,10 @@ export class SocketService {
                             height : 'fit-content'
                         })
                     });
+
+                    this.subscribeToAllScheduledRides();
+                }
+                    
                 else {
                     // if (this.authService.getRole() == "ROLE_ADMIN")
                     //     this.subscribeToPanic();
@@ -218,6 +284,14 @@ export class SocketService {
             //         this.subscribeToVehicleArrival(id);
             // }
             
+        });
+    }
+
+    subscribeToAllScheduledRides() {
+        this.rideService.getAllScheduledRides(this.authService.getId()).subscribe(res => {
+            res.forEach(ride => {
+                this.subscribeFullyToScheduledRide(ride.id);
+            });
         });
     }
 

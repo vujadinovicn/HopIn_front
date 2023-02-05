@@ -33,6 +33,7 @@ import { DriverRegisterPersonalInfoComponent } from 'src/app/driver-register-per
 import { DriverRegisterComponent } from 'src/app/driver-register/driver-register.component';
 import { RideReviewComponent } from 'src/app/ride-review/ride-review.component';
 import { AdminHomeComponent } from 'src/app/admin-home/admin-home.component';
+import { ReminderDialogComponent } from 'src/app/reminder-dialog/reminder-dialog.component';
 
 const routes: Routes = [
   {path: '', component: LandingComponent},
