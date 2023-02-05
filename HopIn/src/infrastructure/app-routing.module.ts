@@ -36,13 +36,13 @@ import { AdminHomeComponent } from 'src/app/admin-home/admin-home.component';
 import { LoginGuard } from 'src/app/guards/login/login.guard';
 
 const routes: Routes = [
-  {path: '', component: LandingComponent},
+  {path: '', component: LandingComponent, canActivate: [LoginGuard]},
   {path: 'login', component: LoginComponent, canActivate: [LoginGuard]},
-  {path: 'register', component: RegisterComponent},
+  {path: 'register', component: RegisterComponent, canActivate: [LoginGuard]},
   {path: 'verify', component: RegistrationVerificationComponent},
   {path: 'reset-password', component: ResetPasswordComponent},
   {path: 'order-ride', component: OrderRideComponent},
-  {path: 'order-ride-unreg', component: OrderRideNotregisteredComponent},
+  {path: 'order-ride-unreg', component: OrderRideNotregisteredComponent, canActivate: [LoginGuard]},
   {path: 'home-admin', component: HomeAdminComponent},
   {path: 'home-driver', component: HomeDriverComponent},
   {path: 'route-suggestion', component: RouteSuggestionComponent},
@@ -58,9 +58,9 @@ const routes: Routes = [
   {path: 'account-settings', component: AccountUpdateComponent},
   {path: 'change-password', component: ChangePasswordComponent},
   {path:'change-payment-info', component: ChangePaymentInfoComponent},
-  {path:'forgot-password', component: ForgotPasswordComponent},
+  {path:'forgot-password', component: ForgotPasswordComponent, canActivate: [LoginGuard]},
   {path:'current-ride', component: CurrentRideComponent},
-  {path: '**', component: LandingComponent}
+  {path: '**', component: LandingComponent, canActivate: [LoginGuard]},
 ];
 
 @NgModule({
