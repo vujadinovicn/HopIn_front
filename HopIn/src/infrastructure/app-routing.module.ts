@@ -34,6 +34,7 @@ import { DriverRegisterComponent } from 'src/app/driver-register/driver-register
 import { RideReviewComponent } from 'src/app/ride-review/ride-review.component';
 import { AdminHomeComponent } from 'src/app/admin-home/admin-home.component';
 import { LoginGuard } from 'src/app/guards/login/login.guard';
+import { PassengerGuard } from 'src/app/guards/passenger/passenger.guard';
 
 const routes: Routes = [
   {path: '', component: LandingComponent, canActivate: [LoginGuard]},
@@ -41,14 +42,14 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent, canActivate: [LoginGuard]},
   {path: 'verify', component: RegistrationVerificationComponent},
   {path: 'reset-password', component: ResetPasswordComponent},
-  {path: 'order-ride', component: OrderRideComponent},
+  {path: 'order-ride', component: OrderRideComponent, canActivate: [PassengerGuard]},
   {path: 'order-ride-unreg', component: OrderRideNotregisteredComponent, canActivate: [LoginGuard]},
   {path: 'home-admin', component: HomeAdminComponent},
   {path: 'home-driver', component: HomeDriverComponent},
   {path: 'route-suggestion', component: RouteSuggestionComponent},
   {path: 'request-dashboard', component: DriverRequestDashboardComponent},
   {path: 'account-driver', component: DriverAccountComponent},
-  {path: 'account-passenger', component: AccountComponent},
+  {path: 'account-passenger', component: AccountComponent, canActivate: [PassengerGuard]},
   {path: 'account-admin', component: AdminAccountComponent},
   {path: 'users-dashboard', component: UsersDashboardComponent},
   {path: 'admin-reports', component: AdminReportsComponent},
@@ -57,7 +58,7 @@ const routes: Routes = [
   {path: 'ride-history-details', component: RideHistoryDetailsComponent},
   {path: 'account-settings', component: AccountUpdateComponent},
   {path: 'change-password', component: ChangePasswordComponent},
-  {path:'change-payment-info', component: ChangePaymentInfoComponent},
+  {path:'change-payment-info', component: ChangePaymentInfoComponent, canActivate: [PassengerGuard]},
   {path:'forgot-password', component: ForgotPasswordComponent, canActivate: [LoginGuard]},
   {path:'current-ride', component: CurrentRideComponent},
   {path: '**', component: LandingComponent, canActivate: [LoginGuard]},
