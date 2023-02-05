@@ -1,4 +1,3 @@
-import { AuthService } from './../services/auth.service';
 import { MapService } from './../services/map.service';
 import { PickupDestinationService } from './../services/pickup-destination.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
