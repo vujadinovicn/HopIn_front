@@ -26,17 +26,18 @@ export class CurrentRideGuard implements CanActivate {
       this.router.navigate(['']);
       return false;
     } else {
-      if (localStorage.getItem('current_ride') != null){
-        let ride = JSON.parse(localStorage.getItem('current_ride')!) as RideReturnedDTO;
-        if (this.authService.getRole() == "ROLE_DRIVER" && ride.driver.id == this.authService.getId())
-          return true;
-        else if (this.authService.getRole() == "ROLE_PASSENGER"){
-          for (let passenger of ride.passengers){
-            if (passenger.id == this.authService.getId())
-              return true;
-          }
-        }
-      }
+      // if (localStorage.getItem('current_ride') != null){
+      //   let ride = JSON.parse(localStorage.getItem('current_ride')!) as RideReturnedDTO;
+      //   if (this.authService.getRole() == "ROLE_DRIVER" && ride.driver.id == this.authService.getId())
+      //     return true;
+      //   else if (this.authService.getRole() == "ROLE_PASSENGER"){
+      //     for (let passenger of ride.passengers){
+      //       if (passenger.id == this.authService.getId())
+      //         return true;
+      //     }
+      //   }
+      // }
+      return true;
     }
     if (this.authService.getRole() == "ROLE_DRIVER")
       this.router.navigate(['home-driver']);

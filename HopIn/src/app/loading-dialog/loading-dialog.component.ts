@@ -3,10 +3,10 @@ import { Router, RouteReuseStrategy } from '@angular/router';
 import { AuthService } from './../services/auth.service';
 import { RoutingService } from './../services/routing.service';
 import { SocketService, RideOfferResponseDTO } from './../services/socket.service';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RouteService } from '../services/route.service';
-import { reduce } from 'rxjs';
+import { reduce, Subscription } from 'rxjs';
 import { MinutesFormatterPipe } from 'ngx-material-timepicker/src/app/material-timepicker/pipes/minutes-formatter.pipe';
 import { ReminderDialogComponent } from '../reminder-dialog/reminder-dialog.component';
 
@@ -15,10 +15,11 @@ import { ReminderDialogComponent } from '../reminder-dialog/reminder-dialog.comp
   templateUrl: './loading-dialog.component.html',
   styleUrls: ['./loading-dialog.component.css']
 })
-export class LoadingDialogComponent implements OnInit {
+export class LoadingDialogComponent implements OnInit, OnDestroy {
 
   status: string = "pending";
   scheduledTime: string = "";
+  createRideSub: Subscription = {} as Subscription;
 
   constructor(public dialogRef: MatDialogRef<LoadingDialogComponent>,
               private socketService: SocketService,
@@ -30,7 +31,7 @@ export class LoadingDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any) {
     dialogRef.disableClose = true;
   }
-
+  
   ngOnInit(): void {
     this.socketService.subscribeToRideOfferResponse(this.data.userId);
 
@@ -43,7 +44,8 @@ export class LoadingDialogComponent implements OnInit {
       else {
         this.dialogRef.disableClose = false;
         console.log("DECLINED RIDE OFFER");
-        this.status = "declined";   
+        this.status = "declined";  
+        this.createRideSub.unsubscribe(); 
         // setTimeout(() => 
         // {this.dialogRef.close()},
         // 3000);
@@ -51,17 +53,22 @@ export class LoadingDialogComponent implements OnInit {
     })
 
     if (this.data.userId == this.authService.getId()) {
-      this.routeService.createRide(this.routingService.route).subscribe({
+      this.createRideSub = this.routeService.createRide(this.routingService.route).subscribe({
         next: (res) => {
-          
+          this.createRideSub.unsubscribe();
         },
         error: (err) => {
           this.status = "declined";
           console.log("Error creating ride... " + err);
           this.dialogRef.disableClose = false;
+          this.createRideSub.unsubscribe();
         }
       });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.createRideSub.unsubscribe();
   }
 
   handleAcceptedRide(res: RideOfferResponseDTO) {
@@ -74,6 +81,7 @@ export class LoadingDialogComponent implements OnInit {
           //   });
           // });
           this.scheduledTime = this.formatDate(res.ride.scheduledTime);
+          this.router.navigate(['order-ride']);
     } else {
           this.status = "accepted";
           setTimeout(() => 
