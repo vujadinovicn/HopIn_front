@@ -116,6 +116,8 @@ export class VehiclesMapComponent implements OnInit, OnDestroy {
   private getAndSetActivatedMarkers(driverId: any) {
     this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
       let map = this.map;
+      console.log(vehicle.id);
+      console.log(driverId);
       if (this.vehicles[vehicle.id] == undefined){
         this.vehicles[vehicle.id] = vehicle;
         this.vehicleMarkers[vehicle.id] = new google.maps.Marker({
@@ -126,13 +128,16 @@ export class VehiclesMapComponent implements OnInit, OnDestroy {
         });
       }  
     });
-  }
+  } 
 
   private deleteMarkerForDeactivatedVehicle() {
     this.vehiclesMapService.recievedVehicleDeactivation().subscribe((driverId: any) => {
       console.log(driverId);
       this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
+        console.log("ssss");
+        console.log(vehicle.id);
         delete this.vehicles[vehicle.id];
+        console.log(vehicle.id);
         this.vehicleMarkers[vehicle.id].setMap(null);
         delete this.vehicleMarkers[vehicle.id];
       });
