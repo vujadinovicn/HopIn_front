@@ -18,7 +18,7 @@ export class ScheduledRideAcceptedComponent implements OnInit {
   }
 
   close() {
-    this.dialogRef.close();
+    this.dialogRef.close(true);
   }
 
 }

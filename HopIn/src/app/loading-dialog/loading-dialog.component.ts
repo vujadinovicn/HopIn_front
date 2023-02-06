@@ -3,7 +3,7 @@ import { Router, RouteReuseStrategy } from '@angular/router';
 import { AuthService } from './../services/auth.service';
 import { RoutingService } from './../services/routing.service';
 import { SocketService, RideOfferResponseDTO } from './../services/socket.service';
-import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy, Injector, ComponentRef, ElementRef } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RouteService } from '../services/route.service';
 import { reduce, Subscription } from 'rxjs';
@@ -28,7 +28,10 @@ export class LoadingDialogComponent implements OnInit, OnDestroy {
               private authService: AuthService,
               private router: Router,
               private rideService: RideService,
+              private injector: Injector,
+              private elementRef: ElementRef,
               @Inject(MAT_DIALOG_DATA) public data: any) {
+    // console.log(this.elementRef.nativeElement.parentElement); 
     dialogRef.disableClose = true;
   }
   
@@ -104,6 +107,6 @@ export class LoadingDialogComponent implements OnInit, OnDestroy {
   }
 
   close() {
-    this.dialogRef.close();
+    this.dialogRef.close(true);
   }
 }

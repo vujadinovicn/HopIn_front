@@ -1,6 +1,6 @@
 import { AuthService } from './services/auth.service';
 import { SocketService } from './services/socket.service';
-import { NgModule, OnInit } from '@angular/core';
+import { ComponentRef, NgModule, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from '../infrastructure/app-routing.module';

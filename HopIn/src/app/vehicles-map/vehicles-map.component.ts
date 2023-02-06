@@ -12,6 +12,7 @@ import { RideSocketService } from '../services/ride-socket.service';
 import { RideService } from '../services/ride.service';
 import { ColorService } from '../shared/color.service';
 import { AuthService } from '../services/auth.service';
+import { DriverTookOffService } from '../services/driver-took-off.service';
 
 @Component({
   selector: 'vehicles-map',
@@ -38,6 +39,7 @@ export class VehiclesMapComponent implements OnInit, OnDestroy {
               private rideService: RideService,
               private rideSocketService: RideSocketService,
               private socketService: SocketService,
+              private driverTookOffService: DriverTookOffService,
               private authService: AuthService) { }
   
   ngOnInit(): void {
@@ -48,9 +50,18 @@ export class VehiclesMapComponent implements OnInit, OnDestroy {
     this.configureSockets();
     this.setMarkersForActiveVehiclesOnInit();  
     this.addLoggedInDriverVehicle(); 
+    this.recieveDriverId();
     if (this.authService.getRole() == "ROLE_ADMIN") {
       this.recievePanics();
     }
+  }
+
+  private recieveDriverId(): void {
+    this.driverTookOffService.recieveDriverId().subscribe((driverId: number) => {
+      this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
+        this.changeMarkerColor(vehicle, this.colorService.red);
+      })
+    });
   }
   
   private configureSockets() { 
@@ -66,6 +77,7 @@ export class VehiclesMapComponent implements OnInit, OnDestroy {
 
   recieveRideSocketServiceSockets(){
     this.rideSocketService.receivedRidePending().subscribe((driverId: any) => {
+      console.log("kako ovde")
       this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
         this.changeMarkerColor(vehicle, this.colorService.orange);
       }) 
@@ -73,7 +85,8 @@ export class VehiclesMapComponent implements OnInit, OnDestroy {
 
     this.rideSocketService.receivedRideAccepted().subscribe((driverId: any) => {
       this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
-        this.changeMarkerColor(vehicle, this.colorService.red);
+        if (localStorage.getItem('current_ride') != null)
+          this.changeMarkerColor(vehicle, this.colorService.red);
       })
     })
 

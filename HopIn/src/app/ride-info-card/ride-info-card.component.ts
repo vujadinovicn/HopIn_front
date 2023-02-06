@@ -24,6 +24,8 @@ export class RideInfoCardComponent implements OnInit {
   }
 
   parseLocation(location: string): string {
+    if (!location.includes(','))
+      return location;
     return location.split(",")[0]+", "+location.split(",")[1].replace(/[0-9]/g, '');
   }
 

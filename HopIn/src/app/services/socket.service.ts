@@ -15,6 +15,7 @@ import { User } from './user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { JsonPipe } from '@angular/common';
 import { ReminderDialogComponent } from '../reminder-dialog/reminder-dialog.component';
+import { DriverTookOffService } from './driver-took-off.service';
 
 @Injectable({
   providedIn: 'root',
@@ -55,6 +56,7 @@ export class SocketService {
                 private authService: AuthService, 
                 private dialog: MatDialog, 
                 private rideService: RideService,
+                private driverTookOffService: DriverTookOffService,
                 private router: Router) { }
 
     sendInvite(invite: RideInvite, to: number) {
@@ -227,6 +229,7 @@ export class SocketService {
         if (this.authService.getRole() == "ROLE_PASSENGER")
             this.driverTookOffSubs[rideId] = this.stompClient.subscribe("/topic/scheduled-ride/driver-took-off/" + rideId, (message: Message) => {
                 let ride: RideReturnedDTO = JSON.parse(message.body);
+                this.driverTookOffService.sendDriverId(ride.driver.id);
                 console.log("SCHEDULED RIDE STARTED\n" + ride);
                 this.rideService.setRide(ride);
                 this.router.navigate(['current-ride']);
@@ -247,7 +250,7 @@ export class SocketService {
                     if (invite.route == null) {
                         this.dialog.closeAll();
                     } else {
-                        this.dialog.open(InviteDialogComponent, {
+                        let dialogRef = this.dialog.open(InviteDialogComponent, {
                             data: {invite: invite},
                             width: 'fit-content',
                             height : 'fit-content'

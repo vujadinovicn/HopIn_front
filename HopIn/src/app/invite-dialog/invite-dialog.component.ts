@@ -82,9 +82,12 @@ export class InviteDialogComponent implements OnInit {
             this.router.navigate(['current-ride']);
           } else {
             this.socketService.subscribeFullyToScheduledRide(res.id);
-            this.dialog.open(ScheduledRideAcceptedComponent, {
+            let dialogRef = this.dialog.open(ScheduledRideAcceptedComponent, {
               data: {scheduledTime: this.formatDate(res.scheduledTime)}
-            });
+            }).afterClosed().subscribe((shouldReload: boolean) => {
+                dialogRef.unsubscribe();
+                if (shouldReload) window.location.reload()
+            });;
           }
           
         },

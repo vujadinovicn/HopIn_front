@@ -48,9 +48,16 @@ export class VehiclePreferencesFormComponent implements OnInit {
     this.routingService.setDefaultUser();
     this.routingService.findRoute();
     this.routingService.receivedRoute().subscribe((res) => {
-      this.dialog.open(LoadingDialogComponent, {
+      let dialogRef = this.dialog.open(LoadingDialogComponent, {
         data: {userId: this.authService.getId()}
-      });
+      }).afterClosed()
+      .subscribe((shouldReload: boolean) => {
+          dialogRef.unsubscribe();
+          if (shouldReload) {
+            window.location.reload();
+            this.routingService.unsubscribeFromRoute(); 
+          }
+      });;
     });
     
   }
