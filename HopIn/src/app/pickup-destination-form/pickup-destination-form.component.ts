@@ -80,15 +80,15 @@ export class PickupDestinationFormComponent implements OnInit {
 
   findRoute() {
     if (this.rideForm.valid) {
-      if (this.rideForm.get('time')?.value! != null){
-        let hours = this.rideForm.get('time')?.value!.split(":")[0];
-        let mins = this.rideForm.get('time')?.value!.split(":")[1];
-        if (hours != undefined) {
-          let hoursPlusOne = parseInt(hours) + 1;
-          this.route.scheduledTime = hoursPlusOne + ":" + mins;
-        }
-      }
-      else
+      // if (this.rideForm.get('time')?.value! != null){
+      //   let hours = this.rideForm.get('time')?.value!.split(":")[0];
+      //   let mins = this.rideForm.get('time')?.value!.split(":")[1];
+      //   // if (hours != undefined) {
+      //   //   let hoursPlusOne = parseInt(hours) + 1;
+      //   //   this.route.scheduledTime = hoursPlusOne + ":" + mins;
+      //   // }
+      // }
+      // else
         this.route.scheduledTime = this.rideForm.get('time')?.value!;
       console.log(this.rideForm.get('time')?.value!);
       // for now, until stepper is implemented properly
@@ -106,16 +106,17 @@ export class PickupDestinationFormComponent implements OnInit {
   nextStep() {
     this.rideForm.markAllAsTouched();
     if (this.rideForm.valid) {
-      console.log('\n' + this.rideForm.get('time')?.value! + '\n');
-      if (this.rideForm.get('time')?.value! != null){
-        let hours = this.rideForm.get('time')?.value!.split(":")[0];
-        let mins = this.rideForm.get('time')?.value!.split(":")[1];
-        if (hours != undefined) {
-          let hoursPlusOne = parseInt(hours) - 1;
-          this.routingService.route.scheduledTime = hoursPlusOne + ":" + mins;
-        }
-      }
-      else
+      // console.log('\n' + this.rideForm.get('time')?.value! + '\n');
+      // this.route.scheduledTime = this.rideForm.get('time')?.value!;
+      // if (this.rideForm.get('time')?.value! != null){
+      //   let hours = this.rideForm.get('time')?.value!.split(":")[0];
+      //   let mins = this.rideForm.get('time')?.value!.split(":")[1];
+      //   // if (hours != undefined) {
+      //   //   let hoursPlusOne = parseInt(hours) - 1;
+      //   //   this.routingService.route.scheduledTime = hoursPlusOne + ":" + mins;
+      //   // }
+      // }
+      // else
       this.routingService.route.scheduledTime = this.rideForm.get('time')?.value!;
       // this.routingService.route.scheduledTime = this.rideForm.get('time')?.value!;
       this.routingService.route.pickup = this.route.pickup;
