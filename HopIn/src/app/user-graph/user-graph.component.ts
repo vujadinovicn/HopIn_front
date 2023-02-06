@@ -182,7 +182,7 @@ setDataForDistance(): void {
   for(let i = 1; i < this.rides.length; i++) {
     this.total += this.rides[0].distance;
     if (this.rides[i].startTime === currentDate) {
-      this.data[0] += this.rides[i].distance;
+      this.data[this.data.length-1] += this.rides[i].distance;
     }else {
       currentDate = this.rides[i].startTime;
       this.data.push(this.rides[i].distance);
@@ -200,7 +200,7 @@ setDataForNumberRides(): void {
   for(let i = 1; i < this.rides.length; i++) {
     this.total += 1;
     if (this.rides[i].startTime === currentDate) {
-      this.data[0] += this.rides[i].distance;
+      this.data[this.data.length-1] += 1;
     }else {
       currentDate = this.rides[i].startTime;
       this.data.push(1);
@@ -218,7 +218,7 @@ setDataForMoneySpent(): void {
   for(let i = 1; i < this.rides.length; i++) {
     this.total += this.rides[0].totalCost;
     if (this.rides[i].startTime === currentDate) {
-      this.data[0] += this.rides[i].totalCost;
+      this.data[this.data.length-1] += this.rides[i].totalCost;
     }else {
       currentDate = this.rides[i].startTime;
       this.data.push(this.rides[i].totalCost);
