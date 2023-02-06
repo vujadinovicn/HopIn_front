@@ -36,6 +36,10 @@ export class RoutingService {
     return this.subject.asObservable();
   }
 
+  unsubscribeFromRoute(){
+    this.subject.unsubscribe();
+  }
+
   updateResponse(response: any) {
     this.response.next(response);
   }

@@ -31,7 +31,7 @@ export class RouteService {
         if (scheduledTime != "" && scheduledTime != null) {
             let time = new Date();
             let timeSplit = scheduledTime.split(":");
-            time.setHours(+timeSplit[0]);
+            time.setHours(+timeSplit[0]+1);
             time.setMinutes(+timeSplit[1]);
             if (time < new Date()) {
                 time.setDate(time.getDate() + 1);
