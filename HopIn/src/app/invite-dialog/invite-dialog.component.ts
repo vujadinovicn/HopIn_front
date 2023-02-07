@@ -1,7 +1,10 @@
+import { ReminderDialogComponent } from './../reminder-dialog/reminder-dialog.component';
+import { ScheduleDialogComponent } from './../schedule-dialog/schedule-dialog.component';
+import { ScheduledRideAcceptedComponent } from './../scheduled-ride-accepted/scheduled-ride-accepted.component';
 import { SharedService } from './../shared/shared.service';
 import { Router } from '@angular/router';
 import { ReejctionReasonDialogComponent } from './../rejection-reason-dialog/rejection-reason-dialog.component';
-import { RideService } from './../services/ride.service';
+import { RideService, RideReturnedDTO } from './../services/ride.service';
 import { Route, RoutingService } from './../services/routing.service';
 import { AuthService } from './../services/auth.service';
 import { SocketService } from './../services/socket.service';
@@ -74,8 +77,19 @@ export class InviteDialogComponent implements OnInit {
       this.rideService.acceptRide(this.data.ride.id).subscribe({
         next: (res) => {
           this.dialogRef.close();
-          this.rideService.setRide(res);
-          this.router.navigate(['current-ride']);
+          if (res.scheduledTime == null) {
+            this.rideService.setRide(res);
+            this.router.navigate(['current-ride']);
+          } else {
+            this.socketService.subscribeFullyToScheduledRide(res.id);
+            let dialogRef = this.dialog.open(ScheduledRideAcceptedComponent, {
+              data: {scheduledTime: this.formatDate(res.scheduledTime)}
+            }).afterClosed().subscribe((shouldReload: boolean) => {
+                dialogRef.unsubscribe();
+                if (shouldReload) window.location.reload()
+            });;
+          }
+          
         },
         error: (err) => {
           this.sharedService.openSnack({
@@ -87,6 +101,15 @@ export class InviteDialogComponent implements OnInit {
     }
       
     this.close();
+  }
+
+  formatDate(dateStr: string): string {
+    let date = new Date(dateStr);
+    let minutes = date.getMinutes() + "";
+    if (minutes.length == 1) {
+      minutes = "0" + minutes;
+    }
+    return date.getHours() + ":" + minutes + ", " + date.getDate() + "." + (date.getMonth()+1) + "." + date.getFullYear();
   }
 
 }

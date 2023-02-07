@@ -12,6 +12,7 @@ import { RideSocketService } from '../services/ride-socket.service';
 import { RideService } from '../services/ride.service';
 import { ColorService } from '../shared/color.service';
 import { AuthService } from '../services/auth.service';
+import { DriverTookOffService } from '../services/driver-took-off.service';
 
 @Component({
   selector: 'vehicles-map',
@@ -38,6 +39,7 @@ export class VehiclesMapComponent implements OnInit, OnDestroy {
               private rideService: RideService,
               private rideSocketService: RideSocketService,
               private socketService: SocketService,
+              private driverTookOffService: DriverTookOffService,
               private authService: AuthService) { }
   
   ngOnInit(): void {
@@ -46,18 +48,28 @@ export class VehiclesMapComponent implements OnInit, OnDestroy {
       this.configureMap(); 
     });  
     this.configureSockets();
-    this.setMarkersForActiveVehiclesOnInit();   
+    this.setMarkersForActiveVehiclesOnInit();  
+    this.addLoggedInDriverVehicle(); 
+    this.recieveDriverId();
     if (this.authService.getRole() == "ROLE_ADMIN") {
       this.recievePanics();
     }
   }
 
-  private configureSockets() {
+  private recieveDriverId(): void {
+    this.driverTookOffService.recieveDriverId().subscribe((driverId: number) => {
+      this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
+        this.changeMarkerColor(vehicle, this.colorService.red);
+      })
+    });
+  }
+  
+  private configureSockets() { 
     this.openWebSocketConnections();
     this.recieveRideSocketServiceSockets();
     this.recieveVehiclesMapServiceSockets();
   }
-
+ 
   private openWebSocketConnections() {
     this.vehiclesMapService.openWebSocketConnection();
     this.rideSocketService.openWebSocketConnection();
@@ -65,14 +77,16 @@ export class VehiclesMapComponent implements OnInit, OnDestroy {
 
   recieveRideSocketServiceSockets(){
     this.rideSocketService.receivedRidePending().subscribe((driverId: any) => {
+      console.log("kako ovde")
       this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
         this.changeMarkerColor(vehicle, this.colorService.orange);
-      })
-    })
+      }) 
+    }) 
 
     this.rideSocketService.receivedRideAccepted().subscribe((driverId: any) => {
       this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
-        this.changeMarkerColor(vehicle, this.colorService.red);
+        if (localStorage.getItem('current_ride') != null)
+          this.changeMarkerColor(vehicle, this.colorService.red);
       })
     })
 
@@ -108,8 +122,16 @@ export class VehiclesMapComponent implements OnInit, OnDestroy {
 
   private setMarkerForActivatedVehicle() {
     this.vehiclesMapService.recievedVehicleActivation().subscribe((driverId: any) => {
-      this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
-        let map = this.map;
+      this.getAndSetActivatedMarkers(driverId);
+    });
+  }
+
+  private getAndSetActivatedMarkers(driverId: any) {
+    this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
+      let map = this.map;
+      console.log(vehicle.id);
+      console.log(driverId);
+      if (this.vehicles[vehicle.id] == undefined){
         this.vehicles[vehicle.id] = vehicle;
         this.vehicleMarkers[vehicle.id] = new google.maps.Marker({
           map,
@@ -117,23 +139,33 @@ export class VehiclesMapComponent implements OnInit, OnDestroy {
           title: "Vehicle no." + vehicle.id,
           icon: this.getIcon(this.colorService.green)
         });
-      });
+      }  
     });
-  }
+  } 
 
   private deleteMarkerForDeactivatedVehicle() {
     this.vehiclesMapService.recievedVehicleDeactivation().subscribe((driverId: any) => {
       console.log(driverId);
       this.driverService.getVehicleById(driverId).subscribe((vehicle: Vehicle) => {
+        console.log("ssss");
+        console.log(vehicle.id);
         delete this.vehicles[vehicle.id];
+        console.log(vehicle.id);
         this.vehicleMarkers[vehicle.id].setMap(null);
         delete this.vehicleMarkers[vehicle.id];
       });
     });
   }
 
+  private addLoggedInDriverVehicle(){
+    if (this.authService.getRole() == "ROLE_DRIVER"){
+      this.getAndSetActivatedMarkers(this.authService.getId());
+    }
+  }
+
   private setMarkersForActiveVehiclesOnInit() {
     this.driverService.getActiveVehicles().subscribe((activeVehicles: any) => {
+      console.log(activeVehicles.length)
       for (let vehicle of activeVehicles) {
         let map = this.map;
         this.vehicles[vehicle.vehicleId] = vehicle;
@@ -143,9 +175,9 @@ export class VehiclesMapComponent implements OnInit, OnDestroy {
           title: "Vehicle no." + vehicle.vehicleId,
           icon: this.getIcon(this.getColorOfVehicleAccordingToStatus(vehicle.status))
         });
-      }
+      } 
     });
-  }
+  } 
 
   recievePanics(){
     this.socketService.receivedPanic().subscribe((res: Panic) => {

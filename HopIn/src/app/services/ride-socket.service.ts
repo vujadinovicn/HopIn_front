@@ -32,7 +32,7 @@ export class RideSocketService {
 
     private rideAccepted = new Subject<any>();
     rideAcceptedSubs: any;
-
+    
     subscribeToRidePending() {
         this.ridePendingSubs = this.stompClient.subscribe("/topic/ride-pending", (message: Message) => {
             this.updateRidePending((JSON.parse(message.body)));

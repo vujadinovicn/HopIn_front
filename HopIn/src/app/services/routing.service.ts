@@ -36,6 +36,10 @@ export class RoutingService {
     return this.subject.asObservable();
   }
 
+  unsubscribeFromRoute(){
+    this.subject.unsubscribe();
+  }
+
   updateResponse(response: any) {
     this.response.next(response);
   }
@@ -189,7 +193,8 @@ export class RoutingService {
       vehicleTypeName: ride.vehicleType,
       babyTransport: ride.babyTransport,
       petTransport: ride.petTransport,
-      passengers: ride.passengers
+      passengers: ride.passengers,
+      scheduledTimeFormatted: ride.scheduledTimeFormatted
     }
   }
 
@@ -207,7 +212,8 @@ export interface Route {
   vehicleTypeName: string,
   babyTransport: boolean,
   petTransport: boolean,
-  passengers: RidePassenger[]
+  passengers: RidePassenger[],
+  scheduledTimeFormatted: string
 }
 
 export interface ShortAddress {

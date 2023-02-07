@@ -33,33 +33,43 @@ import { DriverRegisterPersonalInfoComponent } from 'src/app/driver-register-per
 import { DriverRegisterComponent } from 'src/app/driver-register/driver-register.component';
 import { RideReviewComponent } from 'src/app/ride-review/ride-review.component';
 import { AdminHomeComponent } from 'src/app/admin-home/admin-home.component';
+import { LoginGuard } from 'src/app/guards/login/login.guard';
+import { PassengerGuard } from 'src/app/guards/passenger/passenger.guard';
+import { DriverGuard } from 'src/app/guards/driver/driver.guard';
+import { AdminGuard } from 'src/app/guards/admin/admin.guard';
+import { PassengerDriverGuard } from 'src/app/guards/passenger-driver/passenger-driver.guard';
+import { RegisteredUserGuard } from 'src/app/guards/registered-user/registered-user.guard';
+import { CurrentRideGuard } from 'src/app/guards/current-ride/current-ride.guard';
+import { RideHistoryDetailsGuard } from 'src/app/guards/ride-history-details/ride-history-details.guard';
+import { ReminderDialogComponent } from 'src/app/reminder-dialog/reminder-dialog.component';
 
 const routes: Routes = [
-  {path: '', component: LandingComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
-  {path: 'verify', component: RegistrationVerificationComponent},
-  {path: 'reset-password', component: ResetPasswordComponent},
-  {path: 'order-ride', component: OrderRideComponent},
-  {path: 'order-ride-unreg', component: OrderRideNotregisteredComponent},
-  {path: 'home-admin', component: HomeAdminComponent},
-  {path: 'home-driver', component: HomeDriverComponent},
-  {path: 'route-suggestion', component: RouteSuggestionComponent},
+  {path: '', component: LandingComponent, canActivate: [LoginGuard]},
+  {path: 'login', component: LoginComponent, canActivate: [LoginGuard]},
+  {path: 'register', component: RegisterComponent, canActivate: [LoginGuard]},
+  {path: 'verify', component: RegistrationVerificationComponent, canActivate: [LoginGuard]},
+  {path: 'order-ride', component: OrderRideComponent, canActivate: [PassengerGuard]},
+  {path: 'order-ride-unreg', component: OrderRideNotregisteredComponent, canActivate: [LoginGuard]},
+  {path: 'home-admin', component: HomeAdminComponent, canActivate: [AdminGuard]},
+  {path: 'home-driver', component: HomeDriverComponent, canActivate: [DriverGuard]},
+  {path: 'route-suggestion', component: RouteSuggestionComponent, canActivate: [LoginGuard]},
   {path: 'request-dashboard', component: DriverRequestDashboardComponent},
-  {path: 'account-driver', component: DriverAccountComponent},
-  {path: 'account-passenger', component: AccountComponent},
-  {path: 'account-admin', component: AdminAccountComponent},
-  {path: 'users-dashboard', component: UsersDashboardComponent},
-  {path: 'admin-reports', component: AdminReportsComponent},
-  {path: 'admin-home', component: AdminHomeComponent},
-  {path: 'ride-history', component: RideHistoryComponent},
-  {path: 'ride-history-details', component: RideHistoryDetailsComponent},
-  {path: 'account-settings', component: AccountUpdateComponent},
+  {path: 'account-driver', component: DriverAccountComponent, canActivate: [DriverGuard]},
+  {path: 'account-passenger', component: AccountComponent, canActivate: [PassengerGuard]},
+  {path: 'account-admin', component: AdminAccountComponent, canActivate: [AdminGuard]},
+  {path: 'users-dashboard', component: UsersDashboardComponent, canActivate: [AdminGuard]},
+  {path: 'admin-reports', component: AdminReportsComponent, canActivate: [AdminGuard]},
+  {path: 'admin-home', component: AdminHomeComponent, canActivate: [AdminGuard]},
+  {path: 'ride-history', component: RideHistoryComponent, canActivate: [RegisteredUserGuard]},
+  {path: 'ride-history-details', component: RideHistoryDetailsComponent, canActivate: [RideHistoryDetailsGuard]},
+  {path: 'account-settings', component: AccountUpdateComponent, canActivate: [RegisteredUserGuard]},
   {path: 'change-password', component: ChangePasswordComponent},
-  {path:'change-payment-info', component: ChangePaymentInfoComponent},
-  {path:'forgot-password', component: ForgotPasswordComponent},
-  {path:'current-ride', component: CurrentRideComponent},
-  {path: '**', component: LandingComponent}
+  {path: 'reset-password', component: ResetPasswordComponent},
+  {path:'change-payment-info', component: ChangePaymentInfoComponent, canActivate: [PassengerGuard]},
+  {path:'forgot-password', component: ForgotPasswordComponent, canActivate: [LoginGuard]},
+  {path:'current-ride', component: CurrentRideComponent, canActivate: [CurrentRideGuard]},
+  {path: 'register-drivers', component: DriverRegisterComponent, canActivate: [AdminGuard]},
+  {path: '**', component: LandingComponent, canActivate: [LoginGuard]},
 ];
 
 @NgModule({

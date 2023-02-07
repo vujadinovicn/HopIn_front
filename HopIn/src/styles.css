@@ -222,7 +222,9 @@ html, body { height: 100%; width: 100%; margin: 0; font-family: "Poppins", sans-
     font-size: 1.3em;
 }
 
-
+label.star::before{
+    text-shadow: none !important;
+} 
 
 
  /* COLORS */

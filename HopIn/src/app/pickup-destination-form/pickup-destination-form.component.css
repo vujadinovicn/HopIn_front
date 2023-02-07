@@ -8,6 +8,10 @@
     flex-direction: column;
 }
 
+.padding-unreg-top{
+    padding-top: 20px;
+}
+
 h3 {
     margin: 0;
 }

@@ -34,7 +34,22 @@ h4 {
 }
 
 h4:hover {
-    color: black;
+    opacity: 1.2;
+}
+
+mat-paginator {
+    margin-top: 10px;
+    border: 1px solid #E6E6E6;
+    border-radius: 10px;
+    padding-bottom: 10px;
+}
+
+::ng-deep .mat-paginator-range-actions {
+    margin-top: 10px;
+}
+
+::ng-deep .mat-form-field-flex {
+    vertical-align: middle;
 }
 
 .line {
@@ -128,6 +143,7 @@ img {
 #stars {
     margin-right: 8px;
 }
+
 
 ::ng-deep label.star {
     padding: 0 5px !important;

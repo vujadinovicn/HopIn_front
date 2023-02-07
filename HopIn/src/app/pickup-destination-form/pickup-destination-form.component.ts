@@ -43,7 +43,7 @@ export class PickupDestinationFormComponent implements OnInit {
   route: Route = {} as Route;
 
   constructor(private routingService: RoutingService, private router: Router,
-              private pickupDestinationService: PickupDestinationService, private authService: AuthService,
+              private pickupDestinationService: PickupDestinationService, public authService: AuthService,
               private favoriteRouteService: FavouriteRoutesService,
               public snackBar: MatSnackBar,) { 
     this.role = this.authService.getRole();
@@ -80,8 +80,17 @@ export class PickupDestinationFormComponent implements OnInit {
 
   findRoute() {
     if (this.rideForm.valid) {
-      this.route.scheduledTime = this.rideForm.get('time')?.value!;
-      
+      // if (this.rideForm.get('time')?.value! != null){
+      //   let hours = this.rideForm.get('time')?.value!.split(":")[0];
+      //   let mins = this.rideForm.get('time')?.value!.split(":")[1];
+      //   // if (hours != undefined) {
+      //   //   let hoursPlusOne = parseInt(hours) + 1;
+      //   //   this.route.scheduledTime = hoursPlusOne + ":" + mins;
+      //   // }
+      // }
+      // else
+        this.route.scheduledTime = this.rideForm.get('time')?.value!;
+      console.log(this.rideForm.get('time')?.value!);
       // for now, until stepper is implemented properly
       this.route.vehicleTypeName = "STANDARD";
 
@@ -97,7 +106,19 @@ export class PickupDestinationFormComponent implements OnInit {
   nextStep() {
     this.rideForm.markAllAsTouched();
     if (this.rideForm.valid) {
+      // console.log('\n' + this.rideForm.get('time')?.value! + '\n');
+      // this.route.scheduledTime = this.rideForm.get('time')?.value!;
+      // if (this.rideForm.get('time')?.value! != null){
+      //   let hours = this.rideForm.get('time')?.value!.split(":")[0];
+      //   let mins = this.rideForm.get('time')?.value!.split(":")[1];
+      //   // if (hours != undefined) {
+      //   //   let hoursPlusOne = parseInt(hours) - 1;
+      //   //   this.routingService.route.scheduledTime = hoursPlusOne + ":" + mins;
+      //   // }
+      // }
+      // else
       this.routingService.route.scheduledTime = this.rideForm.get('time')?.value!;
+      // this.routingService.route.scheduledTime = this.rideForm.get('time')?.value!;
       this.routingService.route.pickup = this.route.pickup;
       this.routingService.route.destination = this.route.destination;
 
