@@ -1,5 +1,5 @@
 <div class="step-container border">
-    <h3 id="tell-us" class="dark-blue">What’s your vehicle type?</h3>
+    <h3 id="preferences-title" class="dark-blue">What’s your vehicle type?</h3>
     <form>
         <div class="vehicle-type-container">
             <button class="icon-button" [ngClass]="{'light-blue': vehicleType=='car'}" (click)="changeVehicleType('car')" mat-flat-button>
@@ -10,7 +10,7 @@
                 <i class='fas fa-shuttle-van'></i>
                 <span>Van</span>
             </button>
-            <button class="icon-button" [ngClass]="{'light-blue': vehicleType=='luxury'}" (click)="changeVehicleType('luxury')" mat-flat-button>
+            <button id="lux-car-type" class="icon-button" [ngClass]="{'light-blue': vehicleType=='luxury'}" (click)="changeVehicleType('luxury')" mat-flat-button>
                 <i class='fas fa-shuttle-van'></i>
                 <span>Luxury car</span>
             </button>
