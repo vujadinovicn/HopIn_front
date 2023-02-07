@@ -18,13 +18,13 @@
                 <p *ngIf="role=='ROLE_DRIVER'" class="subtitle dark-gray">arriving at pickup in:</p>
                 <p id="estimated-time" class="title blue">{{ arrivalTime }}</p>
             </div>
-        </div>
+        </div> 
         <app-driver-info-card *ngIf="role == 'ROLE_PASSENGER'"></app-driver-info-card>
         <app-passengers-info-card [parentComponent]="parentComponent" *ngIf="ride.passengers.length > 1 || role=='ROLE_DRIVER'"></app-passengers-info-card>
         <div class="action-buttons" *ngIf="role=='ROLE_DRIVER'">
-            <button *ngIf="atPickup && !started" mat-button class="full-button back-green" (click)="startRide()">Start</button>
-            <button *ngIf="!started" mat-button class="full-button back-orange" (click)="cancelRide()">Cancel</button>
-            <button *ngIf="ride.status == 'STARTED'" mat-button class="start-btn full-button back-dark-blue" (click)="endRide()">Finish</button>
+            <button *ngIf="atPickup && !started" mat-button class="full-button back-green" id="startBtn" (click)="startRide()">Start</button>
+            <button *ngIf="!started" mat-button class="full-button back-orange" id="cancelBtn" (click)="cancelRide()">Cancel</button>
+            <button *ngIf="ride.status == 'STARTED'" mat-button class="start-btn full-button back-dark-blue" id="endBtn" (click)="endRide()">Finish</button>
         </div>
         <button *ngIf="started" mat-button class="panic-button full-button back-red" (click)="panicRide()">PANIC</button>
     </div>

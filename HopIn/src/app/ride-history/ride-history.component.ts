@@ -217,7 +217,7 @@ export class RideHistoryComponent implements OnInit {
   
   });
 
-  }
+  } 
 
   setFavorites() {
     this.favoriteRouteService.getAll(this._id).subscribe({
