@@ -115,18 +115,4 @@ it('should show an error message if the login is unsuccessful', () => {
   expect(snackBar.open).toHaveBeenCalledWith('Bad credentials. Please, try again!', '', Object({ duration: 2000 }));
 });
 
-
-  function initMockAuthService() : any {
-    const tokenDTO: TokenDTO = {
-      accessToken: new Token(1, 1, TokenType.String, 1, "accessToken"),
-      refreshToken: new Token(1, 1, TokenType.String, 1, "refreshToken")
-    }
-
-    const authServiceSpy = jasmine.createSpyObj<AuthService>(['login', 'setUser', 'getRole']);
-    authServiceSpy.login.and.returnValue(of(tokenDTO));
-    
-    return authServiceSpy;
-  }
-
-
 });
