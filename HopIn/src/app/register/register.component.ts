@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit {
     phonenum: new FormControl('', [Validators.required, phonenumRegexValidator]),
   }, [passwordMatcher("password", "confpass")])
 
-  constructor(private userService: UserService, private sharedService: SharedService, private http: HttpClient) { }
+  constructor(private userService: UserService, private sharedService: SharedService) { }
 
   ngOnInit(): void {
     markFormControlsTouched(this.registerForm);
@@ -54,7 +54,7 @@ export class RegisterComponent implements OnInit {
             color: "back-green"
           });
           
-          resetForm(this.registerForm, formDirective);
+          this.resetRegisterForm(this.registerForm, formDirective);
         },
         error: (err: HttpErrorResponse) => {
           console.log(err);
@@ -66,6 +66,14 @@ export class RegisterComponent implements OnInit {
       });
     }
   }
+
+  resetRegisterForm(form: FormGroup, fromDirective: FormGroupDirective) {
+  fromDirective.resetForm();
+  form.reset();
+  form.markAsPristine();
+  form.markAsUntouched();
+  form.updateValueAndValidity();     
+} 
 }
 
 export function resetForm(form: FormGroup, fromDirective: FormGroupDirective) {
@@ -75,3 +83,5 @@ export function resetForm(form: FormGroup, fromDirective: FormGroupDirective) {
   form.markAsUntouched();
   form.updateValueAndValidity();     
 }
+
+
