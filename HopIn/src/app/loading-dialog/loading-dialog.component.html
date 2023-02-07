@@ -1,4 +1,4 @@
-<div>
+<div id="loading-dialog">
     <h1 *ngIf="status=='pending'" mat-dialog-title align="center" class="dark-blue">Sit tight, we're looking<br>for the best ride option for you!</h1>
     <h1 *ngIf="status=='declined'" mat-dialog-title align="center" class="red">No rides found</h1>
     <h1 *ngIf="status=='accepted' || status=='scheduled'" mat-dialog-title align="center" class="dark-blue">Hooraay! <span class="green">Ride found</span></h1>

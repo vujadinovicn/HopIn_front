@@ -1,10 +1,10 @@
-<div>
+<div id="invite-dialog">
     <h1 *ngIf="role == 'ROLE_PASSENGER'" mat-dialog-title align="center" class="dark-blue">{{"Ride Invitation from " + data.invite.from.name}}</h1>
     <h1 *ngIf="role == 'ROLE_DRIVER'" mat-dialog-title align="center" class="dark-blue">Wanna go for a ride?</h1>
       <div mat-dialog-content align="center">
         <route-suggestion-details [route]="route"></route-suggestion-details>
       <div mat-dialog-actions align="center">
-        <button mat-button class="conf-button back-red" (click)="declineInvitation()">Decline</button>
-        <button mat-button class="conf-button back-green" (click)="acceptInvitation()">Accept</button>
+        <button id="decline-btn" mat-button class="conf-button back-red" (click)="declineInvitation()">Decline</button>
+        <button id="accept-btn" mat-button class="conf-button back-green" (click)="acceptInvitation()">Accept</button>
       </div>
 </div>

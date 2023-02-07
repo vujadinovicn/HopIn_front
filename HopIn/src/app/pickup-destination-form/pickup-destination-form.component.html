@@ -24,7 +24,7 @@
         <div id="pickup-time" *ngIf="role === 'ROLE_PASSENGER'">
             <mat-form-field>
                 <mat-label>Schedule for later</mat-label>
-                <input matInput [ngxTimepicker]="picker" [format]="24" formControlName="time" >
+                <input matInput [ngxTimepicker]="picker" [format]="24" formControlName="time" name="time" >
                 <mat-icon class="location-icon" matPrefix>watch_later</mat-icon>
                 <ngx-material-timepicker #picker></ngx-material-timepicker>
                 <mat-error *ngIf="rideForm.get('time')?.errors?.['timeFormatError']">expected format: hh:mm, 24h clock</mat-error>
