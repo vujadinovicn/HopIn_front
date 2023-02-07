@@ -1,8 +1,8 @@
-import { AuthService, TokenDTO } from 'src/app/services/auth.service';
+import { AuthService, TokenDTO } from './auth.service';
 import { TestBed } from '@angular/core/testing';
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { Token, TokenType } from '@angular/compiler';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 
 describe('AuthService', () => {
     let authService: AuthService;

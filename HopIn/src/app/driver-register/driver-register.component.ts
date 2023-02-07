@@ -14,7 +14,7 @@ import { SharedService } from '../shared/shared.service';
 export class DriverRegisterComponent implements OnInit {
 
   driverId: number = 0;
-  // parentComponent = "register";
+  parentComponent = "register";
   formsSubmitted : boolean = false;
 
   driver : User = {
