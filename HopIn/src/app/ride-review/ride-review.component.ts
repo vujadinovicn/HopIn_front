@@ -74,4 +74,9 @@ export class RideReviewComponent implements OnInit {
       comment: this.reviewForm.value.vehicleReviewComment!
     }
   }
+
+
+  close(){
+    this.dialogRef.close({success: false})
+  }
 }

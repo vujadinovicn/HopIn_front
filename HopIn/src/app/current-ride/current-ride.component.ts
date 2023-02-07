@@ -203,7 +203,7 @@ export class CurrentRideComponent implements OnInit, OnDestroy {
         // alert("Ride finished successfully!");
         this.router.navigate(["/home-driver"]);
       },
-      error: (err) => {
+      error: (err) => { 
         this.sharedService.openSnack({
           value: "Ride could not be finished, error.",
           color: "back-red"
