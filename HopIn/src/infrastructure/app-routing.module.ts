@@ -60,7 +60,7 @@ const routes: Routes = [
   {path: 'users-dashboard', component: UsersDashboardComponent, canActivate: [AdminGuard]},
   {path: 'admin-reports', component: AdminReportsComponent, canActivate: [AdminGuard]},
   {path: 'admin-home', component: AdminHomeComponent, canActivate: [AdminGuard]},
-  {path: 'ride-history', component: RideHistoryComponent, canActivate: [PassengerDriverGuard]},
+  {path: 'ride-history', component: RideHistoryComponent, canActivate: [RegisteredUserGuard]},
   {path: 'ride-history-details', component: RideHistoryDetailsComponent, canActivate: [RideHistoryDetailsGuard]},
   {path: 'account-settings', component: AccountUpdateComponent, canActivate: [RegisteredUserGuard]},
   {path: 'change-password', component: ChangePasswordComponent},
