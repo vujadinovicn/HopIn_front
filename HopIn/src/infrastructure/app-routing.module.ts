@@ -53,7 +53,7 @@ const routes: Routes = [
   {path: 'home-admin', component: HomeAdminComponent, canActivate: [AdminGuard]},
   {path: 'home-driver', component: HomeDriverComponent, canActivate: [DriverGuard]},
   {path: 'route-suggestion', component: RouteSuggestionComponent, canActivate: [LoginGuard]},
-  {path: 'request-dashboard', component: DriverRequestDashboardComponent, canActivate: [AdminGuard]},
+  {path: 'request-dashboard', component: DriverRequestDashboardComponent},
   {path: 'account-driver', component: DriverAccountComponent, canActivate: [DriverGuard]},
   {path: 'account-passenger', component: AccountComponent, canActivate: [PassengerGuard]},
   {path: 'account-admin', component: AdminAccountComponent, canActivate: [AdminGuard]},
@@ -68,6 +68,7 @@ const routes: Routes = [
   {path:'change-payment-info', component: ChangePaymentInfoComponent, canActivate: [PassengerGuard]},
   {path:'forgot-password', component: ForgotPasswordComponent, canActivate: [LoginGuard]},
   {path:'current-ride', component: CurrentRideComponent, canActivate: [CurrentRideGuard]},
+  {path: 'register-drivers', component: DriverRegisterComponent, canActivate: [AdminGuard]},
   {path: '**', component: LandingComponent, canActivate: [LoginGuard]},
 ];
 

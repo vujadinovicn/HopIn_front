@@ -32,9 +32,8 @@
             <div id="adminHome"><p *ngIf="hasNew">P</p><a *ngIf="role === 'ROLE_ADMIN'" (click)="openAdminHome()">Home</a></div>
             <a (click)="openAccount()" *ngIf="role === 'ROLE_PASSENGER' || role === 'ROLE_DRIVER'">Account</a>
             <a *ngIf="role === 'ROLE_ADMIN'" [routerLink]="['/admin-reports']">Reports</a>
-            <a *ngIf="role === 'ROLE_ADMIN'">Drivers</a>
             <a *ngIf="role === 'ROLE_ADMIN'" [routerLink]="['/request-dashboard']">Update requests</a>
-            <a *ngIf="role === 'ROLE_ADMIN'">Chat</a>
+            <a *ngIf="role != null" [routerLink]="['/register-drivers']">Add Drivers</a>
             <a *ngIf="role != null" [routerLink]="['/ride-history']">History</a>
             <a (click)="logout()" *ngIf="role != null">Log out</a>
             <a *ngIf="role === null" [routerLink]="['/login']">Log in</a>
