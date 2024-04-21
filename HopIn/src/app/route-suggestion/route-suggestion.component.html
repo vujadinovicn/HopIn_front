@@ -1,0 +1,12 @@
+<div id="route-suggestion-content">
+    <div id="ride-details" class="border">
+        <h1 class="title">Estimated ride details</h1>
+        <route-suggestion-details [route]="this.routingService.route"></route-suggestion-details>
+        <div id="bottom-text">
+            <p>Interested in this ride?</p>
+            <a href="#" [routerLink]="['/login']"><span class="orange">Log in</span> and Hop In!</a>
+        </div>
+    </div>
+    <map></map>
+</div>
+ 

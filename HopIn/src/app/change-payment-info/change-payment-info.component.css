@@ -1,0 +1,26 @@
+.change-payment-info-form-container{
+    text-align: center;
+}
+
+.credit-card-img-container{
+    margin: 10px;
+}
+
+.credit-card-img {
+    width:30%;
+}
+
+mat-form-field {
+    display: block;
+    width: 65%;
+}
+
+#date-cvc-container {
+    display: block;
+}
+
+#date-cvc-container > mat-form-field {
+    display: inline-block;
+    width: 20%;
+    padding: 0 5px;
+}

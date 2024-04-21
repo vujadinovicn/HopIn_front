@@ -1,0 +1,21 @@
+<div *ngIf="parentComponent == 'register'" id="title-add-container">
+    <span class="driver-register-title">Driver documents</span>
+    <mat-icon (click)="openAddDocumentPopUp()">add_circle_outline</mat-icon>
+</div>
+<div *ngIf="parentComponent == 'update'" id="add-document-container" class="document-container">
+    <mat-icon (click)="openAddDocumentPopUp()">add_circle_outline</mat-icon>
+    <span>add new document</span>
+</div>
+<span id="missing-documents" *ngIf="documents.length == 0">waiting on documents...</span>
+<div *ngFor="let document of documents; let i = index;"  class="document-container">
+    <mat-icon>document_scanner</mat-icon>
+    <span (click)="openShowDetailsPopUp(i)">{{ document.name }}</span>
+    <div class="document-btns-container">
+        <button id="update-img-btn" type="button" (click)="openUpdateDocumentPopUp(i)">
+            <i class="fas fa-pencil-alt"></i>
+        </button>
+        <button id="delete-document-btn" (click)="deleteDocument(i)"type="button">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </div>
+</div>

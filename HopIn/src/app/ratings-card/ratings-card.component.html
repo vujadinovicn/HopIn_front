@@ -1,0 +1,16 @@
+<div id="card">
+    <div class="row" style="justify-content: space-between;">
+        <h2>Ratings: </h2>
+        <div>
+            <div class="back-darker-gray legend">V</div> 
+            <div class="back-dark-blue legend">D</div>
+        </div>
+    </div>
+    <div id="reviewCard" class="row" [ngClass]="{'blue-border': type[indexOfelement] === 'driverType'}" *ngFor="let review of reviews; let indexOfelement=index;">
+        <p class="key">{{ passengers[indexOfelement].name + ':' }}</p>
+        <p class="value">{{ review.comment }}</p>
+        <div id="stars">
+            <ngx-star-rating [ngModel]="review.rating" [disabled]="true"></ngx-star-rating>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<div id="unreg-ride-container" class="border" [ngClass]="{'padding-unreg-top' : this.authService.getRole() == null}">
+    <div id="heart" *ngIf="this.isFavorite === true" (click)="removeRoute()">                
+        <img class="favourite" src="../../assets/vectors/heart_red.svg">
+    </div>
+    <div id="heart" *ngIf="this.authService.getRole() != null && this.isFavorite === false" (click)="returnRoute()">
+        <img class="favourite" src="../../assets/vectors/heart_empty.svg">
+    </div>
+    <h3 id="tell-us" class="dark-blue">Tell us about the ride:</h3>
+    <form [formGroup]="rideForm" (ngSubmit)="findRoute()">
+        <mat-form-field id="pickup-loc-mat">
+            <mat-label>Pick up location</mat-label>
+            <input matInput type="text" name="pickup" formControlName="pickup" ngx-google-places-autocomplete #placesRef="ngx-places" (onAddressChange)="handlePickupChange($event)"/>
+            <mat-icon class="location-icon" matPrefix>location_on</mat-icon>
+            <mat-error *ngIf="rideForm.get('pickup')?.errors?.['required']">entering pickup location is required</mat-error>
+            <mat-error *ngIf="rideForm.get('pickup')?.errors?.['autocompleteNotUsed'] && !rideForm.get('pickup')?.errors?.['required']">please choose one of the autocomplete options</mat-error>
+        </mat-form-field>
+        <mat-form-field id="pickup-loc-mat">
+            <mat-label>Where to?</mat-label>
+            <input matInput type="text" name="destination" formControlName="destination" ngx-google-places-autocomplete #placesRef="ngx-places" (onAddressChange)="handleDestinationChange($event)"/>
+            <mat-icon class="location-icon" matPrefix>location_on</mat-icon>
+            <mat-error *ngIf="rideForm.get('destination')?.errors?.['required']">entering destination is required</mat-error>
+            <mat-error *ngIf="rideForm.get('destination')?.errors?.['autocompleteNotUsed'] && !rideForm.get('destination')?.errors?.['required']">please choose one of the autocomplete options</mat-error>
+        </mat-form-field>
+        <div id="pickup-time" *ngIf="role === 'ROLE_PASSENGER'">
+            <mat-form-field>
+                <mat-label>Schedule for later</mat-label>
+                <input matInput [ngxTimepicker]="picker" [format]="24" formControlName="time" name="time" >
+                <mat-icon class="location-icon" matPrefix>watch_later</mat-icon>
+                <ngx-material-timepicker #picker></ngx-material-timepicker>
+                <mat-error *ngIf="rideForm.get('time')?.errors?.['timeFormatError']">expected format: hh:mm, 24h clock</mat-error>
+                <mat-error *ngIf="rideForm.get('time')?.errors?.['timeNotAlowed']">schedule max 5h in advance</mat-error>
+            </mat-form-field>
+        </div>
+        <button id="find-route-btn" class="conf-button" mat-raised-button type="submit" *ngIf="role == null">find route -></button>    
+        <button id="next-step-btn" class="conf-button" mat-raised-button type="button" (click)="nextStep()" *ngIf="role === 'ROLE_PASSENGER'">next -></button>    
+    </form>
+</div>

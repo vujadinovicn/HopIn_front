@@ -1,0 +1,102 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div id="favourite-rides-container">
+
+    <div id="adminRideInfo" class="row" *ngIf="this._role === 'ROLE_ADMIN'">
+        <div id="options">
+            <div class="row">
+                <input [(ngModel)]="isPassenger" type="radio" name="DriverPassenger" value="Driver" [value]="false">
+                <label for="Driver">Driver</label>
+            </div>
+            <div class="row">
+                <input [(ngModel)]="isPassenger" type="radio" name="DriverPassenger" value = "Passenger" [value]="true">
+                <label for="Passenger">Passenger</label>
+            </div>
+        </div>
+        <div>
+            <div class="row">
+                <label class="chooseLabels" *ngIf="this.isPassenger === true">Choose passenger</label>
+                <label class="chooseLabels" *ngIf="this.isPassenger === false">Choose driver</label>
+                <input id="idInput" type="number" [(ngModel)]="id_input" placeholder="Enter ID">
+            </div>
+            <button id="generateBtn" (click)="getRides()">Show</button>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <h2>Ride history</h2>
+        <div class="dropdown">
+            <button class="dropbtn">{{this.selectedType}}</button>
+                    <div class="dropdown-content">
+                    <a (click)="setDropDownContent('Date')">Date</a>
+                    <a (click)="setDropDownContent('Price')">Price</a>
+                    <a (click)="setDropDownContent('Distance')">Distance</a>
+                    </div>
+        </div>
+    </div>
+    <div class="line"></div>
+
+    <div id="historyCard" *ngFor="let ride of currentRidesToShow; let indexOfelement=index;">
+        <div id="left">
+            <div class="row clickable" (click)="openDetails(indexOfelement)">
+                <div id="carImg">
+                    <img src="../../assets/vectors/car.svg">
+                </div>
+                <h4>{{ parseLocation(ride.locations[0].departure.address) + " -> " + parseLocation(ride.locations[0].destination.address)}}</h4>
+            </div>
+
+            <div class="row">
+                <div class="imgContainer">
+                    <img src="../../assets/vectors/calendar-alt.svg">
+                </div>
+                <p class="key">Date: </p>
+                <p class="value">{{ parseDate(ride.startTime) }}</p>
+            </div>
+
+            <div class="row">
+                <div class="imgContainer">
+                    <img src="../../assets/vectors/distance.svg">
+                </div>
+                <p class="key">Distance: </p>
+                <p class="value">{{ ride.distance + ' km' }}</p>
+            </div>
+
+            <div class="row">
+                <div class="imgContainer">
+                    <img src="../../assets/vectors/passenger.svg">
+                </div>
+                <p class="key">Passengers: </p>
+                <p class="value">{{ ride.passengers.length }}</p>
+            </div>
+
+            <div class="row">
+                <div class="imgContainer">
+                    <img src="../../assets/vectors/moneyBag.svg">
+                </div>
+                <p class="key">Price(RSD): </p>
+                <p class="value">{{ ride.totalCost }}</p>
+            </div>
+        </div>
+
+        <div id="right">
+            <div class="row">
+                <div class="rightImgContainer dark-blue"(click)="openDialog(indexOfelement)"><img src="../../assets/vectors/repeat.svg"></div>
+                <div *ngIf="this.currentIsFavoriteRoutesToShow[indexOfelement] === true && this._role === 'ROLE_PASSENGER'" class="rightImgContainer" (click)="removeRoute(indexOfelement)"><img src="../../assets/vectors/heart_red.svg" style="fill: red"></div>
+                <div *ngIf="this.currentIsFavoriteRoutesToShow[indexOfelement] === false && this._role === 'ROLE_PASSENGER'" class="rightImgContainer" (click)="returnRoute(indexOfelement)"><img src="../../assets/vectors/heart_empty.svg"></div>
+            </div>
+            <div id="stars" *ngIf="(!notRated[indexOfelement] && this._role === 'ROLE_PASSENGER') || this._role==='ROLE_DRIVER'">
+                <ngx-star-rating [ngModel]="currentRatingsToShow[indexOfelement]" [id]="'rating'+indexOfelement" [disabled]="true"></ngx-star-rating>
+            </div>
+            <button [id]="'btn'+indexOfelement" class="back-orange leave-comment-btn" (click)="leaveRating(indexOfelement)" *ngIf="(notRated[indexOfelement] && this._role === 'ROLE_PASSENGER')" mat-raised-button type="submit">leave a rating</button>
+        </div>
+
+    </div>
+
+    <mat-paginator 
+        (page)="onPageChange($event)"
+        [length]="100"
+        [pageSize]="3"
+        [pageSizeOptions]="[3, 5]">
+</mat-paginator>
+</div>

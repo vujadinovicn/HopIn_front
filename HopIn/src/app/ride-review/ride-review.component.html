@@ -1,0 +1,51 @@
+<div id="ride-review-container">
+    <div>
+        <span id="thank-you-span" class="dark-blue">Thank you for Hoping in!</span>
+        <span id="ride-finished-span" class="dark-gray">ride is finished</span>
+        <div id="review-img">  
+            <img src="../../assets/vectors/review.svg">
+        </div>
+    </div>
+    <form [formGroup]="reviewForm" fxLayout="column">
+    <div class="separate-rating-container">
+        <div class="above-textarea-container">
+            <div class="rating-title">
+                <span class="dark-blue">Driver </span>
+                <span class="orange">rating</span>
+            </div>
+            <div id="stars">
+                <ngx-star-rating [(ngModel)]="driverRating" [ngModelOptions]="{standalone: true}" [id]="'driverrating'" [disabled]="false"></ngx-star-rating>
+            </div>
+        </div>
+        <div class="leave-comment-container">
+            <mat-form-field>
+                <mat-label>Leave a comment</mat-label>
+                <mat-error *ngIf="reviewForm.get('driverReviewComment')?.errors?.['required']">entering driver review is required</mat-error>
+                <textarea formControlName="driverReviewComment" matInput rows="2" cols="50" placeholder="Driver is looking good"></textarea>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="separate-rating-container">
+        <div class="above-textarea-container">
+            <div class="rating-title">
+                <span class="dark-blue">Vehicle </span>
+                <span class="orange">rating</span>
+            </div>
+            <div id="stars">
+                <ngx-star-rating [(ngModel)]="vehicleRating" [ngModelOptions]="{standalone: true}" [id]="'vehiclerating'" [disabled]="false"></ngx-star-rating>
+            </div>
+        </div>
+        <div class="leave-comment-container">
+            <mat-form-field>
+                <mat-label>Leave a comment</mat-label>
+                <mat-error *ngIf="reviewForm.get('vehicleReviewComment')?.errors?.['required']">entering vehicle review is required</mat-error>
+                <textarea formControlName="vehicleReviewComment" matInput rows="2" cols="50" placeholder="What a car"></textarea>
+            </mat-form-field>
+        </div>
+    </div>
+    
+    <button mat-button class="conf-button back-darker-gray white" id="closeBtn" (click)="close()">Close</button>
+    <button mat-button class="conf-button" (click)="submit()">Submit</button>
+    </form>
+</div>
+<app-snack-bar></app-snack-bar>

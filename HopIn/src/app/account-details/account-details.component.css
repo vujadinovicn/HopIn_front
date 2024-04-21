@@ -1,0 +1,176 @@
+.account-container-passenger {
+    width: 20vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    padding: 25px 25px;
+    height: 60vh;
+    border: 1px solid #E6E6E6;
+    border-radius: 10px;
+}
+
+.account-container-driver {
+    width: 20vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    padding: 25px 25px;
+    height: 60vh;
+    border: 1px solid #E6E6E6;
+    border-radius: 10px;
+    margin-top: 4vh;
+}
+
+.account-container-admin {
+    width: 20vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    padding: 25px 25px;
+    height: 60vh;
+    border: 1px solid #E6E6E6;
+    border-radius: 10px;
+}
+
+
+img {
+    width: 6rem;
+}
+
+p {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+#userName {
+    font-size: 1em;
+    margin-top: 0.5rem;
+}
+
+.roleText {
+    font-size: 0.6em;
+    color: #B8B8B8;
+}
+
+/* Section title, title name and line */
+.sectionTitle {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-top: 20px;
+    align-items: baseline;
+    color: rgba(38, 50, 56, 0.7);
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 0.7em;
+}
+
+.line {
+    height: 1px;
+    /* width: 70%; */
+    flex-grow: 1;
+    background-color: rgba(38, 50, 56, 0.7);
+    border: none;
+    outline: none;
+    align-items: baseline;
+    margin-left: 0.5rem;
+}
+
+ /* key-value info */
+ .data {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.7rem;
+ }
+
+ .keyValue {
+    display: flex;
+    flex-direction: row;
+ }
+
+ .keyValue > p {
+    padding-right: 0.5em;
+ }
+
+ .key {
+    color: #1E4A5A;
+ }
+
+ #vehicleDataContainer {
+    flex-direction: row !important;
+ }
+
+ #vehicleTypeContainer {
+    align-items: center;
+    margin-left: auto;
+ }
+
+.imgWidth{
+    width: 30px;
+    height: 30px;
+    margin-right: 3px;
+}
+
+.luxuryImgWidth {
+    width: 40px;
+    height: 30px;
+    margin-right: 3px;
+}
+
+
+ /* BUTTON */
+ button {
+    background-color: #EBEBEB;
+    color: rgba(0, 0, 0, 0.8);
+    font-size: 0.8em;
+    padding: 0.3em 1em ;
+    border-radius: 5px;
+    border: 0;
+    margin-top: auto;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+ }
+
+ button > p {
+    margin-right: auto;
+ }
+
+ button:hover {
+    background-color: #337D98;
+    cursor: pointer;
+}
+
+#settingsIcon {
+    width: 15px;
+    margin: auto;
+    margin-right: 2px;
+}
+
+ @media only screen and (max-width: 900px) {
+    .account-container-driver {
+        width: 55vw;
+        margin-top: 5vh;
+    }
+
+    .account-container-passenger {
+        width: 55vw;
+        margin-top: 5vh;
+    }
+
+
+    button {
+        font-size: 0.7em;
+    }
+
+    .data {
+        font-size: 0.6em;
+    }
+
+}

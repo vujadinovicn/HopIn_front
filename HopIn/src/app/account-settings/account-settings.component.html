@@ -1,0 +1,47 @@
+<div class="account-settings-form-container">
+    <form [formGroup]="accountSettingsForm" (ngSubmit)="save()" fxLayout="column">
+        <div style="width: 100%">
+            <div class="profile-img-container">
+                <img [src]="profileImgPath" class="profile-img">
+                <button id="update-img-btn" type="button" (click)="imageInput.click()">
+                    <i class="fas fa-pencil-alt"></i>
+                    <input #imageInput type="file" (change)="onImageSelect($event)" style="display: none">
+                </button>
+            </div>
+            <div class="name-form-container">
+                <mat-form-field [hideRequiredMarker]="true" id="name">
+                    <mat-label>Name</mat-label>
+                    <input matInput type="text" name="name" formControlName="name"/>
+                    <mat-error *ngIf="accountSettingsForm.get('name')?.errors?.['required']">entering name is required</mat-error>
+                    <mat-error *ngIf="accountSettingsForm.get('name')?.errors?.['nameRegexError'] && !accountSettingsForm.get('name')?.errors?.['required']">invalid name format</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Surname</mat-label>
+                    <input matInput type="text" name="surname" formControlName="surname"/>
+                    <mat-error *ngIf="accountSettingsForm.get('surname')?.errors?.['required']">entering surname is required</mat-error>
+                    <mat-error *ngIf="accountSettingsForm.get('surname')?.errors?.['surnameRegexError'] && !accountSettingsForm.get('surname')?.errors?.['required']">invalid surname format</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput type="email" name="email" formControlName="email"/>
+            <mat-error *ngIf="accountSettingsForm.get('email')?.errors?.['required']">entering email is required</mat-error>
+            <mat-error *ngIf="accountSettingsForm.get('email')?.errors?.['email']">invalid email format</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Address</mat-label>
+            <input matInput type="text" name="address" formControlName="address"/>
+            <mat-error *ngIf="accountSettingsForm.get('address')?.errors?.['required']">entering address is required</mat-error>
+            <mat-error *ngIf="accountSettingsForm.get('address')?.errors?.['addressRegexError'] && !accountSettingsForm.get('address')?.errors?.['required']">invalid address format</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Phone number</mat-label>
+            <input matInput type="tel" name="phonenum" formControlName="phonenum"/>
+            <mat-error *ngIf="accountSettingsForm.get('phonenum')?.errors?.['required']">entering phone number is required</mat-error>
+            <mat-error *ngIf="accountSettingsForm.get('phonenum')?.errors?.['phonenumRegexError'] && !accountSettingsForm.get('phonenum')?.errors?.['required']">invalid phone number format</mat-error>
+        </mat-form-field>
+        <button class="conf-button" mat-raised-button type="submit">Save</button>
+    </form>
+</div>
+<app-snack-bar></app-snack-bar>

@@ -1,0 +1,76 @@
+
+<div id="mainContainer">
+    <div id="map">
+        <vehicles-map></vehicles-map>
+    </div>
+    <div id="right">
+        <div id="panicDashboard" (click)="markAsSeen()">
+            <div class="title">
+                <div class="row">
+                    <p *ngIf="hasNew" class="circleOpposite"></p>
+                    <h3 id="panic">PANIC</h3>
+                    <h3>notifications</h3>
+                    <p *ngIf="hasNew" class="circle">new</p>
+                </div>
+                <div class="line"></div>
+            </div>
+            <div class="panics column">
+                <div id="card" class="row" *ngFor="let panic of panics; let indexOfelement=index;">
+                    <div *ngIf="!panic.isDriver" id="roleIcon">
+                        <img class="center" src="../../assets/vectors/passenger.svg">
+                    </div>
+                    <div *ngIf="panic.isDriver" id="roleIcon">
+                        <img class="center" src="../../assets/vectors/wheel.svg">
+                    </div>
+                    <div class="left column">
+                        <div class="top row">
+                            <div id="profilePic">
+                                <img [src]="panic.callerProfilePicture">
+                            </div>
+                            <div class="info">
+                                <div class="row">
+                                    <p>{{panic.callerName + ' ' + panic.callerSurName + ' pressed the'}}</p>
+                                    <div class="row">
+                                        <p id="smallPanic">PANIC</p>
+                                        <p>button</p>
+                                    </div>
+                                </div>
+                                <div class="keyValue">
+                                    <p class="key">Reason:</p>
+                                    <p class="value">{{panic.reason}}</p>
+                                </div>
+                                <p class="date">{{panic.time}}</p>
+                            </div>
+                        </div>
+                        <div class="bottom row">
+                            <div *ngIf="!panic.isDriver" id="profilePic">
+                                <img [src]="panic.driverProfilePicture">
+                            </div>
+                            <div *ngIf="panic.isDriver" id="profilePic">
+                                <img src="../../assets/vectors/car.svg">
+                            </div>
+                            <div class="info">
+                                <div *ngIf="!panic.isDriver" class="keyValue">
+                                    <p class="key">Driver:</p>
+                                    <p id="driver" class="key">{{panic.driverName + ' ' + panic.driverSurname}}</p>
+                                </div>
+                                <div class="keyValue">
+                                    <p class="key">Plates:</p>
+                                    <p class="value">{{panic.plates}}</p>
+                                </div>
+                                <div class="keyValue">
+                                    <p class="key">Model:</p>
+                                    <p class="value">{{panic.model}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="requests" (click)="openRequests()">
+            <h4>Driver account update requests</h4>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap');
+
+/* GENERAL */
+nav {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.88rem;
+    font-weight: bold;
+}
+
+.current-ride-btn {
+    display: flex;
+    background-color: #29C325;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.current-ride-btn p {
+    margin: 0;
+    margin-left: 5px;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* CONTAINER */
+.navbar,
+.navbar > .container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  @media (max-width: 768px) {
+    display: block;
+  }
+}
+
+.navbar {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    background-color: #1E4A5A;
+    /* padding: 0rem 1.15rem; */
+    border-bottom: 1px solid #eceef3;
+}
+ 
+.navbar.container {
+    @media (min-width: 576px) {
+        max-width: 540px;
+      }
+      @media (min-width: 768px) {
+        max-width: 720px;
+      }
+      @media (min-width: 992px) {
+        max-width: 960px;
+      }
+      @media (min-width: 1200px) {
+        max-width: 1140px;
+      }
+}
+
+
+/* NAVBAR_HEADER */
+.navbar-header {
+    padding-top: 0.8%;
+    padding-bottom: 0.8%;
+}
+
+.container .navbar-header a {
+    text-decoration: none;
+    height: fit-content;
+    font-weight: 500;
+    font-size: 1.25rem;
+    color: white;
+    padding-top: 0.8%;
+    padding-bottom: 0.8%;
+    padding-left: 1rem;
+}
+
+
+
+
+/* NAVBAR-MENU ALL ITEMS */
+.navbar-menu {
+    display: flex;
+    flex-basis: auto;
+    flex-grow: 1;
+    padding-right: 1rem;
+    flex-direction: row-reverse;
+
+    @media (max-width: 768px) {
+      display: none;
+      text-align: center;
+    }
+}
+
+.navbar-nav {
+    margin-left: auto;
+    flex-direction: row;
+    display: flex;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+.navbar-menu  a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 0.5rem 0.5rem;
+    color: white;
+    font-weight: lighter;
+}
+
+.navbar-menu a:hover {
+    color: #337D98;
+    cursor: pointer;
+}
+
+.navbar-toggler {
+    cursor: pointer;
+    border: none;
+    display: none;
+    outline: none;
+    padding-right: 1.5rem;
+}
+
+.navbar-toggler > div {
+    width: 33px;
+    height: 3px;
+    background-color: white;
+    margin: 6px 0;
+}
+
+
+/* TOGGLE BUTTON */
+
+:host ::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+    background-color: #77BF6C ;
+}
+
+:host ::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb  {
+    background-color: #29C325 ;
+}
+
+#adminHome {
+    height: fit-content;
+    width: fit-content;
+    position: relative;
+}
+
+#adminHome > p {
+    position: absolute;
+    padding: 3px 8px;
+    background-color: red;
+    align-self: center;
+    border-radius: 30px;
+    bottom: 4px;
+    left: 2rem;
+    color: white;
+}
+
+
+
+/* SCREEN DIFFERENCE */
+
+/* signUp button */
+
+@media screen and (min-width: 900px) {
+    #signUp {
+        background-color: white;
+        color: #1E4A5A;
+        border-radius: 12%;
+    }
+    
+    #signUp:hover {
+        background-color: #337D98;
+        color: white;
+    }
+}
+
+
+
+@media screen and (max-width: 900px) {
+    .current-ride-btn {
+        border-radius: 0;
+        margin-right: 0;
+        margin-left: 0;
+        width: 100%;
+    }
+    .navbar-toggler {
+        display: block;
+        background-color: #1E4A5A;
+    }
+    mat-slide-toggle {
+        margin-right: auto !important;
+    }
+
+    .navbar-header {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: row;
+    }
+
+    .navbar-menu {
+        display: none;
+        text-align: center;
+        padding: 0;
+        border-bottom: 2px solid #1E4A5A;
+    }
+
+    .navbar-nav {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        border-top: 1px solid #EEE;
+        margin-top: 1rem;
+    }
+
+    .navbar-menu a {
+        background-color:white;
+        color: #1E4A5A;
+    }
+
+    .navbar-menu #adminHome {
+        background-color:white;
+        width: 100%;
+        color: #1E4A5A;
+    }
+
+    #adminHome {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #adminHome > p {
+        display: none;
+    }
+}
+
+
+  
+
+

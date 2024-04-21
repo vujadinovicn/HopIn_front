@@ -1,0 +1,119 @@
+#ride-review-container {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    justify-content: center;
+    padding: 25px;
+    padding-bottom: 10px;
+    align-items: center;
+    text-align: center;
+    background-color: white;
+}
+
+#thank-you-span {
+    font-size: 20px;
+    display: block;
+}
+
+#ride-finished-span {
+    display: block;
+    font-size: 16px;
+}
+
+#review-img {
+    margin-left: 20px;
+    width: 200px;
+}
+
+.separate-rating-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    border: 2px solid #F1F1F1;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.rating-title{
+    margin-left: 20px;
+    font-size: 20px;
+}
+
+.above-textarea-container{
+    display: flex;
+    justify-content: space-between;
+}
+#text-area-container {
+    height: 180px;
+}
+
+.leave-comment-container{
+    margin-top: -10px;
+    padding-bottom: 20px;
+}
+
+@media (min-width: 570px) {
+    .leave-comment-container{
+        width: 400px;
+    }
+  }
+
+#stars {
+    margin-right: 8px;
+}
+
+::ng-deep label.star {
+    padding: 0 5px !important;
+    font-size: 20px !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline{
+    color: #F1F1F1 !important;
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-gap {
+    border-width: 10px !important;
+}
+
+button {
+    margin-top: 5px !important;
+    margin-right: 20px;
+    width: 100px;
+}
+
+.mat-error{
+    margin-top: 10px;
+}
+
+@media (max-width: 600px) {
+    #ride-review-container {
+         width: auto;
+    }
+}
+
+
+@media (max-width: 580px) {
+    .rating-title{
+        margin-left: 0;
+    }
+
+    .above-textarea-container{
+        display: block;
+    }
+    #stars {
+        margin-right: 25px;
+    }
+
+    .separate-rating-container {
+        padding: 20px;
+    }
+
+    ::ng-deep mat-form-field {
+        width: 100% !important;
+    }
+
+    ::ng-deep .mat-error{
+        font-size: 12px;
+    }
+  }

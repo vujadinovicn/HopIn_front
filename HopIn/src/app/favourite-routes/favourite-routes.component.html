@@ -1,0 +1,37 @@
+<div id="favourite-rides-container">
+    <h2>Favourite Routes</h2>
+    <div class="line"></div>
+
+    <div class="historyCard" *ngFor="let route of routes; let indexOfelement=index;">
+        <div id="map">
+            <img src="../../assets/vectors/map.svg">        
+        </div>
+        <div class="cardInfo">
+            <p>{{ route.departure.address + " -> " + route.destination.address }}</p>
+            <div class="row">
+                <img src="../../assets/vectors/distance.svg">
+                <p class="key">Distance:</p>
+                <p class="value">{{ route.distance + "KM" }}</p>
+            </div>
+            <div class="row">
+                <img class="hidden" src="../../assets/vectors/distance.svg">
+                <p class="key">Duration:</p>
+                <p class="value">{{ "0h " +  "45min" }}</p>
+            </div>
+        </div>
+        
+        <div id="btnAndHeart">
+            <button (click)="openDialog(indexOfelement)"></button>
+
+            <div *ngIf="this.isFavourite[indexOfelement] === true" (click)="removeRoute(indexOfelement)">                
+                <img class="favourite" src="../../assets/vectors/heart_red.svg">
+            </div>
+            <div *ngIf="this.isFavourite[indexOfelement] === false" (click)="returnRoute(indexOfelement)">
+                <img class="favourite" src="../../assets/vectors/heart_empty.svg">
+            </div>
+        </div>
+    </div>
+
+    <h3 *ngIf="this.empty === true">You haven't picked your favorite routes yet.</h3>
+
+</div>

@@ -1,0 +1,63 @@
+p {
+    margin-bottom: 0;
+}
+
+h1 {
+    margin: 0;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#comment {
+    border: none;
+    margin-bottom: 10px;
+    border-bottom: 1px solid black;
+    width: 100%;
+}
+
+#comment:hover {
+    border: none;
+    border-bottom: 1px solid #1E4A5A;
+}
+
+button {
+    color: white !important;
+    font-size: 0.8em;
+    padding: 0.3em 1em ;
+    border-radius: 5px;
+    border: 0;
+    height: fit-content;
+    font-family: 'Poppins', sans-serif;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+#stars-dialog {
+    width: 100%;
+    margin: 15px 0 5px 0;
+    display: flex;
+}
+
+#dstars {
+    margin: auto;
+}
+::ng-deep label.star {
+    padding: 0 5px !important;
+    font-size: 20px !important;
+}
+
+#btns {
+    display: flex;
+    flex-direction: row;
+}
+
+.green {
+    background-color: #33A02C;
+    margin-left: auto;
+}
+
+.red {
+    background-color: #A8201A;
+}

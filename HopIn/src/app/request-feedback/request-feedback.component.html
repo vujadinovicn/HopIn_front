@@ -1,0 +1,40 @@
+<div *ngIf="this.isRequestSelected === false" class="allFeedBackOptionsContianer">
+    <div class="pendingContainar">
+        <p></p>
+    </div>
+</div>
+<div *ngIf="this.isRequestSelected === true" class="allFeedBackOptionsContianer">
+    <div class="pendingContainar" *ngIf="status === 'PENDING'">
+        <p>Waiting admin feedback...</p>
+    </div>
+    <div class="declinedContianer" *ngIf="status === 'DENIED'">
+        <div class="left">
+            <div class="row firstRow">
+                <img [src]="url" alt="">
+                <p id="name">{{ role.toLowerCase() == 'role_admin'? "You": admin }}</p>
+                <p id="declinedP">&nbsp;declined&nbsp;</p>
+                <p>{{ role.toLowerCase() == 'role_admin'? "the": "your" }} request</p>
+            </div>
+            <p id="reasonTitle">Reason:</p>
+            <div id="reasonContent">
+                <p>{{reason}}</p>
+            </div>
+        </div>
+        <div class="right">
+            <!-- <p id="date">{{this.date}}</p> -->
+            <button >Declined</button>
+        </div>
+    </div>
+    <div class="acceptedContianer" *ngIf="status === 'ACCEPTED'">
+        <div class="row firstRow">
+            <img [src]="url" alt="">
+            <p id="name">{{ role.toLowerCase() == 'role_admin'? "You": admin }}</p>
+            <p id="acceptedP">&nbsp;accepted&nbsp;</p>
+            <p>{{ role.toLowerCase() == 'role_admin'? "the": "your" }} request</p>
+        </div>
+        <div class="right">
+            <!-- <p id="date">{{this.date}}</p> -->
+            <button class="greenBackground">Accepted</button>
+        </div>
+    </div>
+</div>

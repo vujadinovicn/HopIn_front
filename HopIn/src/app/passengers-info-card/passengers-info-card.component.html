@@ -1,0 +1,26 @@
+<div id="card">
+    <div id="passIcon">
+        <img class="center" src="../../assets/vectors/passenger.svg" height="50px">
+    </div>
+    <div id="info">
+        <h4>Passengers in ride:</h4>
+        <div class="scroll">
+            <div id="passengerCard" class="row" *ngFor="let passenger of passengers; let indexOfelement=index;">
+                <div id="profilePic">
+                    <img src="../../assets/images/profile-placeholder.png">
+                </div>
+                <div id="passengerInfo">
+                    <p id="name">{{passenger.name + ' ' + passenger.surname}}</p>
+                    <div class="row mu">
+                        <p class="key">email:</p>
+                        <p class="value" id="passenger-email">{{passenger.email}}</p>
+                    </div>
+                    <div class="row mb">
+                        <p class="key">phone num:</p>
+                        <p class="value">{{passenger.telephoneNumber}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

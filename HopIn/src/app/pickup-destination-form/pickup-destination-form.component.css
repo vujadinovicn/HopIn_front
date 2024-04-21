@@ -1,0 +1,102 @@
+#unreg-ride-container {
+    height: fit-content;
+    width: 350px;
+    background-color: white;
+    text-align: center;
+    padding-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+}
+
+.padding-unreg-top{
+    padding-top: 20px;
+}
+
+h3 {
+    margin: 0;
+}
+
+#tell-us {
+    margin-top: 0px;
+}
+
+#find-route-btn {
+    margin-top: 25px;
+    border-radius: 7px;
+}
+
+.location-icon {
+    color: #B5B5B5;
+}
+
+::ng-deep ngx-material-timepicker-content {
+    --body-background-color: #fff;
+    --primary-font-family: 'Roboto', sans-serif;
+    --button-color: #1e4a5a !important;
+    --dial-active-color: #fff;
+    --dial-inactive-color: rgba(255, 255, 255, .5);
+    --dial-background-color: #1e4a5a !important;
+    --dial-editable-active-color: #1e4a5a !important;
+    --dial-editable-background-color: #fff;
+    --clock-face-time-active-color: #fff;
+    --clock-face-time-inactive-color: #6c6c6c;
+    --clock-face-inner-time-inactive-color: #929292;
+    --clock-face-time-disabled-color: #c5c5c5;
+    --clock-face-background-color: #f0f0f0;
+    --clock-hand-color: #1e4a5a !important;
+}
+
+mat-form-field {
+    font-weight: 500;
+    line-height: 30px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: px;
+}
+
+mat-form-field input{
+    height: 35px;
+    font-size: 14px;
+    padding-top: 5px;
+}
+
+::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 12px !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 3px 0px 3px 0px !important;
+    border: 0px;
+}
+
+.mat-error {
+    line-height: 12px;
+}
+
+mat-label {
+    color: #B5B5B5;
+    font-size: 14px;
+}
+
+form {
+    height: fit-content;
+}
+
+::ng-deep .pac-container {
+    width: 280px !important;
+    margin-left: -33px !important;
+    margin-top: 3px !important;
+}
+
+.favourite {
+    margin-top: 15px;
+    margin-right: 15px;
+}
+
+.favourite:hover {
+    cursor: pointer;
+}
+
+#heart {
+    margin-left: auto;
+}
